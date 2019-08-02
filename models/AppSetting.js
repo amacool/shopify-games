@@ -9,15 +9,23 @@ const AppSetting = mongoose.Schema({
         type: Number,
         default: 0
     },
+    frequency: {
+        type: String,
+        default: 'every'
+    },
     displayFrequency: {
         type: Number,
-        default: -1
+        default: 0
     },
     pricingPlan: {
         type: Number,
         default: 0
     },
     shop: {
+        type: String,
+        default: ''
+    },
+    accessToken: {
         type: String,
         default: ''
     }

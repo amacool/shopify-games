@@ -21,7 +21,7 @@ class MyApp extends App {
     return (
       <React.Fragment>
         <Head>
-          <title>Sample App</title>
+          <title>Tada App</title>
           <meta charSet="utf-8" />
         </Head>
         <Provider config={config}>
