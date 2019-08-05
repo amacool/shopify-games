@@ -346,7 +346,7 @@ async function sendWidget(ctx, next) {
             }
         }
 
-        setTimeout(showSpinny(), ${ appSetting.timer });
+        setTimeout(showSpinny(), ${ appSetting.timer * 1000 });
 
         function showSpinny() {
             var box = document.getElementById('spinny_box');
