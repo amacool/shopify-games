@@ -241,7 +241,6 @@ async function sendWidget(ctx, next) {
         style="display: flex;width: 100%;height: 100%;display: none;top: 0;position: absolute;left: 0;justify-content: center;align-items: center;">
         <div style="background-color: #00000077;width: 100%;height: 100%;position: absolute;z-index: 9998;"
             id="tada_modal_background"></div>
-        <script src="https://app.trytada.com/Winwheel.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
         <div id="spinny"
             style="background-color: white;border: 1px solid black;display: block;padding: 20px; text-align: center;position: absolute;z-index:9999;">
@@ -302,10 +301,11 @@ async function sendWidget(ctx, next) {
       </div>
     </div>
     <script>
-	let theWheel;
-	if(typeof Winwheel == "undefined") {
-	} else {
-            theWheel = new Winwheel({
+    let theWheel;
+    var tadaScript = document.createElement('script');
+    tadaScript.url = 'https://app.trytada.com/Winwheel.js';
+    var tadaCallback = function() {
+        theWheel = new Winwheel({
             'numSegments': 4,         // Number of segments
             'outerRadius': 180,       // The size of the wheel.
             'innerRadius': 70,
@@ -331,40 +331,12 @@ async function sendWidget(ctx, next) {
                 'callbackFinished': alertPrize
             }
             });
-	}
+        setTimeout(showSpinny(), ${ appSetting.timer * 1000 });
+    }
 
-	setTimeout(function() {
-		theWheel = new Winwheel({
-            'numSegments': 4,         // Number of segments
-            'outerRadius': 180,       // The size of the wheel.
-            'innerRadius': 70,
-            'centerX': 180,       // Used to position on the background correctly.
-            'centerY': 180,
-            'pointerAngle': 90,
-            'textFontSize': 13,        // Font size.
-            'textOrientation': 'curved',
-            'responsive': true,
-            'textAligment': 'outer',
-            'segments':            // Definition of all the segments.
-                [
-                    { 'fillStyle': '#eae56f', 'text': '25% Discount' },
-                    { 'fillStyle': '#89f26e', 'text': '$10 Cash' },
-                    { 'fillStyle': '#e7706f', 'text': 'Free Shipping' },
-                    { 'fillStyle': '#89f26e', 'text': '15% Discount' }
-                ],
-            'animation':               // Definition of the animation
-            {
-                'type': 'spinToStop',
-                'duration': 3,
-                'spins': 5,
-                'callbackFinished': alertPrize
-            }
-            });
-		setTimeout(showSpinny(), ${ appSetting.timer * 1000 });
-	}, 1500);
+    script.onload = tadaCallback;
 
-        window.onload = function () {
-        }
+    document.head.appendChild(script);
 
         function validateEmail(email) {
             var re = /^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/;
