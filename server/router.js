@@ -382,7 +382,7 @@ async function sendWidget(ctx, next) {
                 document.getElementById('tada_result_coupon').style.display = 'block';
                 document.getElementById('tada_coupon').innerText = randomCoupon;
                 $.ajax({
-                    url: '/apps/tadaApp/addDiscount',
+                    url: 'https://app.trytada.com/addDiscount',
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({
