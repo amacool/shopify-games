@@ -2,6 +2,7 @@ require('isomorphic-fetch');
 const Koa = require('koa');
 const send = require('koa-send');
 const serve = require('koa-static');
+const koaCors = require('koa-cors');
 const next = require('next');
 const { default: createShopifyAuth } = require('@shopify/koa-shopify-auth');
 const dotenv = require('dotenv');
@@ -78,7 +79,12 @@ app.prepare().then(() => {
       ctx.res.statusCode = 200;
   });
 
-  server.use(router.routes()).use(router.allowedMethods());
+  const koaOption = {
+    origin: true,
+    credentials: true
+  };
+
+  server.use(router.routes()).use(router.allowedMethods()).use(koaCors(koaOption));
 
   server.listen(port, () => {
     console.log(`> Ready on http://localhost:${port}`);
