@@ -25,7 +25,7 @@ async function processPayment(ctx, next) {
   const shop = ctx.cookies.get('shopOrigin');
   ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
   var appSetting = await AppSetting.findOne({shop: shop});
-  const accessToken = '';
+  var accessToken = '';
   if(appSetting) {
     accessToken = appSetting.accessToken;
   }
