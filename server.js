@@ -3,6 +3,7 @@ const Koa = require('koa');
 const send = require('koa-send');
 const serve = require('koa-static');
 const koaCors = require('koa-cors');
+const cors = require('@koa/cors');
 const next = require('next');
 const { default: createShopifyAuth } = require('@shopify/koa-shopify-auth');
 const dotenv = require('dotenv');
@@ -37,6 +38,7 @@ mongoose.Promise = global.Promise;
 app.prepare().then(() => {
   const server = new Koa();
   const router = new Router();
+  server.use(cors());
   server.use(bodyParser());
   server.use(session(server));
   server.use(serve(__dirname + '/public'));
@@ -84,7 +86,7 @@ app.prepare().then(() => {
     credentials: true
   };
 
-  server.use(router.routes()).use(router.allowedMethods()).use(koaCors(koaOption));
+  server.use(router.routes()).use(router.allowedMethods());
 
   server.listen(port, () => {
     console.log(`> Ready on http://localhost:${port}`);

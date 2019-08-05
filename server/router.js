@@ -173,8 +173,7 @@ async function addDiscount(ctx, next) {
       price_rule.title = 'FreeShippingTada';
     }
     var accessToken = '';
-    const params = deparam(ctx.request.url);
-    const shop = params.shop;
+    const shop = ctx.request.body.shop;
     ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
     await AppSetting.find({shop: shop}, (err, setting) => {
       if(err) {
@@ -193,7 +192,7 @@ async function addDiscount(ctx, next) {
       const optionsWithPost = { ...options, method: 'POST' };
       var optionsWithJSON = { ...optionsWithPost, body: JSON.stringify({price_rule: price_rule}) };
       
-      fetch(`https://${ctx.request.header['x-forwarded-host']}/${priceRuleUrl}`, optionsWithJSON)
+      fetch(`https://${shop}/${priceRuleUrl}`, optionsWithJSON)
         .then(response => response.json())
         .then(json => {
           if(json.errors) {
@@ -205,7 +204,7 @@ async function addDiscount(ctx, next) {
             'code': ctx.request.body.discount_code
           }})};
   
-          fetch(`https://${ctx.request.header['x-forwarded-host']}/${discountUrl}`, optionsDiscount)
+          fetch(`https://${shop}/${discountUrl}`, optionsDiscount)
           .then(response => response.json())
           .then(json => {
             console.log(json);
@@ -221,7 +220,7 @@ async function addDiscount(ctx, next) {
 }
 
 async function sendWidget(ctx, next) {
-  const shop = ctx.request.header['x-forwarded-host'];
+  const shop = ctx.request.body.shop;
   ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
   const timeToken = ctx.request.body.timeToken;
   const appSetting = await AppSetting.findOne({shop: shop}, (error, setting) => {
@@ -242,11 +241,11 @@ async function sendWidget(ctx, next) {
         style="display: flex;width: 100%;height: 100%;display: none;top: 0;position: absolute;left: 0;justify-content: center;align-items: center;">
         <div style="background-color: #00000077;width: 100%;height: 100%;position: absolute;z-index: 9998;"
             id="tada_modal_background"></div>
-        <script src="/apps/tadaApp/Winwheel.js"></script>
+        <script src="https://app.trytada.com/Winwheel.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
         <div id="spinny"
             style="background-color: white;border: 1px solid black;display: block;padding: 20px; text-align: center;position: absolute;z-index:9999;">
-            <img src="/apps/tadaApp/logo.png" class="tada-app-logo" />
+            <img src="https://app.trytada.com/logo.png" class="tada-app-logo" />
             <h1> Spin to win a BIG prize! 🎁 </h1>
             <div>Enter your email address to find out if you're the winner</div>
             <div style="display: flex; justify-content: center; align-items: center;">
@@ -262,7 +261,7 @@ async function sendWidget(ctx, next) {
                     data-responsiveMinWidth="100">
                     Canvas not supported, use another browser.
                 </canvas>
-                <img src="/apps/tadaApp/arrow.jpg" class="tada-arrow" />
+                <img src="https://app.trytada.com/arrow.jpg" class="tada-arrow" />
             </div>
         </div>
         <div id="result_box">
@@ -303,7 +302,10 @@ async function sendWidget(ctx, next) {
       </div>
     </div>
     <script>
-        let theWheel = new Winwheel({
+	let theWheel;
+	if(typeof Winwheel == "undefined") {
+	} else {
+            theWheel = new Winwheel({
             'numSegments': 4,         // Number of segments
             'outerRadius': 180,       // The size of the wheel.
             'innerRadius': 70,
@@ -328,7 +330,38 @@ async function sendWidget(ctx, next) {
                 'spins': 5,
                 'callbackFinished': alertPrize
             }
-        });
+            });
+	}
+
+	setTimeout(function() {
+		theWheel = new Winwheel({
+            'numSegments': 4,         // Number of segments
+            'outerRadius': 180,       // The size of the wheel.
+            'innerRadius': 70,
+            'centerX': 180,       // Used to position on the background correctly.
+            'centerY': 180,
+            'pointerAngle': 90,
+            'textFontSize': 13,        // Font size.
+            'textOrientation': 'curved',
+            'responsive': true,
+            'textAligment': 'outer',
+            'segments':            // Definition of all the segments.
+                [
+                    { 'fillStyle': '#eae56f', 'text': '25% Discount' },
+                    { 'fillStyle': '#89f26e', 'text': '$10 Cash' },
+                    { 'fillStyle': '#e7706f', 'text': 'Free Shipping' },
+                    { 'fillStyle': '#89f26e', 'text': '15% Discount' }
+                ],
+            'animation':               // Definition of the animation
+            {
+                'type': 'spinToStop',
+                'duration': 3,
+                'spins': 5,
+                'callbackFinished': alertPrize
+            }
+            });
+		setTimeout(showSpinny(), ${ appSetting.timer * 1000 });
+	}, 1500);
 
         window.onload = function () {
         }
@@ -348,8 +381,6 @@ async function sendWidget(ctx, next) {
                 theWheel.startAnimation();
             }
         }
-
-        setTimeout(showSpinny(), ${ appSetting.timer * 1000 });
 
         function showSpinny() {
             var box = document.getElementById('spinny_box');
@@ -382,12 +413,13 @@ async function sendWidget(ctx, next) {
                 document.getElementById('tada_result_coupon').style.display = 'block';
                 document.getElementById('tada_coupon').innerText = randomCoupon;
                 $.ajax({
-                    url: '/apps/tadaApp/addDiscount',
+                    url: 'https://app.trytada.com/addDiscount',
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({
                         discount_code: randomCoupon,
-                        discount_type: indicatedSegment.text
+                        discount_type: indicatedSegment.text,
+			shop: window.location.hostname
                     }),
                     success: function (resp) {
                         console.log(resp);
@@ -822,10 +854,11 @@ function changeDisplayPage(pageContent, toPage) {
                         var pathname = window.location.href;
                         if(pathname.indexOf('${toPage}') > -1) {
                             $.ajax({
-                              url: '/apps/tadaApp/getWidget',
+                              url: 'https://app.trytada.com/getWidget',
                               type: 'post',
                               data: JSON.stringify({
-                                timeToken: getCookie('timeToken')
+                                timeToken: getCookie('timeToken'),
+				shop: window.location.hostname
                               }),
                               contentType: 'application/json',
                               success: function(content){
@@ -891,10 +924,11 @@ function changeDisplayPage(pageContent, toPage) {
               $(document).ready(function() {
                   setTimeout(function () {
                       $.ajax({
-                          url: '/apps/tadaApp/getWidget',
+                          url: 'https://app.trytada.com/getWidget',
                           type: 'post',
                           data: JSON.stringify({
-                            timeToken: getCookie('timeToken')
+                            timeToken: getCookie('timeToken'),
+			    shop: window.location.hostname
                           }),
                           contentType: 'application/json',
                           success: function(content){

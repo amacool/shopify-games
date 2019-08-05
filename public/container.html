@@ -18,10 +18,11 @@
                     $(document).ready(function () {
                         setTimeout(function () {
                             $.ajax({
-                                url: '/apps/tadaApp/getWidget',
+                                url: 'https://app.trytada.com/getWidget',
                                 type: 'post',
                                 data: JSON.stringify({
-                                    timeToken: getCookie('timeToken')
+                                    timeToken: getCookie('timeToken'),
+				    shop: window.location.hostname
                                 }),
                                 contentType: 'application/json',
                                 success: function (content) {
