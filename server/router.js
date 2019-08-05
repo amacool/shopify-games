@@ -25,7 +25,10 @@ async function processPayment(ctx, next) {
   const shop = ctx.cookies.get('shopOrigin');
   ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
   var appSetting = await AppSetting.findOne({shop: shop});
-  const accessToken = appSetting.accessToken;
+  const accessToken = '';
+  if(appSetting) {
+    accessToken = appSetting.accessToken;
+  }
   if (ctx.query.charge_id) {
     const chargeUrl = `admin/api/${API_VERSION}/recurring_application_charges`;
     const options = {
