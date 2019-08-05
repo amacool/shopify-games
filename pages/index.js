@@ -144,7 +144,7 @@ class Index extends React.Component {
    } else {
      updateSetting.pricingPlan = 1;
    }
-   updateSetting.displayFrequency = (frequencyDay * 60 * 60 * 24 + frequencyHour * 60 * 60 + frequencyMin * 60) * 1000;
+   updateSetting.displayFrequency = frequencyDay * 60 * 60 * 24 + frequencyHour * 60 * 60 + frequencyMin * 60;
    updateSetting.displaySetting = displaySetting;
    updateSetting.timer = timer;
    updateSetting.frequency = frequency;
