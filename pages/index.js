@@ -7,7 +7,7 @@ class Index extends React.Component {
   state = { displaySetting: '', timer: 0, pricingPlan: "", frequencyDay: 0, frequencyHour: 0, frequencyMin: 0, showPeriod: false, frequency: '' };
 
   componentDidMount = () => {
-    fetch(`https://4f5b14d1.ngrok.io/getSetting`, {
+    fetch(`https://app.trytada.com/getSetting`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -106,7 +106,7 @@ class Index extends React.Component {
 
   handlePricingChange = async (checked, newValue) => {
     if(newValue == 'free') {
-      await fetch(`https://4f5b14d1.ngrok.io/free`)
+      await fetch(`https://app.trytada.com/free`)
       .then(response => response.json())
       .then(json => {
         if(json.success) {
@@ -114,7 +114,7 @@ class Index extends React.Component {
         }
       });
     } else {
-      await fetch(`https://4f5b14d1.ngrok.io/premium`)
+      await fetch(`https://app.trytada.com/premium`)
       .then(response => response.json())
       .then(json => {
         window.top.location.href = json.url;
@@ -148,7 +148,7 @@ class Index extends React.Component {
    updateSetting.displaySetting = displaySetting;
    updateSetting.timer = timer;
    updateSetting.frequency = frequency;
-   fetch(`https://4f5b14d1.ngrok.io/saveSetting`, {
+   fetch(`https://app.trytada.com/saveSetting`, {
      method: 'POST',
      headers: {
        'Content-Type': 'application/json'
