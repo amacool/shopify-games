@@ -28,6 +28,10 @@ const AppSetting = mongoose.Schema({
     accessToken: {
         type: String,
         default: ''
+    },
+    chargeId: {
+        type: String,
+        default: ''
     }
 });
 

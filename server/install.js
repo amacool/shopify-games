@@ -17,6 +17,7 @@ async function installing(ctx) {
             shops[0].frequency = 'every';
             shops[0].displayFrequency = 0;
             shops[0].pricingPlan = 0;
+            shops[0].chargeId = '';
             shops[0].save();
         } else {
             const newShop = new AppSetting();
@@ -24,16 +25,6 @@ async function installing(ctx) {
             newShop.accessToken = accessToken;
             newShop.save();
         }
-    });
-
-    ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
-    const stringifiedBillingParams = JSON.stringify({
-        recurring_application_charge: {
-            name: 'Recurring charge',
-            price: 20.01,
-            return_url: TUNNEL_URL,
-            test: true,
-        },
     });
 
     ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
@@ -109,25 +100,7 @@ async function installing(ctx) {
         shop,
     });
 
-    const options = {
-        method: 'POST',
-        body: stringifiedBillingParams,
-        credentials: 'include',
-        headers: {
-            'X-Shopify-Access-Token': accessToken,
-            'Content-Type': 'application/json'
-        }
-    };
-
-    const confirmationURL = await fetch(
-        `https://${shop}/admin/api/${API_VERSION}/recurring_application_charges.json`, options,
-    )
-        .then((response) => response.json())
-        .then((jsonData) => jsonData.recurring_application_charge.confirmation_url)
-        .catch((error) => console.log('error', error));
-
-
-    ctx.redirect(confirmationURL);
+    ctx.redirect('/');
 }
 
 module.exports = installing;

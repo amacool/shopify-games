@@ -1,27 +1,44 @@
 const dotenv = require('dotenv');
 const moment = require('moment');
 const cheerio = require('cheerio');
-const fs = require('fs');
 const Entities = require('html-entities').XmlEntities;
 dotenv.config();
 
-const { API_VERSION, SHOPIFY_API_KEY, SHOPIFY_API_SECRET_KEY } = process.env;
+const { API_VERSION, TUNNEL_URL } = process.env;
 const AppSetting = require('../models/AppSetting');
 
+deparam = function (querystring) {
+  // remove any preceding url and split
+  querystring = querystring.substring(querystring.indexOf('?')+1).split('&');
+  var params = {}, pair, d = decodeURIComponent;
+  // march and parse
+  for (var i = querystring.length - 1; i >= 0; i--) {
+    pair = querystring[i].split('=');
+    params[d(pair[0])] = d(pair[1] || '');
+  }
+
+  return params;
+};
+
 async function processPayment(ctx, next) {
+  // const params = deparam(ctx.request.url);
+  const shop = ctx.cookies.get('shopOrigin');
+  ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
+  var appSetting = await AppSetting.findOne({shop: shop});
+  const accessToken = appSetting.accessToken;
   if (ctx.query.charge_id) {
     const chargeUrl = `admin/api/${API_VERSION}/recurring_application_charges`;
     const options = {
       credentials: 'include',
       headers: {
-        'X-Shopify-Access-Token': ctx.session.accessToken,
+        'X-Shopify-Access-Token': accessToken,
         'Content-Type': 'application/json'
       }
     };
     const optionsWithGet = { ...options, method: 'GET' };
     const optionsWithPost = { ...options, method: 'POST' };
-    fetch(
-      `https://${ctx.session.shop}/${chargeUrl}/${ctx.query.charge_id}.json`,
+    await fetch(
+      `https://${shop}/${chargeUrl}/${ctx.query.charge_id}.json`,
       optionsWithGet
     )
       .then(response => response.json())
@@ -31,13 +48,88 @@ async function processPayment(ctx, next) {
           const optionsWithJSON = { ...optionsWithPost, body: stringifyMyJSON };
           fetch(`https://${ctx.session.shop}/${chargeUrl}/${ctx.query.charge_id}/activate.json`, optionsWithJSON)
             .then((response) => response.json())
+            .then((json) => {
+              const id = json.recurring_application_charge.id;
+              appSetting.chargeId = id;
+              appSetting.pricingPlan = 1;
+              appSetting.save();
+              return ctx.redirect(json.recurring_application_charge.return_url);
+            })
             .catch((error) => console.log('error', error));
         } else { return ctx.redirect('/'); }
       });
-    ctx.body = 'success';
+    return ctx.redirect('/');
+    // ctx.body = 'success';
   } else {
     await next();
+    // return ctx.redirect('/');
   }
+}
+
+async function freeMembership(ctx, next) {
+  const params = deparam(ctx.request.header.referer);
+  const shop = params.shop;
+  ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
+  var appSetting = await AppSetting.findOne({shop: shop});
+  const accessToken = appSetting.accessToken;
+  const options = {
+    method: 'DELETE',
+    credentials: 'include',
+    headers: {
+      'X-Shopify-Access-Token': accessToken,
+      'Content-Type': 'application/json'
+    }
+  }
+
+  await fetch(`https://${shop}/admin/api/${API_VERSION}/recurring_application_charges/${appSetting.charge_id}`, options)
+    .then((response) => {
+      console.log('success');
+      appSetting.pricingPlan = 0;
+      appSetting.chargeId = '';
+      appSetting.save();
+    })
+    .catch((error) => console.log('error', error));
+
+  ctx.body = {success: true};
+}
+
+async function premiumMembership(ctx, next) {
+  const params = deparam(ctx.request.header.referer);
+  const shop = params.shop;
+  var appSetting = await AppSetting.findOne({shop: shop});
+  console.log(appSetting);
+  const accessToken = appSetting.accessToken;
+  ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
+  const stringifiedBillingParams = JSON.stringify({
+      recurring_application_charge: {
+          name: 'Recurring charge',
+          price: 19.99,
+          return_url: TUNNEL_URL,
+          test: true,
+      },
+  });
+
+  const options = {
+    method: 'POST',
+    body: stringifiedBillingParams,
+    credentials: 'include',
+    headers: {
+        'X-Shopify-Access-Token': accessToken,
+        'Content-Type': 'application/json'
+    }
+  };
+
+  const confirmationURL = await fetch(
+      `https://${shop}/admin/api/${API_VERSION}/recurring_application_charges.json`, options,
+  )
+      .then((response) => response.json())
+      .then((jsonData) => {
+        console.log(jsonData);
+        return jsonData.recurring_application_charge.confirmation_url;
+      })
+      .catch((error) => console.log('error', error));
+  ctx.body = { url: confirmationURL };
+  // ctx.redirect(confirmationURL);
 }
 
 async function addDiscount(ctx, next) {
@@ -78,7 +170,10 @@ async function addDiscount(ctx, next) {
       price_rule.title = 'FreeShippingTada';
     }
     var accessToken = '';
-    await AppSetting.find({shop: ctx.request.header['x-forwarded-host']}, (err, setting) => {
+    const params = deparam(ctx.request.url);
+    const shop = params.shop;
+    ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
+    await AppSetting.find({shop: shop}, (err, setting) => {
       if(err) {
         return;
       }
@@ -124,8 +219,8 @@ async function addDiscount(ctx, next) {
 
 async function sendWidget(ctx, next) {
   const shop = ctx.request.header['x-forwarded-host'];
+  ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
   const timeToken = ctx.request.body.timeToken;
-  console.log(timeToken);
   const appSetting = await AppSetting.findOne({shop: shop}, (error, setting) => {
     if(error) {
       console.log(error);
@@ -138,14 +233,12 @@ async function sendWidget(ctx, next) {
   if(timeToken) {
     ms = moment().diff(moment.unix(timeToken/1000));
   }
-  console.log(appSetting);
-  console.log(ms);
   if(timeToken == null || appSetting.frequency == 'every' || (appSetting.frequency == 'period' && ms > appSetting.displayFrequency) ) {
-    ctx.body = `
-  <div id="tada_app_widget">
+    ctx.body = `<div id="tada_app_widget">
     <div id="spinny_box"
         style="display: flex;width: 100%;height: 100%;display: none;top: 0;position: absolute;left: 0;justify-content: center;align-items: center;">
-        <div style="background-color: #00000077;width: 100%;height: 100%;position: absolute;z-index: 9998;"></div>
+        <div style="background-color: #00000077;width: 100%;height: 100%;position: absolute;z-index: 9998;"
+            id="tada_modal_background"></div>
         <script src="/apps/tadaApp/Winwheel.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
         <div id="spinny"
@@ -174,11 +267,37 @@ async function sendWidget(ctx, next) {
                 <p id="tada_result_label">Tada, you've won <span id="tada_discount_type"></span>!</p>
                 <div id="tada_result_coupon">
                     <p>Coupon Code: <span id="tada_coupon"></span></p>
-                    <p>This coupon code will expire in 30 mins!</p>
+                    <p>This coupon code will expire in 1 day!</p>
                 </div>
                 <button type="button" onclick="hideModal()" class="hide-btn-tada">OK</button>
             </div>
         </div>
+    </div>
+    <div id="tadaclockdiv">
+        <div>
+          <span class="hours"></span>
+        </div>
+        :
+        <div>
+          <span class="minutes"></span>
+        </div>
+        :
+        <div>
+          <span class="seconds"></span>
+        </div>
+    </div>
+    <div id="tadaCouponModal">
+      <div style="background-color: #00000077;width: 100%;height: 100%;position: absolute;z-index: 9998;"
+              id="tada_modal_background"></div>
+      <div id="tada_modal_result_box">
+        <div>
+            <p id="tada_modal_result_label">You've won <span id="tada_modal_discount_type"></span>!</p>
+            <div id="tada_modal_result_coupon">
+                <p>Coupon Code: <span id="tada_modal_coupon"></span></p>
+            </div>
+            <button type="button" onclick="hideCouponModal()" class="hide-btn-tada">OK</button>
+        </div>
+      </div>
     </div>
     <script>
         let theWheel = new Winwheel({
@@ -227,7 +346,7 @@ async function sendWidget(ctx, next) {
             }
         }
 
-        setTimeout(showSpinny(), ${appSetting.timer});
+        setTimeout(showSpinny(), ${ appSetting.timer });
 
         function showSpinny() {
             var box = document.getElementById('spinny_box');
@@ -244,6 +363,10 @@ async function sendWidget(ctx, next) {
             }
         }
 
+        $('#tada_modal_background').on('click', function () {
+            showSpinny();
+        });
+
         function alertPrize(indicatedSegment) {
             // Do basic alert of the segment text.
             var discount_type = indicatedSegment.text;
@@ -256,23 +379,25 @@ async function sendWidget(ctx, next) {
                 document.getElementById('tada_result_coupon').style.display = 'block';
                 document.getElementById('tada_coupon').innerText = randomCoupon;
                 $.ajax({
-                  url: '/apps/tadaApp/addDiscount',
-                  type: 'POST',
-                  contentType: 'application/json',
-                  data: JSON.stringify({
-                    discount_code: randomCoupon,
-                    discount_type: indicatedSegment.text
-                  }),
-                  success: function(resp){
-                    console.log(resp);
-                  },
-                  error: function(){
-                      console.log('error');
-                  }
+                    url: '/apps/tadaApp/addDiscount',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        discount_code: randomCoupon,
+                        discount_type: indicatedSegment.text
+                    }),
+                    success: function (resp) {
+                        console.log(resp);
+                    },
+                    error: function () {
+                        console.log('error');
+                    }
                 });
                 var d = new Date();
                 var now = d.getTime();
                 setCookie('timeToken', now, 100);
+                setCookie('tadaCoupon', randomCoupon, 1);
+                setCookie('tadaDiscountType', indicatedSegment.text, 1);
             }
             document.getElementById('spinny').style.display = 'none';
             document.getElementById('result_box').style.display = 'block';
@@ -318,6 +443,53 @@ async function sendWidget(ctx, next) {
         function eraseCookie(name) {
             document.cookie = name + '=; Max-Age=-99999999;';
         }
+
+        var counter = setInterval(timer, 1000);
+  
+        $('#tadaclockdiv').on('click', function() {
+          $('#tada_modal_coupon').html(getCookie('tadaCoupon'));
+          $('#tada_modal_discount_type').html(getCookie('tadaDiscountType'));
+          document.getElementById('tadaCouponModal').style.display = 'flex';
+        });
+  
+        function hideCouponModal() {
+          document.getElementById('tadaCouponModal').style.display = 'none';
+        }
+  
+        function timer() {
+            var tadaTokenDiff = (new Date().getTime()) - getCookie('timeToken');
+  
+            if(tadaTokenDiff > 86400000) {
+                clearInterval(counter);
+                return;
+            }
+  
+            let timeRemaining = parseInt((86400000 - tadaTokenDiff) / 1000);
+  
+            if (timeRemaining >= 0) {
+                $('#tadaclockdiv').show();
+                days = parseInt(timeRemaining / 86400);
+                timeRemaining = (timeRemaining % 86400);
+                
+                hours = parseInt(timeRemaining / 3600);
+                timeRemaining = (timeRemaining % 3600);
+                
+                minutes = parseInt(timeRemaining / 60);
+                timeRemaining = (timeRemaining % 60);
+                
+                seconds = parseInt(timeRemaining);
+                if(seconds < 10) {
+                  seconds = '0' + seconds;
+                }
+                
+                $('#tadaclockdiv').find('.hours').html(hours);
+                $('#tadaclockdiv').find('.minutes').html(minutes);
+                $('#tadaclockdiv').find('.seconds').html(seconds);
+            } else {
+                $('#tadaclockdiv').hide();
+            }
+        }
+        </script>
     </script>
     <style>
         .spinny-widget {
@@ -340,7 +512,7 @@ async function sendWidget(ctx, next) {
         }
 
         body.tada-modal-open {
-          overflow: hidden;
+            overflow: hidden;
         }
 
         #result_box {
@@ -363,8 +535,60 @@ async function sendWidget(ctx, next) {
         }
 
         .tada-app-logo {
-          width: 150px;
+            width: 150px;
         }
+
+        #tadaclockdiv{
+          position: fixed;
+          top: 91vh;
+          right: 100px;
+          background-color: #1cab83;
+          padding: 0px;
+          font-family: sans-serif;
+          color: #fff;
+          display: none;
+          font-weight: 100;
+          text-align: center;
+          font-size: 30px;
+          cursor: pointer;
+        }
+  
+        #tadaclockdiv > div{
+          width: 52px;
+          padding: 6px;
+          border-radius: 3px;
+          background: #00BF96;
+          display: inline-block;
+        }
+  
+        #tadaclockdiv div > span{
+          padding: 3px;
+          width: 40px;
+          border-radius: 3px;
+          background: #00816A;
+          display: inline-block;
+        }
+  
+        #tada_modal_result_box {
+          z-index: 99999;
+          position: absolute;
+          width: 80%;
+          text-align: center;
+          justify-content: center;
+          align-items: center;
+          background: white;
+      }
+  
+      #tadaCouponModal {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: none;
+        justify-content: center;
+        align-items: center;
+      }
 
         @media (max-width: 400px) {
             #spinny {
@@ -374,7 +598,145 @@ async function sendWidget(ctx, next) {
     </style>
 </div>`;
   } else {
-    ctx.body = 'timeout';
+    ctx.body = `
+    <div id="tadaclockdiv">
+        <div>
+          <span class="hours"></span>
+        </div>
+        :
+        <div>
+          <span class="minutes"></span>
+        </div>
+        :
+        <div>
+          <span class="seconds"></span>
+        </div>
+    </div>
+    <div id="tadaCouponModal">
+      <div style="background-color: #00000077;width: 100%;height: 100%;position: absolute;z-index: 9998;"
+              id="tada_modal_background"></div>
+      <div id="tada_modal_result_box">
+        <div>
+            <p id="tada_modal_result_label">You've won <span id="tada_modal_discount_type"></span>!</p>
+            <div id="tada_modal_result_coupon">
+                <p>Coupon Code: <span id="tada_modal_coupon"></span></p>
+            </div>
+            <button type="button" onclick="hideCouponModal()" class="hide-btn-tada">OK</button>
+        </div>
+      </div>
+    </div>
+    <style>
+      #tadaclockdiv{
+        position: fixed;
+        top: 91vh;
+        right: 100px;
+        background-color: #1cab83;
+        padding: 0px;
+        font-family: sans-serif;
+        color: #fff;
+        display: none;
+        font-weight: 100;
+        text-align: center;
+        font-size: 30px;
+        cursor: pointer;
+      }
+
+      #tadaclockdiv > div{
+        width: 52px;
+        padding: 6px;
+        border-radius: 3px;
+        background: #00BF96;
+        display: inline-block;
+      }
+
+      #tadaclockdiv div > span{
+        padding: 3px;
+        width: 40px;
+        border-radius: 3px;
+        background: #00816A;
+        display: inline-block;
+      }
+
+      #tada_modal_result_box {
+        z-index: 99999;
+        position: absolute;
+        width: 80%;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        background: white;
+    }
+
+    #tadaCouponModal {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+      </style>
+      <script>
+
+      var counter = setInterval(timer, 1000);
+
+      function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+      }
+
+      $('#tadaclockdiv').on('click', function() {
+        $('#tada_modal_coupon').html(getCookie('tadaCoupon'));
+        $('#tada_modal_discount_type').html(getCookie('tadaDiscountType'));
+        document.getElementById('tadaCouponModal').style.display = 'flex';
+      });
+
+      function hideCouponModal() {
+        document.getElementById('tadaCouponModal').style.display = 'none';
+      }
+
+      function timer() {
+          var tadaTokenDiff = (new Date().getTime()) - getCookie('timeToken');
+
+          if(tadaTokenDiff > 86400000) {
+              clearInterval(counter);
+              return;
+          }
+
+          let timeRemaining = parseInt((86400000 - tadaTokenDiff) / 1000);
+
+          if (timeRemaining >= 0) {
+              $('#tadaclockdiv').show();
+              days = parseInt(timeRemaining / 86400);
+              timeRemaining = (timeRemaining % 86400);
+              
+              hours = parseInt(timeRemaining / 3600);
+              timeRemaining = (timeRemaining % 3600);
+              
+              minutes = parseInt(timeRemaining / 60);
+              timeRemaining = (timeRemaining % 60);
+              
+              seconds = parseInt(timeRemaining);
+              if(seconds < 10) {
+                seconds = '0' + seconds;
+              }
+              
+              $('#tadaclockdiv').find('.hours').html(hours);
+              $('#tadaclockdiv').find('.minutes').html(minutes);
+              $('#tadaclockdiv').find('.seconds').html(seconds);
+          } else {
+              $('#tadaclockdiv').hide();
+          }
+      }
+      </script>`;
   }
 }
 
@@ -602,7 +964,9 @@ async function saveSetting(ctx, next) {
       return;
     }
     if(setting[0]) {
-      changeDisplaySetting(setting[0].displaySetting, updateSetting.displaySetting, shop, setting[0].accessToken);
+      if(setting[0].displaySetting != updateSetting.displaySetting) {
+        changeDisplaySetting(setting[0].displaySetting, updateSetting.displaySetting, shop, setting[0].accessToken);
+      }
       setting[0].displaySetting = updateSetting.displaySetting;
       setting[0].displayFrequency = updateSetting.displayFrequency;
       setting[0].timer = updateSetting.timer;
@@ -620,3 +984,5 @@ module.exports.sendWidget = sendWidget;
 module.exports.changeDisplaySetting = changeDisplaySetting;
 module.exports.getSetting = getSetting;
 module.exports.saveSetting = saveSetting;
+module.exports.premiumMembership = premiumMembership;
+module.exports.freeMembership = freeMembership;

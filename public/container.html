@@ -1,55 +1,74 @@
 <div class="tada-app-content">
     <script>
-        
-    (function() {
-        setTimeout(function () {
-            var checkReady = function(callback) {
-                if (window.jQuery) {
-                    callback(jQuery);
-                } else {
-                    window.setTimeout(function() {
-                        checkReady(callback);
-                    }, 100);
-                }
-            };
 
-            var runCode = function($) {
-                //Code here
-                $(document).ready(function() {
-                    setTimeout(function () {
-                        $.ajax({
-                            url: '/apps/tadaApp/getWidget',
-                            type: 'get',
-                            success: function(content){
-                                if(content != 'timeout') {
-                                    $('.tada-app-content').html(content);
-                                } else {
-                                    console.log('need to wait');
+        (function () {
+            setTimeout(function () {
+                var checkReady = function (callback) {
+                    if (window.jQuery) {
+                        callback(jQuery);
+                    } else {
+                        window.setTimeout(function () {
+                            checkReady(callback);
+                        }, 100);
+                    }
+                };
+
+                var runCode = function ($) {
+                    //Code here
+                    $(document).ready(function () {
+                        setTimeout(function () {
+                            $.ajax({
+                                url: '/apps/tadaApp/getWidget',
+                                type: 'post',
+                                data: JSON.stringify({
+                                    timeToken: getCookie('timeToken')
+                                }),
+                                contentType: 'application/json',
+                                success: function (content) {
+                                    if (content != 'timeout') {
+                                        $('.tada-app-content').html(content);
+                                    } else {
+                                        console.log('need to wait');
+                                    }
+                                },
+                                error: function () {
+                                    console.log('error');
                                 }
-                            },
-                            error: function(){
-                                console.log('error');
-                            }
-                        });
+                            });
 
-                    }, 100);
-                });
-            };
+                        }, 100);
+                    });
 
-            if (typeof jQuery == "undefined") {
-                var script = document.createElement("SCRIPT");
-                script.src =
-                    'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
-                script.type = 'text/javascript';
-                document.getElementsByTagName("head")[0].appendChild(script);
-                checkReady(function($) {
-                    runCode($);
-                });
-            } else {
-                runCode(jQuery);
-            }
-        }, 1500);
-    })();
+
+                };
+
+
+                function getCookie(name) {
+                    var nameEQ = name + "=";
+                    var ca = document.cookie.split(';');
+                    for (var i = 0; i < ca.length; i++) {
+                        var c = ca[i];
+                        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                    }
+                    return null;
+                }
+
+
+                if (typeof jQuery == "undefined") {
+                    var script = document.createElement("SCRIPT");
+                    script.src =
+                        'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
+                    script.type = 'text/javascript';
+                    document.getElementsByTagName("head")[0].appendChild(script);
+                    checkReady(function ($) {
+                        runCode($);
+                    });
+                } else {
+                    runCode(jQuery);
+                }
+            }, 1500);
+        })();
 
     </script>
 </div>

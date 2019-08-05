@@ -7,7 +7,7 @@ class Index extends React.Component {
   state = { displaySetting: '', timer: 0, pricingPlan: "", frequencyDay: 0, frequencyHour: 0, frequencyMin: 0, showPeriod: false, frequency: '' };
 
   componentDidMount = () => {
-    fetch('https://ef812c89.ngrok.io/getSetting', {
+    fetch(`https://4f5b14d1.ngrok.io/getSetting`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -104,8 +104,22 @@ class Index extends React.Component {
     }
   }
 
-  handlePricingChange = (checked, newValue) => {
-    this.setState({ pricingPlan: newValue });
+  handlePricingChange = async (checked, newValue) => {
+    if(newValue == 'free') {
+      await fetch(`https://4f5b14d1.ngrok.io/free`)
+      .then(response => response.json())
+      .then(json => {
+        if(json.success) {
+          this.setState({ pricingPlan: 'free'});
+        }
+      });
+    } else {
+      await fetch(`https://4f5b14d1.ngrok.io/premium`)
+      .then(response => response.json())
+      .then(json => {
+        window.top.location.href = json.url;
+      });
+    }
   }
 
   handleFrequency = (checked, newValue) => {
@@ -134,7 +148,7 @@ class Index extends React.Component {
    updateSetting.displaySetting = displaySetting;
    updateSetting.timer = timer;
    updateSetting.frequency = frequency;
-   fetch('https://ef812c89.ngrok.io/saveSetting', {
+   fetch(`https://4f5b14d1.ngrok.io/saveSetting`, {
      method: 'POST',
      headers: {
        'Content-Type': 'application/json'

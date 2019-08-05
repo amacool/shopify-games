@@ -28,7 +28,7 @@
     "@shopify/koa-shopify-webhooks": "^1.1.6",
     "@shopify/polaris": "^3.10.0",
     "@zeit/next-css": "^1.0.1",
-    "apollo-boost": "^0.3.1",
+    "apollo-boost": "^0.4.1",
     "cheerio": "^1.0.0-rc.3",
     "dotenv": "^6.2.0",
     "graphql": "^14.1.1",
