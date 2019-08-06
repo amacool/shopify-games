@@ -22,10 +22,12 @@ deparam = function (querystring) {
 
 async function processPayment(ctx, next) {
   // const params = deparam(ctx.request.url);
+console.log(ctx.request.header);
   const shop = ctx.cookies.get('shopOrigin');
   ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
   var appSetting = await AppSetting.findOne({shop: shop});
   var accessToken = '';
+  console.log(appSetting);
   if(appSetting) {
     accessToken = appSetting.accessToken;
   }
@@ -52,6 +54,7 @@ async function processPayment(ctx, next) {
           fetch(`https://${ctx.session.shop}/${chargeUrl}/${ctx.query.charge_id}/activate.json`, optionsWithJSON)
             .then((response) => response.json())
             .then((json) => {
+		console.log(json);
               const id = json.recurring_application_charge.id;
               appSetting.chargeId = id;
               appSetting.pricingPlan = 1;
@@ -235,6 +238,9 @@ async function sendWidget(ctx, next) {
   if(timeToken) {
     ms = moment().diff(moment.unix(timeToken/1000));
   }
+ms /= 1000;
+console.log(ms);
+console.log(appSetting);
   if(timeToken == null || appSetting.frequency == 'every' || (appSetting.frequency == 'period' && ms > appSetting.displayFrequency) ) {
     ctx.body = `<div id="tada_app_widget">
     <div id="spinny_box"
@@ -954,8 +960,8 @@ function changeDisplayPage(pageContent, toPage) {
 }
 
 async function getSetting(ctx, next) {
-  var shop = ctx.request.body.shop;
-  console.log(shop);
+  var param = deparam(ctx.request.header.referer);
+  var shop = param.shop;
   var shopSetting = await AppSetting.find({shop: shop});
   if(shopSetting[0]) {
     ctx.body = shopSetting[0];
@@ -965,7 +971,8 @@ async function getSetting(ctx, next) {
 }
 
 async function saveSetting(ctx, next) {
-  var shop = ctx.request.body.shop;
+  var param = deparam(ctx.request.header.referer);
+  var shop = param.shop;
   var updateSetting = ctx.request.body.updateSetting;
   await AppSetting.find({shop: shop}, (err, setting) => {
     if(err) {

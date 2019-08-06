@@ -13,7 +13,7 @@ class Index extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        shop: Cookies.get("shopOrigin")
+        shop: Cookies.get('shopOrigin')
       })
     })
     .then(resp => resp.json())
