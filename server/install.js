@@ -63,7 +63,7 @@ async function installing(ctx) {
             var body = json.asset.value;
             if (body && body.includes('tada-app-content')) {
                 const entities = new Entities();
-                const $ = cheerio.load(pageContent);
+                const $ = cheerio.load(body);
                 $('.tada-app-content').html(`<script>
                     (function () {
                         setTimeout(function () {

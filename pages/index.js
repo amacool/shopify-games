@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import '../stylesheets/settings.css';
 
 class Index extends React.Component {
-  state = { displaySetting: '', timer: 0, pricingPlan: "", frequencyDay: 0, frequencyHour: 0, frequencyMin: 0, showPeriod: false, frequency: '' };
+  state = { displaySetting: '', timer: 0, pricingPlan: "", frequencyDay: 0, frequencyHour: 0, frequencyMin: 0, showPeriod: false, frequency: '', saveDisabled: true };
 
   componentDidMount = () => {
     fetch(`https://app.trytada.com/getSetting`, {
@@ -87,7 +87,7 @@ class Index extends React.Component {
           </div>
         </div>
         <div className="page-footer">
-          <Button onClick={() => this.saveSetting()} primary>Save</Button>
+          <Button onClick={() => this.saveSetting()} disabled={this.state.saveDisabled} primary>Save</Button>
           <Button onClick={() => this.cancelSave()}>Cancel</Button>
         </div>
       </Page>
@@ -95,12 +95,12 @@ class Index extends React.Component {
   }
 
   handleDisplayChange = (checked, newValue) => {
-    this.setState({ displaySetting: newValue });
+    this.setState({ displaySetting: newValue, saveDisabled: false });
   }
 
   timerChange = (field) => {
     return (value) => {
-      if(value >= 0) this.setState({[field]: value})
+      if(value >= 0) this.setState({[field]: value, saveDisabled: false})
     }
   }
 
@@ -110,7 +110,7 @@ class Index extends React.Component {
       .then(response => response.json())
       .then(json => {
         if(json.success) {
-          this.setState({ pricingPlan: 'free'});
+          this.setState({ pricingPlan: 'free', saveDisabled: false});
         }
       });
     } else {
@@ -126,12 +126,14 @@ class Index extends React.Component {
     if(newValue == 'period') {
       this.setState({
         frequency: newValue,
-        showPeriod: true
+        showPeriod: true,
+	saveDisabled: false
       });
     } else {
       this.setState({
         frequency: newValue,
-        showPeriod: false
+        showPeriod: false,
+	saveDisabled: false
       });
     }
   }
@@ -160,6 +162,9 @@ class Index extends React.Component {
    }).then(resp => resp.json())
    .then(json => {
      console.log(json);
+     this.setState({
+	saveDisabled: false
+     });
    });
   }
 
