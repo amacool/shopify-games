@@ -334,9 +334,9 @@ async function sendWidget(ctx, next) {
         setTimeout(showSpinny(), ${ appSetting.timer * 1000 });
     }
 
-    script.onload = tadaCallback;
+    tadaScript.onload = tadaCallback;
 
-    document.head.appendChild(script);
+    document.head.appendChild(tadaScript);
 
         function validateEmail(email) {
             var re = /^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/;
