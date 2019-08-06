@@ -159,11 +159,9 @@ class Index extends React.Component {
        updateSetting,
        shop: Cookies.get('shopOrigin')
     })
-   }).then(resp => resp.json())
-   .then(json => {
-     console.log(json);
+   }).then(resp => {
      this.setState({
-	saveDisabled: false
+	saveDisabled: true
      });
    });
   }

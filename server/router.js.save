@@ -334,7 +334,8 @@ async function sendWidget(ctx, next) {
                 'callbackFinished': alertPrize
             }
             });
-        setTimeout(showSpinny, ${ appSetting.timer * 1000 });
+	console.log(new Date().getTime());		
+        setTimeout(showSpinny(), ${ appSetting.timer * 1000 });
     }
 
         function validateEmail(email) {
@@ -366,7 +367,7 @@ async function sendWidget(ctx, next) {
                 $('body').removeClass('tada-modal-open');
                 box.style.display = 'none';
             }
-
+	console.log(new Date().getTime());
         }
 
         $('#tada_modal_background').on('click', function () {
