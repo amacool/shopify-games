@@ -1,5 +1,7 @@
 const { registerWebhook } = require('@shopify/koa-shopify-webhooks');
 const fs = require('fs');
+const cheerio = require('cheerio');
+const Entities = require('html-entities').XmlEntities;
 const { API_VERSION, TUNNEL_URL } = process.env;
 const AppSetting = require('../models/AppSetting');
 
@@ -60,7 +62,99 @@ async function installing(ctx) {
         .then(async function (json) {
             var body = json.asset.value;
             if (body && body.includes('tada-app-content')) {
-                return 'Already exist';
+                const entities = new Entities();
+                const $ = cheerio.load(pageContent);
+                $('.tada-app-content').html(`<script>
+                    (function () {
+                        setTimeout(function () {
+                            var checkReady = function (callback) {
+                                if (window.jQuery) {
+                                    callback(jQuery);
+                                } else {
+                                    window.setTimeout(function () {
+                                        checkReady(callback);
+                                    }, 100);
+                                }
+                            };
+            
+                            var runCode = function ($) {
+                                //Code here
+                                $(document).ready(function () {
+                                    setTimeout(function () {
+                                        $.ajax({
+                                            url: 'https://app.trytada.com/getWidget',
+                                            type: 'post',
+                                            data: JSON.stringify({
+                                                timeToken: getCookie('timeToken'),
+                                shop: window.location.hostname
+                                            }),
+                                            contentType: 'application/json',
+                                            success: function (content) {
+                                                if (content != 'timeout') {
+                                                    $('.tada-app-content').html(content);
+                                                } else {
+                                                    console.log('need to wait');
+                                                }
+                                            },
+                                            error: function () {
+                                                console.log('error');
+                                            }
+                                        });
+            
+                                    }, 100);
+                                });
+            
+            
+                            };
+            
+            
+                            function getCookie(name) {
+                                var nameEQ = name + "=";
+                                var ca = document.cookie.split(';');
+                                for (var i = 0; i < ca.length; i++) {
+                                    var c = ca[i];
+                                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                                }
+                                return null;
+                            }
+            
+            
+                            if (typeof jQuery == "undefined") {
+                                var script = document.createElement("SCRIPT");
+                                script.src =
+                                    'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
+                                script.type = 'text/javascript';
+                                document.getElementsByTagName("head")[0].appendChild(script);
+                                checkReady(function ($) {
+                                    runCode($);
+                                });
+                            } else {
+                                runCode(jQuery);
+                            }
+                        }, 1500);
+                    })();
+            
+                </script>`);
+
+            await fetch(
+                `https://${shop}/admin/api/${API_VERSION}/themes/${mainThemeId}/assets.json`, {
+                    method: 'PUT',
+                    credentials: 'include',
+                    headers: {
+                        'X-Shopify-Access-Token': accessToken,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "asset": {
+                            "key": "layout/theme.liquid",
+                            "value": entities.decode($.html())
+                        }
+                    })
+                }).then(resp => resp.json())
+                .then(json => {
+                    return json;
+                });
             } else {
                 var index = body.indexOf('</body>');
                 var additional = '';
