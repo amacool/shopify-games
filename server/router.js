@@ -302,8 +302,11 @@ async function sendWidget(ctx, next) {
     </div>
     <script>
     let theWheel;
-    var tadaScript = document.createElement('script');
-    tadaScript.url = 'https://app.trytada.com/Winwheel.js';
+    $.getScript('https://app.trytada.com/Winwheel.js', function(data, textStatus, jqxhr) {
+      if(jqxhr.status == 200) {
+        tadaCallback();
+      }
+    });
     var tadaCallback = function() {
         theWheel = new Winwheel({
             'numSegments': 4,         // Number of segments
@@ -333,10 +336,6 @@ async function sendWidget(ctx, next) {
             });
         setTimeout(showSpinny(), ${ appSetting.timer * 1000 });
     }
-
-    tadaScript.onload = tadaCallback;
-
-    document.head.appendChild(tadaScript);
 
         function validateEmail(email) {
             var re = /^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/;
