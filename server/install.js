@@ -201,6 +201,8 @@ async function installing(ctx) {
         shop
     });
 
+    console.log(uninstall);
+
     ctx.redirect('/');
 }
 
