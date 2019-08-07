@@ -42,6 +42,13 @@ app.prepare().then(() => {
   server.use(bodyParser());
   server.use(session(server));
   server.use(serve(__dirname + '/public'));
+  server.use(receiveWebhook({
+    path: '/webhooks/uninstall',
+    secret: SHOPIFY_API_SECRET_KEY,
+    onReceived(ctx) {
+      console.log(ctx.state.webhook);
+    }
+  }));
   server.keys = [SHOPIFY_API_SECRET_KEY];
 
   router.get('/', processPayment);
