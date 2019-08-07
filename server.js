@@ -17,7 +17,7 @@ const { default: graphQLProxy } = require('@shopify/koa-shopify-graphql-proxy');
 const { ApiVersion } = require('@shopify/koa-shopify-graphql-proxy');
 const Router = require('koa-router');
 const { receiveWebhook } = require('@shopify/koa-shopify-webhooks');
-const { processPayment, freeMembership, premiumMembership, addDiscount, sendWidget, changeDisplaySetting, getSetting, saveSetting }  = require('./server/router');
+const { processPayment, freeMembership, uninstall, premiumMembership, addDiscount, sendWidget, changeDisplaySetting, getSetting, saveSetting }  = require('./server/router');
 const installing = require('./server/install');
 const mongoose = require('mongoose');
 
@@ -55,6 +55,7 @@ app.prepare().then(() => {
   router.post('/changeDisplaySetting', changeDisplaySetting);
   router.post('/getSetting', getSetting);
   router.post('/saveSetting', saveSetting);
+  router.post('/webhooks/uninstall', uninstall);
 
   server.use(
     createShopifyAuth({

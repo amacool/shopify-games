@@ -194,6 +194,13 @@ async function installing(ctx) {
         shop,
     });
 
+    const uninstall = await registerWebhook({
+        address: `${TUNNEL_URL}/webhooks/uninstall`,
+        topic: 'APP_UNINSTALLED',
+        accessToken,
+        shop
+    });
+
     ctx.redirect('/');
 }
 

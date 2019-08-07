@@ -222,6 +222,10 @@ async function addDiscount(ctx, next) {
   }
 }
 
+async function uninstall(ctx, next) {
+  console.log(ctx);
+}
+
 async function sendWidget(ctx, next) {
   const shop = ctx.request.body.shop;
   ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
@@ -238,247 +242,493 @@ async function sendWidget(ctx, next) {
   if(timeToken) {
     ms = moment().diff(moment.unix(timeToken/1000));
   }
-ms /= 1000;
-console.log(ms);
-console.log(appSetting);
-  if(timeToken == null || appSetting.frequency == 'every' || (appSetting.frequency == 'period' && ms > appSetting.displayFrequency) ) {
-    ctx.body = `<div id="tada_app_widget">
-    <div id="spinny_box"
-        style="display: flex;width: 100%;height: 100%;display: none;top: 0;position: absolute;left: 0;justify-content: center;align-items: center;">
-        <div style="background-color: #00000077;width: 100%;height: 100%;position: absolute;z-index: 9998;"
-            id="tada_modal_background"></div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
-        <div id="spinny"
-            style="background-color: white;border: 1px solid black;display: block;padding: 20px; text-align: center;position: absolute;z-index:9999;">
-            <img src="https://app.trytada.com/logo.png" class="tada-app-logo" />
-            <h1> Spin to win a BIG prize! 🎁 </h1>
-            <div>Enter your email address to find out if you're the winner</div>
-            <div style="display: flex; justify-content: center; align-items: center;">
-                <input type="email" name="email" id="spin_email" placeholder="Enter your email"
-                    style="display: inline-block;" required>
-                <input type="button" name="spin" value="Spin" onclick="startSpinning()" style="display: inline-block;">
-            </div>
-            <div style="text-align: center; color: red; display: none;" id="tada_email_validate">
-                You need to input valid email address!
-            </div>
-            <div style="display: flex; justify-content: center; align-items: center;">
-                <canvas id='canvas' width="360" height="360" class="spinny-widget" data-responsiveScaleHeight="true"
-                    data-responsiveMinWidth="100">
-                    Canvas not supported, use another browser.
-                </canvas>
-                <img src="https://app.trytada.com/arrow.jpg" class="tada-arrow" />
-            </div>
-        </div>
-        <div id="result_box">
-            <div>
-                <p id="tada_result_label">Tada, you've won <span id="tada_discount_type"></span>!</p>
-                <div id="tada_result_coupon">
-                    <p>Coupon Code: <span id="tada_coupon"></span></p>
-                    <p>This coupon code will expire in 1 day!</p>
-                </div>
-                <button type="button" onclick="hideModal()" class="hide-btn-tada">OK</button>
-            </div>
-        </div>
-    </div>
-    <div id="tadaclockdiv">
-        <div>
-          <span class="hours"></span>
-        </div>
-        :
-        <div>
-          <span class="minutes"></span>
-        </div>
-        :
-        <div>
-          <span class="seconds"></span>
-        </div>
-    </div>
-    <div id="tadaCouponModal">
-      <div style="background-color: #00000077;width: 100%;height: 100%;position: absolute;z-index: 9998;"
+  ms /= 1000;
+  if(appSetting.install == 1) {
+    if(timeToken == null || appSetting.frequency == 'every' || (appSetting.frequency == 'period' && ms > appSetting.displayFrequency) ) {
+      ctx.body = `<div id="tada_app_widget">
+      <div id="spinny_box"
+          style="display: flex;width: 100%;height: 100%;display: none;top: 0;position: absolute;left: 0;justify-content: center;align-items: center;">
+          <div style="background-color: #00000077;width: 100%;height: 100%;position: absolute;z-index: 9998;"
               id="tada_modal_background"></div>
-      <div id="tada_modal_result_box">
-        <div>
-            <p id="tada_modal_result_label">You've won <span id="tada_modal_discount_type"></span>!</p>
-            <div id="tada_modal_result_coupon">
-                <p>Coupon Code: <span id="tada_modal_coupon"></span></p>
-            </div>
-            <button type="button" onclick="hideCouponModal()" class="hide-btn-tada">OK</button>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+          <div id="spinny"
+              style="background-color: white;border: 1px solid black;display: block;padding: 20px; text-align: center;position: absolute;z-index:9999;">
+              <img src="https://app.trytada.com/logo.png" class="tada-app-logo" />
+              <h1> Spin to win a BIG prize! 🎁 </h1>
+              <div>Enter your email address to find out if you're the winner</div>
+              <div style="display: flex; justify-content: center; align-items: center;">
+                  <input type="email" name="email" id="spin_email" placeholder="Enter your email"
+                      style="display: inline-block;" required>
+                  <input type="button" name="spin" value="Spin" onclick="startSpinning()" style="display: inline-block;">
+              </div>
+              <div style="text-align: center; color: red; display: none;" id="tada_email_validate">
+                  You need to input valid email address!
+              </div>
+              <div style="display: flex; justify-content: center; align-items: center;">
+                  <canvas id='canvas' width="360" height="360" class="spinny-widget" data-responsiveScaleHeight="true"
+                      data-responsiveMinWidth="100">
+                      Canvas not supported, use another browser.
+                  </canvas>
+                  <img src="https://app.trytada.com/arrow.jpg" class="tada-arrow" />
+              </div>
+          </div>
+          <div id="result_box">
+              <div>
+                  <p id="tada_result_label">Tada, you've won <span id="tada_discount_type"></span>!</p>
+                  <div id="tada_result_coupon">
+                      <p>Coupon Code: <span id="tada_coupon"></span></p>
+                      <p>This coupon code will expire in 1 day!</p>
+                  </div>
+                  <button type="button" onclick="hideModal()" class="hide-btn-tada">OK</button>
+              </div>
+          </div>
+      </div>
+      <div id="tadaclockdiv">
+          <div>
+            <span class="hours"></span>
+          </div>
+          :
+          <div>
+            <span class="minutes"></span>
+          </div>
+          :
+          <div>
+            <span class="seconds"></span>
+          </div>
+      </div>
+      <div id="tadaCouponModal">
+        <div style="background-color: #00000077;width: 100%;height: 100%;position: absolute;z-index: 9998;"
+                id="tada_modal_background"></div>
+        <div id="tada_modal_result_box">
+          <div>
+              <p id="tada_modal_result_label">You've won <span id="tada_modal_discount_type"></span>!</p>
+              <div id="tada_modal_result_coupon">
+                  <p>Coupon Code: <span id="tada_modal_coupon"></span></p>
+              </div>
+              <button type="button" onclick="hideCouponModal()" class="hide-btn-tada">OK</button>
+          </div>
         </div>
       </div>
-    </div>
-    <script>
-    let theWheel;
-    $.getScript('https://app.trytada.com/Winwheel.js', function(data, textStatus, jqxhr) {
-      if(jqxhr.status == 200) {
-        tadaCallback();
+      <script>
+      let theWheel;
+      $.getScript('https://app.trytada.com/Winwheel.js', function(data, textStatus, jqxhr) {
+        if(jqxhr.status == 200) {
+          tadaCallback();
+        }
+      });
+      var tadaCallback = function() {
+          theWheel = new Winwheel({
+              'numSegments': 4,         // Number of segments
+              'outerRadius': 180,       // The size of the wheel.
+              'innerRadius': 70,
+              'centerX': 180,       // Used to position on the background correctly.
+              'centerY': 180,
+              'pointerAngle': 90,
+              'textFontSize': 13,        // Font size.
+              'textOrientation': 'curved',
+              'responsive': true,
+              'textAligment': 'outer',
+              'segments':            // Definition of all the segments.
+                  [
+                      { 'fillStyle': '#eae56f', 'text': '25% Discount' },
+                      { 'fillStyle': '#89f26e', 'text': '$10 Cash' },
+                      { 'fillStyle': '#e7706f', 'text': 'Free Shipping' },
+                      { 'fillStyle': '#89f26e', 'text': '15% Discount' }
+                  ],
+              'animation':               // Definition of the animation
+              {
+                  'type': 'spinToStop',
+                  'duration': 3,
+                  'spins': 5,
+                  'callbackFinished': alertPrize
+              }
+              });
+          setTimeout(showSpinny, ${ appSetting.timer * 1000 });
       }
-    });
-    var tadaCallback = function() {
-        theWheel = new Winwheel({
-            'numSegments': 4,         // Number of segments
-            'outerRadius': 180,       // The size of the wheel.
-            'innerRadius': 70,
-            'centerX': 180,       // Used to position on the background correctly.
-            'centerY': 180,
-            'pointerAngle': 90,
-            'textFontSize': 13,        // Font size.
-            'textOrientation': 'curved',
-            'responsive': true,
-            'textAligment': 'outer',
-            'segments':            // Definition of all the segments.
-                [
-                    { 'fillStyle': '#eae56f', 'text': '25% Discount' },
-                    { 'fillStyle': '#89f26e', 'text': '$10 Cash' },
-                    { 'fillStyle': '#e7706f', 'text': 'Free Shipping' },
-                    { 'fillStyle': '#89f26e', 'text': '15% Discount' }
-                ],
-            'animation':               // Definition of the animation
-            {
-                'type': 'spinToStop',
-                'duration': 3,
-                'spins': 5,
-                'callbackFinished': alertPrize
-            }
-            });
-        setTimeout(showSpinny, ${ appSetting.timer * 1000 });
-    }
 
-        function validateEmail(email) {
-            var re = /^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/;
-            return re.test(email);
+          function validateEmail(email) {
+              var re = /^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/;
+              return re.test(email);
+          }
+
+          function startSpinning() {
+              var email = document.getElementById("spin_email").value;
+              if (!validateEmail(email)) {
+                  document.getElementById('tada_email_validate').style.display = 'block';
+              }
+              else {
+                  document.getElementById('tada_email_validate').style.display = 'none';
+                  theWheel.startAnimation();
+              }
+          }
+
+          function showSpinny() {
+              var box = document.getElementById('spinny_box');
+              document.getElementById('tada_email_validate').style.display = 'none';
+
+              if (box.style.display == '' || box.style.display == 'none') {
+                  box.style.display = 'flex';
+                  $('body').addClass('tada-modal-open');
+                  document.getElementById('spin_email').value = "";
+              }
+              else {
+                  $('body').removeClass('tada-modal-open');
+                  box.style.display = 'none';
+              }
+
+          }
+
+          $('#tada_modal_background').on('click', function () {
+              showSpinny();
+          });
+
+          function alertPrize(indicatedSegment) {
+              // Do basic alert of the segment text.
+              var discount_type = indicatedSegment.text;
+              console.log(discount_type);
+              if (discount_type == "No Lucky") {
+                  document.getElementById('tada_result_coupon').style.display = 'none';
+              } else {
+                  var randomCoupon = makeid();
+                  document.getElementById('tada_discount_type').innerText = indicatedSegment.text;
+                  document.getElementById('tada_result_coupon').style.display = 'block';
+                  document.getElementById('tada_coupon').innerText = randomCoupon;
+                  $.ajax({
+                      url: 'https://app.trytada.com/addDiscount',
+                      type: 'POST',
+                      contentType: 'application/json',
+                      data: JSON.stringify({
+                          discount_code: randomCoupon,
+                          discount_type: indicatedSegment.text,
+        shop: window.location.hostname
+                      }),
+                      success: function (resp) {
+                          console.log(resp);
+                      },
+                      error: function () {
+                          console.log('error');
+                      }
+                  });
+                  var d = new Date();
+                  var now = d.getTime();
+                  setCookie('timeToken', now, 100);
+                  setCookie('tadaCoupon', randomCoupon, 1);
+                  setCookie('tadaDiscountType', indicatedSegment.text, 1);
+              }
+              document.getElementById('spinny').style.display = 'none';
+              document.getElementById('result_box').style.display = 'block';
+          }
+
+          function makeid(length = 12) {
+              var result = '';
+              var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+              var charactersLength = characters.length;
+              for (var i = 0; i < length; i++) {
+                  result += characters.charAt(Math.floor(Math.random() * charactersLength));
+              }
+              return result;
+          }
+
+          function hideModal() {
+              document.getElementById('result_box').style.display = 'none';
+              document.getElementById('spinny').style.display = 'block';
+              showSpinny();
+          }
+
+          function setCookie(name, value, days) {
+              var expires = "";
+              if (days) {
+                  var date = new Date();
+                  date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                  expires = "; expires=" + date.toUTCString();
+              }
+              document.cookie = name + "=" + (value || "") + expires + "; path=/";
+          }
+
+          function getCookie(name) {
+              var nameEQ = name + "=";
+              var ca = document.cookie.split(';');
+              for (var i = 0; i < ca.length; i++) {
+                  var c = ca[i];
+                  while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                  if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+              }
+              return null;
+          }
+
+          function eraseCookie(name) {
+              document.cookie = name + '=; Max-Age=-99999999;';
+          }
+
+          var counter = setInterval(timer, 1000);
+    
+          $('#tadaclockdiv').on('click', function() {
+            $('#tada_modal_coupon').html(getCookie('tadaCoupon'));
+            $('#tada_modal_discount_type').html(getCookie('tadaDiscountType'));
+            document.getElementById('tadaCouponModal').style.display = 'flex';
+          });
+    
+          function hideCouponModal() {
+            document.getElementById('tadaCouponModal').style.display = 'none';
+          }
+    
+          function timer() {
+              var tadaTokenDiff = (new Date().getTime()) - getCookie('timeToken');
+    
+              if(tadaTokenDiff > 86400000) {
+                  clearInterval(counter);
+                  return;
+              }
+    
+              let timeRemaining = parseInt((86400000 - tadaTokenDiff) / 1000);
+    
+              if (timeRemaining >= 0) {
+                  $('#tadaclockdiv').show();
+                  days = parseInt(timeRemaining / 86400);
+                  timeRemaining = (timeRemaining % 86400);
+                  
+                  hours = parseInt(timeRemaining / 3600);
+                  timeRemaining = (timeRemaining % 3600);
+                  
+                  minutes = parseInt(timeRemaining / 60);
+                  timeRemaining = (timeRemaining % 60);
+                  
+                  seconds = parseInt(timeRemaining);
+                  if(seconds < 10) {
+                    seconds = '0' + seconds;
+                  }
+                  
+                  $('#tadaclockdiv').find('.hours').html(hours);
+                  $('#tadaclockdiv').find('.minutes').html(minutes);
+                  $('#tadaclockdiv').find('.seconds').html(seconds);
+              } else {
+                  $('#tadaclockdiv').hide();
+              }
+          }
+          </script>
+      </script>
+      <style>
+          .spinny-widget {
+              margin-top: 30px;
+          }
+
+          .tada-arrow {
+              display: inline-block;
+              width: 4vw;
+              max-width: 80px;
+          }
+
+          .hide-btn-tada {
+              background: black;
+              width: 100px;
+              height: 40px;
+              border-radius: 10px;
+              font-size: 20px;
+              color: white;
+          }
+
+          body.tada-modal-open {
+              overflow: hidden;
+          }
+
+          #result_box {
+              z-index: 99999;
+              display: none;
+              position: absolute;
+              width: 80%;
+              text-align: center;
+              justify-content: center;
+              align-items: center;
+              background: white;
+          }
+
+          .open-spinny-btn {
+              width: 100px;
+              height: 30px;
+              background-color: blue;
+              color: white;
+              border-radius: 10px;
+          }
+
+          .tada-app-logo {
+              width: 150px;
+          }
+
+          #tadaclockdiv{
+            position: fixed;
+            top: 91vh;
+            right: 100px;
+            background-color: #1cab83;
+            padding: 0px;
+            font-family: sans-serif;
+            color: #fff;
+            display: none;
+            font-weight: 100;
+            text-align: center;
+            font-size: 30px;
+            cursor: pointer;
+          }
+    
+          #tadaclockdiv > div{
+            width: 52px;
+            padding: 6px;
+            border-radius: 3px;
+            background: #00BF96;
+            display: inline-block;
+          }
+    
+          #tadaclockdiv div > span{
+            padding: 3px;
+            width: 40px;
+            border-radius: 3px;
+            background: #00816A;
+            display: inline-block;
+          }
+    
+          #tada_modal_result_box {
+            z-index: 99999;
+            position: absolute;
+            width: 80%;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            background: white;
+        }
+    
+        #tadaCouponModal {
+          position: fixed;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          display: none;
+          justify-content: center;
+          align-items: center;
         }
 
-        function startSpinning() {
-            var email = document.getElementById("spin_email").value;
-            if (!validateEmail(email)) {
-                document.getElementById('tada_email_validate').style.display = 'block';
-            }
-            else {
-                document.getElementById('tada_email_validate').style.display = 'none';
-                theWheel.startAnimation();
-            }
+          @media (max-width: 400px) {
+              #spinny {
+                  padding: 0px;
+              }
+          }
+      </style>
+  </div>`;
+    } else {
+      ctx.body = `
+      <div id="tadaclockdiv">
+          <div>
+            <span class="hours"></span>
+          </div>
+          :
+          <div>
+            <span class="minutes"></span>
+          </div>
+          :
+          <div>
+            <span class="seconds"></span>
+          </div>
+      </div>
+      <div id="tadaCouponModal">
+        <div style="background-color: #00000077;width: 100%;height: 100%;position: absolute;z-index: 9998;"
+                id="tada_modal_background"></div>
+        <div id="tada_modal_result_box">
+          <div>
+              <p id="tada_modal_result_label">You've won <span id="tada_modal_discount_type"></span>!</p>
+              <div id="tada_modal_result_coupon">
+                  <p>Coupon Code: <span id="tada_modal_coupon"></span></p>
+              </div>
+              <button type="button" onclick="hideCouponModal()" class="hide-btn-tada">OK</button>
+          </div>
+        </div>
+      </div>
+      <style>
+        #tadaclockdiv{
+          position: fixed;
+          top: 91vh;
+          right: 100px;
+          background-color: #1cab83;
+          padding: 0px;
+          font-family: sans-serif;
+          color: #fff;
+          display: none;
+          font-weight: 100;
+          text-align: center;
+          font-size: 30px;
+          cursor: pointer;
         }
 
-        function showSpinny() {
-            var box = document.getElementById('spinny_box');
-            document.getElementById('tada_email_validate').style.display = 'none';
-
-            if (box.style.display == '' || box.style.display == 'none') {
-                box.style.display = 'flex';
-                $('body').addClass('tada-modal-open');
-                document.getElementById('spin_email').value = "";
-            }
-            else {
-                $('body').removeClass('tada-modal-open');
-                box.style.display = 'none';
-            }
-
+        #tadaclockdiv > div{
+          width: 52px;
+          padding: 6px;
+          border-radius: 3px;
+          background: #00BF96;
+          display: inline-block;
         }
 
-        $('#tada_modal_background').on('click', function () {
-            showSpinny();
-        });
-
-        function alertPrize(indicatedSegment) {
-            // Do basic alert of the segment text.
-            var discount_type = indicatedSegment.text;
-            console.log(discount_type);
-            if (discount_type == "No Lucky") {
-                document.getElementById('tada_result_coupon').style.display = 'none';
-            } else {
-                var randomCoupon = makeid();
-                document.getElementById('tada_discount_type').innerText = indicatedSegment.text;
-                document.getElementById('tada_result_coupon').style.display = 'block';
-                document.getElementById('tada_coupon').innerText = randomCoupon;
-                $.ajax({
-                    url: 'https://app.trytada.com/addDiscount',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        discount_code: randomCoupon,
-                        discount_type: indicatedSegment.text,
-			shop: window.location.hostname
-                    }),
-                    success: function (resp) {
-                        console.log(resp);
-                    },
-                    error: function () {
-                        console.log('error');
-                    }
-                });
-                var d = new Date();
-                var now = d.getTime();
-                setCookie('timeToken', now, 100);
-                setCookie('tadaCoupon', randomCoupon, 1);
-                setCookie('tadaDiscountType', indicatedSegment.text, 1);
-            }
-            document.getElementById('spinny').style.display = 'none';
-            document.getElementById('result_box').style.display = 'block';
+        #tadaclockdiv div > span{
+          padding: 3px;
+          width: 40px;
+          border-radius: 3px;
+          background: #00816A;
+          display: inline-block;
         }
 
-        function makeid(length = 12) {
-            var result = '';
-            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            var charactersLength = characters.length;
-            for (var i = 0; i < length; i++) {
-                result += characters.charAt(Math.floor(Math.random() * charactersLength));
-            }
-            return result;
-        }
+        #tada_modal_result_box {
+          z-index: 99999;
+          position: absolute;
+          width: 80%;
+          text-align: center;
+          justify-content: center;
+          align-items: center;
+          background: white;
+      }
 
-        function hideModal() {
-            document.getElementById('result_box').style.display = 'none';
-            document.getElementById('spinny').style.display = 'block';
-            showSpinny();
-        }
-
-        function setCookie(name, value, days) {
-            var expires = "";
-            if (days) {
-                var date = new Date();
-                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                expires = "; expires=" + date.toUTCString();
-            }
-            document.cookie = name + "=" + (value || "") + expires + "; path=/";
-        }
-
-        function getCookie(name) {
-            var nameEQ = name + "=";
-            var ca = document.cookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-            }
-            return null;
-        }
-
-        function eraseCookie(name) {
-            document.cookie = name + '=; Max-Age=-99999999;';
-        }
+      #tadaCouponModal {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: none;
+        justify-content: center;
+        align-items: center;
+      }
+        </style>
+        <script>
 
         var counter = setInterval(timer, 1000);
-  
+
+        function getCookie(name) {
+          var nameEQ = name + "=";
+          var ca = document.cookie.split(';');
+          for (var i = 0; i < ca.length; i++) {
+              var c = ca[i];
+              while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+              if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+          }
+          return null;
+        }
+
         $('#tadaclockdiv').on('click', function() {
           $('#tada_modal_coupon').html(getCookie('tadaCoupon'));
           $('#tada_modal_discount_type').html(getCookie('tadaDiscountType'));
           document.getElementById('tadaCouponModal').style.display = 'flex';
         });
-  
+
         function hideCouponModal() {
           document.getElementById('tadaCouponModal').style.display = 'none';
         }
-  
+
         function timer() {
             var tadaTokenDiff = (new Date().getTime()) - getCookie('timeToken');
-  
+
             if(tadaTokenDiff > 86400000) {
                 clearInterval(counter);
                 return;
             }
-  
+
             let timeRemaining = parseInt((86400000 - tadaTokenDiff) / 1000);
-  
+
             if (timeRemaining >= 0) {
                 $('#tadaclockdiv').show();
                 days = parseInt(timeRemaining / 86400);
@@ -502,254 +752,10 @@ console.log(appSetting);
                 $('#tadaclockdiv').hide();
             }
         }
-        </script>
-    </script>
-    <style>
-        .spinny-widget {
-            margin-top: 30px;
-        }
-
-        .tada-arrow {
-            display: inline-block;
-            width: 4vw;
-            max-width: 80px;
-        }
-
-        .hide-btn-tada {
-            background: black;
-            width: 100px;
-            height: 40px;
-            border-radius: 10px;
-            font-size: 20px;
-            color: white;
-        }
-
-        body.tada-modal-open {
-            overflow: hidden;
-        }
-
-        #result_box {
-            z-index: 99999;
-            display: none;
-            position: absolute;
-            width: 80%;
-            text-align: center;
-            justify-content: center;
-            align-items: center;
-            background: white;
-        }
-
-        .open-spinny-btn {
-            width: 100px;
-            height: 30px;
-            background-color: blue;
-            color: white;
-            border-radius: 10px;
-        }
-
-        .tada-app-logo {
-            width: 150px;
-        }
-
-        #tadaclockdiv{
-          position: fixed;
-          top: 91vh;
-          right: 100px;
-          background-color: #1cab83;
-          padding: 0px;
-          font-family: sans-serif;
-          color: #fff;
-          display: none;
-          font-weight: 100;
-          text-align: center;
-          font-size: 30px;
-          cursor: pointer;
-        }
-  
-        #tadaclockdiv > div{
-          width: 52px;
-          padding: 6px;
-          border-radius: 3px;
-          background: #00BF96;
-          display: inline-block;
-        }
-  
-        #tadaclockdiv div > span{
-          padding: 3px;
-          width: 40px;
-          border-radius: 3px;
-          background: #00816A;
-          display: inline-block;
-        }
-  
-        #tada_modal_result_box {
-          z-index: 99999;
-          position: absolute;
-          width: 80%;
-          text-align: center;
-          justify-content: center;
-          align-items: center;
-          background: white;
-      }
-  
-      #tadaCouponModal {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        display: none;
-        justify-content: center;
-        align-items: center;
-      }
-
-        @media (max-width: 400px) {
-            #spinny {
-                padding: 0px;
-            }
-        }
-    </style>
-</div>`;
+        </script>`;
+    }
   } else {
-    ctx.body = `
-    <div id="tadaclockdiv">
-        <div>
-          <span class="hours"></span>
-        </div>
-        :
-        <div>
-          <span class="minutes"></span>
-        </div>
-        :
-        <div>
-          <span class="seconds"></span>
-        </div>
-    </div>
-    <div id="tadaCouponModal">
-      <div style="background-color: #00000077;width: 100%;height: 100%;position: absolute;z-index: 9998;"
-              id="tada_modal_background"></div>
-      <div id="tada_modal_result_box">
-        <div>
-            <p id="tada_modal_result_label">You've won <span id="tada_modal_discount_type"></span>!</p>
-            <div id="tada_modal_result_coupon">
-                <p>Coupon Code: <span id="tada_modal_coupon"></span></p>
-            </div>
-            <button type="button" onclick="hideCouponModal()" class="hide-btn-tada">OK</button>
-        </div>
-      </div>
-    </div>
-    <style>
-      #tadaclockdiv{
-        position: fixed;
-        top: 91vh;
-        right: 100px;
-        background-color: #1cab83;
-        padding: 0px;
-        font-family: sans-serif;
-        color: #fff;
-        display: none;
-        font-weight: 100;
-        text-align: center;
-        font-size: 30px;
-        cursor: pointer;
-      }
-
-      #tadaclockdiv > div{
-        width: 52px;
-        padding: 6px;
-        border-radius: 3px;
-        background: #00BF96;
-        display: inline-block;
-      }
-
-      #tadaclockdiv div > span{
-        padding: 3px;
-        width: 40px;
-        border-radius: 3px;
-        background: #00816A;
-        display: inline-block;
-      }
-
-      #tada_modal_result_box {
-        z-index: 99999;
-        position: absolute;
-        width: 80%;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        background: white;
-    }
-
-    #tadaCouponModal {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      display: none;
-      justify-content: center;
-      align-items: center;
-    }
-      </style>
-      <script>
-
-      var counter = setInterval(timer, 1000);
-
-      function getCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-        }
-        return null;
-      }
-
-      $('#tadaclockdiv').on('click', function() {
-        $('#tada_modal_coupon').html(getCookie('tadaCoupon'));
-        $('#tada_modal_discount_type').html(getCookie('tadaDiscountType'));
-        document.getElementById('tadaCouponModal').style.display = 'flex';
-      });
-
-      function hideCouponModal() {
-        document.getElementById('tadaCouponModal').style.display = 'none';
-      }
-
-      function timer() {
-          var tadaTokenDiff = (new Date().getTime()) - getCookie('timeToken');
-
-          if(tadaTokenDiff > 86400000) {
-              clearInterval(counter);
-              return;
-          }
-
-          let timeRemaining = parseInt((86400000 - tadaTokenDiff) / 1000);
-
-          if (timeRemaining >= 0) {
-              $('#tadaclockdiv').show();
-              days = parseInt(timeRemaining / 86400);
-              timeRemaining = (timeRemaining % 86400);
-              
-              hours = parseInt(timeRemaining / 3600);
-              timeRemaining = (timeRemaining % 3600);
-              
-              minutes = parseInt(timeRemaining / 60);
-              timeRemaining = (timeRemaining % 60);
-              
-              seconds = parseInt(timeRemaining);
-              if(seconds < 10) {
-                seconds = '0' + seconds;
-              }
-              
-              $('#tadaclockdiv').find('.hours').html(hours);
-              $('#tadaclockdiv').find('.minutes').html(minutes);
-              $('#tadaclockdiv').find('.seconds').html(seconds);
-          } else {
-              $('#tadaclockdiv').hide();
-          }
-      }
-      </script>`;
+    ctx.body = ``;
   }
 }
 
@@ -1002,3 +1008,4 @@ module.exports.getSetting = getSetting;
 module.exports.saveSetting = saveSetting;
 module.exports.premiumMembership = premiumMembership;
 module.exports.freeMembership = freeMembership;
+module.exports.uninstall = uninstall;

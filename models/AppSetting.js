@@ -32,6 +32,10 @@ const AppSetting = mongoose.Schema({
     chargeId: {
         type: String,
         default: ''
+    },
+    install: {
+        type: Number,
+        default: 1
     }
 });
 
