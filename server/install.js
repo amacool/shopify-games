@@ -196,10 +196,12 @@ async function installing(ctx) {
 
     const uninstall = await registerWebhook({
         address: `app.trytada.com/webhooks/uninstall`,
-        topic: 'APP_UNINSTALL',
+        topic: 'APP_UNINSTALLED',
         accessToken,
         shop
     });
+
+    console.log(uninstall);
 
     ctx.redirect('/');
 }
