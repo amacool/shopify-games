@@ -42,13 +42,6 @@ app.prepare().then(() => {
   server.use(bodyParser());
   server.use(session(server));
   server.use(serve(__dirname + '/public'));
-  server.use(receiveWebhook({
-    path: '/webhooks/uninstall',
-    secret: SHOPIFY_API_SECRET_KEY,
-    onReceived(ctx) {
-      console.log(ctx.state.webhook);
-    }
-  }));
   server.keys = [SHOPIFY_API_SECRET_KEY];
 
   router.get('/', processPayment);
@@ -62,7 +55,7 @@ app.prepare().then(() => {
   router.post('/changeDisplaySetting', changeDisplaySetting);
   router.post('/getSetting', getSetting);
   router.post('/saveSetting', saveSetting);
-  router.post('/webhooks/uninstall', uninstall);
+  // router.post('/webhooks/uninstall', uninstall);
 
   server.use(
     createShopifyAuth({
@@ -80,6 +73,10 @@ app.prepare().then(() => {
   router.post('/webhooks/products/create', webhook, (ctx) => {
     console.log('received webhook: ', ctx.state.webhook);
   });
+
+  router.post('/webhooks/uninstall', webhook, (ctx) => {
+    console.log('received webhook: ', ctx.state.webhook);
+  })
 
   server.use(graphQLProxy({ version: ApiVersion.April19 }));
 

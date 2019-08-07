@@ -22,12 +22,10 @@ deparam = function (querystring) {
 
 async function processPayment(ctx, next) {
   // const params = deparam(ctx.request.url);
-console.log(ctx.request.header);
   const shop = ctx.cookies.get('shopOrigin');
   ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
   var appSetting = await AppSetting.findOne({shop: shop});
   var accessToken = '';
-  console.log(appSetting);
   if(appSetting) {
     accessToken = appSetting.accessToken;
   }
@@ -54,7 +52,6 @@ console.log(ctx.request.header);
           fetch(`https://${ctx.session.shop}/${chargeUrl}/${ctx.query.charge_id}/activate.json`, optionsWithJSON)
             .then((response) => response.json())
             .then((json) => {
-		console.log(json);
               const id = json.recurring_application_charge.id;
               appSetting.chargeId = id;
               appSetting.pricingPlan = 1;
@@ -103,7 +100,6 @@ async function premiumMembership(ctx, next) {
   const params = deparam(ctx.request.header.referer);
   const shop = params.shop;
   var appSetting = await AppSetting.findOne({shop: shop});
-  console.log(appSetting);
   const accessToken = appSetting.accessToken;
   ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
   const stringifiedBillingParams = JSON.stringify({
@@ -130,7 +126,6 @@ async function premiumMembership(ctx, next) {
   )
       .then((response) => response.json())
       .then((jsonData) => {
-        console.log(jsonData);
         return jsonData.recurring_application_charge.confirmation_url;
       })
       .catch((error) => console.log('error', error));
@@ -210,7 +205,6 @@ async function addDiscount(ctx, next) {
           fetch(`https://${shop}/${discountUrl}`, optionsDiscount)
           .then(response => response.json())
           .then(json => {
-            console.log(json);
           })
         });
     });
@@ -232,7 +226,6 @@ async function sendWidget(ctx, next) {
   const timeToken = ctx.request.body.timeToken;
   const appSetting = await AppSetting.findOne({shop: shop}, (error, setting) => {
     if(error) {
-      console.log(error);
       return next();
     }
     return setting;
@@ -771,7 +764,6 @@ async function changeDisplaySetting(fromPage, toPage, shop, accessToken) {
       },
     ).then((response) => response.json())
     .then((json) => {
-      console.log(json);
       for(var i=0; i<json.themes.length; i++) {
         if(json.themes[i].role == 'main') {
           return json.themes[i].id;
@@ -807,7 +799,6 @@ async function changeDisplaySetting(fromPage, toPage, shop, accessToken) {
         })
       }).then(resp => resp.json())
       .then(json => {
-        console.log(json);
         return json;
       })
     });
@@ -961,7 +952,6 @@ function changeDisplayPage(pageContent, toPage) {
   } else if(toPage == 'none') {
     $('.tada-app-content').html(``);
   }
-  console.log(entities.decode($.html()));
   return entities.decode($.html());
 }
 
