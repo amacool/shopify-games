@@ -188,14 +188,16 @@ async function installing(ctx) {
         });
 
     const registration = await registerWebhook({
-        address: `app.trytada.com/webhooks/products/create`,
+        address: `${TUNNEL_URL}/webhooks/products/create`,
         topic: 'PRODUCTS_CREATE',
         accessToken,
         shop,
     });
 
+    console.log(registration);
+
     const uninstall = await registerWebhook({
-        address: `app.trytada.com/webhooks/uninstall`,
+        address: `${TUNNEL_URL}/webhooks/uninstall`,
         topic: 'APP_UNINSTALLED',
         accessToken,
         shop
