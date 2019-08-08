@@ -386,8 +386,8 @@ async function sendWidget(ctx, next) {
                       return;
                   }
               }
-            }
-          }
+            });
+          });
 
           var counter;
 
