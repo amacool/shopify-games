@@ -441,33 +441,7 @@ async function sendWidget(ctx, next) {
     
               if(tadaTokenDiff > 86400000) {
                   clearInterval(counter);
-                  return;
-              }
-    
-              let timeRemaining = parseInt((86400000 - tadaTokenDiff) / 1000);
-    
-              if (timeRemaining >= 0) {
-                  $('#tadaclockdiv').show();
-                  days = parseInt(timeRemaining / 86400);
-                  timeRemaining = (timeRemaining % 86400);
-                  
-                  hours = parseInt(timeRemaining / 3600);
-                  timeRemaining = (timeRemaining % 3600);
-                  
-                  minutes = parseInt(timeRemaining / 60);
-                  timeRemaining = (timeRemaining % 60);
-                  
-                  seconds = parseInt(timeRemaining);
-                  if(seconds < 10) {
-                    seconds = '0' + seconds;
-                  }
-                  
-                  $('#tadaclockdiv').find('.hours').html(hours);
-                  $('#tadaclockdiv').find('.minutes').html(minutes);
-                  $('#tadaclockdiv').find('.seconds').html(seconds);
-                  $('#tada_modal_expire').html(hours+':'+minutes+':'+seconds);
-              } else {
-                  $('#tadaclockdiv').hide();
+
                   $.getScript('https://app.trytada.com/Winwheel.js', function(data, textStatus, jqxhr) {
                     if(jqxhr.status == 200) {
                       tadaCallback();
@@ -502,6 +476,33 @@ async function sendWidget(ctx, next) {
                           });
                       setTimeout(showSpinny, ${ appSetting.timer * 1000 });
                   }
+                  return;
+              }
+    
+              let timeRemaining = parseInt((86400000 - tadaTokenDiff) / 1000);
+    
+              if (timeRemaining >= 0) {
+                  $('#tadaclockdiv').show();
+                  days = parseInt(timeRemaining / 86400);
+                  timeRemaining = (timeRemaining % 86400);
+                  
+                  hours = parseInt(timeRemaining / 3600);
+                  timeRemaining = (timeRemaining % 3600);
+                  
+                  minutes = parseInt(timeRemaining / 60);
+                  timeRemaining = (timeRemaining % 60);
+                  
+                  seconds = parseInt(timeRemaining);
+                  if(seconds < 10) {
+                    seconds = '0' + seconds;
+                  }
+                  
+                  $('#tadaclockdiv').find('.hours').html(hours);
+                  $('#tadaclockdiv').find('.minutes').html(minutes);
+                  $('#tadaclockdiv').find('.seconds').html(seconds);
+                  $('#tada_modal_expire').html(hours+':'+minutes+':'+seconds);
+              } else {
+                  $('#tadaclockdiv').hide();
               }
           }
           </script>
