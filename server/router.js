@@ -298,46 +298,13 @@ async function sendWidget(ctx, next) {
               <div id="tada_modal_result_coupon">
                   <p>Coupon Code: <span id="tada_modal_coupon"></span></p>
               </div>
+              <p>Your coupon code will expire in <span id="tada_modal_expire"></span></p>
               <button type="button" onclick="hideCouponModal()" class="hide-btn-tada">OK</button>
           </div>
         </div>
       </div>
       <script>
       let theWheel;
-      $.getScript('https://app.trytada.com/Winwheel.js', function(data, textStatus, jqxhr) {
-        if(jqxhr.status == 200) {
-          tadaCallback();
-        }
-      });
-      var tadaCallback = function() {
-          theWheel = new Winwheel({
-              'numSegments': 4,         // Number of segments
-              'outerRadius': 180,       // The size of the wheel.
-              'innerRadius': 70,
-              'centerX': 180,       // Used to position on the background correctly.
-              'centerY': 180,
-              'pointerAngle': 90,
-              'textFontSize': 13,        // Font size.
-              'textOrientation': 'curved',
-              'responsive': true,
-              'textAligment': 'outer',
-              'segments':            // Definition of all the segments.
-                  [
-                      { 'fillStyle': '#eae56f', 'text': '25% Discount' },
-                      { 'fillStyle': '#89f26e', 'text': '$10 Cash' },
-                      { 'fillStyle': '#e7706f', 'text': 'Free Shipping' },
-                      { 'fillStyle': '#89f26e', 'text': '15% Discount' }
-                  ],
-              'animation':               // Definition of the animation
-              {
-                  'type': 'spinToStop',
-                  'duration': 3,
-                  'spins': 5,
-                  'callbackFinished': alertPrize
-              }
-              });
-          setTimeout(showSpinny, ${ appSetting.timer * 1000 });
-      }
 
           function validateEmail(email) {
               var re = /^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/;
@@ -375,6 +342,8 @@ async function sendWidget(ctx, next) {
               showSpinny();
           });
 
+          var counter;
+
           function alertPrize(indicatedSegment) {
               // Do basic alert of the segment text.
               var discount_type = indicatedSegment.text;
@@ -407,6 +376,8 @@ async function sendWidget(ctx, next) {
                   setCookie('timeToken', now, 100);
                   setCookie('tadaCoupon', randomCoupon, 1);
                   setCookie('tadaDiscountType', indicatedSegment.text, 1);
+                  counter = setInterval(timer, 1000);
+
               }
               document.getElementById('spinny').style.display = 'none';
               document.getElementById('result_box').style.display = 'block';
@@ -453,7 +424,7 @@ async function sendWidget(ctx, next) {
               document.cookie = name + '=; Max-Age=-99999999;';
           }
 
-          var counter = setInterval(timer, 1000);
+          counter = setInterval(timer, 1000);
     
           $('#tadaclockdiv').on('click', function() {
             $('#tada_modal_coupon').html(getCookie('tadaCoupon'));
@@ -494,8 +465,43 @@ async function sendWidget(ctx, next) {
                   $('#tadaclockdiv').find('.hours').html(hours);
                   $('#tadaclockdiv').find('.minutes').html(minutes);
                   $('#tadaclockdiv').find('.seconds').html(seconds);
+                  $('#tada_modal_expire').html(hours+':'+minutes+':'+seconds);
               } else {
                   $('#tadaclockdiv').hide();
+                  $.getScript('https://app.trytada.com/Winwheel.js', function(data, textStatus, jqxhr) {
+                    if(jqxhr.status == 200) {
+                      tadaCallback();
+                    }
+                  });
+                  var tadaCallback = function() {
+                      theWheel = new Winwheel({
+                          'numSegments': 4,         // Number of segments
+                          'outerRadius': 180,       // The size of the wheel.
+                          'innerRadius': 70,
+                          'centerX': 180,       // Used to position on the background correctly.
+                          'centerY': 180,
+                          'pointerAngle': 90,
+                          'textFontSize': 13,        // Font size.
+                          'textOrientation': 'curved',
+                          'responsive': true,
+                          'textAligment': 'outer',
+                          'segments':            // Definition of all the segments.
+                              [
+                                  { 'fillStyle': '#eae56f', 'text': '25% Discount' },
+                                  { 'fillStyle': '#89f26e', 'text': '$10 Cash' },
+                                  { 'fillStyle': '#e7706f', 'text': 'Free Shipping' },
+                                  { 'fillStyle': '#89f26e', 'text': '15% Discount' }
+                              ],
+                          'animation':               // Definition of the animation
+                          {
+                              'type': 'spinToStop',
+                              'duration': 3,
+                              'spins': 5,
+                              'callbackFinished': alertPrize
+                          }
+                          });
+                      setTimeout(showSpinny, ${ appSetting.timer * 1000 });
+                  }
               }
           }
           </script>
@@ -550,7 +556,7 @@ async function sendWidget(ctx, next) {
           #tadaclockdiv{
             position: fixed;
             top: 91vh;
-            right: 100px;
+            left: 100px;
             background-color: #1cab83;
             padding: 0px;
             font-family: sans-serif;
@@ -630,6 +636,7 @@ async function sendWidget(ctx, next) {
               <div id="tada_modal_result_coupon">
                   <p>Coupon Code: <span id="tada_modal_coupon"></span></p>
               </div>
+              <p>Your coupon code will expire in <span id="tada_modal_expire"></span></p>
               <button type="button" onclick="hideCouponModal()" class="hide-btn-tada">OK</button>
           </div>
         </div>
@@ -638,7 +645,7 @@ async function sendWidget(ctx, next) {
         #tadaclockdiv{
           position: fixed;
           top: 91vh;
-          right: 100px;
+          left: 100px;
           background-color: #1cab83;
           padding: 0px;
           font-family: sans-serif;
@@ -664,6 +671,10 @@ async function sendWidget(ctx, next) {
           border-radius: 3px;
           background: #00816A;
           display: inline-block;
+        }
+
+        #tadaclockdiv p {
+          text-align: center;
         }
 
         #tada_modal_result_box {
@@ -741,6 +752,7 @@ async function sendWidget(ctx, next) {
                 $('#tadaclockdiv').find('.hours').html(hours);
                 $('#tadaclockdiv').find('.minutes').html(minutes);
                 $('#tadaclockdiv').find('.seconds').html(seconds);
+                $('#tada_modal_expire').html(hours+':'+minutes+':'+seconds);
             } else {
                 $('#tadaclockdiv').hide();
             }
