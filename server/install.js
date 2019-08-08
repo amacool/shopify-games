@@ -7,6 +7,7 @@ const AppSetting = require('../models/AppSetting');
 
 async function installing(ctx) {
     const { shop, accessToken } = ctx.session;
+    console.log('install shop - ', shop);
     AppSetting.find({shop: shop}, (err, shops) => {
         if(err) {
             console.log(err);

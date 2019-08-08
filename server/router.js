@@ -22,6 +22,7 @@ deparam = function (querystring) {
 
 async function processPayment(ctx, next) {
   // const params = deparam(ctx.request.url);
+  console.log('/ request - ', ctx.request);
   const shop = ctx.cookies.get('shopOrigin');
   ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
   var appSetting = await AppSetting.findOne({shop: shop});
