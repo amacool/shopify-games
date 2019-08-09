@@ -53,6 +53,7 @@ async function processPayment(ctx, next) {
           fetch(`https://${ctx.session.shop}/${chargeUrl}/${ctx.query.charge_id}/activate.json`, optionsWithJSON)
             .then((response) => response.json())
             .then((json) => {
+		console.log(json);
               const id = json.recurring_application_charge.id;
               appSetting.chargeId = id;
               appSetting.pricingPlan = 1;
@@ -218,7 +219,17 @@ async function addDiscount(ctx, next) {
 }
 
 async function uninstall(ctx, next) {
-  console.log(ctx);
+  const shop = ctx.state.webhook.domain;
+  await AppSetting.find({shop: shop}, (err, shop) => {
+    if(err) {
+	console.log(err);
+	return;
+    }
+    if(shop.length > 0) {
+	shop[0].install = 0;
+	shop[0].save();
+    }
+  });
 }
 
 async function sendWidget(ctx, next) {
@@ -341,27 +352,6 @@ async function sendWidget(ctx, next) {
 
           $('#tada_modal_background').on('click', function () {
               showSpinny();
-          });
-          $(document).ready(function() {
-            $(document).mouseleave(function(e) {
-              if(e.clientY < 0) {
-                var tadaTokenDiff = (new Date().getTime()) - getCookie('timeToken');
-        
-                  if(tadaTokenDiff > 86400000) {
-                      clearInterval(counter);
-
-                      $.getScript('https://app.trytada.com/Winwheel.js', function(data, textStatus, jqxhr) {
-                        if(jqxhr.status == 200) {
-                          tadaCallback();
-                        }
-                      });
-                      var tadaCallback = function() {
-                          setTimeout(showSpinny, 0);
-                      }
-                      return;
-                  }
-              }
-            });
           });
 
           var counter;
@@ -497,6 +487,20 @@ async function sendWidget(ctx, next) {
                           }
                           });
                       setTimeout(showSpinny, ${ appSetting.timer * 1000 });
+$(document).ready(function() {
+            $(document).mouseleave(function(e) {
+              if(e.clientY < 0) {
+                var tadaTokenDiff = (new Date().getTime()) - getCookie('timeToken');
+        
+                  if(tadaTokenDiff > 86400000) {
+                      clearInterval(counter);
+
+                          setTimeout(showSpinny, 0);
+                      return;
+                  }
+              }
+            });
+          });
                   }
                   return;
               }
@@ -618,6 +622,7 @@ async function sendWidget(ctx, next) {
         }
     
         #tadaCouponModal {
+	  z-index: 9999;
           position: fixed;
           width: 100%;
           height: 100%;

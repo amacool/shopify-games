@@ -55,7 +55,6 @@ app.prepare().then(() => {
   router.post('/changeDisplaySetting', changeDisplaySetting);
   router.post('/getSetting', getSetting);
   router.post('/saveSetting', saveSetting);
-  // router.post('/webhooks/uninstall', uninstall);
 
   server.use(
     createShopifyAuth({
@@ -74,9 +73,7 @@ app.prepare().then(() => {
     console.log('received webhook: ', ctx.state.webhook);
   });
 
-  router.post('/webhooks/uninstall', webhook, (ctx) => {
-    console.log('received webhook: ', ctx.state.webhook);
-  })
+  router.post('/webhooks/uninstall', webhook, uninstall);
 
   server.use(graphQLProxy({ version: ApiVersion.April19 }));
 
