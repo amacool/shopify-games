@@ -529,8 +529,9 @@ async function sendWidget(ctx, next) {
                     
                               if(tadaTokenDiff > 86400000) {
                                   clearInterval(counter);
-
-                                  setTimeout(showSpinny, 0);
+                                  if(getCookie('modalClose') == null) {
+                                    setTimeout(showSpinny, 0);
+                                  }
                                   return;
                               }
                           }
