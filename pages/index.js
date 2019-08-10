@@ -101,7 +101,6 @@ class Index extends React.Component {
         </div>
         <div className="page-footer">
           <Button onClick={() => this.saveSetting()} disabled={this.state.saveDisabled} primary>Save</Button>
-          <Button onClick={() => this.cancelSave()}>Cancel</Button>
         </div>
       </Page>
     );
@@ -112,7 +111,7 @@ class Index extends React.Component {
   }
 
   handleExitIntent = (value) => {
-    this.setState({ exitIntent: value });
+    this.setState({ exitIntent: value, saveDisabled: false });
   }
 
   timerChange = (field) => {
@@ -144,13 +143,13 @@ class Index extends React.Component {
       this.setState({
         frequency: newValue,
         showPeriod: true,
-	saveDisabled: false
+	      saveDisabled: false
       });
     } else {
       this.setState({
         frequency: newValue,
         showPeriod: false,
-	saveDisabled: false
+	      saveDisabled: false
       });
     }
   }
@@ -179,13 +178,9 @@ class Index extends React.Component {
     })
    }).then(resp => {
      this.setState({
-	saveDisabled: true
+	    saveDisabled: true
      });
    });
-  }
-
-  cancelSave = () => {
-    
   }
 }
 
