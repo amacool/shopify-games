@@ -21,11 +21,13 @@ async function installing(ctx) {
             shops[0].displayFrequency = 0;
             shops[0].pricingPlan = 0;
             shops[0].chargeId = '';
+	    shops[0].install = 1;
             shops[0].save();
         } else {
             const newShop = new AppSetting();
             newShop.shop = shop;
             newShop.accessToken = accessToken;
+	    newShop.install = 1;
             newShop.save();
         }
     });

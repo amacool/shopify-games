@@ -72,8 +72,14 @@ async function processPayment(ctx, next) {
 }
 
 async function freeMembership(ctx, next) {
-  const params = deparam(ctx.request.header.referer);
-  const shop = params.shop;
+  var param;
+  var shop = '';
+  if(ctx.request.header.referer) {
+    param = deparam(ctx.request.header.referer);
+    shop = param.shop;
+  } else {
+    shop = getCookie('shopOrigin', ctx.request.header.cookie);
+  }
   ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
   var appSetting = await AppSetting.findOne({shop: shop});
   const accessToken = appSetting.accessToken;
@@ -99,8 +105,14 @@ async function freeMembership(ctx, next) {
 }
 
 async function premiumMembership(ctx, next) {
-  const params = deparam(ctx.request.header.referer);
-  const shop = params.shop;
+  var param;
+  var shop = '';
+  if(ctx.request.header.referer) {
+    param = deparam(ctx.request.header.referer);
+    shop = param.shop;
+  } else {
+    shop = getCookie('shopOrigin', ctx.request.header.cookie);
+  }
   var appSetting = await AppSetting.findOne({shop: shop});
   const accessToken = appSetting.accessToken;
   ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
@@ -252,7 +264,7 @@ async function sendWidget(ctx, next) {
     if(timeToken == null || appSetting.frequency == 'every' || (appSetting.frequency == 'period' && ms > appSetting.displayFrequency) ) {
       ctx.body = `<div id="tada_app_widget">
       <div id="spinny_box"
-          style="display: flex;width: 100%;height: 100%;display: none;top: 0;position: absolute;left: 0;justify-content: center;align-items: center;">
+          style="display: flex;width: 100%;height: 100%;display: none;top: 0;position: fixed;z-index: 9999;left: 0;justify-content: center;align-items: center;">
           <div style="background-color: #00000077;width: 100%;height: 100%;position: absolute;z-index: 9998;"
               id="tada_modal_background"></div>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
@@ -995,9 +1007,27 @@ function changeDisplayPage(pageContent, toPage) {
   return entities.decode($.html());
 }
 
+
+function getCookie(name, cookie) {
+  var nameEQ = name + "=";
+  var ca = cookie.split(';');
+  for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+  }
+  return null;
+}
+
 async function getSetting(ctx, next) {
-  var param = deparam(ctx.request.header.referer);
-  var shop = param.shop;
+  var param;
+  var shop = '';
+  if(ctx.request.header.referer) {
+    param = deparam(ctx.request.header.referer);
+    shop = param.shop;
+  } else {
+    shop = getCookie('shopOrigin', ctx.request.header.cookie);
+  }
   var shopSetting = await AppSetting.find({shop: shop});
   if(shopSetting[0]) {
     ctx.body = shopSetting[0];
@@ -1006,9 +1036,16 @@ async function getSetting(ctx, next) {
   }
 }
 
+
 async function saveSetting(ctx, next) {
-  var param = deparam(ctx.request.header.referer);
-  var shop = param.shop;
+  var param;
+  var shop = '';
+  if(ctx.request.header.referer) {
+    param = deparam(ctx.request.header.referer);
+    shop = param.shop;
+  } else {
+    shop = getCookie('shopOrigin', ctx.request.header.cookie);
+  }
   var updateSetting = ctx.request.body.updateSetting;
   await AppSetting.find({shop: shop}, (err, setting) => {
     if(err) {
