@@ -270,6 +270,7 @@ async function sendWidget(ctx, next) {
           <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
           <div id="spinny"
               style="background-color: white;border: 1px solid black;display: block;padding: 20px; text-align: center;position: absolute;z-index:9999;">
+              <img src="https://app.trytada.com/close.png" id="modal_close" />
               <img src="https://app.trytada.com/logo.png" class="tada-app-logo" />
               <h1> Spin to win a BIG prize! 🎁 </h1>
               <div>Enter your email address to find out if you're the winner</div>
@@ -301,6 +302,7 @@ async function sendWidget(ctx, next) {
           </div>
       </div>
       <div id="tadaclockdiv">
+          <img src="https://app.trytada.com/close.png" id="clock_close" />
           <div>
             <span class="hours"></span>
           </div>
