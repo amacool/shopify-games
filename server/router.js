@@ -438,11 +438,11 @@ async function sendWidget(ctx, next) {
               showSpinny();
           }
 
-          function setCookie(name, value, days) {
+          function setCookie(name, value, mins) {
               var expires = "";
-              if (days) {
+              if (mins) {
                   var date = new Date();
-                  date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                  date.setTime(date.getTime() + (mins * 60 * 1000));
                   expires = "; expires=" + date.toUTCString();
               }
               document.cookie = name + "=" + (value || "") + expires + "; path=/";
@@ -554,8 +554,9 @@ async function sendWidget(ctx, next) {
                               });
                               if(tadaTokenDiff > 86400000) {
                                   clearInterval(counter);
-                                  if(getCookie('modalClose') == null) {
+                                  if(getCookie('modalClose') == null && getCookie('tadaExitIntent') == null) {
                                     setTimeout(showSpinny, 0);
+                                    setCookie('tadaExitIntent', 1, 5);
                                   }
                                   return;
                               }
