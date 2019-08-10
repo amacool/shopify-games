@@ -597,6 +597,7 @@ async function sendWidget(ctx, next) {
             float: right;
             margin-top: -15px;
             margin-right: -15px;
+            cursor: pointer;
           }
 
           #result_box {
