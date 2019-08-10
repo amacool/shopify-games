@@ -337,12 +337,20 @@ async function sendWidget(ctx, next) {
 
           function startSpinning() {
               var email = document.getElementById("spin_email").value;
+              
+              var domain = email.split('@')[1];
               if (!validateEmail(email)) {
                   document.getElementById('tada_email_validate').style.display = 'block';
               }
               else {
-                  document.getElementById('tada_email_validate').style.display = 'none';
-                  theWheel.startAnimation();
+                $.get('https://domain-availability-api.whoisxmlapi.com/api/v1?apiKey=at_de2sXtsBZn3RBpC9TBnrQqH9fZLe7&domainName=' + domain, function(data) {
+                  if(data.DomainInfo.domainAvailability == "UNAVAILABLE") {
+                    document.getElementById('tada_email_validate').style.display = 'none';
+                    theWheel.startAnimation();
+                  } else {
+                    document.getElementById('tada_email_validate').style.display = 'block';
+                  }
+                });
               }
           }
 
