@@ -460,10 +460,15 @@ async function sendWidget(ctx, next) {
 
           counter = setInterval(timer, 1000);
     
-          $('#tadaclockdiv').on('click', function() {
+          $('#tadaclockdiv div').on('click', function() {
             $('#tada_modal_coupon').html(getCookie('tadaCoupon'));
             $('#tada_modal_discount_type').html(getCookie('tadaDiscountType'));
             document.getElementById('tadaCouponModal').style.display = 'flex';
+          });
+
+          $('#tadaclockdiv img').on('click', function() {
+            $('#tadaclockdiv').hide();
+            setCookie('clockClose', 1);
           });
     
           function hideCouponModal() {
@@ -475,6 +480,7 @@ async function sendWidget(ctx, next) {
     
               if(tadaTokenDiff > 86400000) {
                   clearInterval(counter);
+                  eraseCookie('clockClose');
 
                   $.getScript('https://app.trytada.com/Winwheel.js', function(data, textStatus, jqxhr) {
                     if(jqxhr.status == 200) {
@@ -529,7 +535,7 @@ $(document).ready(function() {
     
               let timeRemaining = parseInt((86400000 - tadaTokenDiff) / 1000);
     
-              if (timeRemaining >= 0) {
+              if (timeRemaining >= 0 && getCookie('clockClose')==null) {
                   $('#tadaclockdiv').show();
                   days = parseInt(timeRemaining / 86400);
                   timeRemaining = (timeRemaining % 86400);
@@ -614,6 +620,14 @@ $(document).ready(function() {
             font-weight: 100;
             text-align: center;
             font-size: 30px;
+            cursor: pointer;
+          }
+
+          #clock_close {
+            width: 20px;
+            position: inherit;
+            margin-left: 200px;
+            margin-top: -15px;
             cursor: pointer;
           }
     
