@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import '../stylesheets/settings.css';
 
 class Index extends React.Component {
-  state = { displaySetting: '', timer: 0, pricingPlan: "", frequencyDay: 0, frequencyHour: 0, frequencyMin: 0, showPeriod: false, frequency: '', saveDisabled: true };
+  state = { displaySetting: '', timer: 0, pricingPlan: "", frequencyDay: 0, frequencyHour: 0, frequencyMin: 0, showPeriod: false, frequency: '', saveDisabled: true, exitIntent: true };
 
   componentDidMount = () => {
     fetch(`https://app.trytada.com/getSetting`, {
@@ -42,7 +42,8 @@ class Index extends React.Component {
           timer: json.timer,
           pricingPlan,
           frequency: json.frequency,
-          showPeriod
+          showPeriod,
+          exitIntent: json.exitIntent
         });
       }
     });
@@ -66,8 +67,20 @@ class Index extends React.Component {
           <Heading>How often display widget</Heading>
           <Stack vertical>
             <RadioButton label="Every Time" helpText="Game modal will show every time" id="every" name="every" onChange={this.handleFrequency} checked={this.state.frequency === "every"} />
+            { (this.state.frequency === "every")?(
+                <Checkbox checked={this.state.exitIntent} label="Show went visitor are about to exit the page (Desktop only)" onChange={this.handleExitIntent} />
+              ):(null)
+            }
             <RadioButton label="One Time" helpText="Game will show only once per user." id="one" name="one" onChange={this.handleFrequency} checked={this.state.frequency === 'one'} />
+            { (this.state.frequency === "one")?(
+                <Checkbox checked={this.state.exitIntent} label="Show went visitor are about to exit the page (Desktop only)" onChange={this.handleExitIntent} />
+              ):(null)
+            }
             <RadioButton label="Certain Period" helpText="Game will show in every certain period." id="period" name="period" onChange={this.handleFrequency} checked={this.state.frequency === 'period'} />
+            { (this.state.frequency === "period")?(
+                <Checkbox checked={this.state.exitIntent} label="Show went visitor are about to exit the page (Desktop only)" onChange={this.handleExitIntent} />
+              ):(null)
+            }
           </Stack>
           { (this.state.showPeriod)?(
             <Stack horizontal>
@@ -96,6 +109,10 @@ class Index extends React.Component {
 
   handleDisplayChange = (checked, newValue) => {
     this.setState({ displaySetting: newValue, saveDisabled: false });
+  }
+
+  handleExitIntent = (value) => {
+    this.setState({ exitIntent: value });
   }
 
   timerChange = (field) => {
@@ -139,7 +156,7 @@ class Index extends React.Component {
   }
 
   saveSetting = () => {
-   var { pricingPlan, displaySetting, frequencyDay, frequencyHour, frequencyMin, timer, frequency } = this.state;
+   var { pricingPlan, displaySetting, frequencyDay, frequencyHour, frequencyMin, timer, frequency, exitIntent } = this.state;
    var updateSetting = {};
    if(pricingPlan == "free") {
      updateSetting.pricingPlan = 0;
@@ -150,6 +167,7 @@ class Index extends React.Component {
    updateSetting.displaySetting = displaySetting;
    updateSetting.timer = timer;
    updateSetting.frequency = frequency;
+   updateSetting.exitIntent = exitIntent;
    fetch(`https://app.trytada.com/saveSetting`, {
      method: 'POST',
      headers: {

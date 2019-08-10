@@ -36,6 +36,10 @@ const AppSetting = mongoose.Schema({
     install: {
         type: Number,
         default: 1
+    },
+    exitIntent: {
+        type: Boolean,
+        default: true
     }
 });
 
