@@ -331,7 +331,7 @@ async function sendWidget(ctx, next) {
       </div>
       <script>
       let theWheel;
-
+          var exitIntentFlag = ${ appSetting.exitIntent };
           function validateEmail(email) {
               var re = /^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/;
               return re.test(email);
@@ -522,47 +522,49 @@ async function sendWidget(ctx, next) {
                           }
                           });
                       setTimeout(showSpinny, ${ appSetting.timer * 1000 });
-                      $(document).ready(function() {
-                        $(document).mouseleave(function(e) {
-                          if(e.clientY < 0) {
-                            var tadaTokenDiff = (new Date().getTime()) - getCookie('timeToken');
-                            theWheel = new Winwheel({
-                              'numSegments': 4,         // Number of segments
-                              'outerRadius': 180,       // The size of the wheel.
-                              'innerRadius': 70,
-                              'centerX': 180,       // Used to position on the background correctly.
-                              'centerY': 180,
-                              'pointerAngle': 90,
-                              'textFontSize': 13,        // Font size.
-                              'textOrientation': 'curved',
-                              'responsive': true,
-                              'textAligment': 'outer',
-                              'segments':            // Definition of all the segments.
-                                  [
-                                      { 'fillStyle': '#eae56f', 'text': '25% Discount' },
-                                      { 'fillStyle': '#89f26e', 'text': '$10 Cash' },
-                                      { 'fillStyle': '#e7706f', 'text': 'Free Shipping' },
-                                      { 'fillStyle': '#89f26e', 'text': '15% Discount' }
-                                  ],
-                              'animation':               // Definition of the animation
-                              {
-                                  'type': 'spinToStop',
-                                  'duration': 3,
-                                  'spins': 5,
-                                  'callbackFinished': alertPrize
-                              }
-                              });
-                              if(tadaTokenDiff > 86400000) {
-                                  clearInterval(counter);
-                                  if(getCookie('modalClose') == null && getCookie('tadaExitIntent') == null) {
-                                    setTimeout(showSpinny, 0);
-                                    setCookie('tadaExitIntent', 1, 5);
-                                  }
-                                  return;
-                              }
-                          }
+                      if(exitIntentFlag) {
+                        $(document).ready(function() {
+                          $(document).mouseleave(function(e) {
+                            if(e.clientY < 0) {
+                              var tadaTokenDiff = (new Date().getTime()) - getCookie('timeToken');
+                              theWheel = new Winwheel({
+                                'numSegments': 4,         // Number of segments
+                                'outerRadius': 180,       // The size of the wheel.
+                                'innerRadius': 70,
+                                'centerX': 180,       // Used to position on the background correctly.
+                                'centerY': 180,
+                                'pointerAngle': 90,
+                                'textFontSize': 13,        // Font size.
+                                'textOrientation': 'curved',
+                                'responsive': true,
+                                'textAligment': 'outer',
+                                'segments':            // Definition of all the segments.
+                                    [
+                                        { 'fillStyle': '#eae56f', 'text': '25% Discount' },
+                                        { 'fillStyle': '#89f26e', 'text': '$10 Cash' },
+                                        { 'fillStyle': '#e7706f', 'text': 'Free Shipping' },
+                                        { 'fillStyle': '#89f26e', 'text': '15% Discount' }
+                                    ],
+                                'animation':               // Definition of the animation
+                                {
+                                    'type': 'spinToStop',
+                                    'duration': 3,
+                                    'spins': 5,
+                                    'callbackFinished': alertPrize
+                                }
+                                });
+                                if(tadaTokenDiff > 86400000) {
+                                    clearInterval(counter);
+                                    if(getCookie('modalClose') == null && getCookie('tadaExitIntent') == null) {
+                                      setTimeout(showSpinny, 0);
+                                      setCookie('tadaExitIntent', 1, 5);
+                                    }
+                                    return;
+                                }
+                            }
+                          });
                         });
-                      });
+                      }
                   }
                   return;
               }
