@@ -39,7 +39,7 @@ const AppSetting = mongoose.Schema({
     },
     exitIntent: {
         type: Boolean,
-        default: true
+        default: false
     }
 });
 
