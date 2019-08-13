@@ -1134,6 +1134,7 @@ function getCookie(name, cookie) {
 async function getSetting(ctx, next) {
   var param;
   var shop = '';
+console.log(ctx.request.header);
   if(ctx.request.header.referer) {
     param = deparam(ctx.request.header.referer);
     shop = param.shop;
