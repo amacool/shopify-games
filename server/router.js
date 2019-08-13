@@ -1138,6 +1138,9 @@ console.log(ctx.request.header);
   if(ctx.request.header.referer) {
     param = deparam(ctx.request.header.referer);
     shop = param.shop;
+    if(shop == null) {
+      shop = getCookie('shopOrigin', ctx.request.header.cookie);
+    }
   } else {
     shop = getCookie('shopOrigin', ctx.request.header.cookie);
   }
