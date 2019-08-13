@@ -1,4 +1,5 @@
-import '../stylesheets/loading.css';
+import { Page } from '@shopify/polaris'
+import '../stylesheets/loading.css'
 
 class Loading extends React.Component {
     componentDidMount = () => {
@@ -7,9 +8,11 @@ class Loading extends React.Component {
 
     render() {
         return (
-            <div id="loader-container">
-                <p id="loadingText">Loading</p>
-            </div>
+            <Page>
+                <div id="loader-container">
+                    <p id="loadingText">Loading</p>
+                </div>
+            </Page>
         )
     }
 }
