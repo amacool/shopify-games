@@ -1,4 +1,4 @@
-import { Page } from '@shopify/polaris'
+import { Page, Card, Stack, Checkbox } from '@shopify/polaris'
 
 export default class SelectPage extends React.Component {
     constructor(props) {
