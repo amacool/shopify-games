@@ -5,7 +5,7 @@ class Loading extends React.Component {
     componentDidMount = () => {
         setTimeout(function() {
             window.location.href = "/?hmac=true"
-        }, 4000);
+        }, 1000);
     }
 
     render() {
