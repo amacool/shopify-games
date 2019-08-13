@@ -65,9 +65,11 @@ async function processPayment(ctx, next) {
       });
     return ctx.redirect('/');
     // ctx.body = 'success';
-  } else {
+  } else if(ctx.query.hmac) {
     await next();
     // return ctx.redirect('/');
+  } else {
+    return ctx.redirect('/loading');
   }
 }
 
