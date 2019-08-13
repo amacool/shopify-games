@@ -377,6 +377,15 @@ async function sendWidget(ctx, next) {
 
           }
 
+          function showExitSpinny() {
+            var box = document.getElementById('spinny_box');
+            document.getElementById('tada_email_validate').style.display = 'none';
+
+            box.style.display = 'flex';
+            $('body').addClass('tada-modal-open');
+            document.getElementById('spin_email').value = "";
+          }
+
           $('#tada_modal_background').on('click', function () {
               showSpinny();
           });
@@ -556,8 +565,13 @@ async function sendWidget(ctx, next) {
                                 if(tadaTokenDiff > 86400000) {
                                     clearInterval(counter);
                                     if(getCookie('modalClose') == null && getCookie('tadaExitIntent') == null) {
-                                      setTimeout(showSpinny, 0);
-                                      setCookie('tadaExitIntent', 1, 5);
+                                      var box = document.getElementById('spinny_box');
+                                      document.getElementById('tada_email_validate').style.display = 'none';
+                        
+                                      if (box.style.display == '' || box.style.display == 'none') {
+                                        setCookie('tadaExitIntent', 1, 5);
+                                      }
+                                      setTimeout(showExitSpinny, 0);
                                     }
                                     return;
                                 }
