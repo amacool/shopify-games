@@ -21,7 +21,7 @@ async function installing(ctx) {
             shops[0].displayFrequency = 0;
             shops[0].pricingPlan = 0;
             shops[0].chargeId = '';
-            shops[0].exitIntent = true;
+            shops[0].exitIntent = false;
 	        shops[0].install = 1;
             shops[0].save();
         } else {
