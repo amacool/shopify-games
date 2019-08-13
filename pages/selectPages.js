@@ -11,14 +11,14 @@ export default class SelectPage extends React.Component {
             allBlogs: false,
             cart: false,
             search: false,
-            saveDisabled: false
+            saveDisabled: true
         }
     }
 
     render() {
         return (
             <Page
-                breadcrumbs={[{content: 'Settings', url: '/'}]}
+                breadcrumbs={[{content: 'Settings', url: '/?hmac=true'}]}
                 title="Select Specific Pages"
                 primaryAction={{content: "Save", disabled: this.state.saveDisabled, onAction: this.saveSubSetting}}
                 >
