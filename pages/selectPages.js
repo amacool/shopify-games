@@ -29,22 +29,22 @@ export default class SelectPage extends React.Component {
                 </Card>
                 <Card title="Static Pages" sectioned>
                     <Stack vertical>
-                        <Checkbox label="Select All" id="allStatic" name="allStatic" onChange={this.handleCheck('static', true)} checked={this.state.allStatic} />
+                        <Checkbox label="Select All" id="allStatic" name="allStatic" onChange={this.handleCheck('allStatic', true)} checked={this.state.allStatic} />
                     </Stack>
                 </Card>
                 <Card title="Collections Pages" sectioned>
                     <Stack vertical>
-                        <Checkbox label="Select All" id="allCollections" name="allCollections" onChange={this.handleCheck('collections', true)} checked={this.state.allCollections} />
+                        <Checkbox label="Select All" id="allCollections" name="allCollections" onChange={this.handleCheck('allCollections', true)} checked={this.state.allCollections} />
                     </Stack>
                 </Card>
                 <Card title="Products Pages" sectioned>
                     <Stack vertical>
-                        <Checkbox label="Select All" id="allProducts" name="allProducts" onChange={this.handleCheck('products', true)} checked={this.state.allProducts} />
+                        <Checkbox label="Select All" id="allProducts" name="allProducts" onChange={this.handleCheck('allProducts', true)} checked={this.state.allProducts} />
                     </Stack>
                 </Card>
                 <Card title="Blog Pages" sectioned>
                     <Stack vertical>
-                        <Checkbox label="Select All" id="allBlogs" name="allBlogs" onChange={this.handleCheck('blogs', true)} checked={this.state.allBlogs} />
+                        <Checkbox label="Select All" id="allBlogs" name="allBlogs" onChange={this.handleCheck('allBlogs', true)} checked={this.state.allBlogs} />
                     </Stack>
                 </Card>
                 <Card title="Cart Page" sectioned>
