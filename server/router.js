@@ -149,6 +149,42 @@ async function premiumMembership(ctx, next) {
   // ctx.redirect(confirmationURL);
 }
 
+async function getPriceRules(ctx, next) {
+  const priceRuleUrl = `admin/api/${API_VERSION}/price_rules.json`;
+  var param;
+  var shop = '';
+  if(ctx.request.header.referer) {
+    param = deparam(ctx.request.header.referer);
+    shop = param.shop;
+  } else {
+    shop = getCookie('shopOrigin', ctx.request.header.cookie);
+  }
+  await AppSetting.find({shop: shop}, (err, setting) => {
+    if(err) {
+      return;
+    }
+    accessToken = setting[0].accessToken;
+    const options = {
+      credentials: 'include',
+      headers: {
+        'X-Shopify-Access-Token': accessToken,
+        'Content-Type': 'application/json'
+      }
+    }
+
+    const optionsWithGet = { ...options, method: 'GET' };
+    fetch(`https://${shop}/${priceRuleUrl}`, optionsWithGet)
+        .then(response => response.json())
+        .then(json => {
+          console.log(json)
+          if(json.errors) {
+            return;
+          }
+        })
+  });
+  ctx.body = 'success';
+}
+
 async function addDiscount(ctx, next) {
   var data = '';
   if(ctx.request.body.discount_code && ctx.request.body.discount_type) {
@@ -1210,3 +1246,4 @@ module.exports.saveSetting = saveSetting;
 module.exports.premiumMembership = premiumMembership;
 module.exports.freeMembership = freeMembership;
 module.exports.uninstall = uninstall;
+module.exports.getPriceRules = getPriceRules;
