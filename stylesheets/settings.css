@@ -21,8 +21,8 @@
     text-align: left;
 }
 
-body {
-    background: white !important;
+#__next {
+    background: white;
 }
 
 .subsetting {
