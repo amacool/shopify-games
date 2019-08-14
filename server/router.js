@@ -548,8 +548,7 @@ async function sendWidget(ctx, next) {
                               'callbackFinished': alertPrize
                           }
                           });
-                      
-                      if(exitIntentFlag && detectmob()) {
+                      if(exitIntentFlag && !detectmob()) {
                         $(document).ready(function() {
                           $(document).mouseleave(function(e) {
                             if(e.clientY < 0) {
