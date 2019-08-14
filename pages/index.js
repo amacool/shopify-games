@@ -73,17 +73,17 @@ class Index extends React.Component {
           <Stack vertical>
             <RadioButton label="Every Time" helpText="Game modal will show every time" id="every" name="every" onChange={this.handleFrequency} checked={this.state.frequency === "every"} />
             { (this.state.frequency === "every")?(
-                <Checkbox checked={this.state.exitIntent} label="Show went visitor are about to exit the page (Desktop only)" onChange={this.handleExitIntent} />
+                <Checkbox checked={this.state.exitIntent} label="On Desktop - Only show when visitor are about to exit the page" onChange={this.handleExitIntent} />
               ):(null)
             }
             <RadioButton label="One Time" helpText="Game will show only once per user." id="one" name="one" onChange={this.handleFrequency} checked={this.state.frequency === 'one'} />
             { (this.state.frequency === "one")?(
-                <Checkbox checked={this.state.exitIntent} label="Show went visitor are about to exit the page (Desktop only)" onChange={this.handleExitIntent} />
+                <Checkbox checked={this.state.exitIntent} label="On Desktop - Only show when visitor are about to exit the page" onChange={this.handleExitIntent} />
               ):(null)
             }
             <RadioButton label="Certain Period" helpText="Game will show in every certain period." id="period" name="period" onChange={this.handleFrequency} checked={this.state.frequency === 'period'} />
             { (this.state.frequency === "period")?(
-                <Checkbox checked={this.state.exitIntent} label="Show went visitor are about to exit the page (Desktop only)" onChange={this.handleExitIntent} />
+                <Checkbox checked={this.state.exitIntent} label="On Desktop - Only show when visitor are about to exit the page" onChange={this.handleExitIntent} />
               ):(null)
             }
           </Stack>

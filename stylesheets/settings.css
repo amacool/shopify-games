@@ -1,5 +1,6 @@
 .display-setting {
     padding-left: 10px;
+    margin-bottom: 20px;
 }
 
 .none-setting {
@@ -26,4 +27,5 @@ body {
 
 .subsetting {
     margin-left: 40px;
+    margin-bottom: 20px;
 }

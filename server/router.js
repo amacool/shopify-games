@@ -360,7 +360,7 @@ async function sendWidget(ctx, next) {
 
           $('#modal_close').on('click', function() {
             showSpinny();
-            setCookie('modalClose', 1);
+            setCookie('tada_modalClose', 1, 120);
           });
 
           function showSpinny() {
@@ -484,23 +484,39 @@ async function sendWidget(ctx, next) {
 
           $('#tadaclockdiv img').on('click', function() {
             $('#tadaclockdiv').hide();
-            setCookie('clockClose', 1);
+            setCookie('tada_clockClose', 1, 120);
           });
     
           function hideCouponModal() {
             document.getElementById('tadaCouponModal').style.display = 'none';
           }
+
+          function detectmob() { 
+            if( navigator.userAgent.match(/Android/i)
+            || navigator.userAgent.match(/webOS/i)
+            || navigator.userAgent.match(/iPhone/i)
+            || navigator.userAgent.match(/iPad/i)
+            || navigator.userAgent.match(/iPod/i)
+            || navigator.userAgent.match(/BlackBerry/i)
+            || navigator.userAgent.match(/Windows Phone/i)
+            ){
+               return true;
+             }
+            else {
+               return false;
+             }
+           }
     
           function timer() {
               var tadaTokenDiff = (new Date().getTime()) - getCookie('timeToken');
     
               if(tadaTokenDiff > 86400000 || getCookie('timeToken')==null) {
                   clearInterval(counter);
-                  eraseCookie('clockClose');
+                  eraseCookie('tada_clockClose');
 
                   $.getScript('https://app.trytada.com/Winwheel.js', function(data, textStatus, jqxhr) {
                     if(jqxhr.status == 200) {
-                      if(getCookie('modalClose') == null) {
+                      if(getCookie('tada_modalClose') == null) {
                         tadaCallback();
                       }
                     }
@@ -532,8 +548,8 @@ async function sendWidget(ctx, next) {
                               'callbackFinished': alertPrize
                           }
                           });
-                      setTimeout(showSpinny, ${ appSetting.timer * 1000 });
-                      if(exitIntentFlag) {
+                      
+                      if(exitIntentFlag && detectmob()) {
                         $(document).ready(function() {
                           $(document).mouseleave(function(e) {
                             if(e.clientY < 0) {
@@ -566,7 +582,7 @@ async function sendWidget(ctx, next) {
                                 });
                                 if(tadaTokenDiff > 86400000) {
                                     clearInterval(counter);
-                                    if(getCookie('modalClose') == null && getCookie('tadaExitIntent') == null) {
+                                    if(getCookie('tada_modalClose') == null && getCookie('tadaExitIntent') == null) {
                                       var box = document.getElementById('spinny_box');
                                       document.getElementById('tada_email_validate').style.display = 'none';
                         
@@ -580,6 +596,8 @@ async function sendWidget(ctx, next) {
                             }
                           });
                         });
+                      } else {
+                        setTimeout(showSpinny, ${ appSetting.timer * 1000 });
                       }
                   }
                   return;
@@ -587,7 +605,7 @@ async function sendWidget(ctx, next) {
     
               let timeRemaining = parseInt((86400000 - tadaTokenDiff) / 1000);
     
-              if (timeRemaining >= 0 && getCookie('clockClose')==null) {
+              if (timeRemaining >= 0 && getCookie('tada_clockClose')==null) {
                   $('#tadaclockdiv').show();
                   days = parseInt(timeRemaining / 86400);
                   timeRemaining = (timeRemaining % 86400);
@@ -867,7 +885,7 @@ async function sendWidget(ctx, next) {
 
         $('#tadaclockdiv img').on('click', function() {
           $('#tadaclockdiv').hide();
-          setCookie('clockClose', 1);
+          setCookie('tada_clockClose', 1);
         });
 
         function hideCouponModal() {
@@ -879,13 +897,13 @@ async function sendWidget(ctx, next) {
 
             if(tadaTokenDiff > 86400000) {
                 clearInterval(counter);
-                eraseCookie('clockClose');
+                eraseCookie('tada_clockClose');
                 return;
             }
 
             let timeRemaining = parseInt((86400000 - tadaTokenDiff) / 1000);
 
-              if (timeRemaining >= 0 && getCookie('clockClose')==null) {
+              if (timeRemaining >= 0 && getCookie('tada_clockClose')==null) {
                 $('#tadaclockdiv').show();
                 days = parseInt(timeRemaining / 86400);
                 timeRemaining = (timeRemaining % 86400);
