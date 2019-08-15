@@ -159,6 +159,8 @@ async function getPriceRules(ctx, next) {
   } else {
     shop = getCookie('shopOrigin', ctx.request.header.cookie);
   }
+console.log(ctx.request);
+console.log(shop);
   await AppSetting.find({shop: shop}, (err, setting) => {
     if(err) {
       return;
