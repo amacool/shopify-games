@@ -1255,5 +1255,4 @@ module.exports.saveSetting = saveSetting;
 module.exports.premiumMembership = premiumMembership;
 module.exports.freeMembership = freeMembership;
 module.exports.uninstall = uninstall;
-module.exports.getPriceRules = getPriceRules;
 module.exports.removeExpiredCode = removeExpiredCode;
