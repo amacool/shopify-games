@@ -95,8 +95,6 @@ app.prepare().then(() => {
 
   var j = schedule.scheduleJob(rule, removeExpiredCode);
 
-  removeExpiredCode();
-
   server.use(router.routes()).use(router.allowedMethods());
 
   server.listen(port, () => {
