@@ -26,41 +26,43 @@ async function removeExpiredCode() {
 
   if(appSettings && appSettings.length > 0) {
     appSettings.map(appSetting => {
-      const priceRuleUrl = `admin/api/${API_VERSION}/price_rules.json`;
-      const options = {
-        credentials: 'include',
-        headers: {
-          'X-Shopify-Access-Token': appSetting.accessToken,
-          'Content-Type': 'application/json'
-        }
-      };
-      const optionsWithGet = { ...options, method: 'GET' };
-
-      fetch(`https://${appSetting.shop}/${priceRuleUrl}`, optionsWithGet)
-      .then(response => response.json())
-      .then(json => {
-        console.log(json)
-        if(json.errors) {
-          return;
-        }
-
-        var price_rules = json.price_rules;
-        price_rules.map(price_rule => {
-          var ends_at = new Date(price_rule.ends_at);
-          var now = new Date();
-          if(ends_at > now) {
-            console.log('delete price rule');
-            var deleteUrl = `admin/api/${API_VERSION}/price_ruels/${price_rule.id}.json`;
-            const optionsWithDelete = { ...options, method: 'DELETE' };
-
-            fetch(`https://${appSetting.shop}/${deleteUrl}`, optionsWithDelete)
-            .then(response => response.json())
-            .then(json => {
-              console.log(json);
-            });
+      if(appSetting.install == 1 ) {
+        const priceRuleUrl = `admin/api/${API_VERSION}/price_rules.json`;
+        const options = {
+          credentials: 'include',
+          headers: {
+            'X-Shopify-Access-Token': appSetting.accessToken,
+            'Content-Type': 'application/json'
           }
-        });
-      })
+        };
+        const optionsWithGet = { ...options, method: 'GET' };
+
+        fetch(`https://${appSetting.shop}/${priceRuleUrl}`, optionsWithGet)
+        .then(response => response.json())
+        .then(json => {
+          if(json.errors) {
+            return;
+          }
+
+          var price_rules = json.price_rules;
+          price_rules.map(price_rule => {
+            var ends_at = new Date(price_rule.ends_at);
+            var now = new Date();
+            console.log( (ends_at>now) );
+            if(ends_at > now) {
+              console.log('delete price rule');
+              var deleteUrl = `admin/api/${API_VERSION}/price_ruels/${price_rule.id}.json`;
+              const optionsWithDelete = { ...options, method: 'DELETE' };
+
+              fetch(`https://${appSetting.shop}/${deleteUrl}`, optionsWithDelete)
+              .then(response => response.json())
+              .then(json => {
+                console.log(json);
+              });
+            }
+          });
+        })
+      }
     })
   }
 }
