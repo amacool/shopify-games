@@ -48,8 +48,7 @@ async function removeExpiredCode() {
           price_rules.map(price_rule => {
             var ends_at = new Date(price_rule.ends_at);
             var now = new Date();
-            console.log( (ends_at>now) );
-            if(ends_at > now) {
+            if(ends_at < now) {
               console.log('delete price rule');
               var deleteUrl = `admin/api/${API_VERSION}/price_ruels/${price_rule.id}.json`;
               const optionsWithDelete = { ...options, method: 'DELETE' };
