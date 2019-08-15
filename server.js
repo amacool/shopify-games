@@ -11,13 +11,17 @@ const { verifyRequest } = require('@shopify/koa-shopify-auth');
 const session = require('koa-session');
 const bodyParser = require('koa-bodyparser');
 const fs = require('fs');
+var schedule = require('node-schedule');
+
+var rule = new schedule.RecurrenceRule();
+rule.hour = 3;
 
 dotenv.config();
 const { default: graphQLProxy } = require('@shopify/koa-shopify-graphql-proxy');
 const { ApiVersion } = require('@shopify/koa-shopify-graphql-proxy');
 const Router = require('koa-router');
 const { receiveWebhook } = require('@shopify/koa-shopify-webhooks');
-const { processPayment, freeMembership, uninstall, getPriceRules, premiumMembership, addDiscount, sendWidget, changeDisplaySetting, getSetting, saveSetting }  = require('./server/router');
+const { processPayment, freeMembership, removeExpiredCode, uninstall, getPriceRules, premiumMembership, addDiscount, sendWidget, changeDisplaySetting, getSetting, saveSetting }  = require('./server/router');
 const installing = require('./server/install');
 const mongoose = require('mongoose');
 
@@ -89,6 +93,10 @@ app.prepare().then(() => {
     origin: true,
     credentials: true
   };
+
+  var j = schedule.scheduleJob(rule, removeExpiredCode);
+
+  removeExpiredCode();
 
   server.use(router.routes()).use(router.allowedMethods());
 

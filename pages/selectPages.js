@@ -16,11 +16,11 @@ export default class SelectPage extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://app.trytada.com/getpricerules')
-        .then(resp => resp.json())
-        .then(json => {
-            console.log(json);
-        });
+        // fetch('http://app.trytada.com/getpricerules')
+        // .then(resp => resp.json())
+        // .then(json => {
+        //     console.log(json);
+        // });
     }
 
     render() {
