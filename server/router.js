@@ -554,8 +554,8 @@ async function sendWidget(ctx, next) {
     
           function timer() {
               var tadaTokenDiff = (new Date().getTime()) - getCookie('tada_${id}timeToken');
-    
-              if(tadaTokenDiff > 86400000 || getCookie('timeToken')==null) {
+              console.log('token diff - ', tadaTokenDiff);
+              if(tadaTokenDiff > 86400000 || getCookie('tada_${id}timeToken')==null) {
                   clearInterval(counter);
                   eraseCookie('tada_${id}clockClose');
 
@@ -978,7 +978,7 @@ async function sendWidget(ctx, next) {
   }
 }
 
-async function changeDisplaySetting(fromPage, toPage, shop, accessToken) {
+async function changeDisplaySetting(fromPage, toPage, shop, accessToken, id) {
     var mainThemeId = await fetch(
       `https://${shop}/admin/api/${API_VERSION}/themes.json`, {
         method: 'GET',
@@ -1008,7 +1008,7 @@ async function changeDisplaySetting(fromPage, toPage, shop, accessToken) {
     ).then(resp => resp.json())
     .then(async function(json){
       var pageContent = json.asset.value;
-      pageContent = changeDisplayPage(pageContent, toPage);
+      pageContent = changeDisplayPage(pageContent, toPage, id);
       await fetch(
         `https://${shop}/admin/api/${API_VERSION}/themes/${mainThemeId}/assets.json`, {
         method: 'PUT',
@@ -1030,7 +1030,7 @@ async function changeDisplaySetting(fromPage, toPage, shop, accessToken) {
     });
 }
 
-function changeDisplayPage(pageContent, toPage) {
+function changeDisplayPage(pageContent, toPage, id) {
   const entities = new Entities();
   const $ = cheerio.load(pageContent);
 
@@ -1058,7 +1058,7 @@ function changeDisplayPage(pageContent, toPage) {
                               url: 'https://app.trytada.com/getWidget',
                               type: 'post',
                               data: JSON.stringify({
-                                timeToken: getCookie('timeToken'),
+                                timeToken: getCookie('tada_${id}timeToken'),
 				shop: window.location.hostname
                               }),
                               contentType: 'application/json',
@@ -1128,7 +1128,7 @@ function changeDisplayPage(pageContent, toPage) {
                           url: 'https://app.trytada.com/getWidget',
                           type: 'post',
                           data: JSON.stringify({
-                            timeToken: getCookie('timeToken'),
+                            timeToken: getCookie('tada_${id}timeToken'),
 			    shop: window.location.hostname
                           }),
                           contentType: 'application/json',
@@ -1232,7 +1232,7 @@ async function saveSetting(ctx, next) {
     }
     if(setting[0]) {
       if(setting[0].displaySetting != updateSetting.displaySetting) {
-        changeDisplaySetting(setting[0].displaySetting, updateSetting.displaySetting, shop, setting[0].accessToken);
+        changeDisplaySetting(setting[0].displaySetting, updateSetting.displaySetting, shop, setting[0].accessToken, setting[0].id);
       }
       setting[0].displaySetting = updateSetting.displaySetting;
       setting[0].displayFrequency = updateSetting.displayFrequency;
