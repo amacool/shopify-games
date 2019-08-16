@@ -1356,7 +1356,7 @@ async function saveSetting(ctx, next) {
   ctx.body = 'success';
 }
 
-async function saveSetting(ctx, next) {
+async function savePageSetting(ctx, next) {
   var shop = ctx.request.body.shop;
   await AppSetting.find({shop: shop}, (err, setting) => {
     if(err) {
@@ -1384,3 +1384,4 @@ module.exports.freeMembership = freeMembership;
 module.exports.uninstall = uninstall;
 module.exports.removeExpiredCode = removeExpiredCode;
 module.exports.getPageSetting = getPageSetting;
+module.exports.savePageSetting = savePageSetting;

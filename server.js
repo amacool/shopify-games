@@ -59,7 +59,7 @@ app.prepare().then(() => {
   router.post('/changeDisplaySetting', changeDisplaySetting);
   router.post('/getSetting', getSetting);
   router.post('/saveSetting', saveSetting);
-  router.post('/savePageSEtting', savePageSetting);
+  router.post('/savePageSetting', savePageSetting);
 
 
   server.use(
