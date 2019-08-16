@@ -198,7 +198,6 @@ class Index extends React.Component {
      this.setState({
 	    saveDisabled: true
      });
-     window.location.href = '/?hmac=true&shop' + Cookies.get('shopOrigin');
    });
   }
 }

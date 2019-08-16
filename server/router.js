@@ -1215,22 +1215,22 @@ function changeDisplayPage(pageContent, toPage, id) {
                         var pathname = window.location.pathname;
                         if(`;
     if(pages.homepage) {
-      htmlWidget += `pathname == '/' &&`;
+      htmlWidget += `pathname == '/' ||`;
     }
     if(pages.allCollections) {
-      htmlWidget += ` pathname.indexOf('/collections') > -1 &&`;
+      htmlWidget += ` pathname.indexOf('/collections') > -1 ||`;
     }
     if(pages.allProducts) {
-      htmlWidget += ` pathname.indexOf('/products') > -1 &&`;
+      htmlWidget += ` pathname.indexOf('/products') > -1 ||`;
     }
     if(pages.allBlogs) {
-      htmlWidget += ` pathname.indexOf('/blogs') > -1 &&`; 
+      htmlWidget += ` pathname.indexOf('/blogs') > -1 ||`;
     }
     if(pages.cart) {
-      htmlWidget += ` pathname.indexOf('/cart') > -1 &&`;
+      htmlWidget += ` pathname.indexOf('/cart') > -1 ||`;
     }
     if(pages.search) {
-      htmlWidget += ` pathname.indexOf('/search') > -1 &&`;
+      htmlWidget += ` pathname.indexOf('/search') > -1 ||`;
     }
 
     htmlWidget = htmlWidget.substring(0, htmlWidget.length - 2);
@@ -1286,6 +1286,7 @@ function changeDisplayPage(pageContent, toPage, id) {
         })();
 
         </script>`;
+	 $('.tada-app-content').html(htmlWidget);
   }
   return entities.decode($.html());
 }
@@ -1363,7 +1364,7 @@ async function savePageSetting(ctx, next) {
       console.log(err);
       return;
     }
-
+console.log(setting[0]);
     if(setting[0]) {
       setting[0].pageSetting = ctx.request.body.updateSetting;
       changeDisplaySetting('', setting[0].pageSetting, setting[0].shop, setting[0].accessToken, setting[0].id);
