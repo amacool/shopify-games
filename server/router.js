@@ -66,7 +66,7 @@ async function removeExpiredCode() {
 async function processPayment(ctx, next) {
   // const params = deparam(ctx.request.url);
   console.log('/ request - ', ctx.request);
-  const shop = ctx.cookies.get('shopOrigin');
+  var shop = ctx.cookies.get('shopOrigin');
   ctx.cookies.set("shopOrigin", shop, { httpOnly: false });
   var appSetting = await AppSetting.findOne({shop: shop});
   var accessToken = '';
