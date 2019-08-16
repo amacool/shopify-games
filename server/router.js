@@ -54,11 +54,7 @@ async function removeExpiredCode() {
               var deleteUrl = `admin/api/${API_VERSION}/price_rules/${price_rule.id}.json`;
               const optionsWithDelete = { ...options, method: 'DELETE' };
 
-              fetch(`https://${appSetting.shop}/${deleteUrl}`, optionsWithDelete)
-              .then(response => response.json())
-              .then(json => {
-                console.log(json);
-              });
+              fetch(`https://${appSetting.shop}/${deleteUrl}`, optionsWithDelete);
             }
           });
         })
@@ -633,7 +629,7 @@ async function sendWidget(ctx, next) {
                                       document.getElementById('tada_email_validate').style.display = 'none';
                         
                                       if (box.style.display == '' || box.style.display == 'none') {
-                                        setCookie('tadaExitIntent', 1, 5);
+                                        setCookie('tadaExitIntent', 1, ${appSetting.exitIntentTime});
                                       }
                                       setTimeout(showExitSpinny, 0);
                                     }

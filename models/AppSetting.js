@@ -40,6 +40,10 @@ const AppSetting = mongoose.Schema({
     exitIntent: {
         type: Boolean,
         default: false
+    },
+    exitIntentTime: {
+        type: Number,
+        default: 5
     }
 });
 

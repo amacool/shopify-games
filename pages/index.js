@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import '../stylesheets/settings.css';
 
 class Index extends React.Component {
-  state = { displaySetting: '', timer: 0, pricingPlan: "", frequencyDay: 0, frequencyHour: 0, frequencyMin: 0, showPeriod: false, frequency: '', saveDisabled: true, exitIntent: true };
+  state = { displaySetting: '', timer: 0, pricingPlan: "", frequencyDay: 0, frequencyHour: 0, frequencyMin: 0, showPeriod: false, frequency: '', saveDisabled: true, exitIntent: true, exitIntentTime: 5 };
 
   componentDidMount = () => {
     fetch(`https://app.trytada.com/getSetting`, {
@@ -43,7 +43,8 @@ class Index extends React.Component {
           pricingPlan,
           frequency: json.frequency,
           showPeriod,
-          exitIntent: json.exitIntent
+          exitIntent: json.exitIntent,
+          exitIntentTime: json.exitIntentTime
         });
       }
     });
@@ -73,18 +74,27 @@ class Index extends React.Component {
           <Stack vertical>
             <RadioButton label="Every Time" helpText="Game modal will show every time" id="every" name="every" onChange={this.handleFrequency} checked={this.state.frequency === "every"} />
             { (this.state.frequency === "every")?(
-                <Checkbox checked={this.state.exitIntent} label="On Desktop - Only show when visitor are about to exit the page" onChange={this.handleExitIntent} />
-              ):(null)
+                <div className="exit-intent">
+                  <Checkbox checked={this.state.exitIntent} label="On Desktop - Only show when visitor are about to exit the page" onChange={this.handleExitIntent} />
+                  <TextField value={this.state.exitIntentTime} onChange={this.timerChange('exitIntentTime')} label="Period for displaying Exit Intent" type="number" />
+                </div>
+          ):(null)
             }
             <RadioButton label="One Time" helpText="Game will show only once per user." id="one" name="one" onChange={this.handleFrequency} checked={this.state.frequency === 'one'} />
             { (this.state.frequency === "one")?(
-                <Checkbox checked={this.state.exitIntent} label="On Desktop - Only show when visitor are about to exit the page" onChange={this.handleExitIntent} />
-              ):(null)
+                <div className="exit-intent">
+                  <Checkbox checked={this.state.exitIntent} label="On Desktop - Only show when visitor are about to exit the page" onChange={this.handleExitIntent} />
+                  <TextField value={this.state.exitIntentTime} onChange={this.timerChange('exitIntentTime')} label="Period for displaying Exit Intent" type="number" />
+                </div>
+          ):(null)
             }
             <RadioButton label="Certain Period" helpText="Game will show in every certain period." id="period" name="period" onChange={this.handleFrequency} checked={this.state.frequency === 'period'} />
             { (this.state.frequency === "period")?(
+              <div className="exit-intent">
                 <Checkbox checked={this.state.exitIntent} label="On Desktop - Only show when visitor are about to exit the page" onChange={this.handleExitIntent} />
-              ):(null)
+                <TextField value={this.state.exitIntentTime} onChange={this.timerChange('exitIntentTime')} label="Period for displaying Exit Intent" type="number" />
+              </div>
+          ):(null)
             }
           </Stack>
           { (this.state.showPeriod)?(
@@ -160,7 +170,7 @@ class Index extends React.Component {
   }
 
   saveSetting = () => {
-   var { pricingPlan, displaySetting, frequencyDay, frequencyHour, frequencyMin, timer, frequency, exitIntent } = this.state;
+   var { pricingPlan, displaySetting, frequencyDay, frequencyHour, frequencyMin, timer, frequency, exitIntent, exitIntentTime } = this.state;
    var updateSetting = {};
    if(pricingPlan == "free") {
      updateSetting.pricingPlan = 0;
@@ -172,6 +182,7 @@ class Index extends React.Component {
    updateSetting.timer = timer;
    updateSetting.frequency = frequency;
    updateSetting.exitIntent = exitIntent;
+   updateSetting.exitIntentTime = exitIntentTime;
    fetch(`https://app.trytada.com/saveSetting`, {
      method: 'POST',
      headers: {
