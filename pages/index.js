@@ -62,10 +62,11 @@ class Index extends React.Component {
             <RadioButton label="All Pages" helpText="App Widget will be displayed on all pages." id="all" name="all" onChange={this.handleDisplayChange}  checked={this.state.displaySetting === 'all'}/>
             <RadioButton label="Product Page" helpText="App Widget will be displayed only on product pages" id="product" name="product" onChange={this.handleDisplayChange} checked={this.state.displaySetting === 'product'} />
             <RadioButton label="Specific Page" helpText="App Widget will be displayed only on specific pages" id="specific" name="specific" onChange={this.handleDisplayChange} checked={this.state.displaySetting === 'specific'} />
-            { (this.state.displaySetting === 'specific') }
-            <div className="subsetting">
-              <Link url="/selectPages">Select Specific Pages</Link>
-            </div>
+            { (this.state.displaySetting === 'specific')?(
+              <div className="subsetting">
+                <Link url="/selectPages">Select Specific Pages</Link>
+              </div>
+            ):(null) }
           </Stack>
 
           <TextField value={this.state.timer} onChange={this.timerChange('timer')} label="Timer Value" type="number" />
