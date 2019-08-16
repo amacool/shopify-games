@@ -1340,7 +1340,7 @@ async function saveSetting(ctx, next) {
       return;
     }
     if(setting[0]) {
-      if(setting[0].displaySetting != updateSetting.displaySetting) {
+      if(setting[0].displaySetting != updateSetting.displaySetting && updateSetting.displaySetting != 'specific') {
         changeDisplaySetting(setting[0].displaySetting, updateSetting.displaySetting, shop, setting[0].accessToken, setting[0].id);
       }
       setting[0].displaySetting = updateSetting.displaySetting;
