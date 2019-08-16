@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const AppSetting = mongoose.Schema({
-    id: {
-        type: Number,
-        default: 0
-    },
     displaySetting: {
         type: String,
         default: 'all'

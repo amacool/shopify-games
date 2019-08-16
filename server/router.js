@@ -468,7 +468,7 @@ async function sendWidget(ctx, next) {
                   });
                   var d = new Date();
                   var now = d.getTime();
-                  setCookie('tada_${id}timeToken', now, 100);
+                  setCookie('tada_${id}timeToken', now, 120);
                   setCookie('tada_${id}Coupon', randomCoupon, 1);
                   setCookie('tada_${id}DiscountType', indicatedSegment.text, 1);
                   counter = setInterval(timer, 1000);
@@ -929,7 +929,7 @@ async function sendWidget(ctx, next) {
 
         $('#tadaclockdiv img').on('click', function() {
           $('#tadaclockdiv').hide();
-          setCookie('tada_${id}clockClose', 1);
+          setCookie('tada_${id}clockClose', 1, 120);
         });
 
         function hideCouponModal() {
