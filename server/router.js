@@ -111,6 +111,7 @@ async function processPayment(ctx, next) {
   } else if(ctx.query.hmac) {
     var param = deparam(ctx.request.url);
     shop = param.shop;
+console.log(shop);
     if(shop && shop.length > 0) {
       ctx.cookies.set('shopOrigin', shop, {httpOnly: false});
     }

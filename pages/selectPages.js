@@ -34,7 +34,6 @@ export default class SelectPage extends React.Component {
                 }
 
                 var setting = JSON.parse(json.pageSetting);
-                console.log(setting);
                 this.setState({
                     homepage: setting.homepage,
                     allCollections: setting.allCollections,
@@ -49,7 +48,7 @@ export default class SelectPage extends React.Component {
     render() {
         return (
             <Page
-                breadcrumbs={[{content: 'Settings', url: '/?hmac=true&shop='+ this.state.shop}]}
+                breadcrumbs={[{content: 'Settings', url: '/?hmac=true'}]}
                 title="Select Specific Pages"
                 primaryAction={{content: "Save", disabled: this.state.saveDisabled, onAction: this.saveSubSetting}}
                 >
@@ -110,11 +109,9 @@ export default class SelectPage extends React.Component {
                 updateSetting,
                 shop: Cookies.get('shopOrigin')
             })
-        }).then(resp => resp.json() )
-        .then(json => {
-		this.setState({
-			saveDisabled: true
-		});
         });
+	this.setState({
+	    saveDisabled: true
+	});
     }
 }
