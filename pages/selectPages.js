@@ -16,11 +16,17 @@ export default class SelectPage extends React.Component {
     }
 
     componentDidMount() {
-        // fetch('http://app.trytada.com/getpricerules')
-        // .then(resp => resp.json())
-        // .then(json => {
-        //     console.log(json);
-        // });
+        fetch(`https://app.trytada.com/getSetting`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                shop: Cookies.get('shopOrigin')
+            })
+            })
+            .then(resp => resp.json())
+            .then(json => {});
     }
 
     render() {
