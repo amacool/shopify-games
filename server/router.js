@@ -1218,9 +1218,6 @@ function changeDisplayPage(pageContent, toPage, id) {
     if(pages.homepage) {
       htmlWidget += `pathname == '/' ||`;
     }
-    if(pages.allCollections) {
-      htmlWidget += ` pathname.indexOf('/collections') > -1 ||`;
-    }
     if(pages.allProducts) {
       htmlWidget += ` pathname.indexOf('/products') > -1 ||`;
     }

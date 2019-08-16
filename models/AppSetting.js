@@ -9,7 +9,6 @@ const AppSetting = mongoose.Schema({
         type: String,
         default: `{
             homepage: false,
-            allCollections: false,
             allProducts: false,
             allBlogs: false,
             cart: false,

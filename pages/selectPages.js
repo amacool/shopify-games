@@ -6,7 +6,6 @@ export default class SelectPage extends React.Component {
         super(props)
         this.state = {
             homepage: false,
-            allCollections: false,
             allProducts: false,
             allBlogs: false,
             cart: false,
@@ -36,7 +35,6 @@ export default class SelectPage extends React.Component {
                 var setting = JSON.parse(json.pageSetting);
                 this.setState({
                     homepage: setting.homepage,
-                    allCollections: setting.allCollections,
                     allProducts: setting.allProducts,
                     allBlogs: setting.allBlogs,
                     cart: setting.cart,
@@ -55,11 +53,6 @@ export default class SelectPage extends React.Component {
                 <Card title="Homepage" sectioned>
                     <Stack vertical>
                         <Checkbox label="Select" id="homepage" name="homepage" onChange={this.handleCheck('homepage')} checked={this.state.homepage} />
-                    </Stack>
-                </Card>
-                <Card title="Collections Pages" sectioned>
-                    <Stack vertical>
-                        <Checkbox label="Select All" id="allCollections" name="allCollections" onChange={this.handleCheck('allCollections')} checked={this.state.allCollections} />
                     </Stack>
                 </Card>
                 <Card title="Products Pages" sectioned>
@@ -94,10 +87,10 @@ export default class SelectPage extends React.Component {
     }
 
     saveSubSetting = () => {
-        const { homepage, allCollections, allProducts, allBlogs, search, cart } = this.state;
+        const { homepage, allProducts, allBlogs, search, cart } = this.state;
 
         var updateSetting = JSON.stringify({
-            homepage, allCollections, allProducts, allBlogs, cart, search
+            homepage, allProducts, allBlogs, cart, search
         });
 
         fetch('https://app.trytada.com/savePageSetting', {
