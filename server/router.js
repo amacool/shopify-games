@@ -1335,6 +1335,8 @@ async function saveSetting(ctx, next) {
   } else {
     shop = getCookie('shopOrigin', ctx.request.header.cookie);
   }
+  shop = ctx.request.body.shop;
+console.log(shop);
   var updateSetting = ctx.request.body.updateSetting;
   await AppSetting.find({shop: shop}, (err, setting) => {
     if(err) {
