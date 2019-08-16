@@ -11,7 +11,8 @@ export default class SelectPage extends React.Component {
             allBlogs: false,
             cart: false,
             search: false,
-            saveDisabled: true
+            saveDisabled: true,
+            shop: Cookies.get('shopOrigin')
         }
     }
 
@@ -48,7 +49,7 @@ export default class SelectPage extends React.Component {
     render() {
         return (
             <Page
-                breadcrumbs={[{content: 'Settings', url: '/?hmac=true&shop='+ Cookies.get('shopOrigin')}]}
+                breadcrumbs={[{content: 'Settings', url: '/?hmac=true&shop='+ this.state.shop}]}
                 title="Select Specific Pages"
                 primaryAction={{content: "Save", disabled: this.state.saveDisabled, onAction: this.saveSubSetting}}
                 >
