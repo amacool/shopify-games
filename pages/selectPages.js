@@ -6,7 +6,6 @@ export default class SelectPage extends React.Component {
         super(props)
         this.state = {
             homepage: false,
-            allStatic: false,
             allCollections: false,
             allProducts: false,
             allBlogs: false,
@@ -17,7 +16,7 @@ export default class SelectPage extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`https://app.trytada.com/getSetting`, {
+        fetch(`https://app.trytada.com/getPageSetting`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -27,49 +26,60 @@ export default class SelectPage extends React.Component {
             })
             })
             .then(resp => resp.json())
-            .then(json => {});
+            .then(json => {
+                if(json == 'error') {
+                    console.log('error');
+                    return;
+                }
+
+                var setting = JSON.parse(json);
+                console.log(setting);
+                this.setState({
+                    homepage: setting.homepage,
+                    allCollections: setting.allCollections,
+                    allProducts: setting.allProducts,
+                    allBlogs: setting.allBlogs,
+                    cart: setting.cart,
+                    search: setting.search
+                })
+            });
     }
 
     render() {
         return (
             <Page
-                breadcrumbs={[{content: 'Settings', url: '/?hmac=true'}]}
+                breadcrumbs={[{content: 'Settings', url: '/?hmac=true&shop='+ Cookies.get('shopOrigin')}]}
                 title="Select Specific Pages"
                 primaryAction={{content: "Save", disabled: this.state.saveDisabled, onAction: this.saveSubSetting}}
                 >
                 <Card title="Homepage" sectioned>
                     <Stack vertical>
-                        <Checkbox label="Select" id="homepage" name="homepage" onChange={this.handleCheck('homepage', false)} checked={this.state.homepage} />
-                    </Stack>
-                </Card>
-                <Card title="Static Pages" sectioned>
-                    <Stack vertical>
-                        <Checkbox label="Select All" id="allStatic" name="allStatic" onChange={this.handleCheck('allStatic', true)} checked={this.state.allStatic} />
+                        <Checkbox label="Select" id="homepage" name="homepage" onChange={this.handleCheck('homepage')} checked={this.state.homepage} />
                     </Stack>
                 </Card>
                 <Card title="Collections Pages" sectioned>
                     <Stack vertical>
-                        <Checkbox label="Select All" id="allCollections" name="allCollections" onChange={this.handleCheck('allCollections', true)} checked={this.state.allCollections} />
+                        <Checkbox label="Select All" id="allCollections" name="allCollections" onChange={this.handleCheck('allCollections')} checked={this.state.allCollections} />
                     </Stack>
                 </Card>
                 <Card title="Products Pages" sectioned>
                     <Stack vertical>
-                        <Checkbox label="Select All" id="allProducts" name="allProducts" onChange={this.handleCheck('allProducts', true)} checked={this.state.allProducts} />
+                        <Checkbox label="Select All" id="allProducts" name="allProducts" onChange={this.handleCheck('allProducts')} checked={this.state.allProducts} />
                     </Stack>
                 </Card>
                 <Card title="Blog Pages" sectioned>
                     <Stack vertical>
-                        <Checkbox label="Select All" id="allBlogs" name="allBlogs" onChange={this.handleCheck('allBlogs', true)} checked={this.state.allBlogs} />
+                        <Checkbox label="Select All" id="allBlogs" name="allBlogs" onChange={this.handleCheck('allBlogs')} checked={this.state.allBlogs} />
                     </Stack>
                 </Card>
                 <Card title="Cart Page" sectioned>
                     <Stack vertical>
-                        <Checkbox label="Select" id="cart" name="cart" onChange={this.handleCheck('cart', false)} checked={this.state.cart} />
+                        <Checkbox label="Select" id="cart" name="cart" onChange={this.handleCheck('cart')} checked={this.state.cart} />
                     </Stack>
                 </Card>
                 <Card title="Search Page" sectioned>
                     <Stack vertical>
-                        <Checkbox label="Select" id="search" name="search" onChange={this.handleCheck('search', true)} checked={this.state.search} />
+                        <Checkbox label="Select" id="search" name="search" onChange={this.handleCheck('search')} checked={this.state.search} />
                     </Stack>
                 </Card>
             </Page>
@@ -78,15 +88,30 @@ export default class SelectPage extends React.Component {
 
     handleCheck = (field, allFlag) => {
         return (checked) => {
-            if(allFlag) {
-
-            }
 
             this.setState({[field]: checked, saveDisabled: false});
         }
     }
 
     saveSubSetting = () => {
+        const { homepage, allCollections, allProducts, allBlogs, search, cart } = this.state;
 
+        var updateSetting = JSON.stringify({
+            homepage, allCollections, allProducts, allBlogs, cart, search
+        });
+
+        fetch('https://app.trytada.com/savePageSetting', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                updateSetting,
+                shop: Cookies.get('shopOrigin')
+            })
+        }).then(resp => resp.json() )
+        .then(json => {
+            console.log(json);
+        });
     }
 }

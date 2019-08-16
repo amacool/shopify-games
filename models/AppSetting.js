@@ -5,6 +5,17 @@ const AppSetting = mongoose.Schema({
         type: String,
         default: 'all'
     },
+    pageSetting: {
+        type: String,
+        default: `{
+            homepage: false,
+            allCollections: false,
+            allProducts: false,
+            allBlogs: false,
+            cart: false,
+            search: false
+        }`
+    },
     timer: {
         type: Number,
         default: 0

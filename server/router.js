@@ -154,6 +154,17 @@ async function freeMembership(ctx, next) {
   ctx.body = {success: true};
 }
 
+async function getPageSetting(ctx, next) {
+  var shop = getCookie('shopOrigin', ctx.request.header.cookie);
+
+  var appSetting = await AppSetting.findOne({shop: shop});
+  if(appSetting) {
+    ctx.body = appSetting.pageSetting;
+  } else {
+    ctx.body = 'error';
+  }
+}
+
 async function premiumMembership(ctx, next) {
   var param;
   var shop = '';
@@ -1057,7 +1068,7 @@ function changeDisplayPage(pageContent, toPage, id) {
                   //Code here
                   $(document).ready(function() {
                       setTimeout(function () {
-                        var pathname = window.location.href;
+                        var pathname = window.location.pathname;
                         if(pathname.indexOf('${toPage}') > -1) {
                             $.ajax({
                               url: 'https://app.trytada.com/getWidget',
@@ -1182,6 +1193,99 @@ function changeDisplayPage(pageContent, toPage, id) {
     </script>`);
   } else if(toPage == 'none') {
     $('.tada-app-content').html(``);
+  } else {
+    var pages = JSON.parse(toPage);
+    var htmlWidget = `<script>
+      (function() {
+          setTimeout(function () {
+              var checkReady = function(callback) {
+                  if (window.jQuery) {
+                      callback(jQuery);
+                  } else {
+                      window.setTimeout(function() {
+                          checkReady(callback);
+                      }, 100);
+                  }
+              };
+
+              var runCode = function($) {
+                  //Code here
+                  $(document).ready(function() {
+                      setTimeout(function () {
+                        var pathname = window.location.pathname;
+                        if(`;
+    if(pages.homepage) {
+      htmlWidget += `pathname == '/' &&`;
+    }
+    if(pages.allCollections) {
+      htmlWidget += ` pathname.indexOf('/collections') > -1 &&`;
+    }
+    if(pages.allProducts) {
+      htmlWidget += ` pathname.indexOf('/products') > -1 &&`;
+    }
+    if(pages.allBlogs) {
+      htmlWidget += ` pathname.indexOf('/blogs') > -1 &&`; 
+    }
+    if(pages.cart) {
+      htmlWidget += ` pathname.indexOf('/cart') > -1 &&`;
+    }
+    if(pages.search) {
+      htmlWidget += ` pathname.indexOf('/search') > -1 &&`;
+    }
+
+    htmlWidget = htmlWidget.substring(0, htmlWidget.length - 2);
+    htmlWidget += `) {
+              $.ajax({
+                url: 'https://app.trytada.com/getWidget',
+                type: 'post',
+                data: JSON.stringify({
+                  timeToken: getCookie('tada_${id}timeToken'),
+        shop: window.location.hostname
+                }),
+                contentType: 'application/json',
+                success: function(content){
+                    if(content != 'timeout') {
+                        $('.tada-app-content').html(content);
+                    } else {
+                        console.log('need to wait');
+                    }
+                },
+                error: function(){
+                    console.log('error');
+                }
+            });
+          }
+        }, 100);
+        });
+        };
+
+        function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+        }
+
+        if (typeof jQuery == "undefined") {
+        var script = document.createElement("SCRIPT");
+        script.src =
+        'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
+        script.type = 'text/javascript';
+        document.getElementsByTagName("head")[0].appendChild(script);
+        checkReady(function($) {
+        runCode($);
+        });
+        } else {
+        runCode(jQuery);
+        }
+        }, 1500);
+        })();
+
+        </script>`;
   }
   return entities.decode($.html());
 }
@@ -1252,6 +1356,23 @@ async function saveSetting(ctx, next) {
   ctx.body = 'success';
 }
 
+async function saveSetting(ctx, next) {
+  var shop = ctx.request.body.shop;
+  await AppSetting.find({shop: shop}, (err, setting) => {
+    if(err) {
+      console.log(err);
+      return;
+    }
+
+    if(setting[0]) {
+      setting[0].pageSetting = ctx.request.body.updateSetting;
+      changeDisplaySetting('', setting[0].pageSetting, setting[0].shop, setting[0].accessToken, setting[0].id);
+    }
+  });
+
+  ctx.body = 'success';
+}
+
 module.exports.processPayment = processPayment;
 module.exports.addDiscount = addDiscount;
 module.exports.sendWidget = sendWidget;
@@ -1262,3 +1383,4 @@ module.exports.premiumMembership = premiumMembership;
 module.exports.freeMembership = freeMembership;
 module.exports.uninstall = uninstall;
 module.exports.removeExpiredCode = removeExpiredCode;
+module.exports.getPageSetting = getPageSetting;

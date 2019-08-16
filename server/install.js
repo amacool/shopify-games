@@ -24,7 +24,17 @@ async function installing(ctx) {
             shops[0].chargeId = '';
             shops[0].exitIntent = false;
             shops[0].exitIntentTime = 5;
-	        shops[0].install = 1;
+            shops[0].install = 1;
+            shops[0].pageSetting = `{
+                homepage: false,
+                allStatic: false,
+                allCollections: false,
+                allProducts: false,
+                allBlogs: false,
+                cart: false,
+                search: false,
+                saveDisabled: false
+            }`;
             shops[0].save();
             id = shops[0].id;
         } else {
