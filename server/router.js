@@ -109,6 +109,11 @@ async function processPayment(ctx, next) {
     return ctx.redirect('/');
     // ctx.body = 'success';
   } else if(ctx.query.hmac) {
+    var param = deparam(ctx.request.url);
+    shop = param.shop;
+    if(shop && shop.length > 0) {
+      ctx.cookies.set('shopOrigin', shop, {httpOnly: false});
+    }
     await next();
     // return ctx.redirect('/');
   } else {
