@@ -1,4 +1,5 @@
 import { Page, Card, Stack, Checkbox } from '@shopify/polaris'
+import Cookies from 'js-cookie'
 
 export default class SelectPage extends React.Component {
     constructor(props) {
