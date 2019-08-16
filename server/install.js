@@ -8,7 +8,8 @@ const AppSetting = require('../models/AppSetting');
 async function installing(ctx) {
     const { shop, accessToken } = ctx.session;
     console.log('install shop - ', shop);
-    AppSetting.find({shop: shop}, (err, shops) => {
+    var id = 0;
+    await AppSetting.find({shop: shop}, (err, shops) => {
         if(err) {
             console.log(err);
             return;
@@ -25,12 +26,14 @@ async function installing(ctx) {
             shops[0].exitIntentTime = 5;
 	        shops[0].install = 1;
             shops[0].save();
+            id = shops[0].id;
         } else {
             const newShop = new AppSetting();
             newShop.shop = shop;
             newShop.accessToken = accessToken;
 	        newShop.install = 1;
             newShop.save();
+            id = newShop.id;
         }
     });
 
@@ -90,7 +93,7 @@ async function installing(ctx) {
                                             url: 'https://app.trytada.com/getWidget',
                                             type: 'post',
                                             data: JSON.stringify({
-                                                timeToken: getCookie('timeToken'),
+                                                timeToken: getCookie('tada_${id}timeToken'),
                                 shop: window.location.hostname
                                             }),
                                             contentType: 'application/json',
@@ -168,7 +171,82 @@ async function installing(ctx) {
                         console.log(err);
                         return '';
                     }
-                    additional = html;
+                    additional = `<div class="tada-app-content">
+                    <script>
+                
+                        (function () {
+                            setTimeout(function () {
+                                var checkReady = function (callback) {
+                                    if (window.jQuery) {
+                                        callback(jQuery);
+                                    } else {
+                                        window.setTimeout(function () {
+                                            checkReady(callback);
+                                        }, 100);
+                                    }
+                                };
+                
+                                var runCode = function ($) {
+                                    //Code here
+                                    $(document).ready(function () {
+                                        setTimeout(function () {
+                                            $.ajax({
+                                                url: 'https://app.trytada.com/getWidget',
+                                                type: 'post',
+                                                data: JSON.stringify({
+                                                    timeToken: getCookie('tada_${id}timeToken'),
+                                    shop: window.location.hostname
+                                                }),
+                                                contentType: 'application/json',
+                                                success: function (content) {
+                                                    if (content != 'timeout') {
+                                                        $('.tada-app-content').html(content);
+                                                    } else {
+                                                        console.log('need to wait');
+                                                    }
+                                                },
+                                                error: function () {
+                                                    console.log('error');
+                                                }
+                                            });
+                
+                                        }, 100);
+                                    });
+                
+                
+                                };
+                
+                
+                                function getCookie(name) {
+                                    var nameEQ = name + "=";
+                                    var ca = document.cookie.split(';');
+                                    for (var i = 0; i < ca.length; i++) {
+                                        var c = ca[i];
+                                        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                                        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                                    }
+                                    return null;
+                                }
+                
+                
+                                if (typeof jQuery == "undefined") {
+                                    var script = document.createElement("SCRIPT");
+                                    script.src =
+                                        'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js';
+                                    script.type = 'text/javascript';
+                                    document.getElementsByTagName("head")[0].appendChild(script);
+                                    checkReady(function ($) {
+                                        runCode($);
+                                    });
+                                } else {
+                                    runCode(jQuery);
+                                }
+                            }, 1500);
+                        })();
+                
+                    </script>
+                </div>
+                `;
                     body = body.substring(0, index) + additional + body.substring(index, body.length);
                     await fetch(
                         `https://${shop}/admin/api/${API_VERSION}/themes/${mainThemeId}/assets.json`, {
