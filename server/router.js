@@ -1238,6 +1238,7 @@ async function saveSetting(ctx, next) {
       setting[0].pricingPlan = updateSetting.pricingPlan;
       setting[0].frequency = updateSetting.frequency;
       setting[0].exitIntent = updateSetting.exitIntent;
+      setting[0].exitIntentTime = updateSetting.exitIntentTime;
       setting[0].save();
     }
   });
