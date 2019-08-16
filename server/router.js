@@ -1367,6 +1367,8 @@ async function savePageSetting(ctx, next) {
     if(setting[0]) {
       setting[0].pageSetting = ctx.request.body.updateSetting;
       changeDisplaySetting('', setting[0].pageSetting, setting[0].shop, setting[0].accessToken, setting[0].id);
+      setting[0].displaySetting = 'specific';
+      setting[0].save();
     }
   });
 
