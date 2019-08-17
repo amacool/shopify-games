@@ -70,7 +70,7 @@ export default class SelectPage extends React.Component {
                                         <Checkbox label={pages[key].title} id={key} name={key} onChange={this.selectPage(key)} checked={pages[key].show} />
                                     );
                                 }
-                            })}
+                            }.bind(this))}
                         </Stack>
                     ):(null)}
                 </Card>
@@ -86,7 +86,7 @@ export default class SelectPage extends React.Component {
                                     <Checkbox label={products[key].title} id={key} name={key} onChange={this.selectProduct(key)} checked={products[key].show} />
                                 );
                             }
-                        })}
+                        }.bind(this))}
                         </Stack>
                     ):(null)}
                 </Card>
@@ -102,7 +102,7 @@ export default class SelectPage extends React.Component {
                                         <Checkbox label={blogs[key].title} id={key} name={key} onChange={this.selectBlog(key)} checked={blogs[key].show} />
                                     );
                                 }
-                            })}
+                            }.bind(this))}
                         </Stack>
                     ):(null)}
                 </Card>
