@@ -155,17 +155,6 @@ async function freeMembership(ctx, next) {
   ctx.body = {success: true};
 }
 
-async function getPageSetting(ctx, next) {
-  var shop = getCookie('shopOrigin', ctx.request.header.cookie);
-
-  var appSetting = await AppSetting.findOne({shop: shop});
-  if(appSetting) {
-    ctx.body = appSetting.pageSetting;
-  } else {
-    ctx.body = 'error';
-  }
-}
-
 async function premiumMembership(ctx, next) {
   var param;
   var shop = '';
@@ -1218,11 +1207,32 @@ function changeDisplayPage(pageContent, toPage, id) {
     if(pages.homepage) {
       htmlWidget += `pathname == '/' ||`;
     }
-    if(pages.allProducts) {
-      htmlWidget += ` pathname.indexOf('/products') > -1 ||`;
+    if(pages.products) {
+      Object.keys(pages.products).forEach(function(key) {
+        if(key != "allPages") {
+          if(pages.products[key].show) {
+            htmlWidget += ` pathname.indexOf('/${pages.products[key].handle}') > -1 ||`;
+          }
+        }
+      })
     }
-    if(pages.allBlogs) {
-      htmlWidget += ` pathname.indexOf('/blogs') > -1 ||`;
+    if(pages.blogs) {
+      Object.keys(pages.blogs).forEach(function(key) {
+        if(key != "allBlogs") {
+          if(pages.blogs[key].show) {
+            htmlWidget += ` pathname.indexOf('/${pages.blogs[key].handle}') > -1 ||`;
+          }
+        }
+      })
+    }
+    if(pages.pages) {
+      Object.keys(pages.pages).forEach(function(key) {
+        if(key != "allStatic") {
+          if(pages.pages[key].show) {
+            htmlWidget += ` pathname.indexOf('/${pages.pages[key].handle}') > -1 ||`;
+          }
+        }
+      })
     }
     if(pages.cart) {
       htmlWidget += ` pathname.indexOf('/cart') > -1 ||`;
@@ -1376,9 +1386,12 @@ console.log(setting[0]);
   ctx.body = 'success';
 }
 
-async function getPages(ctx, next) {
-  const appSetting = await AppSetting.findOne();
-
+async function getPageSetting(ctx, next) {
+  var appSetting = await AppSetting.findOne();
+  var pageSetting = JSON.parse(appSetting.pageSetting);
+  var staticSetting = pageSetting.pages;
+  var blogSetting = blogSetting.blogs;
+  var productSetting = productSetting.products;
   const getPageUrl = `https://${appSetting.shop}/admin/api/${API_VERSION}/pages.json`;
 
   const options = {
@@ -1393,10 +1406,98 @@ async function getPages(ctx, next) {
 
   await fetch(getPageUrl, optionsWithGet).then(resp => resp.json())
   .then(json => {
-    console.log(json);
+    var pages = json.pages;
+    
+    Object.keys(staticSetting).forEach(function(key) {
+      if(key != "allPages") {
+        if(!existsInArray(key, pages)) {
+          delete staticSetting[key];
+        }
+      }
+    });
+    pages.map(page => {
+      if(!staticSetting[page.id]) {
+        staticSetting[page.id].title = page.title;
+        staticSetting[page.id].handle = page.handle;
+        if(staticSetting.allPages) {
+          staticSetting[page.id].show = true;
+        } else {
+          staticSetting[page.id].show = false;
+        }
+      }
+    })
+  });
+
+  const getBlogUrl = `https://${appSetting.shop}/admin/api/${API_VERSION}/blogs.json`;
+
+  await fetch(getBlogUrl, optionsWithGet).then(resp => resp.json())
+  .then(json => {
+    var blogs = json.blogs;
+    Object.keys(blogSetting).forEach(function(key) {
+      if(key != "allBlogs") {
+        if(!existsInArray(key, blogs)) {
+          delete blogSetting[key];
+        }
+      }
+    })
+    blogs.map(blog => {
+      if(!blogSetting[blog.id]) {
+        blogSetting[blog.id].title = blog.title;
+        blogSetting[blog.id].handle = blog.handle;
+        if(blogSetting.allBlogs) {
+          blogSetting[blog.id].show = true;
+        } else {
+          blogSetting[blog.id].show = false;
+        }
+      }
+    });
   })
 
-  ctx.body = 'success';
+  const getProductUrl = `https://${appSetting.shop}/admin/api/${API_VERSION}/product_listings.json`;
+
+  await fetch(getProductUrl, optionsWithGet).then(resp => resp.json())
+  .then(json => {
+    var products = json.product_listings;
+    Object.keys(productSetting).forEach(function(key) {
+      if(key != "allProducts") {
+        if(!existsInArray(key, products)) {
+          delete productSetting[key];
+        }
+      }
+    });
+    products.map(product => {
+      if(!productSetting[product.id]) {
+        productSetting[product.id].title = product.title;
+        productSetting[product.id].handle = product.handle;
+        if(productSetting.allProducts) {
+          productSetting[product.id].show = true;
+        } else {
+          productSetting[product.id] = false;
+        }
+      }
+    })
+  })
+
+  pageSetting.pages = staticSetting;
+  pageSetting.products = productSetting;
+  pageSetting.blogs = blogSetting;
+
+  appSetting.pageSetting = JSON.stringify(pageSetting);
+  appSetting.save();
+
+  ctx.body = JSON.stringify(pageSetting);
+}
+
+function existsInArray(value, _array) {
+  var result = false;
+  for(var i=0; i<_array.length; i++) {
+    if(_array.id == value) {
+      result = true;
+      break;
+    }
+  }
+
+  return result;
 }
 
 module.exports.processPayment = processPayment;
@@ -1411,4 +1512,3 @@ module.exports.uninstall = uninstall;
 module.exports.removeExpiredCode = removeExpiredCode;
 module.exports.getPageSetting = getPageSetting;
 module.exports.savePageSetting = savePageSetting;
-module.exports.getPages = getPages;
