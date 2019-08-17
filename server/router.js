@@ -1384,7 +1384,7 @@ async function getPages(ctx, next) {
   const options = {
     credentials: 'include',
     headers: {
-      'X-Shopify-Access-Token': accessToken,
+      'X-Shopify-Access-Token': appSetting.accessToken,
       'Content-Type': 'application/json'
     }
   }
