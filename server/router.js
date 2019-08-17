@@ -1417,8 +1417,10 @@ async function getPageSetting(ctx, next) {
     });
     pages.map(page => {
       if(!staticSetting[page.id]) {
-        staticSetting[page.id].title = page.title;
-        staticSetting[page.id].handle = page.handle;
+        staticSetting[page.id] = {
+          title: page.title,
+          handle: page.handle
+        };
         if(staticSetting.allPages) {
           staticSetting[page.id].show = true;
         } else {
@@ -1442,8 +1444,10 @@ async function getPageSetting(ctx, next) {
     })
     blogs.map(blog => {
       if(!blogSetting[blog.id]) {
-        blogSetting[blog.id].title = blog.title;
-        blogSetting[blog.id].handle = blog.handle;
+        blogSetting[blog.id] = {
+          title: blog.title,
+          handle: blog.handle
+        };
         if(blogSetting.allBlogs) {
           blogSetting[blog.id].show = true;
         } else {
@@ -1467,8 +1471,10 @@ async function getPageSetting(ctx, next) {
     });
     products.map(product => {
       if(!productSetting[product.id]) {
-        productSetting[product.id].title = product.title;
-        productSetting[product.id].handle = product.handle;
+        productSetting[product.id] = {
+          title: product.title,
+          handle: product.handle
+        }
         if(productSetting.allProducts) {
           productSetting[product.id].show = true;
         } else {
