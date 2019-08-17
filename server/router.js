@@ -1376,6 +1376,29 @@ console.log(setting[0]);
   ctx.body = 'success';
 }
 
+async function getPages(ctx, next) {
+  const appSetting = await AppSetting.findOne();
+
+  const getPageUrl = `https://${appSetting.shop}/admin/api/${API_VERSION}/pages.json`;
+
+  const options = {
+    credentials: 'include',
+    headers: {
+      'X-Shopify-Access-Token': accessToken,
+      'Content-Type': 'application/json'
+    }
+  }
+
+  const optionsWithGet = { ...options, method: 'GET' };
+
+  await fetch(getPageUrl, optionsWithGet).then(resp => resp.json())
+  .then(json => {
+    console.log(json);
+  })
+
+  ctx.body = 'success';
+}
+
 module.exports.processPayment = processPayment;
 module.exports.addDiscount = addDiscount;
 module.exports.sendWidget = sendWidget;
@@ -1388,3 +1411,4 @@ module.exports.uninstall = uninstall;
 module.exports.removeExpiredCode = removeExpiredCode;
 module.exports.getPageSetting = getPageSetting;
 module.exports.savePageSetting = savePageSetting;
+module.exports.getPages = getPages;
