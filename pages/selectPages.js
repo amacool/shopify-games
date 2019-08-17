@@ -33,7 +33,7 @@ export default class SelectPage extends React.Component {
                     return;
                 }
 
-                var setting = JSON.parse(json.pageSetting);
+                var setting = json;
                 this.setState({
                     homepage: setting.homepage,
                     products: setting.products,
@@ -63,7 +63,7 @@ export default class SelectPage extends React.Component {
                     </Stack>
                     { (Object.keys(this.state.pages).length > 1)?(
                         <Stack>
-                            { Object.keys(this.state.pages).forEach(key => {
+                            { Object.keys(this.state.pages).forEach(function(key) {
                                 if(key != "allPages") {
                                     return (
                                         <Checkbox label={this.state.pages[key].title} id={key} name={key} onChange={this.selectPage(key)} checked={this.state.pages[key].show} />
@@ -79,7 +79,7 @@ export default class SelectPage extends React.Component {
                     </Stack>
                     { (Object.keys(this.state.products).length > 1)?(
                         <Stack vertical>
-                        { Object.keys(this.state.products).forEach(key => {
+                        { Object.keys(this.state.products).forEach(function(key) {
                             if(key != "allProducts") {
                                 return (
                                     <Checkbox label={this.state.products[key].title} id={key} name={key} onChange={this.selectProduct(key)} checked={this.state.products[key].show} />
@@ -95,7 +95,7 @@ export default class SelectPage extends React.Component {
                     </Stack>
                     { (Object.keys(this.state.blogs).length > 1)?(
                         <Stack>
-                            { Object.keys(this.state.blogs).forEach(key => {
+                            { Object.keys(this.state.blogs).forEach(function(key) {
                                 if(key != "allBlogs") {
                                     return (
                                         <Checkbox label={this.state.blogs[key].title} id={key} name={key} onChange={this.selectBlog(key)} checked={this.state.blogs[key].show} />

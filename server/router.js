@@ -1457,11 +1457,15 @@ async function getPageSetting(ctx, next) {
     });
   })
 
-  const getProductUrl = `https://${appSetting.shop}/admin/api/${API_VERSION}/product_listings.json`;
+  const getProductUrl = `https://${appSetting.shop}/admin/api/${API_VERSION}/products.json`;
 
   await fetch(getProductUrl, optionsWithGet).then(resp => resp.json())
   .then(json => {
-    var products = json.product_listings;
+    var products = json.products;
+console.log(json);
+if(json.errors) {
+	return;
+}
     Object.keys(productSetting).forEach(function(key) {
       if(key != "allProducts") {
         if(!existsInArray(key, products)) {
@@ -1478,7 +1482,7 @@ async function getPageSetting(ctx, next) {
         if(productSetting.allProducts) {
           productSetting[product.id].show = true;
         } else {
-          productSetting[product.id] = false;
+          productSetting[product.id].show = false;
         }
       }
     })
