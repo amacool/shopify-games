@@ -78,7 +78,11 @@ class Index extends React.Component {
             { (this.state.frequency === "every")?(
                 <div className="exit-intent">
                   <Checkbox checked={this.state.exitIntent} label="On Desktop - Only show when visitor are about to exit the page" onChange={this.handleExitIntent} />
-                  <TextField value={this.state.exitIntentTime} onChange={this.timerChange('exitIntentTime')} label="Period for displaying Exit Intent" type="number" />
+                  {(this.state.exitIntent)?(
+                    <div>
+                      <TextField value={this.state.exitIntentTime} onChange={this.timerChange('exitIntentTime')} label="Period for displaying Exit Intent" type="number" />
+                    </div>
+                  ):(null)}
                 </div>
           ):(null)
             }
@@ -86,16 +90,24 @@ class Index extends React.Component {
             { (this.state.frequency === "one")?(
                 <div className="exit-intent">
                   <Checkbox checked={this.state.exitIntent} label="On Desktop - Only show when visitor are about to exit the page" onChange={this.handleExitIntent} />
-                  <TextField value={this.state.exitIntentTime} onChange={this.timerChange('exitIntentTime')} label="Period for displaying Exit Intent" type="number" />
+                  {(this.state.exitIntent)?(
+                    <div>
+                      <TextField value={this.state.exitIntentTime} onChange={this.timerChange('exitIntentTime')} label="Period for displaying Exit Intent" type="number" />
+                    </div>
+                  ):(null)}
                 </div>
           ):(null)
             }
             <RadioButton label="Certain Period" helpText="Game will show in every certain period." id="period" name="period" onChange={this.handleFrequency} checked={this.state.frequency === 'period'} />
             { (this.state.frequency === "period")?(
-              <div className="exit-intent">
-                <Checkbox checked={this.state.exitIntent} label="On Desktop - Only show when visitor are about to exit the page" onChange={this.handleExitIntent} />
-                <TextField value={this.state.exitIntentTime} onChange={this.timerChange('exitIntentTime')} label="Period for displaying Exit Intent" type="number" />
-              </div>
+                <div className="exit-intent">
+                  <Checkbox checked={this.state.exitIntent} label="On Desktop - Only show when visitor are about to exit the page" onChange={this.handleExitIntent} />
+                  {(this.state.exitIntent)?(
+                    <div>
+                      <TextField value={this.state.exitIntentTime} onChange={this.timerChange('exitIntentTime')} label="Period for displaying Exit Intent" type="number" />
+                    </div>
+                  ):(null)}
+                </div>
           ):(null)
             }
           </Stack>
