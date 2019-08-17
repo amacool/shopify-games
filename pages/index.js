@@ -7,7 +7,7 @@ class Index extends React.Component {
   state = { displaySetting: '', timer: 0, pricingPlan: "", frequencyDay: 0, frequencyHour: 0, frequencyMin: 0, showPeriod: false, frequency: '', saveDisabled: true, exitIntent: true, exitIntentTime: 5 };
 
   componentDidMount = () => {
-    fetch(`https://app.trytada.com/getSetting`, {
+    fetch(`https://app.trytada.com/test`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
