@@ -47,6 +47,7 @@ export default class SelectPage extends React.Component {
 
     render() {
         const { products, pages, blogs } = this.state;
+        console.log(this.state);
         return (
             <Page
                 breadcrumbs={[{content: 'Settings', url: '/?hmac=true'}]}
@@ -63,8 +64,9 @@ export default class SelectPage extends React.Component {
                         <Checkbox label="Select All" id="page" name="page" onChange={this.selectAllPage('page')} checked={this.state.pages.allPages} />
                     </Stack>
                     { (Object.keys(pages).length > 1)?(
-                        <Stack>
+                        <Stack vertical>
                             { Object.keys(pages).forEach(function(key) {
+                                console.log(key);
                                 if(key != "allPages") {
                                     return (
                                         <Checkbox label={pages[key].title} id={key} name={key} onChange={this.selectPage(key)} checked={pages[key].show} />
@@ -81,6 +83,7 @@ export default class SelectPage extends React.Component {
                     { (Object.keys(products).length > 1)?(
                         <Stack vertical>
                         { Object.keys(products).forEach(function(key) {
+                            console.log(key);
                             if(key != "allProducts") {
                                 return (
                                     <Checkbox label={products[key].title} id={key} name={key} onChange={this.selectProduct(key)} checked={products[key].show} />
@@ -95,7 +98,7 @@ export default class SelectPage extends React.Component {
                         <Checkbox label="Select All" id="allBlogs" name="allBlogs" onChange={this.selectAllPage('blog')} checked={blogs.allBlogs} />
                     </Stack>
                     { (Object.keys(blogs).length > 1)?(
-                        <Stack>
+                        <Stack vertical>
                             { Object.keys(blogs).forEach(function(key) {
                                 if(key != "allBlogs") {
                                     return (
