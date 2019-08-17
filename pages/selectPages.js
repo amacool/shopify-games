@@ -66,7 +66,6 @@ export default class SelectPage extends React.Component {
                     { (Object.keys(pages).length > 1)?(
                         <Stack vertical>
                             { Object.keys(pages).forEach(function(key) {
-                                console.log(key);
                                 if(key != "allPages") {
                                     return (
                                         <Checkbox label={pages[key].title} id={key} name={key} onChange={this.selectPage(key)} checked={pages[key].show} />
@@ -83,12 +82,11 @@ export default class SelectPage extends React.Component {
                     { (Object.keys(products).length > 1)?(
                         <Stack vertical>
                         { Object.keys(products).forEach(function(key) {
-                            console.log(key);
                             if(key != "allProducts") {
-                                return (
+                               return (
                                     <Checkbox label={products[key].title} id={key} name={key} onChange={this.selectProduct(key)} checked={products[key].show} />
-                                );
-                            }
+                               );
+                          }
                         }.bind(this))}
                         </Stack>
                     ):(null)}
