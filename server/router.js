@@ -422,7 +422,7 @@ async function sendWidget(ctx, next) {
 
           $('#modal_close').on('click', function() {
             showSpinny();
-            setCookie('tada_${id}modalClose', 1, 120);
+            setCookie('tada_${id}_modalClose', 1, 120);
           });
 
           function showSpinny() {
@@ -485,9 +485,9 @@ async function sendWidget(ctx, next) {
                   });
                   var d = new Date();
                   var now = d.getTime();
-                  setCookie('tada_${id}timeToken', now, 120);
-                  setCookie('tada_${id}Coupon', randomCoupon, 1);
-                  setCookie('tada_${id}DiscountType', indicatedSegment.text, 1);
+                  setCookie('tada_${id}_timeToken', now, 120);
+                  setCookie('tada_${id}_Coupon', randomCoupon, 1);
+                  setCookie('tada_${id}_DiscountType', indicatedSegment.text, 1);
                   counter = setInterval(timer, 1000);
 
               }
@@ -539,14 +539,14 @@ async function sendWidget(ctx, next) {
           counter = setInterval(timer, 1000);
     
           $('#tadaclockdiv div').on('click', function() {
-            $('#tada_modal_coupon').html(getCookie('tada_${id}Coupon'));
-            $('#tada_modal_discount_type').html(getCookie('tada_${id}DiscountType'));
+            $('#tada_modal_coupon').html(getCookie('tada_${id}_Coupon'));
+            $('#tada_modal_discount_type').html(getCookie('tada_${id}_DiscountType'));
             document.getElementById('tadaCouponModal').style.display = 'flex';
           });
 
           $('#tadaclockdiv img').on('click', function() {
             $('#tadaclockdiv').hide();
-            setCookie('tada_${id}clockClose', 1, 120);
+            setCookie('tada_${id}_clockClose', 1, 120);
           });
     
           function hideCouponModal() {
@@ -570,15 +570,15 @@ async function sendWidget(ctx, next) {
            }
     
           function timer() {
-              var tadaTokenDiff = (new Date().getTime()) - getCookie('tada_${id}timeToken');
+              var tadaTokenDiff = (new Date().getTime()) - getCookie('tada_${id}_timeToken');
               console.log('token diff - ', tadaTokenDiff);
-              if(tadaTokenDiff > 86400000 || getCookie('tada_${id}timeToken')==null) {
+              if(tadaTokenDiff > 86400000 || getCookie('tada_${id}_timeToken')==null) {
                   clearInterval(counter);
-                  eraseCookie('tada_${id}clockClose');
+                  eraseCookie('tada_${id}_clockClose');
 
                   $.getScript('https://app.trytada.com/Winwheel.js', function(data, textStatus, jqxhr) {
                     if(jqxhr.status == 200) {
-                      if(getCookie('tada_${id}modalClose') == null) {
+                      if(getCookie('tada_${id}_modalClose') == null) {
                         tadaCallback();
                       }
                     }
@@ -588,7 +588,7 @@ async function sendWidget(ctx, next) {
                         $(document).ready(function() {
                           $(document).mouseleave(function(e) {
                             if(e.clientY < 0) {
-                              var tadaTokenDiff = (new Date().getTime()) - getCookie('tada_${id}timeToken');
+                              var tadaTokenDiff = (new Date().getTime()) - getCookie('tada_${id}_timeToken');
                               theWheel = new Winwheel({
                                 'numSegments': 4,         // Number of segments
                                 'outerRadius': 180,       // The size of the wheel.
@@ -617,12 +617,12 @@ async function sendWidget(ctx, next) {
                                 });
                                 if(tadaTokenDiff > 86400000) {
                                     clearInterval(counter);
-                                    if(getCookie('tada_${id}modalClose') == null && getCookie('tada_${id}ExitIntent') == null) {
+                                    if(getCookie('tada_${id}_modalClose') == null && getCookie('tada_${id}_ExitIntent') == null) {
                                       var box = document.getElementById('spinny_box');
                                       document.getElementById('tada_email_validate').style.display = 'none';
                         
                                       if (box.style.display == '' || box.style.display == 'none') {
-                                        setCookie('tada_${id}ExitIntent', 1, ${appSetting.exitIntentTime});
+                                        setCookie('tada_${id}_ExitIntent', 1, ${appSetting.exitIntentTime});
                                       }
                                       setTimeout(showExitSpinny, 0);
                                     }
@@ -666,7 +666,7 @@ async function sendWidget(ctx, next) {
     
               let timeRemaining = parseInt((86400000 - tadaTokenDiff) / 1000);
     
-              if (timeRemaining >= 0 && getCookie('tada_${id}clockClose')==null) {
+              if (timeRemaining >= 0 && getCookie('tada_${id}_clockClose')==null) {
                   $('#tadaclockdiv').show();
                   days = parseInt(timeRemaining / 86400);
                   timeRemaining = (timeRemaining % 86400);
@@ -939,14 +939,14 @@ async function sendWidget(ctx, next) {
       }
 
         $('#tadaclockdiv div').on('click', function() {
-          $('#tada_modal_coupon').html(getCookie('tada_${id}Coupon'));
-          $('#tada_modal_discount_type').html(getCookie('tada_${id}DiscountType'));
+          $('#tada_modal_coupon').html(getCookie('tada_${id}_Coupon'));
+          $('#tada_modal_discount_type').html(getCookie('tada_${id}_DiscountType'));
           document.getElementById('tadaCouponModal').style.display = 'flex';
         });
 
         $('#tadaclockdiv img').on('click', function() {
           $('#tadaclockdiv').hide();
-          setCookie('tada_${id}clockClose', 1, 120);
+          setCookie('tada_${id}_clockClose', 1, 120);
         });
 
         function hideCouponModal() {
@@ -954,17 +954,17 @@ async function sendWidget(ctx, next) {
         }
 
         function timer() {
-            var tadaTokenDiff = (new Date().getTime()) - getCookie('tada_${id}timeToken');
+            var tadaTokenDiff = (new Date().getTime()) - getCookie('tada_${id}_timeToken');
 
             if(tadaTokenDiff > 86400000) {
                 clearInterval(counter);
-                eraseCookie('tada_${id}clockClose');
+                eraseCookie('tada_${id}_clockClose');
                 return;
             }
 
             let timeRemaining = parseInt((86400000 - tadaTokenDiff) / 1000);
 
-              if (timeRemaining >= 0 && getCookie('tada_${id}clockClose')==null) {
+              if (timeRemaining >= 0 && getCookie('tada_${id}_clockClose')==null) {
                 $('#tadaclockdiv').show();
                 days = parseInt(timeRemaining / 86400);
                 timeRemaining = (timeRemaining % 86400);
@@ -1075,7 +1075,7 @@ function changeDisplayPage(pageContent, toPage, id) {
                               url: 'https://app.trytada.com/getWidget',
                               type: 'post',
                               data: JSON.stringify({
-                                timeToken: getCookie('tada_${id}timeToken'),
+                                timeToken: getCookie('tada_${id}_timeToken'),
 				shop: window.location.hostname
                               }),
                               contentType: 'application/json',
@@ -1145,7 +1145,7 @@ function changeDisplayPage(pageContent, toPage, id) {
                           url: 'https://app.trytada.com/getWidget',
                           type: 'post',
                           data: JSON.stringify({
-                            timeToken: getCookie('tada_${id}timeToken'),
+                            timeToken: getCookie('tada_${id}_timeToken'),
 			    shop: window.location.hostname
                           }),
                           contentType: 'application/json',
@@ -1237,7 +1237,7 @@ function changeDisplayPage(pageContent, toPage, id) {
                 url: 'https://app.trytada.com/getWidget',
                 type: 'post',
                 data: JSON.stringify({
-                  timeToken: getCookie('tada_${id}timeToken'),
+                  timeToken: getCookie('tada_${id}_timeToken'),
         shop: window.location.hostname
                 }),
                 contentType: 'application/json',
