@@ -46,6 +46,7 @@ export default class SelectPage extends React.Component {
     }
 
     render() {
+        const { products, pages, blogs } = this.state;
         return (
             <Page
                 breadcrumbs={[{content: 'Settings', url: '/?hmac=true'}]}
@@ -61,12 +62,12 @@ export default class SelectPage extends React.Component {
                     <Stack vertical>
                         <Checkbox label="Select All" id="page" name="page" onChange={this.selectAllPage('page')} checked={this.state.pages.allPages} />
                     </Stack>
-                    { (Object.keys(this.state.pages).length > 1)?(
+                    { (Object.keys(pages).length > 1)?(
                         <Stack>
-                            { Object.keys(this.state.pages).forEach(function(key) {
+                            { Object.keys(pages).forEach(function(key) {
                                 if(key != "allPages") {
                                     return (
-                                        <Checkbox label={this.state.pages[key].title} id={key} name={key} onChange={this.selectPage(key)} checked={this.state.pages[key].show} />
+                                        <Checkbox label={pages[key].title} id={key} name={key} onChange={this.selectPage(key)} checked={pages[key].show} />
                                     );
                                 }
                             })}
@@ -75,14 +76,14 @@ export default class SelectPage extends React.Component {
                 </Card>
                 <Card title="Products Pages" sectioned>
                     <Stack vertical>
-                        <Checkbox label="Select All" id="allProducts" name="allProducts" onChange={this.selectAllPage('product')} checked={this.state.products.allProducts} />
+                        <Checkbox label="Select All" id="allProducts" name="allProducts" onChange={this.selectAllPage('product')} checked={products.allProducts} />
                     </Stack>
-                    { (Object.keys(this.state.products).length > 1)?(
+                    { (Object.keys(products).length > 1)?(
                         <Stack vertical>
-                        { Object.keys(this.state.products).forEach(function(key) {
+                        { Object.keys(products).forEach(function(key) {
                             if(key != "allProducts") {
                                 return (
-                                    <Checkbox label={this.state.products[key].title} id={key} name={key} onChange={this.selectProduct(key)} checked={this.state.products[key].show} />
+                                    <Checkbox label={products[key].title} id={key} name={key} onChange={this.selectProduct(key)} checked={products[key].show} />
                                 );
                             }
                         })}
@@ -91,14 +92,14 @@ export default class SelectPage extends React.Component {
                 </Card>
                 <Card title="Blog Pages" sectioned>
                     <Stack vertical>
-                        <Checkbox label="Select All" id="allBlogs" name="allBlogs" onChange={this.selectAllPage('blog')} checked={this.state.blogs.allBlogs} />
+                        <Checkbox label="Select All" id="allBlogs" name="allBlogs" onChange={this.selectAllPage('blog')} checked={blogs.allBlogs} />
                     </Stack>
-                    { (Object.keys(this.state.blogs).length > 1)?(
+                    { (Object.keys(blogs).length > 1)?(
                         <Stack>
-                            { Object.keys(this.state.blogs).forEach(function(key) {
+                            { Object.keys(blogs).forEach(function(key) {
                                 if(key != "allBlogs") {
                                     return (
-                                        <Checkbox label={this.state.blogs[key].title} id={key} name={key} onChange={this.selectBlog(key)} checked={this.state.blogs[key].show} />
+                                        <Checkbox label={blogs[key].title} id={key} name={key} onChange={this.selectBlog(key)} checked={blogs[key].show} />
                                     );
                                 }
                             })}
