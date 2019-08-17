@@ -64,7 +64,7 @@ app.prepare().then(() => {
     createShopifyAuth({
       apiKey: SHOPIFY_API_KEY,
       secret: SHOPIFY_API_SECRET_KEY,
-      scopes: ['read_products', 'write_products', 'read_themes', 'write_themes', 'write_script_tags', 'read_price_rules', 'write_price_rules'],
+      scopes: ['read_products', 'write_products', 'read_themes', 'write_themes', 'write_script_tags', 'read_price_rules', 'write_price_rules', 'read_content', 'read_product_listings'],
       async afterAuth(ctx) {
         await installing(ctx);
       }
