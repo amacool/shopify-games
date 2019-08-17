@@ -1390,8 +1390,8 @@ async function getPageSetting(ctx, next) {
   var appSetting = await AppSetting.findOne();
   var pageSetting = JSON.parse(appSetting.pageSetting);
   var staticSetting = pageSetting.pages;
-  var blogSetting = blogSetting.blogs;
-  var productSetting = productSetting.products;
+  var blogSetting = pageSetting.blogs;
+  var productSetting = pageSetting.products;
   const getPageUrl = `https://${appSetting.shop}/admin/api/${API_VERSION}/pages.json`;
 
   const options = {
