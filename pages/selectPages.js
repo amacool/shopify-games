@@ -64,15 +64,15 @@ export default class SelectPage extends React.Component {
                         <Checkbox label="Select All" id="page" name="page" onChange={this.selectAllPage('page')} checked={this.state.pages.allPages} />
                     </Stack>
                     { (Object.keys(pages).length > 1)?(
-                        <Stack vertical>
-                            { Object.keys(pages).forEach(function(key) {
+                        <div>
+                            { Object.keys(pages).map(key => {
                                 if(key != "allPages") {
                                     return (
                                         <Checkbox label={pages[key].title} id={key} name={key} onChange={this.selectPage(key)} checked={pages[key].show} />
                                     );
                                 }
-                            }.bind(this))}
-                        </Stack>
+                            })}
+                        </div>
                     ):(null)}
                 </Card>
                 <Card title="Products Pages" sectioned>
