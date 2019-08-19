@@ -61,7 +61,7 @@ export default class SelectPage extends React.Component {
                 </Card>
                 <Card title="Static Pages" sectioned>
                     <Stack vertical>
-                        <Checkbox label="Select All" id="page" name="page" onChange={this.selectAllPage('page')} checked={this.state.pages.allPages} />
+                        <Checkbox label="Select All" id="page" name="page" onChange={this.selectAllPage('pages')} checked={this.state.pages.allPages} />
                     </Stack>
                     { (Object.keys(pages).length > 1)?(
                         <div>
@@ -77,34 +77,34 @@ export default class SelectPage extends React.Component {
                 </Card>
                 <Card title="Products Pages" sectioned>
                     <Stack vertical>
-                        <Checkbox label="Select All" id="allProducts" name="allProducts" onChange={this.selectAllPage('product')} checked={products.allProducts} />
+                        <Checkbox label="Select All" id="allProducts" name="allProducts" onChange={this.selectAllPage('products')} checked={products.allProducts} />
                     </Stack>
                     { (Object.keys(products).length > 1)?(
-                        <Stack vertical>
-                        { Object.keys(products).forEach(function(key) {
+                        <div>
+                        { Object.keys(products).map(key => {
                             if(key != "allProducts") {
                                return (
                                     <Checkbox label={products[key].title} id={key} name={key} onChange={this.selectProduct(key)} checked={products[key].show} />
                                );
                           }
-                        }.bind(this))}
-                        </Stack>
+                        })}
+                        </div>
                     ):(null)}
                 </Card>
                 <Card title="Blog Pages" sectioned>
                     <Stack vertical>
-                        <Checkbox label="Select All" id="allBlogs" name="allBlogs" onChange={this.selectAllPage('blog')} checked={blogs.allBlogs} />
+                        <Checkbox label="Select All" id="allBlogs" name="allBlogs" onChange={this.selectAllPage('blogs')} checked={blogs.allBlogs} />
                     </Stack>
                     { (Object.keys(blogs).length > 1)?(
-                        <Stack vertical>
-                            { Object.keys(blogs).forEach(function(key) {
+                        <div>
+                            { Object.keys(blogs).forEach(key => {
                                 if(key != "allBlogs") {
                                     return (
                                         <Checkbox label={blogs[key].title} id={key} name={key} onChange={this.selectBlog(key)} checked={blogs[key].show} />
                                     );
                                 }
-                            }.bind(this))}
-                        </Stack>
+                            })}
+                        </div>
                     ):(null)}
                 </Card>
                 <Card title="Cart Page" sectioned>
