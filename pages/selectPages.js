@@ -131,7 +131,8 @@ export default class SelectPage extends React.Component {
         return (checked) => {
             var array = this.state[field];
             Object.keys(array).forEach(function(key) {
-                array[key].show = checked;
+                if(key != "allPages" && key != "allProducts" && key != "allBlogs")
+                    array[key].show = checked;
             })
 
             this.setState({
