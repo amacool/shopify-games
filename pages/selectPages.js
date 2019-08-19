@@ -139,7 +139,8 @@ export default class SelectPage extends React.Component {
             })
 
             this.setState({
-                [field]: array
+                [field]: array,
+                saveDisabled: false
             });
         }
     }
