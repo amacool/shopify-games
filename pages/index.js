@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import '../stylesheets/settings.css';
 
 class Index extends React.Component {
-  state = { displaySetting: '', timer: 0, pricingPlan: "", frequencyDay: 0, frequencyHour: 0, frequencyMin: 0, showPeriod: false, frequency: '', saveDisabled: true, exitIntent: true, exitIntentTime: 5 };
+  state = { displaySetting: '', timer: 0, frequencyDay: 0, frequencyHour: 0, frequencyMin: 0, showPeriod: false, frequency: '', saveDisabled: true, exitIntent: true, exitIntentTime: 5 };
 
   componentDidMount = () => {
     fetch(`https://app.trytada.com/getSetting`, {
@@ -13,7 +13,7 @@ class Index extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        shop: Cookies.get('shopOrigin')
+        id: Cookies.get('widget_id')
       })
     })
     .then(resp => resp.json())
@@ -25,22 +25,17 @@ class Index extends React.Component {
         var frequencyDay = Math.floor(json.displayFrequency/(24*60*60*1000));
         var frequencyHour = Math.floor((json.displayFrequency - frequencyDay * (24* 60 * 60 * 1000))/(60*60*1000));
         var frequencyMin = Math.floor((json.displayFrequency - frequencyDay * (24*60*60) - frequencyHour * (60 * 60 * 1000))/(60 * 1000));
-        var pricingPlan = 'free';
-        if(json.pricingPlan == 1) {
-          pricingPlan = "premium";
-        }
         var showPeriod = false;
         if(json.frequency == 'period') {
           showPeriod = true;
         }
 
         this.setState({
-          displaySetting: json.displaySetting,
+          displaySetting: JSON.parse(json.pageSetting),
           frequencyDay,
           frequencyHour,
           frequencyMin,
           timer: json.timer,
-          pricingPlan,
           frequency: json.frequency,
           showPeriod,
           exitIntent: json.exitIntent,
@@ -58,11 +53,12 @@ class Index extends React.Component {
         <div className="display-setting">
           <Heading>Display Setting</Heading>
           <Stack vertical>
-            <RadioButton label="None" helpText="App Widget will not be displayed." id="none" name="none" onChange={this.handleDisplayChange} checked={this.state.displaySetting === 'none'} />
-            <RadioButton label="All Pages" helpText="App Widget will be displayed on all pages." id="all" name="all" onChange={this.handleDisplayChange}  checked={this.state.displaySetting === 'all'}/>
-            <RadioButton label="Product Page" helpText="App Widget will be displayed only on product pages" id="product" name="product" onChange={this.handleDisplayChange} checked={this.state.displaySetting === 'product'} />
-            <RadioButton label="Specific Page" helpText="App Widget will be displayed only on specific pages" id="specific" name="specific" onChange={this.handleDisplayChange} checked={this.state.displaySetting === 'specific'} />
-            { (this.state.displaySetting === 'specific')?(
+            <RadioButton label="All Pages" helpText="App Widget will be displayed on all pages." id="all" name="all" onChange={this.handleDisplayChange}  checked={this.state.displaySetting.all}/>
+            <RadioButton label="Product Page" helpText="App Widget will be displayed only on product pages" id="products" name="products" onChange={this.handleDisplayChange} checked={this.state.displaySetting.products.allProducts} />
+            <RadioButton label="Static Page" helpText="App Widget will be displayed only on static pages" id="pages" name="pages" onChange={this.handleDisplayChange} checked={this.state.displaySetting.pages.allPages} />
+            <RadioButton label="Blog Page" helpText="App Widget will be displayed only on blogs pages" id="blogs" name="blogs" onChange={this.handleDisplayChange} checked={this.state.displaySetting.blogs.allBlogs} />
+            <RadioButton label="Specific Page" helpText="App Widget will be displayed only on specific pages" id="specific" name="specific" onChange={this.handleDisplayChange} checked={this.state.displaySetting.specific} />
+            { (this.state.displaySetting.specific)?(
               <div className="subsetting">
                 <Link url="/selectPages">Select Specific Pages</Link>
               </div>
@@ -119,15 +115,6 @@ class Index extends React.Component {
             </Stack>
           ):(null)}
         </div>
-        <div className="pricing-plan">
-          <Heading>Pricing Plan</Heading>
-          <div className="plan-btn-group">
-            <Stack vertical>
-              <RadioButton label="Free Plan" helpText="$0, 500 times free" id="free" name="free" onChange={this.handlePricingChange} checked={this.state.pricingPlan === 'free'} />
-              <RadioButton label="Premium Plan" helpText="$19.99/month, unlimited times" id="premium" name="premium" onChange={this.handlePricingChange} checked={this.state.pricingPlan === "premium"} />
-            </Stack>
-          </div>
-        </div>
         <div className="page-footer">
           <Button onClick={() => this.saveSetting()} disabled={this.state.saveDisabled} primary>Save</Button>
         </div>
@@ -136,6 +123,7 @@ class Index extends React.Component {
   }
 
   handleDisplayChange = (checked, newValue) => {
+
     this.setState({ displaySetting: newValue, saveDisabled: false });
   }
 
@@ -146,24 +134,6 @@ class Index extends React.Component {
   timerChange = (field) => {
     return (value) => {
       if(value >= 0) this.setState({[field]: value, saveDisabled: false})
-    }
-  }
-
-  handlePricingChange = async (checked, newValue) => {
-    if(newValue == 'free') {
-      await fetch(`https://app.trytada.com/free`)
-      .then(response => response.json())
-      .then(json => {
-        if(json.success) {
-          this.setState({ pricingPlan: 'free', saveDisabled: false});
-        }
-      });
-    } else {
-      await fetch(`https://app.trytada.com/premium`)
-      .then(response => response.json())
-      .then(json => {
-        window.top.location.href = json.url;
-      });
     }
   }
 
@@ -192,7 +162,7 @@ class Index extends React.Component {
      updateSetting.pricingPlan = 1;
    }
    updateSetting.displayFrequency = frequencyDay * 60 * 60 * 24 + frequencyHour * 60 * 60 + frequencyMin * 60;
-   updateSetting.displaySetting = displaySetting;
+   updateSetting.displaySetting = JSON.stringify(displaySetting);
    updateSetting.timer = timer;
    updateSetting.frequency = frequency;
    updateSetting.exitIntent = exitIntent;

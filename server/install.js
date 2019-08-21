@@ -3,33 +3,28 @@ const fs = require('fs');
 const cheerio = require('cheerio');
 const Entities = require('html-entities').XmlEntities;
 const { API_VERSION, TUNNEL_URL } = process.env;
-const AppSetting = require('../models/AppSetting');
+const Shop = require('../models/Shop');
+const Widget = require('../models/Widget');
+const Discount = require('../models/Discount');
 
 async function installing(ctx) {
     const { shop, accessToken } = ctx.session;
     console.log('install shop - ', shop);
     var id = 0;
-    await AppSetting.find({shop: shop}, (err, shops) => {
+    await Shop.find({shop: shop}, (err, shops) => {
         if(err) {
             console.log(err);
             return;
         }
         if(shops.length > 0) {
             shops[0].accessToken = accessToken;
-            shops[0].displaySetting = 'all';
-            shops[0].timer = 0;
-            shops[0].frequency = 'every';
-            shops[0].displayFrequency = 0;
             shops[0].pricingPlan = 0;
             shops[0].chargeId = '';
-            shops[0].exitIntent = false;
-            shops[0].exitIntentTime = 5;
             shops[0].install = 1;
-            shops[0].pageSetting =  `{ "homepage": false,"pages": {"allPages": false},"products": {"allProducts": false},"blogs": {"allBlogs": false},"cart": false,"search": false}`;
             shops[0].save();
             id = shops[0].id;
         } else {
-            const newShop = new AppSetting();
+            const newShop = new Shop();
             newShop.shop = shop;
             newShop.accessToken = accessToken;
 	        newShop.install = 1;
@@ -70,7 +65,7 @@ async function installing(ctx) {
     ).then(resp => resp.json())
         .then(async function (json) {
             var body = json.asset.value;
-            if (body && body.includes('tada-app-content')) {
+            if(body && body.includes('tada-app-content')) {
                 const entities = new Entities();
                 const $ = cheerio.load(body);
                 $('.tada-app-content').html(`<script>
@@ -87,15 +82,14 @@ async function installing(ctx) {
                             };
             
                             var runCode = function ($) {
-                                //Code here
                                 $(document).ready(function () {
                                     setTimeout(function () {
                                         $.ajax({
                                             url: 'https://app.trytada.com/getWidget',
                                             type: 'post',
                                             data: JSON.stringify({
-                                                timeToken: getCookie('tada_${id}timeToken'),
-                                shop: window.location.hostname
+                                                shop: window.location.hostname,
+                                                path: window.location.pathname
                                             }),
                                             contentType: 'application/json',
                                             success: function (content) {
@@ -112,10 +106,7 @@ async function installing(ctx) {
             
                                     }, 100);
                                 });
-            
-            
                             };
-            
             
                             function getCookie(name) {
                                 var nameEQ = name + "=";
@@ -127,7 +118,6 @@ async function installing(ctx) {
                                 }
                                 return null;
                             }
-            
             
                             if (typeof jQuery == "undefined") {
                                 var script = document.createElement("SCRIPT");
@@ -145,36 +135,11 @@ async function installing(ctx) {
                     })();
             
                 </script>`);
-
-            await fetch(
-                `https://${shop}/admin/api/${API_VERSION}/themes/${mainThemeId}/assets.json`, {
-                    method: 'PUT',
-                    credentials: 'include',
-                    headers: {
-                        'X-Shopify-Access-Token': accessToken,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        "asset": {
-                            "key": "layout/theme.liquid",
-                            "value": entities.decode($.html())
-                        }
-                    })
-                }).then(resp => resp.json())
-                .then(json => {
-                    return json;
-                });
+                body = entities.decode($.html());
             } else {
                 var index = body.indexOf('</body>');
-                var additional = '';
-                await fs.readFile(__dirname + '/../public/container.html','utf8', async function (err, html) {
-                    if (err) {
-                        console.log(err);
-                        return '';
-                    }
-                    additional = `<div class="tada-app-content">
+                var additional = `<div class="tada-app-content">
                     <script>
-                
                         (function () {
                             setTimeout(function () {
                                 var checkReady = function (callback) {
@@ -188,15 +153,14 @@ async function installing(ctx) {
                                 };
                 
                                 var runCode = function ($) {
-                                    //Code here
                                     $(document).ready(function () {
                                         setTimeout(function () {
                                             $.ajax({
                                                 url: 'https://app.trytada.com/getWidget',
                                                 type: 'post',
                                                 data: JSON.stringify({
-                                                    timeToken: getCookie('tada_${id}timeToken'),
-                                    shop: window.location.hostname
+                                                    shop: window.location.hostname,
+                                                    path: window.location.pathname
                                                 }),
                                                 contentType: 'application/json',
                                                 success: function (content) {
@@ -213,10 +177,7 @@ async function installing(ctx) {
                 
                                         }, 100);
                                     });
-                
-                
                                 };
-                
                 
                                 function getCookie(name) {
                                     var nameEQ = name + "=";
@@ -228,7 +189,6 @@ async function installing(ctx) {
                                     }
                                     return null;
                                 }
-                
                 
                                 if (typeof jQuery == "undefined") {
                                     var script = document.createElement("SCRIPT");
@@ -244,52 +204,58 @@ async function installing(ctx) {
                                 }
                             }, 1500);
                         })();
-                
                     </script>
                 </div>
                 `;
-                    body = body.substring(0, index) + additional + body.substring(index, body.length);
-                    await fetch(
-                        `https://${shop}/admin/api/${API_VERSION}/themes/${mainThemeId}/assets.json`, {
-                            method: 'PUT',
-                            credentials: 'include',
-                            headers: {
-                                'X-Shopify-Access-Token': accessToken,
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                "asset": {
-                                    "key": "layout/theme.liquid",
-                                    "value": body
-                                }
-                            })
-                        }).then(resp => resp.json())
-                        .then(json => {
-                            return json;
-                        });
-                    });
+                body = body.substring(0, index) + additional + body.substring(index, body.length);
             }
+
+
+            await fetch(
+                `https://${shop}/admin/api/${API_VERSION}/themes/${mainThemeId}/assets.json`, {
+                    method: 'PUT',
+                    credentials: 'include',
+                    headers: {
+                        'X-Shopify-Access-Token': accessToken,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "asset": {
+                            "key": "layout/theme.liquid",
+                            "value": body
+                        }
+                    })
+                }).then(resp => resp.json())
+                .then(json => {
+                    return json;
+                });
         });
 
-    const registration = await registerWebhook({
-        address: `${TUNNEL_URL}/webhooks/products/create`,
-        topic: 'PRODUCTS_CREATE',
-        accessToken,
-        shop,
-    });
-
-    console.log(registration);
-
-    const uninstall = await registerWebhook({
+    await registerWebhook({
         address: `${TUNNEL_URL}/webhooks/uninstall`,
         topic: 'APP_UNINSTALLED',
         accessToken,
         shop
     });
 
-    console.log(uninstall);
-
     ctx.redirect('/');
 }
 
-module.exports = installing;
+async function uninstall(ctx, next) {
+    const shop = ctx.state.webhook.domain;
+    await Shop.find({shop: shop}, (err, shop) => {
+        if(err) {
+            console.log(err);
+            return;
+        }
+        if(shop.length > 0) {
+            shop[0].install = 0;
+            shop[0].save();
+            await Widget.remove({shopId: shop.id});
+            await Discount.remove({shopId: shop.id});
+        }
+    });
+}
+
+module.exports.installing = installing;
+module.exports.uninstall = uninstall;

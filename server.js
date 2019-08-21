@@ -21,8 +21,10 @@ const { default: graphQLProxy } = require('@shopify/koa-shopify-graphql-proxy');
 const { ApiVersion } = require('@shopify/koa-shopify-graphql-proxy');
 const Router = require('koa-router');
 const { receiveWebhook } = require('@shopify/koa-shopify-webhooks');
-const { processPayment, freeMembership, getPageSetting, savePageSetting, removeExpiredCode, uninstall,  premiumMembership, addDiscount, sendWidget, changeDisplaySetting, getSetting, saveSetting }  = require('./server/router');
-const installing = require('./server/install');
+const {  getPageSetting, savePageSetting, getWidgets, createWidget, pauseWidget, removeExpiredCode, getSetting, saveSetting, getDiscounts, updateDiscount, getStyle, updateStyle }  = require('./server/setting');
+const { processPayment, freeMembership, premiumMembership } = require('./server/payment');
+const { addDiscount, sendWidget } = require('./server/frontend');
+const { installing, uninstall } = require('./server/install');
 const mongoose = require('mongoose');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
@@ -53,12 +55,21 @@ app.prepare().then(() => {
   router.get('/free', freeMembership);
   router.post('/addDiscount', addDiscount);
   router.post('/getWidget', sendWidget);
-  router.post('/changeDisplaySetting', changeDisplaySetting);
+
+
   router.post('/getSetting', getSetting);
   router.post('/getPageSetting', getPageSetting);
   router.post('/saveSetting', saveSetting);
   router.post('/savePageSetting', savePageSetting);
+  router.post('/getAllWidgets', getWidgets);
+  router.post('/pauseWidget', pauseWidget);
+  router.post('/createWidget', createWidget);
 
+  router.post('/getDiscounts', getDiscounts);
+  router.post('/updateCoupon', updateDiscount);
+
+  router.post('/getStyle', getStyle);
+  router.post('/updateStyle', updateStyle);
 
   server.use(
     createShopifyAuth({
@@ -73,10 +84,6 @@ app.prepare().then(() => {
 
   const webhook = receiveWebhook({ secret: SHOPIFY_API_SECRET_KEY });
 
-  router.post('/webhooks/products/create', webhook, (ctx) => {
-    console.log('received webhook: ', ctx.state.webhook);
-  });
-
   router.post('/webhooks/uninstall', webhook, uninstall);
 
   server.use(graphQLProxy({ version: ApiVersion.April19 }));
@@ -87,12 +94,7 @@ app.prepare().then(() => {
       ctx.res.statusCode = 200;
   });
 
-  const koaOption = {
-    origin: true,
-    credentials: true
-  };
-
-  var j = schedule.scheduleJob(rule, removeExpiredCode);
+  schedule.scheduleJob(rule, removeExpiredCode);
 
   server.use(router.routes()).use(router.allowedMethods());
 
