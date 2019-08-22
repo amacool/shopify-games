@@ -4,7 +4,7 @@ import '../stylesheets/loading.css'
 class Loading extends React.Component {
     componentDidMount = () => {
         setTimeout(function() {
-            window.location.href = "/?hmac=true"
+            window.location.href = "/dashboard?hmac=true"
         }, 3000);
     }
 

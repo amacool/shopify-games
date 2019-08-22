@@ -52,7 +52,8 @@ async function processPayment(ctx, next) {
         if (shop && shop.length > 0) {
             ctx.cookies.set('shopOrigin', shop, { httpOnly: false });
         }
-        await next();
+        // await next();
+        return ctx.redirect('/dashboard');
     } else {
         return ctx.redirect('/loading');
     }

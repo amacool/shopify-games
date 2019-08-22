@@ -6,7 +6,7 @@ dotenv.config();
 const { API_VERSION } = process.env;
 const Shop = require('../models/Shop');
 const Discount = require('../models/Discount');
-const Widget = require('../models.revew')
+const Widget = require('../models/Widget');
 
 async function removeExpiredCode() {
     console.log('remove expired code');
@@ -52,7 +52,7 @@ async function removeExpiredCode() {
 
 async function pauseWidget(ctx, next) {
     const { widget_id, pause } = ctx.request.body;
-    var widget = await Widget.findfOne({id: widget_id});
+    var widget = await Widget.findfOne({_id: widget_id});
     widget.pause = pause;
 
     widget.save();
@@ -385,7 +385,7 @@ function changeDisplayPage(pageContent, toPage, id) {
 
 async function getSetting(ctx, next) {
     var {id} = ctx.request.body
-    var widget = await Widget.find({ id: id });
+    var widget = await Widget.find({ _id: id });
     if (widget[0]) {
         ctx.body = {setting: widget[0]};
     } else {
@@ -394,18 +394,16 @@ async function getSetting(ctx, next) {
 }
 
 async function saveSetting(ctx, next) {
-    var param;
-    var shop = '';
-    if (ctx.request.header.referer) {
-        param = deparam(ctx.request.header.referer);
-        shop = param.shop;
-    } else {
-        shop = getCookie('shopOrigin', ctx.request.header.cookie);
-    }
-    shop = ctx.request.body.shop;
+    // if (ctx.request.header.referer) {
+    //     param = deparam(ctx.request.header.referer);
+    //     shop = param.shop;
+    // } else {
+    //     shop = getCookie('shopOrigin', ctx.request.header.cookie);
+    // }
+    id = ctx.request.body.id;
     console.log(shop);
     var updateSetting = ctx.request.body.updateSetting;
-    await AppSetting.find({ shop: shop }, (err, setting) => {
+    await Widget.find({ _id: id }, (err, setting) => {
         if (err) {
             console.log(err);
             return;
@@ -575,7 +573,8 @@ async function deleteWidget(ctx, next) {
 }
 
 async function createWidget(ctx, next) {
-    const { type, name } = ctx.request.body;
+    const { type, name, shop } = ctx.request.body;
+    var shopObj = await Shop.findOne({ name: shop});
     var obj = await Widget.findOne({ name: name, type: type});
     if(obj) {
         ctx.body = {
@@ -584,21 +583,22 @@ async function createWidget(ctx, next) {
         };
     } else {
         var widget = new Widget();
-        widget.type = type;
-        widget.name = name;
-        widget.save();
         ctx.body = {
             success: true,
             id: widget.id
         };
+        widget.type = type;
+        widget.name = name;
+        widget.shop_id = shopObj.id;
+        await widget.save();
     }
 }
 
 async function updateDiscount(ctx, next) {
     const { discounts, id } = ctx.request.body;
-    var obj = await Widget.findOne({id: id});
+    var obj = await Widget.findOne({_id: id});
     if(obj) {
-        obj.discountType = discounts;
+        obj.discountType = JSON.stringify(discounts);
         obj.save();
         ctx.body = 'success';
     } else {
@@ -608,7 +608,7 @@ async function updateDiscount(ctx, next) {
 
 async function getDiscounts(ctx, next) {
     const { id } = ctx.request.body;
-    var obj = await Widget.findOne({id: id});
+    var obj = await Widget.findOne({_id: id});
     if(obj) {
         ctx.body = {
             discounts: obj.discountType
@@ -622,7 +622,7 @@ async function getDiscounts(ctx, next) {
 
 async function getStyle(ctx, next) {
     const { id } = ctx.request.body;
-    var obj = await Widget.findOne({id: id});
+    var obj = await Widget.findOne({_id: id});
     if(obj) {
         ctx.body = {
             style: obj.style
@@ -636,7 +636,7 @@ async function getStyle(ctx, next) {
 
 async function updateStyle(ctx, next) {
     const { style, id } = ctx.request.body;
-    var obj = await Widget.findOne({id: id});
+    var obj = await Widget.findOne({_id: id});
     if(obj) {
         obj.style = style;
         obj.save();

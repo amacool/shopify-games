@@ -101,7 +101,6 @@ async function sendWidget(ctx, next) {
 
   if (appSetting.install == 1) {
     var shop_id = appSetting.id;
-
     var widgetArray = await Widget.find({ shop_id: shop_id, pause: false }, (err, results) => {
       if (err) {
         console.log(err);
@@ -124,12 +123,12 @@ async function sendWidget(ctx, next) {
           }
         }
       }
+
+      return widgets;
     });
 
     var finalWidget = await checkPriority(widgetArray, pathObject.path, pathObject.pageName);
-
     ctx.body = await selectWidgetBySetting(finalWidget);
-
   } else {
     ctx.body = '';
   }
@@ -139,7 +138,7 @@ function generateDiscountItems(widget) {
   var discountTypes = JSON.parse(widget.discountType);
   const colors = ['#eae56f', '#89f26e', '#e7706f','#89f26e', '#eae56f', '#89f26e', '#e7706f','#89f26e', '#eae56f', '#89f26e', '#e7706f','#89f26e'];
   var result = `theWheel = new Winwheel({
-    'numSegments': ${discountTypes.length},         // Number of segments
+    'numSegments': ${Object.keys(discountTypes).length},         // Number of segments
     'outerRadius': 180,       // The size of the wheel.
     'innerRadius': 70,
     'centerX': 180,       // Used to position on the background correctly.
@@ -330,6 +329,8 @@ function selectWidgetBySetting(widget) {
                   temp = temp.substring(1, temp.length);
                   discount_value = 1 * temp;
                 }
+              } else {
+                discount_type = "Free Shipping";
               }
               $.ajax({
                   url: 'https://app.trytada.com/addDiscount',
@@ -633,6 +634,7 @@ function selectWidgetBySetting(widget) {
   </style>
   </div>`;
     }
+    return html;
 }
 
 function getPathAndPageName(pathname) {

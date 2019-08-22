@@ -15,7 +15,7 @@ const Widget = mongoose.Schema({
     },
     style: {
         type: String,
-        default: ''
+        default: '#dddddd'
     },
     shop_id: {
         type: String,
@@ -23,7 +23,7 @@ const Widget = mongoose.Schema({
     },
     discountType: {
         type: String,
-        default: `{"freeShipping": {"enable": true, "title": "Free Shipping", "type":"", "price": ""}, "discount15p": {"enable": true, "title": "15% Discount", "type": "percentage", "price": "-25.00"}, "discount25p": {"enable": true, "title": "25% Discount", "type": "percentage", "price": "-15.00"}}`
+        default: `{"freeShipping": {"enable": true, "title": "Free Shipping", "type":"", "price": ""}, "discount15p": {"enable": true, "title": "15% Discount", "type": "percentage", "price": "-15.00"}, "discount25p": {"enable": true, "title": "25% Discount", "type": "percentage", "price": "-25.00"}}`
     },
     couponExpire: {
         type: Number,
@@ -35,7 +35,7 @@ const Widget = mongoose.Schema({
     },
     pageSetting: {
         type: String,
-        default: `{ "homepage": false,"pages": {"allPages": false},"products": {"allProducts": false},"blogs": {"allBlogs": false},"cart": false,"search": false, "all": false, "specific": true}`
+        default: `{ "homepage": false,"pages": {"allPages": false},"products": {"allProducts": false},"blogs": {"allBlogs": false},"cart": false,"search": false, "all": true, "specific": false}`
     },
     timer: {
         type: Number,
@@ -59,7 +59,7 @@ const Widget = mongoose.Schema({
     },
     created_at: {
         type: Date,
-        defa
+        default: Date.now()
     }
 });
 

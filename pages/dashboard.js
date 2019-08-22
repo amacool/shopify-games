@@ -1,10 +1,10 @@
-import { Link, TextField, Checkbox, Button, RadioButton, Stack, Heading, Page } from '@shopify/polaris';
+import { Popover, ActionList, Button, RadioButton, Stack, Heading, Page } from '@shopify/polaris';
 import store from 'store-js';
 import Cookies from 'js-cookie';
-import '../stylesheets/settings.css';
+import '../stylesheets/dashboard.css';
 
 class Dashboard extends React.Component {
-  state = { widgets: [] };
+  state = { widgets: [], showPopup: false, index: 0 };
 
   componentDidMount = () => {
     fetch(`https://app.trytada.com/getAllWidgets`, {
@@ -24,52 +24,81 @@ class Dashboard extends React.Component {
       if(json) {
 
         this.setState({
-          widget: json
+          widgets: json
         });
       }
     });
   }
 
   render() {
-      const { widgets } = this.state;
+      const { widgets, showPopup, index } = this.state;
     return (
       <Page
         title="Tada Dashboard"
       >
+        <Heading>Recent Widgets</Heading>
         <div className="display-setting">
-          <Heading>Recent Widgets</Heading>
-          <Stack horizontal>
-            { widgets.map(widget => (
-                <div className="dashboard-widget">
+            { (widgets.length == 0)?(
+              <div>
+                No recent widgets!
+              </div>
+            ):(
+              widgets.map((widget, key) => {
+                if(key < 2 ) {
+                  const activator = (<div className="dashboard-widget" onClick={() => this.togglePopover(key)}>
                     <div>{widget.type}</div>
                     <div>
                         <h3>{widget.name}</h3>
                         <p>{(widget.pause)?'On Hold':'Active'}</p>
                         <p>Last modified: {widget.created_at}</p>
                     </div>
-                </div>
-            ))}
-          </Stack>
-          <Button onClick={() => this.createNewWidget()} disabled={this.state.saveDisabled} primary>Save</Button>
-        </div>|
+                  </div>
+                  );
+                  return (
+                    <Popover active={showPopup==true && index == key} activator={activator} onClose={() => this.togglePopover(key)}>
+                      <ActionList items={[{content: 'Edit', onAction: () => this.editWidget(key)}, {content: (widget.pause == 1)?'Resume':'Pause', onAction: () => this.pauseWidget(key)}, {content: 'Delete', onAction: () => this.deleteWidget(key)} ]} />
+                    </Popover>
+                  );
+                } else if (key == 2) {
+                  return <div className="dashboard-all-widget">
+                      <Button>All Widgets</Button>
+                    </div>
+                }
+              })
+            )}
+        </div>
+        <Button onClick={() => this.createNewWidget()} primary>Create New Widget</Button>
     </Page>
     )
+  }
+
+  togglePopover = (key) => {
+    const {showPopup} = this.state;
+    this.setState({
+      showPopup: !showPopup,
+      index: key
+    });
   }
 
   createNewWidget = () => {
       window.location.href = '/create';
   }
 
-  pauseWidget = (widget, key) => {
+  editWidget = (key) => {
+    const {widgets} = this.state;
+    Cookies.set('widget_id', widgets[key]._id);
+    window.location.href = '/detailSetting';
+  }
 
+  pauseWidget = (key) => {
+    var { widgets } = this.state;
     fetch(`https://app.trytada.com/pauseWidget`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        widget_id: widget.id,
-        pause: pause
+        widget_id: widgets[key]._id,
       })
     })
     .then(resp => resp.json())
@@ -78,8 +107,7 @@ class Dashboard extends React.Component {
         return;
       }
       if(json) {
-        var widgets = this.state.widgets;
-        widgets[key].pause = !widgets[key].pause
+        widgets[key].pause = !widgets[key].pause;
         this.setState({
           widgets: widgets
         });
@@ -87,14 +115,15 @@ class Dashboard extends React.Component {
     });
   }
 
-  deleteWidget = (widget, key) => {
-    ch(`https://app.trytada.com/deleteWidget`, {
+  deleteWidget = (key) => {
+      var widgets = this.state.widgets;
+      fetch(`https://app.trytada.com/deleteWidget`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          widget_id: widget.id,
+          widget_id: widgets[key]._id,
         })
       })
       .then(resp => resp.json())
@@ -103,7 +132,6 @@ class Dashboard extends React.Component {
           return;
         }
         if(json) {
-          var widgets = this.state.widgets;
           delete widgets[key];
           this.setState({
             widgets: widgets

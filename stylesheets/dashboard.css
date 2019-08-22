@@ -1,0 +1,18 @@
+.display-setting {
+    height: 300px;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-widget {
+    height: 200px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 50px;
+}
+
+.dashboard-widget:nth-child(1) {
+    margin-left: 0;
+}

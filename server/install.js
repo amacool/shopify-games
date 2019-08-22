@@ -1,5 +1,4 @@
 const { registerWebhook } = require('@shopify/koa-shopify-webhooks');
-const fs = require('fs');
 const cheerio = require('cheerio');
 const Entities = require('html-entities').XmlEntities;
 const { API_VERSION, TUNNEL_URL } = process.env;
@@ -10,8 +9,7 @@ const Discount = require('../models/Discount');
 async function installing(ctx) {
     const { shop, accessToken } = ctx.session;
     console.log('install shop - ', shop);
-    var id = 0;
-    await Shop.find({shop: shop}, (err, shops) => {
+    await Shop.find({name: shop}, (err, shops) => {
         if(err) {
             console.log(err);
             return;
@@ -22,14 +20,12 @@ async function installing(ctx) {
             shops[0].chargeId = '';
             shops[0].install = 1;
             shops[0].save();
-            id = shops[0].id;
         } else {
             const newShop = new Shop();
-            newShop.shop = shop;
+            newShop.name = shop;
             newShop.accessToken = accessToken;
 	        newShop.install = 1;
             newShop.save();
-            id = newShop.id;
         }
     });
 
@@ -85,7 +81,8 @@ async function installing(ctx) {
                                 $(document).ready(function () {
                                     setTimeout(function () {
                                         $.ajax({
-                                            url: 'https://app.trytada.com/getWidget',
+                                            // url: 'https://app.trytada.com/getWidget',
+                                            url: 'https://71081b6b.ngrok.io/getWidget',
                                             type: 'post',
                                             data: JSON.stringify({
                                                 shop: window.location.hostname,
@@ -156,7 +153,8 @@ async function installing(ctx) {
                                     $(document).ready(function () {
                                         setTimeout(function () {
                                             $.ajax({
-                                                url: 'https://app.trytada.com/getWidget',
+                                                // url: 'https://app.trytada.com/getWidget',
+                                                url: 'https://71081b6b.ngrok.io/getWidget',
                                                 type: 'post',
                                                 data: JSON.stringify({
                                                     shop: window.location.hostname,
@@ -210,7 +208,6 @@ async function installing(ctx) {
                 body = body.substring(0, index) + additional + body.substring(index, body.length);
             }
 
-
             await fetch(
                 `https://${shop}/admin/api/${API_VERSION}/themes/${mainThemeId}/assets.json`, {
                     method: 'PUT',
@@ -243,7 +240,7 @@ async function installing(ctx) {
 
 async function uninstall(ctx, next) {
     const shop = ctx.state.webhook.domain;
-    await Shop.find({shop: shop}, (err, shop) => {
+    await Shop.find({name: shop}, async (err, shop) => {
         if(err) {
             console.log(err);
             return;
@@ -251,8 +248,8 @@ async function uninstall(ctx, next) {
         if(shop.length > 0) {
             shop[0].install = 0;
             shop[0].save();
-            await Widget.remove({shopId: shop.id});
-            await Discount.remove({shopId: shop.id});
+            await Widget.deleteMany({shop_id: shop.id});
+            await Discount.deleteMany({shop_id: shop.id});
         }
     });
 }

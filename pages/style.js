@@ -1,4 +1,4 @@
-import { Link, TextField, Checkbox, Button, RadioButton, Stack, Heading, Page } from '@shopify/polaris';
+import { Link, TextField, Checkbox, Button, Select, RadioButton, Stack, Heading, Page } from '@shopify/polaris';
 import store from 'store-js';
 import Cookies from 'js-cookie';
 import '../stylesheets/settings.css';
@@ -11,7 +11,7 @@ class Style extends React.Component {
         {label: 'Color 2', value: '#89f26e'},
         {label: 'Color 3', value: '#e7706f'},
       ],
-      selected: 'eae56f'
+      selected: '#eae56f'
     };
 
   componentDidMount = () => {
@@ -48,10 +48,14 @@ class Style extends React.Component {
         title="Visual Style"
       >
         <div className="style-setting">
-            <Checkbox checked={style == '#dddddd'} label="Clear Theme" onChange={this.changeColor('#dddddd')} />
-            <Checkbox checked={style == '#333333'} label="Dark Theme" onChange={this.changeColor('#333333')} />
+            <div>
+                <Checkbox checked={style == '#dddddd'} label="Clear Theme" onChange={() =>this.changeColor('#dddddd')} />
+            </div>
+            <div>
+                <Checkbox checked={style == '#333333'} label="Dark Theme" onChange={() => this.changeColor('#333333')} />
+            </div>
             <Stack horizontal>
-                <Checkbox checked={style != '#dddddd' && style != '#333333'} label="Color Theme" onChange={this.changeColor('color')} />
+                <Checkbox checked={style != '#dddddd' && style != '#333333'} label="Color Theme" onChange={() => this.changeColor('color')} />
                 <Select
                     options={options}
                     onChange={this.handleChange}
@@ -68,6 +72,7 @@ class Style extends React.Component {
   }
 
   changeColor = (value) => {
+      const {style} = this.state;
       var result = value;
       if(style == '#dddddd' || style == '#333333') {
         this.setState({
@@ -120,7 +125,7 @@ class Style extends React.Component {
   }
 
   nextStep = () => {
-      window.location.href = '/setting';
+      window.location.href = '/detailSetting';
   }
 }
 

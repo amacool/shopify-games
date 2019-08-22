@@ -25,7 +25,7 @@ const Discount = mongoose.Schema({
         type: Boolean,
         default: false
     },
-    shopId: {
+    shop_id: {
         type: String,
         default: ''
     }

@@ -1,8 +1,6 @@
 require('isomorphic-fetch');
 const Koa = require('koa');
-const send = require('koa-send');
 const serve = require('koa-static');
-const koaCors = require('koa-cors');
 const cors = require('@koa/cors');
 const next = require('next');
 const { default: createShopifyAuth } = require('@shopify/koa-shopify-auth');
@@ -10,7 +8,6 @@ const dotenv = require('dotenv');
 const { verifyRequest } = require('@shopify/koa-shopify-auth');
 const session = require('koa-session');
 const bodyParser = require('koa-bodyparser');
-const fs = require('fs');
 var schedule = require('node-schedule');
 
 var rule = new schedule.RecurrenceRule();

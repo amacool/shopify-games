@@ -1,0 +1,25 @@
+.widgets-group {
+    margin-top: 30px;
+    padding: 30px;
+}
+
+.widget-type {
+    width: 200px;
+    height: 200px;
+    margin-left: 50px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.widget-type:nth-child(1) {
+    margin-left: 0;
+}
+
+.create-widget-btn {
+    margin-top: 30px;
+    float: right;
+}
+
+.create-card {
+    
+}
