@@ -589,6 +589,7 @@ async function createWidget(ctx, next) {
         };
         widget.type = type;
         widget.name = name;
+        widget.created_at = new Date().toString();
         widget.shop_id = shopObj.id;
         await widget.save();
     }
