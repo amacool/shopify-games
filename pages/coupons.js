@@ -51,7 +51,7 @@ class Coupons extends React.Component {
     }
 
     render() {
-        const { discounts, minError, maxError } = this.state;
+        const { discounts, minError, maxError, minLimit, maxLimit } = this.state;
         return (
             <Page
                 title="What discounts do you want to offer?"
