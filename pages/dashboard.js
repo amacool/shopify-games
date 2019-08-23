@@ -87,6 +87,7 @@ class Dashboard extends React.Component {
   editWidget = (key) => {
     const {widgets} = this.state;
     Cookies.set('widget_id', widgets[key]._id);
+    Cookies.set('tada_game_type', widgets[key].type);
     window.location.href = '/coupons';
   }
 
