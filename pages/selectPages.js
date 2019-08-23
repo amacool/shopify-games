@@ -12,7 +12,7 @@ export default class SelectPage extends React.Component {
             cart: false,
             search: false,
             saveDisabled: true,
-            shop: Cookies.get('shopOrigin')
+            id: Cookies.get('widget_id')
         }
     }
 
@@ -23,7 +23,7 @@ export default class SelectPage extends React.Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                shop: Cookies.get('shopOrigin')
+                id: Cookies.get('widget_id')
             })
             })
             .then(resp => resp.json())
@@ -213,7 +213,7 @@ export default class SelectPage extends React.Component {
             },
             body: JSON.stringify({
                 updateSetting,
-                shop: Cookies.get('shopOrigin')
+                id: Cookies.get('widget_id')
             })
         });
         this.setState({
