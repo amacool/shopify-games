@@ -148,7 +148,7 @@ function changeDisplayPage(pageContent, toPage, id) {
                                 url: 'https://app.trytada.com/getWidget',
                                 type: 'post',
                                 data: JSON.stringify({
-                                  timeToken: getCookie('tada_${id}_timeToken'),
+                                  path: pathname,
                   shop: window.location.hostname
                                 }),
                                 contentType: 'application/json',
@@ -214,11 +214,12 @@ function changeDisplayPage(pageContent, toPage, id) {
                 //Code here
                 $(document).ready(function() {
                     setTimeout(function () {
+                        var path = window.location.pathname;
                         $.ajax({
                             url: 'https://app.trytada.com/getWidget',
                             type: 'post',
                             data: JSON.stringify({
-                              timeToken: getCookie('tada_${id}_timeToken'),
+                              path: path,
                   shop: window.location.hostname
                             }),
                             contentType: 'application/json',
@@ -331,7 +332,7 @@ function changeDisplayPage(pageContent, toPage, id) {
                   url: 'https://app.trytada.com/getWidget',
                   type: 'post',
                   data: JSON.stringify({
-                    timeToken: getCookie('tada_${id}_timeToken'),
+                    path: pathname,
           shop: window.location.hostname
                   }),
                   contentType: 'application/json',
