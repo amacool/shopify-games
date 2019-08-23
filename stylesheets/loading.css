@@ -1,21 +1,16 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,800,200);
-.page-wrapper {
-  background-color: #3498db;
-  width: 100vw;
-  height: 100vh;
-}
 
 #loader-container {
   width: 200px;
   height: 200px;
-  color: white;
+  color: #3498db;
   margin: 0 auto;
   position: absolute;
   top: 50%;
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%);
-  border: 5px solid #3498db;
+  border: 5px solid white;
   border-radius: 50%;
   -webkit-animation: borderScale 1s infinite ease-in-out;
   animation: borderScale 1s infinite ease-in-out;
