@@ -108,33 +108,42 @@ async function sendWidget(ctx, next) {
         return;
       }
       if (results.length > 0) {
+        console.log(results);
         for (var i = 0; i < results.length; i++) {
           const displaySetting = results[i].displaySetting;
           const pageSetting = JSON.parse(results[i].pageSetting);
           if(displaySetting == 'all') {
+            console.log('here');
             widgetArray.push(results[i]);
           } else if(displaySetting == 'products') {
             if(pathObject.path == 'products') {
-              widgetArray.push(results[i]);
+            console.log('here');
+            widgetArray.push(results[i]);
             }
           } else if(displaySetting == 'blogs') {
             if(pathObject.path == 'blogs') {
-              widgetArray.push(results[i]);
+            console.log('here');
+            widgetArray.push(results[i]);
             }
           } else if(displaySetting == 'pages') {
             if(pathObject.path == 'pages') {
-              widgetArray.push(results[i]);
+            console.log('here');
+            widgetArray.push(results[i]);
             }
           } else {
+            console.log('here');
             if (pathObject.path == 'homepage' || pathObject.path == 'cart' || pathObject.path == 'search') {
               if (pageSetting[pathObject.path]) {
-                widgetArray.push(results[i]);
+            console.log('here');
+            widgetArray.push(results[i]);
               }
             } else {
               if (pageSetting[pathObject.path]['all' + jsUcfirst(pathObject.path)]) {
-                widgetArray.push(results[i]);
+            console.log('here');
+            widgetArray.push(results[i]);
               } else if (pageSetting[pathObject.path][pathObject.pageName]) {
-                widgetArray.push(results[i]);
+            console.log('here');
+            widgetArray.push(results[i]);
               }
             }
       	  }
@@ -143,9 +152,15 @@ async function sendWidget(ctx, next) {
     });
 
     console.log(widgetArray);
-    var finalWidget = await checkPriority(widgetArray, pathObject.path, pathObject.pageName);
-    console.log(finalWidget);
-    ctx.body = await selectWidgetBySetting(finalWidget);
+    if(widgetArray.length > 0) {
+      var finalWidget = await checkPriority(widgetArray, pathObject.path, pathObject.pageName);
+      console.log(finalWidget);
+      if(finalWidget.length) {
+        ctx.body = await selectWidgetBySetting(finalWidget);
+      }
+    } else {
+      ctx.body = 'no widget';
+    }
   } else {
     ctx.body = '';
   }
