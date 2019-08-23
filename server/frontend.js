@@ -17,7 +17,7 @@ async function addDiscount(ctx, next) {
   const shopSetting = await Shop.findOne({_id: widgetSetting.shop_id});
 
   var today = new Date();
-  var expired_at = new Date(today.getTime() + diff*60000);
+  var expired_at = new Date(today.getTime() + widgetSetting.couponExpire*60000);
   if (discount_code && discount_type) {
 
     const priceRuleUrl = `admin/api/${API_VERSION}/price_rules.json`;
