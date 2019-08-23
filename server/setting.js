@@ -53,7 +53,7 @@ async function removeExpiredCode() {
 
 async function pauseWidget(ctx, next) {
     const { widget_id } = ctx.request.body;
-    var widget = await Widget.findfOne({_id: widget_id});
+    var widget = await Widget.findOne({_id: widget_id});
     widget.pause = !widget.pause;
 
     widget.save();
