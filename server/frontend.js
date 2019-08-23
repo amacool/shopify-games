@@ -102,60 +102,48 @@ async function sendWidget(ctx, next) {
   if (appSetting.install == 1) {
     var shop_id = appSetting.id;
     var widgetArray = [];
-    await Widget.find({ shop_id: shop_id, pause: false }, (err, results) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      if (results.length > 0) {
-        console.log(results);
-        for (var i = 0; i < results.length; i++) {
-          const displaySetting = results[i].displaySetting;
-          const pageSetting = JSON.parse(results[i].pageSetting);
-          if(displaySetting == 'all') {
-            console.log('here');
+    var results = await Widget.find({ shop_id: shop_id, pause: false });
+    if (results.length > 0) {
+      for (var i = 0; i < results.length; i++) {
+        const displaySetting = results[i].displaySetting;
+        const pageSetting = JSON.parse(results[i].pageSetting);
+        if(displaySetting == 'all') {
+          widgetArray.push(results[i]);
+        } else if(displaySetting == 'products') {
+          if(pathObject.path == 'products') {
             widgetArray.push(results[i]);
-          } else if(displaySetting == 'products') {
-            if(pathObject.path == 'products') {
-            console.log('here');
+          }
+        } else if(displaySetting == 'blogs') {
+          if(pathObject.path == 'blogs') {
             widgetArray.push(results[i]);
-            }
-          } else if(displaySetting == 'blogs') {
-            if(pathObject.path == 'blogs') {
-            console.log('here');
+          }
+        } else if(displaySetting == 'pages') {
+          if(pathObject.path == 'pages') {
             widgetArray.push(results[i]);
-            }
-          } else if(displaySetting == 'pages') {
-            if(pathObject.path == 'pages') {
-            console.log('here');
-            widgetArray.push(results[i]);
+          }
+        } else {
+          if (pathObject.path == 'homepage' || pathObject.path == 'cart' || pathObject.path == 'search') {
+            if (pageSetting[pathObject.path]) {
+              widgetArray.push(results[i]);
             }
           } else {
-            console.log('here');
-            if (pathObject.path == 'homepage' || pathObject.path == 'cart' || pathObject.path == 'search') {
-              if (pageSetting[pathObject.path]) {
-            console.log('here');
-            widgetArray.push(results[i]);
-              }
-            } else {
-              if (pageSetting[pathObject.path]['all' + jsUcfirst(pathObject.path)]) {
-            console.log('here');
-            widgetArray.push(results[i]);
-              } else if (pageSetting[pathObject.path][pathObject.pageName]) {
-            console.log('here');
-            widgetArray.push(results[i]);
-              }
+            if (pageSetting[pathObject.path]['all' + jsUcfirst(pathObject.path)]) {
+              widgetArray.push(results[i]);
+            } else if (pageSetting[pathObject.path][pathObject.pageName]) {
+              widgetArray.push(results[i]);
             }
-      	  }
+          }
         }
       }
-    });
+    }
 
     console.log(widgetArray);
     if(widgetArray.length > 0) {
       var finalWidget = await checkPriority(widgetArray, pathObject.path, pathObject.pageName);
       console.log(finalWidget);
-      ctx.body = await selectWidgetBySetting(finalWidget);
+      if(finalWidget.length) {
+        ctx.body = await selectWidgetBySetting(finalWidget);
+      }
     } else {
       ctx.body = 'no widget';
     }
