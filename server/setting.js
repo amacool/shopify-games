@@ -394,14 +394,7 @@ async function getSetting(ctx, next) {
 }
 
 async function saveSetting(ctx, next) {
-    // if (ctx.request.header.referer) {
-    //     param = deparam(ctx.request.header.referer);
-    //     shop = param.shop;
-    // } else {
-    //     shop = getCookie('shopOrigin', ctx.request.header.cookie);
-    // }
     id = ctx.request.body.id;
-    console.log(shop);
     var updateSetting = ctx.request.body.updateSetting;
     await Widget.find({ _id: id }, (err, setting) => {
         if (err) {
@@ -426,8 +419,8 @@ async function saveSetting(ctx, next) {
 }
 
 async function savePageSetting(ctx, next) {
-    var shop = ctx.request.body.shop;
-    await AppSetting.find({ shop: shop }, (err, setting) => {
+    var id = ctx.request.body.id;
+    await  Widget.find({ _id: id }, (err, setting) => {
         if (err) {
             console.log(err);
             return;
@@ -435,7 +428,8 @@ async function savePageSetting(ctx, next) {
         console.log(setting[0]);
         if (setting[0]) {
             setting[0].pageSetting = ctx.request.body.updateSetting;
-            changeDisplaySetting('', setting[0].pageSetting, setting[0].shop, setting[0].accessToken, setting[0].id);
+            const shop = await Shop.findOne({_id: setting[0].shop_id});
+            changeDisplaySetting('', setting[0].pageSetting, shop.name, shop.accessToken, setting[0].id);
             setting[0].displaySetting = 'specific';
             setting[0].save();
         }
