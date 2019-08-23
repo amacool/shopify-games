@@ -97,7 +97,7 @@ class Style extends React.Component {
   }
 
   handleChange = (value) => {
-      if(style == '#dddddd' || style == '#333333') {
+      if(value == '#dddddd' || value == '#333333') {
           this.setState({
               selected: value
           })
