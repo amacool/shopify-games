@@ -102,18 +102,12 @@ class Dashboard extends React.Component {
         widget_id: widgets[key]._id,
       })
     })
-    .then(resp => resp.json())
-    .then(json => {
-      if(json.error) {
-        return;
-      }
-      if(json) {
+    .then(resp => {
         widgets[key].pause = !widgets[key].pause;
         this.togglePopover(key);
         this.setState({
           widgets: widgets
         });
-      }
     });
   }
 
@@ -128,18 +122,12 @@ class Dashboard extends React.Component {
           widget_id: widgets[key]._id,
         })
       })
-      .then(resp => resp.json())
-      .then(json => {
-        if(json.error) {
-          return;
-        }
-        if(json) {
+      .then(resp => {
           this.togglePopover(key);
           delete widgets[key];
           this.setState({
             widgets: widgets
           });
-        }
       });
   }
 }
