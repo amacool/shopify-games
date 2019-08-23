@@ -221,7 +221,7 @@ async function getPageSetting(ctx, next) {
 
 async function deleteWidget(ctx, next) {
     const { widget_id } = ctx.request.body;
-    await Widget.findByIdAndDelete({id: widget_id});
+    await Widget.findByIdAndDelete(widget_id);
 
     ctx.body = 'success';
 }
