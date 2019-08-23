@@ -13,8 +13,8 @@ const { jsUcfirst } = require('../utils/util');
 async function addDiscount(ctx, next) {
   var data = '';
   const { discount_value, discount_type, discount_code, widget_id } = ctx.request.body;
-  const widgetSetting = await Widget.findOne({id: widget_id});
-  const shopSetting = await Shop.findOne({id: widgetSetting.shop_id});
+  const widgetSetting = await Widget.findOne({_id: widget_id});
+  const shopSetting = await Shop.findOne({_id: widgetSetting.shop_id});
 
   var today = new Date();
   var expired_at = new Date(today.getTime() + diff*60000);
