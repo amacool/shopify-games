@@ -72,9 +72,8 @@ class Style extends React.Component {
   }
 
   changeColor = (value) => {
-      const {style} = this.state;
       var result = value;
-      if(style == '#dddddd' || style == '#333333') {
+      if(value == '#dddddd' || value == '#333333') {
         this.setState({
             style: value
         })
