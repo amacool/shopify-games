@@ -7,6 +7,7 @@ const { API_VERSION } = process.env;
 const Shop = require('../models/Shop');
 const Discount = require('../models/Discount');
 const Widget = require('../models/Widget');
+const { existsInArray } = require('../utils/util');
 
 async function removeExpiredCode() {
     console.log('remove expired code');
