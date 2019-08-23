@@ -403,12 +403,12 @@ async function saveSetting(ctx, next) {
         }
         if (setting[0]) {
             if (setting[0].displaySetting != updateSetting.displaySetting && updateSetting.displaySetting != 'specific') {
-                changeDisplaySetting(setting[0].displaySetting, updateSetting.displaySetting, shop, setting[0].accessToken, setting[0].id);
+                const shop = await Shop.findOne({_id: setting[0].shop_id});
+                changeDisplaySetting(setting[0].displaySetting, updateSetting.displaySetting, shop.name, shop.accessToken, setting[0].id);
             }
             setting[0].displaySetting = updateSetting.displaySetting;
             setting[0].displayFrequency = updateSetting.displayFrequency;
             setting[0].timer = updateSetting.timer;
-            setting[0].pricingPlan = updateSetting.pricingPlan;
             setting[0].frequency = updateSetting.frequency;
             setting[0].exitIntent = updateSetting.exitIntent;
             setting[0].exitIntentTime = updateSetting.exitIntentTime;
