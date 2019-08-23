@@ -109,16 +109,33 @@ async function sendWidget(ctx, next) {
       var widgets = [];
       if (results.length > 0) {
         for (var i = 0; i < results.length; i++) {
+          const displaySetting = results[i].displaySetting;
           const pageSetting = JSON.parse(results[i].pageSetting);
-          if (pathObject.path == 'homepage' || pathObject.path == 'cart' || pathObject.path == 'search') {
-            if (pageSetting[pathObject.path]) {
+          if(displaySetting == 'all') {
+            widgets.push(results[i]);
+          } else if(displaySetting == 'products') {
+            if(pathObject.path == 'products') {
+              widgets.push(results[i]);
+            }
+          } else if(displaySetting == 'blogs') {
+            if(pathObject.path == 'blogs') {
+              widgets.push(results[i]);
+            }
+          } else if(displaySetting == 'pages') {
+            if(pathObject.path == 'pages') {
               widgets.push(results[i]);
             }
           } else {
-            if (pageSetting[pathObject.path]['all' + jsUcfirst(pathObject.path)]) {
-              widgets.push(results[i]);
-            } else if (pageSetting[pathObject.path][pathObject.pageName]) {
-              widgets.push(results[i]);
+            if (pathObject.path == 'homepage' || pathObject.path == 'cart' || pathObject.path == 'search') {
+              if (pageSetting[pathObject.path]) {
+                widgets.push(results[i]);
+              }
+            } else {
+              if (pageSetting[pathObject.path]['all' + jsUcfirst(pathObject.path)]) {
+                widgets.push(results[i]);
+              } else if (pageSetting[pathObject.path][pathObject.pageName]) {
+                widgets.push(results[i]);
+              }
             }
           }
         }
@@ -127,10 +144,8 @@ async function sendWidget(ctx, next) {
       return widgets;
     });
 
-console.log(widgetArray);
     var finalWidget = await checkPriority(widgetArray, pathObject.path, pathObject.pageName);
-    console.log(finalWidget);
- ctx.body = await selectWidgetBySetting(finalWidget);
+    ctx.body = await selectWidgetBySetting(finalWidget);
   } else {
     ctx.body = '';
   }
