@@ -168,6 +168,7 @@ function generateDiscountItems(widget) {
     if(discountTypes[key].enable) {
       result += ` { 'fillStyle': '${colors[i]}', 'text': '${discountTypes[key].title}'}, 
                 `;
+      i++;
     }
   });
 
