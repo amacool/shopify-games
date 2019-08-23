@@ -699,6 +699,10 @@ function checkPriority(widgetArray, path, pageName) {
       if(result.displaySetting == 'all') {
         if(temp.displaySetting != 'all') {
           result = temp;
+        } else {
+          if (compareDate(result, widgetArray[i])) {
+            result = temp;
+          }
         }
       } else if(result.displaySetting != 'specific') {
         if(temp.displaySetting == result.displaySetting) {
