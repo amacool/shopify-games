@@ -12,6 +12,8 @@ export default class SelectPage extends React.Component {
             blogs: { allBlogs: false },
             pages: { allPages: false },
             productArray: [],
+            pageArray: [],
+            blogArray: [],
             blogs: [],
             pages: [],
             cart: false,
