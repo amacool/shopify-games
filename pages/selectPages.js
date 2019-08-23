@@ -129,7 +129,7 @@ export default class SelectPage extends React.Component {
                     <Stack vertical>
                         <Checkbox label="Select All" id="allBlogs" name="allBlogs" onChange={this.selectAllPage('blogs')} checked={blogs.allBlogs} />
                     </Stack>
-                    { (Object.keys(blogs).length > 1)?(
+                    { (Object.keys(blogs).length > 1 && !this.state.openBlogs)?(
                         <div>
                             { Object.keys(blogs).forEach(key => {
                                 if(key != "allBlogs") {
@@ -204,6 +204,7 @@ export default class SelectPage extends React.Component {
                         }
                     })
                 }
+                array['all'+jsUcfirst(field)] = true;
             } else {
                 array = {
                     ['all'+jsUcfirst(field)]: false 
