@@ -144,8 +144,7 @@ async function sendWidget(ctx, next) {
       return widgets;
     });
 
-    console.log(widgets);
-
+    console.log(widgetArray);
     var finalWidget = await checkPriority(widgetArray, pathObject.path, pathObject.pageName);
     console.log(finalWidget);
     ctx.body = await selectWidgetBySetting(finalWidget);
