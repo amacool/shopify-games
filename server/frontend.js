@@ -136,11 +136,21 @@ console.log(widgetArray);
   }
 }
 
+function getLength(discounts){
+  var result = 0;
+  Object.keys(discounts).map(key => {
+      if (discounts[key].enable) {
+          result++;
+      }
+  })
+  return result;
+}
+
 function generateDiscountItems(widget) {
   var discountTypes = JSON.parse(widget.discountType);
   const colors = ['#eae56f', '#89f26e', '#e7706f','#89f26e', '#eae56f', '#89f26e', '#e7706f','#89f26e', '#eae56f', '#89f26e', '#e7706f','#89f26e'];
   var result = `theWheel = new Winwheel({
-    'numSegments': ${Object.keys(discountTypes).length},         // Number of segments
+    'numSegments': ${getLength(discountTypes)},         // Number of segments
     'outerRadius': 180,       // The size of the wheel.
     'innerRadius': 70,
     'centerX': 180,       // Used to position on the background correctly.
@@ -155,9 +165,10 @@ function generateDiscountItems(widget) {
     
   var i = 0;
   Object.keys(discountTypes).map(key => {
-    result += ` { 'fillStyle': '${colors[i]}', 'text': '${discountTypes[key].title}'}, 
-              `;
-    i++;
+    if(discountTypes[key].enable) {
+      result += ` { 'fillStyle': '${colors[i]}', 'text': '${discountTypes[key].title}'}, 
+                `;
+    }
   });
 
   result += `],
