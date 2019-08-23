@@ -77,7 +77,7 @@ export default class SelectPage extends React.Component {
                         <Checkbox label="Select All" id="page" name="page" onChange={this.selectAllPage('pages')} checked={this.state.pages.allPages} />
                     </Stack>
                     <div className="see-all" onClick={this.toggleAllPages}>See All</div>
-                    { (Object.keys(pages).length > 1 && !this.state.openPages)?(
+                    { (Object.keys(pages).length > 1 && !this.state.openPages && !this.state.pages.allPages)?(
                         <div>
                             { Object.keys(pages).map(key => {
                                 if(key != "allPages") {
@@ -103,7 +103,7 @@ export default class SelectPage extends React.Component {
                         <Checkbox label="Select All" id="allProducts" name="allProducts" onChange={this.selectAllPage('products')} checked={products.allProducts} />
                     </Stack>
                     <div className="see-all" onClick={this.toggleAllProducts}>See All</div>
-                    { (Object.keys(products).length > 1 && !this.state.openProducts)?(
+                    { (Object.keys(products).length > 1 && !this.state.openProducts && !this.state.products.allProducts)?(
                         <div>
                         { Object.keys(products).map(key => {
                             if(key != "allProducts") {
@@ -130,7 +130,7 @@ export default class SelectPage extends React.Component {
                         <Checkbox label="Select All" id="allBlogs" name="allBlogs" onChange={this.selectAllPage('blogs')} checked={blogs.allBlogs} />
                     </Stack>
                     <div className="see-all" onClick={this.toggleAllBlogs}>See All</div>
-                    { (Object.keys(blogs).length > 1 && !this.state.openBlogs)?(
+                    { (Object.keys(blogs).length > 1 && !this.state.openBlogs && !this.state.blogs.allBlogs)?(
                         <div>
                             { Object.keys(blogs).map(key => {
                                 if(key != "allBlogs") {
