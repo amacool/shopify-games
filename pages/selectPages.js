@@ -81,7 +81,9 @@ export default class SelectPage extends React.Component {
                             { Object.keys(pages).map(key => {
                                 if(key != "allPages") {
                                     return (
-                                        <Checkbox label={pages[key].title} id={key} name={key} onChange={this.selectPage(pages[key], 0)} checked={pages[key] && pages[key].show} />
+                                        <div>
+                                            <Checkbox label={pages[key].title} id={key} name={key} onChange={this.selectPage(pages[key], 0)} checked={pages[key] && pages[key].show} />
+                                        </div>
                                     );
                                 }
                             })}
@@ -90,7 +92,9 @@ export default class SelectPage extends React.Component {
                     <div className="see-all" onClick={this.toggleAllPages}>See All</div>
                     <Collapsible open={this.state.openPages} id="page-collapsible">
                         { this.state.pageArray.map((page, key) => (
-                            <Checkbox label={page.title} id={key} name={key} onChange={this.selectPage(page, key)} checked={pages[page.handle] && pages[page.handle].show} />
+                            <div>
+                                <Checkbox label={page.title} id={key} name={key} onChange={this.selectPage(page, key)} checked={pages[page.handle] && pages[page.handle].show} />
+                            </div>
                         ))}
                     </Collapsible>
                 </Card>
@@ -103,7 +107,9 @@ export default class SelectPage extends React.Component {
                         { Object.keys(products).map(key => {
                             if(key != "allProducts") {
                                return (
-                                    <Checkbox label={products[key].title} id={key} name={key} onChange={this.selectProduct(products[key], 0)} checked={products[key].show} />
+                                   <div>
+                                        <Checkbox label={products[key].title} id={key} name={key} onChange={this.selectProduct(products[key], 0)} checked={products[key].show} />
+                                    </div>
                                );
                           }
                         })}
@@ -113,7 +119,9 @@ export default class SelectPage extends React.Component {
                     <div className="see-all" onClick={this.toggleAllProducts}>See All</div>
                     <Collapsible open={this.state.openProducts} id="product-collapsible">
                         { this.state.productArray.map((product, key) => (
-                            <Checkbox label={product.title} id={key} name={key} onChange={this.selectProduct(product, key)} checked={products[product.handle] && products[product.handle].show} />
+                            <div>
+                                <Checkbox label={product.title} id={key} name={key} onChange={this.selectProduct(product, key)} checked={products[product.handle] && products[product.handle].show} />
+                            </div>
                         ))}
                     </Collapsible>
                 </Card>
@@ -126,7 +134,9 @@ export default class SelectPage extends React.Component {
                             { Object.keys(blogs).forEach(key => {
                                 if(key != "allBlogs") {
                                     return (
-                                        <Checkbox label={blogs[key].title} id={key} name={key} onChange={this.selectBlog(blogs[key], 0)} checked={blogs[key].show} />
+                                        <div>
+                                            <Checkbox label={blogs[key].title} id={key} name={key} onChange={this.selectBlog(blogs[key], 0)} checked={blogs[key].show} />
+                                        </div>
                                     );
                                 }
                             })}
@@ -136,7 +146,9 @@ export default class SelectPage extends React.Component {
                     <div className="see-all" onClick={this.toggleAllBlogs}>See All</div>
                     <Collapsible open={this.state.openBlogs} id="blog-collapsible">
                         { this.state.blogArray.map((blog, key) => (
-                            <Checkbox label={blog.title} id={key} name={key} onChange={this.selectBlog(blog, key)} checked={blogs[blog.handle] && blogs[blog.handle].show} />
+                            <div>
+                                <Checkbox label={blog.title} id={key} name={key} onChange={this.selectBlog(blog, key)} checked={blogs[blog.handle] && blogs[blog.handle].show} />
+                            </div>
                         ))}
                     </Collapsible>
                 </Card>
@@ -302,7 +314,7 @@ export default class SelectPage extends React.Component {
         }
     }
 
-    selectBlog = (key) => {
+    selectBlog = (blog, key) => {
         return (checked) => {
             var blogs = this.state.blogs;
             var blogArray = this.state.blogArray;
