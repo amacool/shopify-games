@@ -92,10 +92,17 @@ class Coupons extends React.Component {
                 <Modal
                     open={minError || maxError} onClose={this.closeModal}
                     title={minError?`Discounts amount must be larger than ${minLimit}!`:`Discounts can not be larger than ${maxLimit}`}
-                    primary={{content: 'OK', onAction: this.closeModal}}>
+                    primaryAction={{content: 'OK', onAction: this.closeModal}}>
                 </Modal>
             </Page>
         )
+    }
+
+    closeModal = () => {
+        this.setState({
+            minError: false,
+            maxError: false
+        })
     }
 
     handleType = (value) => {
