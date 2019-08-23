@@ -1,6 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,800,200);
-body {
+.page-wrapper {
   background-color: #3498db;
+  width: 100vw;
+  height: 100vh;
 }
 
 #loader-container {

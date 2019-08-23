@@ -11,8 +11,10 @@ class Loading extends React.Component {
     render() {
         return (
             <Page>
-                <div id="loader-container">
-                    <p id="loadingText">Loading</p>
+                <div className="page-wrapper">
+                    <div id="loader-container">
+                        <p id="loadingText">Loading</p>
+                    </div>
                 </div>
             </Page>
         )
