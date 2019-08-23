@@ -224,12 +224,13 @@ export default class SelectPage extends React.Component {
                 pages[page.handle].show = checked;
             }
             var allSelected = true;
-            pageArray.map(page => {
-                if(!pages[page.handle] || pages[page.handle].show != true) {
+            for(var i=0; i < pageArray.length; i++) {
+                const temp = pageArray[i];
+                if(!pages[temp.handle] || pages[temp.handle].show != true) {
                     allSelected = false;
                     break;
                 }
-            })
+            }
             pages['allPages'] = allSelected;
             this.setState({
                 pages: pages
@@ -261,12 +262,13 @@ export default class SelectPage extends React.Component {
                 products[product.handle].show = checked;
             }
             var allSelected = true;
-            productArray.map(product => {
-                if(!products[product.handle] || products[product.handle].show != true) {
+            for(var i=0; i<productArray.length; i++) {
+                const temp = productArray[i];
+                if(!products[temp.handle] || products[temp.handle].show != true) {
                     allSelected = false;
                     break;
                 }
-            })
+            }
             products['allProducts'] = allSelected;
             this.setState({
                 products: products
@@ -298,12 +300,13 @@ export default class SelectPage extends React.Component {
                 blogs[blog.handle].show = checked;
             }
             var allSelected = true;
-            blogArray.map(blog => {
-                if(!blogs[blog.handle] || blogs[blog.handle].show != true) {
+            for(var i=0; i<blogArray.length; i++) {
+                const temp = blogArray[i];
+                if(!blogs[temp.handle] || blogs[temp.handle].show != true) {
                     allSelected = false;
                     break;
                 }
-            })
+            }
             blogs['allBlogs'] = allSelected;
             this.setState({
                 blogs: blogs
