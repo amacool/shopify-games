@@ -6,16 +6,7 @@ import '../stylesheets/settings.css';
 class DetailSetting extends React.Component {
   state = { displaySetting: {
     all: false,
-    products: {
-      allProducts: false
-    },
-    blogs: {
-      allBlogs: false,
-    },
-    pages: {
-      allPages: false,
-    },
-    specific: false,
+    displaySetting: ''
   }, timer: 0, frequencyDay: 0, frequencyHour: 0, frequencyMin: 0, showPeriod: false, frequency: '', saveDisabled: true, exitIntent: true, exitIntentTime: 5 };
 
   componentDidMount = () => {
@@ -44,7 +35,7 @@ class DetailSetting extends React.Component {
         }
 
         this.setState({
-          displaySetting: JSON.parse(result.pageSetting),
+          displaySetting: result.displaySetting,
           frequencyDay,
           frequencyHour,
           frequencyMin,
@@ -66,10 +57,10 @@ class DetailSetting extends React.Component {
         <div className="display-setting">
           <Heading>Display Setting</Heading>
           <Stack vertical>
-            <RadioButton label="All Pages" helpText="App Widget will be displayed on all pages." id="all" name="all" onChange={() => this.handleDisplayChange('all')}  checked={this.state.displaySetting.all}/>
-            <RadioButton label="Product Page" helpText="App Widget will be displayed only on product pages" id="products" name="products" onChange={() => this.handleDisplayChange('products')} checked={this.state.displaySetting.products.allProducts} />
-            <RadioButton label="Static Page" helpText="App Widget will be displayed only on static pages" id="pages" name="pages" onChange={() => this.handleDisplayChange('pages')} checked={this.state.displaySetting.pages.allPages} />
-            <RadioButton label="Blog Page" helpText="App Widget will be displayed only on blogs pages" id="blogs" name="blogs" onChange={() => this.handleDisplayChange('blogs')} checked={this.state.displaySetting.blogs.allBlogs} />
+            <RadioButton label="All Pages" helpText="App Widget will be displayed on all pages." id="all" name="all" onChange={() => this.handleDisplayChange('all')}  checked={this.state.displaySetting == 'all'}/>
+            <RadioButton label="Product Page" helpText="App Widget will be displayed only on product pages" id="products" name="products" onChange={() => this.handleDisplayChange('products')} checked={this.state.displaySetting == 'products'} />
+            <RadioButton label="Static Page" helpText="App Widget will be displayed only on static pages" id="pages" name="pages" onChange={() => this.handleDisplayChange('pages')} checked={this.state.displaySetting == 'pages'} />
+            <RadioButton label="Blog Page" helpText="App Widget will be displayed only on blogs pages" id="blogs" name="blogs" onChange={() => this.handleDisplayChange('blogs')} checked={this.state.displaySetting == 'blogs'} />
             <RadioButton label="Specific Page" helpText="App Widget will be displayed only on specific pages" id="specific" name="specific" onChange={() => this.handleDisplayChange('specific')} checked={this.state.displaySetting.specific} />
             { (this.state.displaySetting.specific)?(
               <div className="subsetting">
@@ -137,47 +128,8 @@ class DetailSetting extends React.Component {
   }
 
   handleDisplayChange = (field) => {
-    var {displaySetting} = this.state;
-    switch (field) {
-      case 'all':
-        displaySetting.all = true;
-        displaySetting.pages.allPages = false;
-        displaySetting.blogs.allBlogs = false;
-        displaySetting.products.allProducts = false;
-        displaySetting.specific = false;
-        break;
-      case 'pages':
-        displaySetting.all = false;
-        displaySetting.pages.allPages = true;
-        displaySetting.blogs.allBlogs = false;
-        displaySetting.products.allProducts = false;
-        displaySetting.specific = false;
-        break;
-      case 'blogs':
-        displaySetting.all = false;
-        displaySetting.pages.allPages = false;
-        displaySetting.blogs.allBlogs = true;
-        displaySetting.products.allProducts = false;
-        displaySetting.specific = false;
-        break;
-      case 'products':
-        displaySetting.all = false;
-        displaySetting.pages.allPages = false;
-        displaySetting.blogs.allBlogs = false;
-        displaySetting.products.allProducts = true;
-        displaySetting.specific = false;
-        break;
-      case 'specific':
-        displaySetting.all = false;
-        displaySetting.pages.allPages = false;
-        displaySetting.blogs.allBlogs = false;
-        displaySetting.products.allProducts = false;
-        displaySetting.specific = true;
-        break;
-    }
-
     this.setState({
-      displaySetting
+      displaySetting: field
     });
   }
 
@@ -216,7 +168,7 @@ class DetailSetting extends React.Component {
      updateSetting.pricingPlan = 1;
    }
    updateSetting.displayFrequency = frequencyDay * 60 * 60 * 24 + frequencyHour * 60 * 60 + frequencyMin * 60;
-   updateSetting.displaySetting = JSON.stringify(displaySetting);
+   updateSetting.displaySetting = displaySetting;
    updateSetting.timer = timer;
    updateSetting.frequency = frequency;
    updateSetting.exitIntent = exitIntent;

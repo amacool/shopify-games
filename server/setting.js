@@ -124,7 +124,7 @@ function changeDisplayPage(pageContent, toPage, id) {
     const entities = new Entities();
     const $ = cheerio.load(pageContent);
 
-    if (toPage == 'product') {
+    if (toPage == 'products' || toPage == 'blogs' || toPage == 'pages') {
         $('.tada-app-content').html(`<script>
         (function() {
             setTimeout(function () {
@@ -143,7 +143,7 @@ function changeDisplayPage(pageContent, toPage, id) {
                     $(document).ready(function() {
                         setTimeout(function () {
                           var pathname = window.location.pathname;
-                          if(pathname.indexOf('${toPage}') > -1) {
+                          if(pathname.indexOf('/${toPage}/') > -1) {
                               $.ajax({
                                 url: 'https://app.trytada.com/getWidget',
                                 type: 'post',
