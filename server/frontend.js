@@ -101,12 +101,12 @@ async function sendWidget(ctx, next) {
 
   if (appSetting.install == 1) {
     var shop_id = appSetting.id;
-    var widgetArray = await Widget.find({ shop_id: shop_id, pause: false }, (err, results) => {
+    var widgetArray = [];
+    await Widget.find({ shop_id: shop_id, pause: false }, (err, results) => {
       if (err) {
         console.log(err);
         return;
       }
-      var widgets = [];
       if (results.length > 0) {
         for (var i = 0; i < results.length; i++) {
           const displaySetting = results[i].displaySetting;
@@ -126,28 +126,20 @@ async function sendWidget(ctx, next) {
               widgets.push(results[i]);
             }
           } else {
-            console.log(pageSetting);
-            console.log(pathObject.path);
-            console.log(pageSetting[pathObject]);
             if (pathObject.path == 'homepage' || pathObject.path == 'cart' || pathObject.path == 'search') {
               if (pageSetting[pathObject.path]) {
-                console.log('specific');
                 widgets.push(results[i]);
               }
             } else {
               if (pageSetting[pathObject.path]['all' + jsUcfirst(pathObject.path)]) {
-                console.log('all');
                 widgets.push(results[i]);
               } else if (pageSetting[pathObject.path][pathObject.pageName]) {
-                console.log('specific page');
                 widgets.push(results[i]);
               }
             }
-	  }
+      	  }
         }
       }
-
-      return widgets;
     });
 
     console.log(widgetArray);
