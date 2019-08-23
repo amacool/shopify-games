@@ -112,29 +112,29 @@ async function sendWidget(ctx, next) {
           const displaySetting = results[i].displaySetting;
           const pageSetting = JSON.parse(results[i].pageSetting);
           if(displaySetting == 'all') {
-            widgets.push(results[i]);
+            widgetArray.push(results[i]);
           } else if(displaySetting == 'products') {
             if(pathObject.path == 'products') {
-              widgets.push(results[i]);
+              widgetArray.push(results[i]);
             }
           } else if(displaySetting == 'blogs') {
             if(pathObject.path == 'blogs') {
-              widgets.push(results[i]);
+              widgetArray.push(results[i]);
             }
           } else if(displaySetting == 'pages') {
             if(pathObject.path == 'pages') {
-              widgets.push(results[i]);
+              widgetArray.push(results[i]);
             }
           } else {
             if (pathObject.path == 'homepage' || pathObject.path == 'cart' || pathObject.path == 'search') {
               if (pageSetting[pathObject.path]) {
-                widgets.push(results[i]);
+                widgetArray.push(results[i]);
               }
             } else {
               if (pageSetting[pathObject.path]['all' + jsUcfirst(pathObject.path)]) {
-                widgets.push(results[i]);
+                widgetArray.push(results[i]);
               } else if (pageSetting[pathObject.path][pathObject.pageName]) {
-                widgets.push(results[i]);
+                widgetArray.push(results[i]);
               }
             }
       	  }
