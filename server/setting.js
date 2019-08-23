@@ -118,18 +118,20 @@ async function savePageSetting(ctx, next) {
 }
 
 async function getPageSetting(ctx, next) {
-    var setting = await Widget.findOne();
+    const id = ctx.request.body.id;
+    var setting = await Widget.findOne({_id: id});
+    var shop = await Shop.findOne({_id: setting.shop_id});
     var pageSetting = JSON.parse(setting.pageSetting);
     var staticSetting = pageSetting.pages;
     var blogSetting = pageSetting.blogs;
     var productSetting = pageSetting.products;
 
-    const getPageUrl = `https://${appSetting.shop}/admin/api/${API_VERSION}/pages.json`;
+    const getPageUrl = `https://${shop.name}/admin/api/${API_VERSION}/pages.json`;
 
     const options = {
         credentials: 'include',
         headers: {
-            'X-Shopify-Access-Token': appSetting.accessToken,
+            'X-Shopify-Access-Token': shop.accessToken,
             'Content-Type': 'application/json'
         }
     }
@@ -156,7 +158,7 @@ async function getPageSetting(ctx, next) {
             return pages;
         });
 
-    const getBlogUrl = `https://${appSetting.shop}/admin/api/${API_VERSION}/blogs.json`;
+    const getBlogUrl = `https://${shop.name}/admin/api/${API_VERSION}/blogs.json`;
 
     var blogs = await fetch(getBlogUrl, optionsWithGet).then(resp => resp.json())
         .then(json => {
@@ -178,7 +180,7 @@ async function getPageSetting(ctx, next) {
             return blogs;
         })
 
-    const getProductUrl = `https://${appSetting.shop}/admin/api/${API_VERSION}/products.json`;
+    const getProductUrl = `https://${shop.name}/admin/api/${API_VERSION}/products.json`;
 
     var products = await fetch(getProductUrl, optionsWithGet).then(resp => resp.json())
         .then(json => {
