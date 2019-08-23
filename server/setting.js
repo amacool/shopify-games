@@ -396,7 +396,7 @@ async function getSetting(ctx, next) {
 async function saveSetting(ctx, next) {
     id = ctx.request.body.id;
     var updateSetting = ctx.request.body.updateSetting;
-    await Widget.find({ _id: id }, (err, setting) => {
+    await Widget.find({ _id: id }, async (err, setting) => {
         if (err) {
             console.log(err);
             return;
