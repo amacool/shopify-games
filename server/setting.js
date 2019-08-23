@@ -420,7 +420,7 @@ async function saveSetting(ctx, next) {
 
 async function savePageSetting(ctx, next) {
     var id = ctx.request.body.id;
-    await  Widget.find({ _id: id }, (err, setting) => {
+    await  Widget.find({ _id: id }, async (err, setting) => {
         if (err) {
             console.log(err);
             return;
