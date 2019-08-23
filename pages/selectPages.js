@@ -1,4 +1,4 @@
-import { Page, Card, Stack, Checkbox } from '@shopify/polaris'
+import { Page, Card, Stack, Checkbox, Collapsible } from '@shopify/polaris'
 import Cookies from 'js-cookie'
 import { jsUcfirst } from '../utils/util';
 import '../stylesheets/select.css';
@@ -17,7 +17,10 @@ export default class SelectPage extends React.Component {
             cart: false,
             search: false,
             saveDisabled: true,
-            id: Cookies.get('widget_id')
+            id: Cookies.get('widget_id'),
+            openBlogs: false,
+            openProducts: false,
+            openPages: false
         }
     }
 
@@ -198,6 +201,27 @@ export default class SelectPage extends React.Component {
                 saveDisabled: false
             });
         }
+    }
+
+    toggleAllBlogs = () => {
+        const { openBlogs } = this.state;
+        this.setState({
+            openBlogs: !openBlogs
+        })
+    }
+
+    toggleAllPages = () => {
+        const { openPages } = this.state;
+        this.setState({
+            openPages: !openPages
+        })
+    }
+
+    toggleAllProducts = () => {
+        const { openProducts } = this.state;
+        this.setState({
+            openProducts: !openProducts
+        })
     }
 
     selectPage = (page, key) => {
