@@ -126,18 +126,24 @@ async function sendWidget(ctx, next) {
               widgets.push(results[i]);
             }
           } else {
+            console.log(pageSetting);
+            console.log(pathObject.path);
+            console.log(pageSetting[pathObject]);
             if (pathObject.path == 'homepage' || pathObject.path == 'cart' || pathObject.path == 'search') {
               if (pageSetting[pathObject.path]) {
+                console.log('specific');
                 widgets.push(results[i]);
               }
             } else {
               if (pageSetting[pathObject.path]['all' + jsUcfirst(pathObject.path)]) {
+                console.log('all');
                 widgets.push(results[i]);
               } else if (pageSetting[pathObject.path][pathObject.pageName]) {
+                console.log('specific page');
                 widgets.push(results[i]);
               }
             }
-          }
+	  }
         }
       }
 
