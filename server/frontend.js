@@ -141,9 +141,7 @@ async function sendWidget(ctx, next) {
     if(widgetArray.length > 0) {
       var finalWidget = await checkPriority(widgetArray, pathObject.path, pathObject.pageName);
       console.log(finalWidget);
-      if(finalWidget.length) {
-        ctx.body = await selectWidgetBySetting(finalWidget);
-      }
+      ctx.body = await selectWidgetBySetting(finalWidget);
     } else {
       ctx.body = 'no widget';
     }
