@@ -1,5 +1,7 @@
 import { Page, Card, Stack, Checkbox } from '@shopify/polaris'
 import Cookies from 'js-cookie'
+import { jsUcfirst } from '../utils/util';
+import '../stylesheets/select.css';
 
 export default class SelectPage extends React.Component {
     constructor(props) {
@@ -9,6 +11,9 @@ export default class SelectPage extends React.Component {
             products: { allProducts: false },
             blogs: { allBlogs: false },
             pages: { allPages: false },
+            productArray: [],
+            blogs: [],
+            pages: [],
             cart: false,
             search: false,
             saveDisabled: true,
@@ -25,7 +30,7 @@ export default class SelectPage extends React.Component {
             body: JSON.stringify({
                 id: Cookies.get('widget_id')
             })
-            })
+        })
             .then(resp => resp.json())
             .then(json => {
                 if(json == 'error') {
@@ -33,14 +38,17 @@ export default class SelectPage extends React.Component {
                     return;
                 }
 
-                var setting = json;
+                var setting = json.pageSetting;
                 this.setState({
                     homepage: setting.homepage,
                     products: setting.products,
                     pages: setting.pages,
                     blogs: setting.blogs,
                     cart: setting.cart,
-                    search: setting.search
+                    search: setting.search,
+                    pageArray: json.pages,
+                    blogArray: json.blogs,
+                    productArray: json.products
                 })
             });
     }
@@ -63,33 +71,46 @@ export default class SelectPage extends React.Component {
                     <Stack vertical>
                         <Checkbox label="Select All" id="page" name="page" onChange={this.selectAllPage('pages')} checked={this.state.pages.allPages} />
                     </Stack>
-                    { (Object.keys(pages).length > 1)?(
+                    { (Object.keys(pages).length > 1 && !this.state.openPages)?(
                         <div>
                             { Object.keys(pages).map(key => {
                                 if(key != "allPages") {
                                     return (
-                                        <Checkbox label={pages[key].title} id={key} name={key} onChange={this.selectPage(key)} checked={pages[key].show} />
+                                        <Checkbox label={pages[key].title} id={key} name={key} onChange={this.selectPage(pages[key], 0)} checked={pages[key] && pages[key].show} />
                                     );
                                 }
                             })}
                         </div>
                     ):(null)}
+                    <div className="see-all" onClick={this.toggleAllPages}>See All</div>
+                    <Collapsible open={this.state.openPages} id="page-collapsible">
+                        { this.state.pageArray.map((page, key) => (
+                            <Checkbox label={page.title} id={key} name={key} onChange={this.selectPage(page, key)} checked={pages[page.handle] && pages[page.handle].show} />
+                        ))}
+                    </Collapsible>
                 </Card>
                 <Card title="Products Pages" sectioned>
                     <Stack vertical>
                         <Checkbox label="Select All" id="allProducts" name="allProducts" onChange={this.selectAllPage('products')} checked={products.allProducts} />
                     </Stack>
-                    { (Object.keys(products).length > 1)?(
+                    { (Object.keys(products).length > 1 && !this.state.openProducts)?(
                         <div>
                         { Object.keys(products).map(key => {
                             if(key != "allProducts") {
                                return (
-                                    <Checkbox label={products[key].title} id={key} name={key} onChange={this.selectProduct(key)} checked={products[key].show} />
+                                    <Checkbox label={products[key].title} id={key} name={key} onChange={this.selectProduct(products[key], 0)} checked={products[key].show} />
                                );
                           }
                         })}
                         </div>
                     ):(null)}
+
+                    <div className="see-all" onClick={this.toggleAllProducts}>See All</div>
+                    <Collapsible open={this.state.openProducts} id="product-collapsible">
+                        { this.state.productArray.map((product, key) => (
+                            <Checkbox label={product.title} id={key} name={key} onChange={this.selectProduct(product, key)} checked={products[product.handle] && products[product.handle].show} />
+                        ))}
+                    </Collapsible>
                 </Card>
                 <Card title="Blog Pages" sectioned>
                     <Stack vertical>
@@ -100,12 +121,19 @@ export default class SelectPage extends React.Component {
                             { Object.keys(blogs).forEach(key => {
                                 if(key != "allBlogs") {
                                     return (
-                                        <Checkbox label={blogs[key].title} id={key} name={key} onChange={this.selectBlog(key)} checked={blogs[key].show} />
+                                        <Checkbox label={blogs[key].title} id={key} name={key} onChange={this.selectBlog(blogs[key], 0)} checked={blogs[key].show} />
                                     );
                                 }
                             })}
                         </div>
                     ):(null)}
+
+                    <div className="see-all" onClick={this.toggleAllBlogs}>See All</div>
+                    <Collapsible open={this.state.openBlogs} id="blog-collapsible">
+                        { this.state.blogArray.map((blog, key) => (
+                            <Checkbox label={blog.title} id={key} name={key} onChange={this.selectBlog(blog, key)} checked={blogs[blog.handle] && blogs[blog.handle].show} />
+                        ))}
+                    </Collapsible>
                 </Card>
                 <Card title="Cart Page" sectioned>
                     <Stack vertical>
@@ -130,13 +158,40 @@ export default class SelectPage extends React.Component {
     selectAllPage = (field) => {
         return (checked) => {
             var array = this.state[field];
-            Object.keys(array).forEach(function(key) {
-                if(key != "allPages" && key != "allProducts" && key != "allBlogs") {
-                    array[key].show = checked;
+            if(checked) {
+                if(field == 'products') {
+                    const products = this.state.productArray;
+                    products.map(product => {
+                        array[product.handle] = {
+                            title: product.title,
+                            handle: product.handle,
+                            show: true
+                        }
+                    })
+                } else if(field == 'blogs') {
+                    const blogs = this.state.blogArray;
+                    blogs.map(blog => {
+                        array[blog.handle] = {
+                            title: blog.title,
+                            handle: blog.handle,
+                            show: true
+                        }
+                    });
                 } else {
-                    array[key] = checked;
+                    const pages = this.state.pageArray;
+                    pages.map(page => {
+                        array[page.handle] = {
+                            title: page.title,
+                            handle: page.handle,
+                            show: true
+                        }
+                    })
                 }
-            })
+            } else {
+                array = {
+                    ['all'+jsUcfirst(field)]: false 
+                }
+            }
 
             this.setState({
                 [field]: array,
@@ -145,17 +200,36 @@ export default class SelectPage extends React.Component {
         }
     }
 
-    selectPage = (key) => {
+    selectPage = (page, key) => {
         return (checked) => {
             var pages = this.state.pages;
-            pages[key].show = checked;
-            var allSelected = true;
-            Object.keys(pages).forEach(key => {
-                if(key != "allPages" && !pages[key].show) {
-                    allSelected = false;
-                    return;
+            var pageArray = this.state.pageArray;
+            if(this.state.openPages) {
+                if(checked) {
+                    if(pages[pageArray[key].handle]) {
+                        pages[pageArray[key].handle].show = checked;
+                    } else {
+                        pages[pageArray[key].handle] = {
+                            title: pageArray[key].title,
+                            handle: pageArray[key].handle,
+                            show: true
+                        }
+                    }
+                } else {
+                    if(pages[pageArray[key].handle]) {
+                        delete pages[pageArray[key].handle];
+                    }
                 }
-            });
+            } else {
+                pages[page.handle].show = checked;
+            }
+            var allSelected = true;
+            pageArray.map(page => {
+                if(!pages[page.handle] || pages[page.handle].show != true) {
+                    allSelected = false;
+                    break;
+                }
+            })
             pages['allPages'] = allSelected;
             this.setState({
                 pages: pages
@@ -163,17 +237,36 @@ export default class SelectPage extends React.Component {
         }
     }
 
-    selectProduct = (key) => {
+    selectProduct = (product, key) => {
         return (checked) => {
             var products = this.state.products;
-            products[key].show = checked;
-            var allSelected = true;
-            Object.keys(products).forEach(key => {
-                if(key != "allProducts" && !products[key].show) {
-                    allSelected = false;
-                    return;
+            var productArray = this.state.productArray;
+            if(this.state.openProducts) {
+                if(checked) {
+                    if(products[productArray[key].handle]) {
+                        products[productArray[key].handle].show = checked;
+                    } else {
+                        products[productArray[key].handle] = {
+                            title: productArray[key].title,
+                            handle: productArray[key].handle,
+                            show: true
+                        }
+                    }
+                } else {
+                    if(products[productArray[key].handle]) {
+                        delete products[productArray[key].handle];
+                    }
                 }
-            });
+            } else {
+                products[product.handle].show = checked;
+            }
+            var allSelected = true;
+            productArray.map(product => {
+                if(!products[product.handle] || products[product.handle].show != true) {
+                    allSelected = false;
+                    break;
+                }
+            })
             products['allProducts'] = allSelected;
             this.setState({
                 products: products
@@ -184,14 +277,33 @@ export default class SelectPage extends React.Component {
     selectBlog = (key) => {
         return (checked) => {
             var blogs = this.state.blogs;
-            blogs[key].show = checked;
-            var allSelected = true;
-            Object.keys(blogs).forEach(key => {
-                if(key != "allBlogs" && !blogs[key].show) {
-                    allSelected = false;
-                    return;
+            var blogArray = this.state.blogArray;
+            if(this.state.openBlogs) {
+                if(checked) {
+                    if(blogs[blogArray[key].handle]) {
+                        blogs[blogArray[key].handle].show = checked;
+                    } else {
+                        blogs[blogArray[key].handle] = {
+                            title: blogArray[key].title,
+                            handle: blogArray[key].handle,
+                            show: true
+                        }
+                    }
+                } else {
+                    if(blogs[blogArray[key].handle]) {
+                        delete blogs[blogArray[key].handle];
+                    }
                 }
-            });
+            } else {
+                blogs[blog.handle].show = checked;
+            }
+            var allSelected = true;
+            blogArray.map(blog => {
+                if(!blogs[blog.handle] || blogs[blog.handle].show != true) {
+                    allSelected = false;
+                    break;
+                }
+            })
             blogs['allBlogs'] = allSelected;
             this.setState({
                 blogs: blogs

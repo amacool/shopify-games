@@ -118,11 +118,12 @@ async function savePageSetting(ctx, next) {
 }
 
 async function getPageSetting(ctx, next) {
-    var appSetting = await AppSetting.findOne();
-    var pageSetting = JSON.parse(appSetting.pageSetting);
+    var setting = await Widget.findOne();
+    var pageSetting = JSON.parse(setting.pageSetting);
     var staticSetting = pageSetting.pages;
     var blogSetting = pageSetting.blogs;
     var productSetting = pageSetting.products;
+
     const getPageUrl = `https://${appSetting.shop}/admin/api/${API_VERSION}/pages.json`;
 
     const options = {
@@ -135,7 +136,7 @@ async function getPageSetting(ctx, next) {
 
     const optionsWithGet = { ...options, method: 'GET' };
 
-    await fetch(getPageUrl, optionsWithGet).then(resp => resp.json())
+    var pages = await fetch(getPageUrl, optionsWithGet).then(resp => resp.json())
         .then(json => {
             var pages = json.pages;
 
@@ -146,26 +147,21 @@ async function getPageSetting(ctx, next) {
                     }
                 }
             });
-            pages.map(page => {
-                if (!staticSetting[page.id]) {
-                    staticSetting[page.id] = {
-                        title: page.title,
-                        handle: page.handle
-                    };
-                    if (staticSetting.allPages) {
-                        staticSetting[page.id].show = true;
-                    } else {
-                        staticSetting[page.id].show = false;
-                    }
+            pages = pages.map(page => {
+                return {
+                    title: page.title,
+                    handle: page.handle
                 }
             })
+            return pages;
         });
 
     const getBlogUrl = `https://${appSetting.shop}/admin/api/${API_VERSION}/blogs.json`;
 
-    await fetch(getBlogUrl, optionsWithGet).then(resp => resp.json())
+    var blogs = await fetch(getBlogUrl, optionsWithGet).then(resp => resp.json())
         .then(json => {
             var blogs = json.blogs;
+            console.log(blogs);
             Object.keys(blogSetting).forEach(function (key) {
                 if (key != "allBlogs") {
                     if (!existsInArray(key, blogs)) {
@@ -173,24 +169,18 @@ async function getPageSetting(ctx, next) {
                     }
                 }
             })
-            blogs.map(blog => {
-                if (!blogSetting[blog.id]) {
-                    blogSetting[blog.id] = {
-                        title: blog.title,
-                        handle: blog.handle
-                    };
-                    if (blogSetting.allBlogs) {
-                        blogSetting[blog.id].show = true;
-                    } else {
-                        blogSetting[blog.id].show = false;
-                    }
+            blogs = blogs.map(blog => {
+                return {
+                    title: blog.title,
+                    handle: blog.handle
                 }
             });
+            return blogs;
         })
 
     const getProductUrl = `https://${appSetting.shop}/admin/api/${API_VERSION}/products.json`;
 
-    await fetch(getProductUrl, optionsWithGet).then(resp => resp.json())
+    var products = await fetch(getProductUrl, optionsWithGet).then(resp => resp.json())
         .then(json => {
             var products = json.products;
             console.log(json);
@@ -204,29 +194,28 @@ async function getPageSetting(ctx, next) {
                     }
                 }
             });
-            products.map(product => {
-                if (!productSetting[product.id]) {
-                    productSetting[product.id] = {
-                        title: product.title,
-                        handle: product.handle
-                    }
-                    if (productSetting.allProducts) {
-                        productSetting[product.id].show = true;
-                    } else {
-                        productSetting[product.id].show = false;
-                    }
+            products = products.map(product => {
+                return {
+                    title: product.title,
+                    handle: product.handle
                 }
-            })
+            });
+            return products;
         })
 
     pageSetting.pages = staticSetting;
     pageSetting.products = productSetting;
     pageSetting.blogs = blogSetting;
 
-    appSetting.pageSetting = JSON.stringify(pageSetting);
-    appSetting.save();
+    setting.pageSetting = JSON.stringify(pageSetting);
+    setting.save();
 
-    ctx.body = JSON.stringify(pageSetting);
+    ctx.body = JSON.stringify({
+        pageSetting,
+        pages,
+        blogs,
+        products
+    });
 }
 
 async function deleteWidget(ctx, next) {
