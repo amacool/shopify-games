@@ -6,8 +6,8 @@ const Discount = mongoose.Schema({
         default: ''
     },
     type: {
-        type: Number,
-        default: 0
+        type: String,
+        default: ''
     },
     value: {
         type: Number,
