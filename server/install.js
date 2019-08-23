@@ -81,8 +81,7 @@ async function installing(ctx) {
                                 $(document).ready(function () {
                                     setTimeout(function () {
                                         $.ajax({
-                                            // url: 'https://app.trytada.com/getWidget',
-                                            url: 'https://71081b6b.ngrok.io/getWidget',
+                                            url: 'https://app.trytada.com/getWidget',
                                             type: 'post',
                                             data: JSON.stringify({
                                                 shop: window.location.hostname,
@@ -153,8 +152,7 @@ async function installing(ctx) {
                                     $(document).ready(function () {
                                         setTimeout(function () {
                                             $.ajax({
-                                                // url: 'https://app.trytada.com/getWidget',
-                                                url: 'https://71081b6b.ngrok.io/getWidget',
+                                                url: 'https://app.trytada.com/getWidget',
                                                 type: 'post',
                                                 data: JSON.stringify({
                                                     shop: window.location.hostname,

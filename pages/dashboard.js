@@ -87,7 +87,7 @@ class Dashboard extends React.Component {
   editWidget = (key) => {
     const {widgets} = this.state;
     Cookies.set('widget_id', widgets[key]._id);
-    window.location.href = '/detailSetting';
+    window.location.href = '/coupons';
   }
 
   pauseWidget = (key) => {
