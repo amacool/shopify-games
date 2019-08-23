@@ -144,7 +144,10 @@ async function sendWidget(ctx, next) {
       return widgets;
     });
 
+    console.log(widgets);
+
     var finalWidget = await checkPriority(widgetArray, pathObject.path, pathObject.pageName);
+    console.log(finalWidget);
     ctx.body = await selectWidgetBySetting(finalWidget);
   } else {
     ctx.body = '';
@@ -694,35 +697,24 @@ function getPathAndPageName(pathname) {
 function checkPriority(widgetArray, path, pageName) {
   var result = widgetArray[0];
   if (widgetArray.length > 1) {
-    for (var i = 0; i < widgetArray.length; i++) {
-      if (path == 'homepage' || path == 'cart' || path == 'search') {
-        if (compareDate(result, widgetArray[i])) {
-          result = widgetArray[i];
+    for (var i = 1; i < widgetArray.length; i++) {
+      var temp = widgetArray[i];
+      if(result.displaySetting == 'all') {
+        if(temp.displaySetting != 'all') {
+          result = temp;
+        }
+      } else if(result.displaySetting != 'specific') {
+        if(temp.displaySetting == result.displaySetting) {
+          if (compareDate(result, widgetArray[i])) {
+            result = temp;
+          }
+        } else if(temp.displaySetting == 'specific') {
+          result = temp;
         }
       } else {
-        var resultPageSetting = JSON.parse(result.pageSetting);
-        var bufPageSetting = JSON.parse(widgetArray[i].pageSetting);
-        if (resultPageSetting.all) {
-          if (bufPageSetting.all) {
-            if (compareDate(result, widgetArray[i])) {
-              result = widgetArray[i];
-            }
-          } else {
-            result = widgetArray[i];
-          }
-        } else if (resultPageSetting[path]['all' + jsUcfirst(path)]) {
-          if (bufPageSetting[path]['all' + jsUcfirst(path)]) {
-            if (compareDate(result, widgetArray[i])) {
-              result = widgetArray[i];
-            }
-          } else if (bufPageSetting.all == false) {
-            result = widgetArray[i];
-          }
-        } else {
-          if (bufPageSetting[path][pageName]) {
-            if (compareDate(result, widgetArray[i])) {
-              result = widgetArray[i];
-            }
+        if(temp.displaySetting == 'specific') {
+          if (compareDate(result, widgetArray[i])) {
+            result = temp;
           }
         }
       }
