@@ -76,6 +76,7 @@ export default class SelectPage extends React.Component {
                     <Stack vertical>
                         <Checkbox label="Select All" id="page" name="page" onChange={this.selectAllPage('pages')} checked={this.state.pages.allPages} />
                     </Stack>
+                    <div className="see-all" onClick={this.toggleAllPages}>See All</div>
                     { (Object.keys(pages).length > 1 && !this.state.openPages)?(
                         <div>
                             { Object.keys(pages).map(key => {
@@ -89,7 +90,6 @@ export default class SelectPage extends React.Component {
                             })}
                         </div>
                     ):(null)}
-                    <div className="see-all" onClick={this.toggleAllPages}>See All</div>
                     <Collapsible open={this.state.openPages} id="page-collapsible">
                         { this.state.pageArray.map((page, key) => (
                             <div>
@@ -102,6 +102,7 @@ export default class SelectPage extends React.Component {
                     <Stack vertical>
                         <Checkbox label="Select All" id="allProducts" name="allProducts" onChange={this.selectAllPage('products')} checked={products.allProducts} />
                     </Stack>
+                    <div className="see-all" onClick={this.toggleAllProducts}>See All</div>
                     { (Object.keys(products).length > 1 && !this.state.openProducts)?(
                         <div>
                         { Object.keys(products).map(key => {
@@ -116,7 +117,6 @@ export default class SelectPage extends React.Component {
                         </div>
                     ):(null)}
 
-                    <div className="see-all" onClick={this.toggleAllProducts}>See All</div>
                     <Collapsible open={this.state.openProducts} id="product-collapsible">
                         { this.state.productArray.map((product, key) => (
                             <div>
@@ -129,9 +129,10 @@ export default class SelectPage extends React.Component {
                     <Stack vertical>
                         <Checkbox label="Select All" id="allBlogs" name="allBlogs" onChange={this.selectAllPage('blogs')} checked={blogs.allBlogs} />
                     </Stack>
+                    <div className="see-all" onClick={this.toggleAllBlogs}>See All</div>
                     { (Object.keys(blogs).length > 1 && !this.state.openBlogs)?(
                         <div>
-                            { Object.keys(blogs).forEach(key => {
+                            { Object.keys(blogs).map(key => {
                                 if(key != "allBlogs") {
                                     return (
                                         <div>
@@ -143,7 +144,6 @@ export default class SelectPage extends React.Component {
                         </div>
                     ):(null)}
 
-                    <div className="see-all" onClick={this.toggleAllBlogs}>See All</div>
                     <Collapsible open={this.state.openBlogs} id="blog-collapsible">
                         { this.state.blogArray.map((blog, key) => (
                             <div>
