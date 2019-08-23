@@ -130,7 +130,7 @@ class DetailSetting extends React.Component {
         </div>
         <div className="page-footer">
           <Button onClick={() => this.prevStep()}>Previous Step</Button>
-          <Button onClick={() => this.saveSetting()} disabled={this.state.saveDisabled} primary>Save</Button>
+          <Button onClick={() => this.saveSetting()} primary>Save</Button>
         </div>
       </Page>
     );
