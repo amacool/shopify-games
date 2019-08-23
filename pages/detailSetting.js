@@ -61,7 +61,7 @@ class DetailSetting extends React.Component {
             <RadioButton label="Product Page" helpText="App Widget will be displayed only on product pages" id="products" name="products" onChange={() => this.handleDisplayChange('products')} checked={this.state.displaySetting == 'products'} />
             <RadioButton label="Static Page" helpText="App Widget will be displayed only on static pages" id="pages" name="pages" onChange={() => this.handleDisplayChange('pages')} checked={this.state.displaySetting == 'pages'} />
             <RadioButton label="Blog Page" helpText="App Widget will be displayed only on blogs pages" id="blogs" name="blogs" onChange={() => this.handleDisplayChange('blogs')} checked={this.state.displaySetting == 'blogs'} />
-            <RadioButton label="Specific Page" helpText="App Widget will be displayed only on specific pages" id="specific" name="specific" onChange={() => this.handleDisplayChange('specific')} checked={this.state.displaySetting.specific} />
+            <RadioButton label="Specific Page" helpText="App Widget will be displayed only on specific pages" id="specific" name="specific" onChange={() => this.handleDisplayChange('specific')} checked={this.state.displaySetting == 'specific'} />
             { (this.state.displaySetting == 'specific')?(
               <div className="subsetting">
                 <Link url="/selectPages">Select Specific Pages</Link>
