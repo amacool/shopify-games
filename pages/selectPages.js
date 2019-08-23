@@ -50,7 +50,7 @@ export default class SelectPage extends React.Component {
         console.log(this.state);
         return (
             <Page
-                breadcrumbs={[{content: 'Settings', url: '/?hmac=true'}]}
+                breadcrumbs={[{content: 'Settings', url: '/detailSetting'}]}
                 title="Select Specific Pages"
                 primaryAction={{content: "Save", disabled: this.state.saveDisabled, onAction: this.saveSubSetting}}
                 >
