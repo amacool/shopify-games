@@ -109,6 +109,7 @@ class Dashboard extends React.Component {
       }
       if(json) {
         widgets[key].pause = !widgets[key].pause;
+        this.togglePopover(key);
         this.setState({
           widgets: widgets
         });
@@ -133,6 +134,7 @@ class Dashboard extends React.Component {
           return;
         }
         if(json) {
+          this.togglePopover(key);
           delete widgets[key];
           this.setState({
             widgets: widgets
