@@ -228,7 +228,7 @@ class DetailSetting extends React.Component {
      },
      body: JSON.stringify({
        updateSetting,
-       shop: Cookies.get('widget_id')
+       id: Cookies.get('widget_id')
     })
    }).then(resp => {
      this.setState({
