@@ -164,7 +164,6 @@ async function getPageSetting(ctx, next) {
     var blogs = await fetch(getBlogUrl, optionsWithGet).then(resp => resp.json())
         .then(json => {
             var blogs = json.blogs;
-            console.log(blogs);
             Object.keys(blogSetting).forEach(function (key) {
                 if (key != "allBlogs") {
                     if (!existsInArray(key, blogs)) {
@@ -186,7 +185,6 @@ async function getPageSetting(ctx, next) {
     var products = await fetch(getProductUrl, optionsWithGet).then(resp => resp.json())
         .then(json => {
             var products = json.products;
-            console.log(json);
             if (json.errors) {
                 return;
             }

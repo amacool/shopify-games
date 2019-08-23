@@ -25,7 +25,7 @@ function getCookie(name, cookie) {
 function existsInArray(value, _array) {
     var result = false;
     for (var i = 0; i < _array.length; i++) {
-        if (_array.id == value) {
+        if (_array.handle == value) {
             result = true;
             break;
         }
