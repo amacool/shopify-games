@@ -57,6 +57,22 @@ const Widget = mongoose.Schema({
         type: Number,
         default: 5
     },
+    descripton: {
+        type: String,
+        default: ''
+    },
+    headline: {
+        type: String,
+        default: ''
+    },
+    button: {
+        type: String,
+        default: '',
+    },
+    placeholder: {
+        type: String,
+        default: ''
+    },
     created_at: {
         type: Date,
         default: Date.now()

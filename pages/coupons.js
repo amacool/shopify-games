@@ -161,17 +161,6 @@ class Coupons extends React.Component {
     deleteCoupon = (key) => {
         var { discounts } = this.state;
         delete discounts[key];
-
-        fetch('https://app.trytada.com/updateCoupon', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                discounts,
-                id: Cookies.get('widget_id')
-            })
-        })
         this.setState({
             discounts
         })
@@ -196,16 +185,6 @@ class Coupons extends React.Component {
         }
         discount.title = title;
         discounts[key] = discount;
-        fetch('https://app.trytada.com/updateCoupon', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                discounts,
-                id: Cookies.get('widget_id')
-            })
-        })
         this.setState({
             discounts,
             fixed_type: true,
