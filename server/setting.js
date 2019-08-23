@@ -52,9 +52,9 @@ async function removeExpiredCode() {
 }
 
 async function pauseWidget(ctx, next) {
-    const { widget_id, pause } = ctx.request.body;
+    const { widget_id } = ctx.request.body;
     var widget = await Widget.findfOne({_id: widget_id});
-    widget.pause = pause;
+    widget.pause = !widget.pause;
 
     widget.save();
     ctx.body = 'succss';
@@ -221,16 +221,7 @@ async function getPageSetting(ctx, next) {
 
 async function deleteWidget(ctx, next) {
     const { widget_id } = ctx.request.body;
-    await Widget.findOne({id: widget_id}, (err, result) => {
-        if(err) {
-            console.log(err);
-            return;
-        }
-
-        if(result) {
-            result.remove();
-        }
-    })
+    await Widget.findByIdAndDelete({id: widget_id});
 
     ctx.body = 'success';
 }

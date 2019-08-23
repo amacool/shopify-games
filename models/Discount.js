@@ -13,6 +13,10 @@ const Discount = mongoose.Schema({
         type: Number,
         default: 0
     },
+    email: {
+        type: String,
+        default: ''
+    },
     created_at: {
         type: Date,
         default: Date.now()
@@ -24,6 +28,14 @@ const Discount = mongoose.Schema({
     used: {
         type: Boolean,
         default: false
+    },
+    used_at: {
+        type: Date,
+        default: Date.now()
+    },
+    used_amount: {
+        type: Number,
+        default: 0
     },
     shop_id: {
         type: String,
