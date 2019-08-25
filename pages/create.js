@@ -15,7 +15,7 @@ class Create extends React.Component {
         <div className="create-card border-bottom">
           <div className="header2">Name of Widget</div>
           <div className="header-description">Lore ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ut.</div>
-          <input className="" value={this.state.name} onChange={this.changeName} type="text" />
+          <TextField label="" value={this.state.name} onChange={this.changeName} type="text"></TextField>
           { (this.state.exist)?(
               <InlineError message="Already exist!" fieldID="existID"></InlineError>
           ): (null)}
@@ -27,21 +27,27 @@ class Create extends React.Component {
           <div className="header2">Select type of widget</div>
           <div className="widgets-group">
             <div className="widget-type">
-              <img src="../public/wheel.png" className="widget-img" />
+              <img src="/public/wheel.png" className="widget-img" />
               <div className="header3">SPINNING WHEEL</div>
               <div className="game-badge">Game</div>
-              <Button>Preview</Button>
-              <Button onClick={() => this.selectWidget(0)} primary>Select Widget</Button>
+              <div>
+                <div className="preview-btn">
+                  <Button>Preview</Button>
+                </div>
+                <div className="select-btn">
+                  <Button onClick={() => this.selectWidget(0)} primary>Select Widget</Button>
+                </div>
+              </div>
             </div>
             <div className="widget-type">
-              <img src="../public/wheel.png" className="widget-img" />
+              <img src="/public/wheel.png" className="widget-img" />
               <div className="header3">SPINNING WHEEL</div>
               <div className="game-badge">Game</div>
               <Button>Preview</Button>
               <Button onClick={() => this.selectWidget(1)} primary>Select Widget</Button>
             </div>
             <div className="widget-type">
-              <img src="../public/wheel.png" className="widget-img" />
+              <img src="/public/wheel.png" className="widget-img" />
               <div className="header3">SPINNING WHEEL</div>
               <div className="game-badge">Pop up</div>
               <Button>Preview</Button>

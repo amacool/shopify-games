@@ -1,8 +1,9 @@
 .create-header {
-    height: 50px;
-    padding: 15px;
-    font-size: 20px;
+    height: 70px;
+    padding: 25px;
+    font-size: 18px;
     line-height: 20px;
+    padding-left: 40px;
 }
 
 .widgets-group {
@@ -10,13 +11,19 @@
     padding: 30px;
 }
 
+.widget-body {
+    padding: 40px;
+}
+
 .widget-type {
-    width: 200px;
-    height: 200px;
-    margin-left: 50px;
-    display: inline-flex;
+    width: 300px;
+    height: 300px;
+    margin: 30px;
+    display: inline-block;
     padding: 20px;
     vertical-align: middle;
+    box-shadow: #dddddd 0px 2px 2px 1px;
+    text-align: center;
 }
 
 .widget-type:nth-child(1) {
@@ -30,31 +37,33 @@
 
 .create-card {
     height: 200px;
-    padding: 20px;
+    padding: 40px;
 }
 
 .header-description {
-    width: 250px;
-    font-size: 20px;
+    width: 350px;
+    font-size: 18px;
     margin-top: 25px;
-}
-
-.widget-type {
-    width: 400px;
-    height: 400px;
-    box-shadow: #dddddd 0px 2px 2px 1px;
-    text-align: center;
 }
 
 .widget-img {
     width: 250px;
-    height: 200px;
+    height: 140px;
 }
 
 .game-badge {
-    background-color: #dddddd;
+    background-color: #eafafb;
     padding: 3px 5px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    font-size: 14px;
+    font-size: 12px;
+    margin: 15px auto;
+}
+
+.preview-btn {
+    display: inline-block;
+}
+
+.select-btn {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
 }

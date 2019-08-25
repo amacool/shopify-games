@@ -3,13 +3,14 @@
 }
 
 .header2 {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 22px;
+    font-weight: 500;
 }
 
 .header3 {
-    font-size: 22px;
-    font-weight: bold;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 input {
@@ -31,4 +32,9 @@ input {
     font-size: inherit;
     font-weight: inherit;
     -webkit-appearance: none;
+}
+
+.Polaris-Page {
+    padding: 0 !important;
+    margin: 0 !important;
 }
