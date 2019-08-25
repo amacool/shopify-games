@@ -1,0 +1,26 @@
+.settings-header {
+    height: 50px;
+    font-size: 18px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.settings-header-left {
+    max-width: 500px;
+    padding-left: 30px;
+    padding-top: 20px;
+}
+
+.settings-header-right {
+
+}
+
+.setting-menu {
+    margin-right: 40px;
+    width: fit-content;
+}
+
+.setting-menu.selected {
+    border-bottom: 3px solid #3f4eae;
+    font-weight: bold;
+}

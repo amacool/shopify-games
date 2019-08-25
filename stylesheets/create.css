@@ -1,17 +1,17 @@
 .create-header {
-    height: 70px;
     padding: 25px;
     font-size: 18px;
     line-height: 20px;
     padding-left: 40px;
+    padding-top: 0;
 }
 
 .widgets-group {
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .widgets-body {
-    padding: 40px;
+    padding: 30px 40px;
 }
 
 .widget-type {
@@ -36,14 +36,17 @@
 }
 
 .create-card {
-    height: 200px;
     padding: 40px;
+    padding-bottom: 25px;
+    padding-top: 30px;
 }
 
 .header-description {
     width: 350px;
     font-size: 18px;
     margin-top: 25px;
+    margin-bottom: 25px;
+    line-height: 25px;
 }
 
 .widget-img {
@@ -71,4 +74,8 @@
 
 .widgets-bottom {
     margin-left: 40px;
+}
+
+.widget-input {
+    max-width: 500px;
 }

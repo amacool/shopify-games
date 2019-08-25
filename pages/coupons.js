@@ -4,97 +4,101 @@ import Cookies from 'js-cookie';
 import '../stylesheets/coupon.css';
 
 class Coupons extends React.Component {
-    state = {
-        discounts: {
-            freeShipping: {
-                enable: false
-            },
-            discount15p: {
-                enable: false
-            },
-            discount25p: {
-                enable: false
-            }
-        }, value: 0, fixed_type: true, minError: false, maxError: false, minLimit: 1, maxLimit: 12
-    };
+    constructor(props) {
+        super(props);
 
-    componentDidMount = () => {
-        fetch('https://app.trytada.com/getDiscounts', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                id: Cookies.get('widget_id')
-            })
-        }).then(resp => resp.json())
-            .then(json => {
-                if (json.error) {
-                    console.log('error');
-                    return;
-                }
-                var discounts = JSON.parse(json.discounts);
-                this.setState({
-                    discounts
-                })
-            })
-        var game_type = Cookies.get('tada_game_type');
-        if(game_type == 0) {
-            this.setState({
-                minLimit: 2
-            })
-        } else {
-            this.setState({
-                minLimit: 1
-            })
+        this.state = {
+            discounts: props.discounts,
+            value: 0,
+            fixed_type: true,
+            minError: false,
+            maxError: false,
+            minLimit: 1,
+            maxLimit: 12
         }
     }
 
     render() {
         const { discounts, minError, maxError, minLimit, maxLimit } = this.state;
         return (
-            <Page
-                title="What discounts do you want to offer?"
-            >
+            <div>
                 <div className="discount-setting">
-                    <div>
-                        <Checkbox checked={this.state.discounts.freeShipping.enable} label="Free Shipping" onChange={this.changeEnable('freeShipping')} />
-                    </div>
-                    <div>
-                        <Checkbox checked={this.state.discounts.discount15p.enable} label="15% Discount" onChange={this.changeEnable('discount15p')} />
-                    </div>
-                    <div>
-                        <Checkbox checked={this.state.discounts.discount25p.enable} label="25% Discount" onChange={this.changeEnable('discount25p')} />
-                    </div>
+                    <Card>
+                        <div className="header3">What discounts do you want to offer?</div>
+                        <div className="default-discount">
+                            <Checkbox checked={this.state.discounts.freeShipping.enable} label="Free Shipping" onChange={this.changeEnable('freeShipping')} />
+                        </div>
+                        <div className="default-discount">
+                            <Checkbox checked={this.state.discounts.discount15p.enable} label="15% Discount" onChange={this.changeEnable('discount15p')} />
+                        </div>
+                        <div className="default-discount">
+                            <Checkbox checked={this.state.discounts.discount25p.enable} label="25% Discount" onChange={this.changeEnable('discount25p')} />
+                        </div>
+                    </Card>
                 </div>
-
-                <div>
-                    <TextField value={this.state.value} onChange={this.valueChange} label="" type="number" />
-                    <Stack horizontal>
-                        <RadioButton label="$ Off" id="fixed_amount" name="fixed_amount" onChange={() => this.handleType(true)} checked={this.state.fixed_type} />
-                        <RadioButton label="% Off" id="percentage" name="percentage" onChange={() => this.handleType(false)} checked={!this.state.fixed_type} />
-                    </Stack>
-                    <Button type="button" onClick={() => this.addCoupon()} primary>Add</Button>
+                <div className="discount-add">
+                    <Card>
+                        <div className="header3">Custom discounts</div>
+                        <div className="add-field">
+                            <div className="discount-input-field">
+                                <TextField value={this.state.value} onChange={this.valueChange} label="" type="number" placeholder="Enter value" />
+                            </div>
+                                { (this.state.fixed_type)?(
+                            <div className="discount-type-group">
+                                <Button onClick={() => this.handleType(true)} primary>$ OFF</Button>
+                                <Button onClick={() => this.handleType(false)}>$ OFF</Button>
+                                <img src="/public/delete.png" className=""/>
+                            </div>
+                                ):(
+                            <div className="discount-type-group">
+                                <Button onClick={() => this.handleType(true)} primary>$ OFF</Button>
+                                <Button onClick={() => this.handleType(true)}>$ OFF</Button>
+                                <img src="/public/delete.png" className=""/>
+                            </div>
+                                )}
+                        </div>
+                        <div className="discount-add-link" onClick={() => this.addCoupon()}>+Add one more custom value</div>
+                        <Stack vertical>
+                            {Object.keys(discounts).map(key => {
+                                if (key != 'freeShipping' && key != 'discount15p' && key != 'discount25p') {
+                                    return (<div>
+                                        <span>{discounts[key].title}</span>
+                                        <button onClick={() => this.deleteCoupon(key)} type="button">Delete</button>
+                                    </div>)
+                                }
+                            })}
+                        </Stack>
+                    </Card>
                 </div>
-                <Stack vertical>
-                    {Object.keys(discounts).map(key => {
-                        if (key != 'freeShipping' && key != 'discount15p' && key != 'discount25p') {
-                            return (<div>
-                                <span>{discounts[key].title}</span>
-                                <button onClick={() => this.deleteCoupon(key)} type="button">Delete</button>
-                            </div>)
-                        }
-                    })}
-                </Stack>
+                <div className="coupon-chance">
+                    <Card>
+                        <div className="header3">Edit chances</div>
+                        <Stack vertical>
+                            {Object.keys(discounts).map(key => {
+                                if (key != 'freeShipping' && key != 'discount15p' && key != 'discount25p') {
+                                    return (<div>
+                                        <span>{discounts[key].title}</span>
+                                        <TextField onChange={this.chanceChange(key)} label="" type="number" placeholder="Enter value" />
+                                    </div>)
+                                }
+                            })}
+                        </Stack>
+                    </Card>
+                </div>
                 <div>
-                    <Button primary onClick={() => this.nextStep()}>Next Step</Button>
+                    <div className="coupon-prev-btn-wrapper">
+                        <Button disabled="true" onClick={() => this.nextStep()}>Previous Step</Button>
+                    </div>
+                    <div className="coupon-next-btn-wrapper">
+                        <Button primary onClick={() => this.nextStep()}>Next Step</Button>
+                    </div>
                 </div>
                 <Modal
                     open={minError || maxError} onClose={this.closeModal}
                     title={minError?`Discounts amount must be larger than ${minLimit}!`:`Discounts can not be larger than ${maxLimit}`}
                     primaryAction={{content: 'OK', onAction: this.closeModal}}>
                 </Modal>
-            </Page>
+            </div>
         )
     }
 

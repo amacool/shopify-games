@@ -15,7 +15,9 @@ class Create extends React.Component {
         <div className="create-card border-bottom">
           <div className="header2">Name of Widget</div>
           <div className="header-description">Lore ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ut.</div>
-          <TextField label="" value={this.state.name} onChange={this.changeName} type="text"></TextField>
+          <div className="widget-input">
+            <TextField label="" value={this.state.name} onChange={this.changeName} type="text"></TextField>
+          </div>
           { (this.state.exist)?(
               <InlineError message="Already exist!" fieldID="existID"></InlineError>
           ): (null)}
@@ -23,7 +25,7 @@ class Create extends React.Component {
             <InlineError message="Please input name of widget!" fieldID="emptyID"></InlineError>
           ): (null)}
         </div>
-        <div className="widgets-body">
+        <div className="widgets-body border-bottom">
           <div className="header2">Select type of widget</div>
           <div className="widgets-group">
             <div className="widget-type">
@@ -102,7 +104,7 @@ class Create extends React.Component {
               })
           } else {
               Cookies.set('widget_id', json.id);
-              window.location.href = '/coupons';
+              window.location.href = '/setting';
           }
       })
   }
