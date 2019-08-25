@@ -112,9 +112,22 @@ class Coupons extends React.Component {
     }
 
     valueChange = (value) => {
-        this.setState({
-            value: value
-        })
+        const { fixed_type } = this.state;
+        if(fixed_type) {
+            if(value >= 0) {
+                this.setState({
+                    value: value
+                })
+                return
+            }
+        } else {
+            if(value >=0 && value < 101) {
+                this.setState({
+                    value: value
+                })
+                return;
+            }
+        }
     }
 
     getLength = (discounts) => {

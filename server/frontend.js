@@ -348,7 +348,7 @@ function selectWidgetBySetting(widget) {
               var discount_type = '';
               var discount_value = 0;
               if(indicatedSegment.text != "Free Shipping"){
-                if(indecatedSegment.text.indexOf('%') > -1) {
+                if(indicatedSegment.text.indexOf('%') > -1) {
                   discount_type = 'percentage';
                   discount_value = 1 * indicatedSegment.text.split('%')[0];
                 } else {

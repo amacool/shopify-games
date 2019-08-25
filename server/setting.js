@@ -94,6 +94,7 @@ async function saveSetting(ctx, next) {
             setting[0].frequency = updateSetting.frequency;
             setting[0].exitIntent = updateSetting.exitIntent;
             setting[0].exitIntentTime = updateSetting.exitIntentTime;
+            setting[0].created_at = new Date().toISOString();
             setting[0].save();
         }
     });
