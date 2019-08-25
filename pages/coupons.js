@@ -1,4 +1,4 @@
-import { Modal, TextContainer, TextField, Checkbox, Button, RadioButton, Stack, Heading, Page } from '@shopify/polaris';
+import { Modal, Card, TextField, Checkbox, Button, RadioButton, Stack, Heading, Page } from '@shopify/polaris';
 import store from 'store-js';
 import Cookies from 'js-cookie';
 import '../stylesheets/coupon.css';

@@ -1,7 +1,7 @@
-import { Tabs, Card, Checkbox } from '@shopify/polaris';
-// import Coupons from './coupons';
-// import Style from './style';
-// import DetailSetting from'./detailSetting';
+import { Button, Page } from '@shopify/polaris';
+import Coupons from './coupons';
+import Style from './style';
+import DetailSetting from'./detailSetting';
 import store from 'store-js';
 import Cookies from 'js-cookie';
 import '../stylesheets/coupon.css';

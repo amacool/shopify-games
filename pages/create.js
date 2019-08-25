@@ -1,4 +1,4 @@
-import { Link, TextField, Checkbox, Button, InlineError, Stack, div, Page } from '@shopify/polaris';
+import { TextField, Button, InlineError, Page } from '@shopify/polaris';
 import store from 'store-js';
 import Cookies from 'js-cookie';
 import '../stylesheets/create.css';
