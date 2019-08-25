@@ -1,4 +1,4 @@
-import { Link, TextField, Checkbox, Button, RadioButton, Stack, Heading, Page } from '@shopify/polaris';
+import { Link, TextField, Checkbox, Button, InlineError, Stack, div, Page } from '@shopify/polaris';
 import store from 'store-js';
 import Cookies from 'js-cookie';
 import '../stylesheets/create.css';
@@ -8,28 +8,48 @@ class Create extends React.Component {
 
   render() {
     return (
-      <Page
-        title="Create your first widget"
-      >
-        <div className="create-card">
-          <Heading>Name of Widget</Heading>
-          <TextField value={this.state.name} onChange={this.changeName} type="text" />
+      <Page title="">
+        <div className="create-header border-bottom">
+          Create your first widget
+        </div>
+        <div className="create-card border-bottom">
+          <div className="header2">Name of Widget</div>
+          <div className="header-description">Lore ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ut.</div>
+          <input className="" value={this.state.name} onChange={this.changeName} type="text" />
           { (this.state.exist)?(
-              <div>Already exist!</div>
+              <InlineError message="Already exist!" fieldID="existID"></InlineError>
           ): (null)}
           { (this.state.nameError)?(
-            <div>Please input name of widget!</div>
-        ): (null)}
+            <InlineError message="Please input name of widget!" fieldID="emptyID"></InlineError>
+          ): (null)}
+        </div>
+        <div className="widgets-body">
+          <div className="header2">Select type of widget</div>
           <div className="widgets-group">
-          <Heading>Select type of widget</Heading>
             <div className="widget-type">
-                <div>Kind 1</div>
-                <div>Spinning Wheel</div>
-                <Button onClick={() => this.selectWidget(0)} primary>Select Widget</Button>
+              <img src="../public/wheel.png" className="widget-img" />
+              <div className="header3">SPINNING WHEEL</div>
+              <div className="game-badge">Game</div>
+              <Button>Preview</Button>
+              <Button onClick={() => this.selectWidget(0)} primary>Select Widget</Button>
+            </div>
+            <div className="widget-type">
+              <img src="../public/wheel.png" className="widget-img" />
+              <div className="header3">SPINNING WHEEL</div>
+              <div className="game-badge">Game</div>
+              <Button>Preview</Button>
+              <Button onClick={() => this.selectWidget(1)} primary>Select Widget</Button>
+            </div>
+            <div className="widget-type">
+              <img src="../public/wheel.png" className="widget-img" />
+              <div className="header3">SPINNING WHEEL</div>
+              <div className="game-badge">Pop up</div>
+              <Button>Preview</Button>
+              <Button onClick={() => this.selectWidget(2)} primary>Select Widget</Button>
             </div>
           </div>
           <div>
-            <button className="create-widget-btn" onClick={() => this.createNewWidget()}>Create Widget</button>
+            <Button onClick={() => this.createNewWidget()} primary>Create Widget</Button>
           </div>
         </div>
     </Page>
