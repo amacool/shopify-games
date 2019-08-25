@@ -54,9 +54,9 @@ class Create extends React.Component {
               <Button onClick={() => this.selectWidget(2)} primary>Select Widget</Button>
             </div>
           </div>
-          <div>
-            <Button onClick={() => this.createNewWidget()} primary>Create Widget</Button>
-          </div>
+        </div>
+        <div className="widget-bottom">
+          <Button onClick={() => this.createNewWidget()} primary>Create Widget</Button>
         </div>
     </Page>
     )
