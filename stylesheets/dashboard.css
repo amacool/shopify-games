@@ -4,15 +4,211 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 40px;
+}
+
+.display-create-btn {
+    max-width: 156px;
+    margin-top: 20px;
+    margin-right: 30px;
+}
+
+.display-view-all {
+    float: right;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    line-height: 20px;
+    margin-right: 33px;
+    color: #006fbb;
+}
+
+.dashboard-section-header {
+    margin-top: 30px;
+    padding-left: 30px;
+    border-bottom: 1px solid #c4cdd5;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    line-height: 20px;
+}
+
+.dashboard-widget-group {
+    margin-top: 30px;
+    margin-left: 30px;
 }
 
 .dashboard-widget {
-    height: 200px;
+    width: 331px;
+    height: 348px;
+    margin-right: 20px;
     display: inline-block;
     vertical-align: middle;
-    margin-left: 50px;
+    box-shadow: #dddddd 0px 2px 2px 1px;
+    padding: 20px;
+    text-align: center;
 }
 
-.dashboard-widget:nth-child(1) {
-    margin-left: 0;
+.dashboard-widget .widget-img {
+    width: 291px;
+    height: 240px;
+}
+
+.dashboard-widget .widget-name {
+    margin-top: 20px;
+}
+
+.dashboard-widget .widget-name > div {
+    font-size: 12px;
+    line-height: 16px;
+    color: #212b36;
+    display: inline-block;
+}
+
+.dashboard-widget .widget-name img {
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    float: right;
+}
+
+.dashboard-widget .widget-status {
+    margin-top: 20px;
+}
+
+.dashboard-widget .widget-status .active {
+    width: fit-content;
+    font-size: 12px;
+    line-height: 20px;
+    background: #108043;
+    color: white;
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.dashboard-widget .widget-status .hold {
+    width: fit-content;
+    font-size: 12px;
+    line-height: 20px;
+    background: #eec200;
+    color: white;
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.dashboard-widget .widget-status .modify-label {
+    color: #637381;
+    font-size:12px;
+    line-height: 16px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.dashboard-email-body {
+    margin-top: 15px;
+    margin-left: 30px;
+}
+
+.dashboard-email-body .dashboard-email-items {
+    margin-bottom: 20px;
+}
+
+.dashboard-email-items .email-kind {
+    box-shadow: #dddddd 0px 1px 1px 1px;
+    width: 331px;
+    height: 60px;
+    margin-right: 20px;
+    padding: 10px 30px;
+}
+
+.dashboard-email-body .email-kind img {
+    width: 36px;
+    height: 23px;
+    display: inline-block;
+}
+
+.dashboard-email-body .email-kind div {
+    margin-left: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    color: #212b36;
+}
+
+.dashboard-email-body .email-export-description {
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #637381;
+    max-width: 366px; 
+    display: inline-block;
+    vertical-align: center;
+    margin-bottom: 30px;
+}
+
+.dashboard-email-body .email-footer {
+    margin-top: 30px;
+    border-top: 1px solid #c4cdd5;
+}
+
+.dashboard-email-body .email-footer img {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+.dashboard-email-body .email-footer span {
+    margin-left: 15px;
+    font-size: 12px;
+    line-height: 24px;
+    color: #212b36;
+}
+
+.dashboard-widget:nth-child(3) {
+    margin-right: 0;
+}
+
+.dashboard-sales {
+    padding-left: 30px;
+}
+
+.dashboard-info {
+    margin-top: 20px;
+    width: 492px;
+    height: 128px;
+    border-radius: 3px;
+    border: 1px solid #c4cdd5;
+}
+
+.dashboard-info-element {
+    width: 164px;
+    padding-top: 38px;
+    text-align: center;
+}
+
+.info-values {
+    font-size: 26px;
+    line-height: 32px;
+    color: #212b36;
+}
+
+.info-description {
+    color: #637381;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.date-select {
+    margin-top: 20px;
+}
+
+.dashboard-graph {
+    margin-top: 20px;
+    width: 1030px;
+    height: 420px;
 }
