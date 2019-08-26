@@ -38,7 +38,6 @@ class Dashboard extends React.Component {
 
   render() {
       const { widgets, showPopup, index } = this.state;
-      
 		const options = {
 			theme: "light2",
 			animationEnabled: true,
@@ -264,7 +263,7 @@ class Dashboard extends React.Component {
       })
       .then(resp => {
           this.togglePopover(key);
-          delete widgets[key];
+	  widgets.splice(key, 1);
           this.setState({
             widgets: widgets
           });
