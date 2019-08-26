@@ -32,6 +32,7 @@ class Dashboard extends React.Component {
 
   render() {
       const { widgets, showPopup, index } = this.state;
+console.log(widgets);
     return (
       <Page
         title="Tada Dashboard"
@@ -124,7 +125,7 @@ class Dashboard extends React.Component {
       })
       .then(resp => {
           this.togglePopover(key);
-          delete widgets[key];
+	  widgets.splice(key, 1);
           this.setState({
             widgets: widgets
           });
