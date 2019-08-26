@@ -444,7 +444,9 @@ function selectWidgetBySetting(widget) {
       });
 
       function hideCouponModal() {
+        var discount_code = $('#tada_modal_coupon').html();
         document.getElementById('tadaCouponModal').style.display = 'none';
+        window.location.href = '/cart?discount=' + discount_code;
       }
 
       function detectmob() { 

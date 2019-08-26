@@ -233,6 +233,13 @@ async function installing(ctx) {
         shop
     });
 
+    await registerWebhook({
+        address: `${TUNNEL_URL}/webhooks/checkout`,
+        topic: 'ORDERS_PAID',
+        accessToken,
+        shop
+    });
+
     ctx.redirect('/');
 }
 

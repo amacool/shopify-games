@@ -83,6 +83,7 @@ app.prepare().then(() => {
   const webhook = receiveWebhook({ secret: SHOPIFY_API_SECRET_KEY });
 
   router.post('/webhooks/uninstall', webhook, uninstall);
+  router.post('/webhooks/checkout', webhook, checkout);
 
   server.use(graphQLProxy({ version: ApiVersion.April19 }));
 

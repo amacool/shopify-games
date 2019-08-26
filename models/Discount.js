@@ -21,6 +21,18 @@ const Discount = mongoose.Schema({
         type: Date,
         default: Date.now()
     },
+    page_type: {
+        type: String,
+        default: ''
+    },
+    game_type: {
+        type: String,
+        default: 'Wheel'
+    },
+    widget_name: {
+        type: String,
+        default: ''
+    },
     expired_at: {
         type: Date,
         default: Date.now()
