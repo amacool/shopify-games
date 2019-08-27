@@ -12,7 +12,7 @@ const { jsUcfirst } = require('../utils/util');
 
 async function checkout(ctx, next) {
     const {discount_codes, total_price_set} = ctx.state.webhook;
-    discount_codes.map(discount_code => {
+    discount_codes.map( async (discount_code) => {
         var result = await Discount.findById(discount_code);
         if(result) {
             result.used = true;
