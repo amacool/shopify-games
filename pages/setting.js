@@ -41,7 +41,7 @@ class Setting extends React.Component {
         }
         var setting = json.setting;
         this.setState({
-            coupons: JSON.parse(setting.discountTypes),
+            coupons: JSON.parse(setting.discountType),
             style: setting.style,
             detailSetting: setting
         });
