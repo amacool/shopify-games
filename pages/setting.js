@@ -1,18 +1,14 @@
-import { Link, TextField, Checkbox, Button, RadioButton, Stack, Heading, Page } from '@shopify/polaris';
-import store from 'store-js';
+import { Button, Page } from '@shopify/polaris';
 import Cookies from 'js-cookie';
 import '../stylesheets/settings.css';
+import '../stylesheets/global.css';
 
 class Setting extends React.Component {
   state = {
-      setting: {},
-      targetting: [
-        { label: 'All Pages', value: 'allPages' },
-        { label: 'All Products', value: 'allProducts' },
-        { label: 'All Static Pages', value: 'allStatic' },
-        { label: 'All Blogs', value: 'allBlogs' },
-        { label: 'Specific Pages', value: 'specific' },
-      ]
+      coupons: {},
+      style: '',
+      detailSetting: {},
+      selected: 'coupon'
     };
 
   componentDidMount = () => {
@@ -32,33 +28,49 @@ class Setting extends React.Component {
         }
         var setting = json.setting;
         this.setState({
-            setting
+            coupons: JSON.parse(setting.discountTypes),
+            style: setting.style,
+            detailSetting: setting
         });
     })
   }
 
+  changeSetting = (field) => {
+    this.setState({
+      selected: field
+    })
+  }
+
+  gotoPreview = () => {
+    window.location.href = '/dashboard';
+  }
+
   render() {
-      const { style, options, selected } = this.state;
+      const { coupons, style, detailSetting, selected } = this.state;
     return (
-      <Page
-        title="Visual Style"
-      >
-        <div className="style-setting">
-            <Checkbox checked={style == '#dddddd'} label="Clear Theme" onChange={this.changeColor('#dddddd')} />
-            <Checkbox checked={style == '#333333'} label="Dark Theme" onChange={this.changeColor('#333333')} />
-            <Stack horizontal>
-                <Checkbox checked={style != '#dddddd' && style != '#333333'} label="Color Theme" onChange={this.changeColor('color')} />
-                <Select
-                    options={options}
-                    onChange={this.handleChange}
-                    value={selected}
-                />
-            </Stack>
+      <Page>
+        <div className="setting-header border-bottom">
+          <div className="setting-header-left">
+            <div className={(selected=='coupon')?'selected':''}>1.Coupons offer</div>
+            <div className={(selected=='style')?'selected':''}>2.Visual Style</div>
+            <div className={(selected=='detail')?'selected':''}>3.Widget Settings</div>
+          </div>
+          <div className="setting-header-right">
+            <div className="desktop-icon"></div>
+            <div className="mobile-icon"></div>
+            <div className="preview-btn">
+              <Button primary>Preview Widget</Button>
+            </div>
+          </div>
         </div>
-        <Stack horizontal>
-            <Button onClick={() => this.prevStep()} >Previous Step</Button>
-            <Button primary onClick={() => this.nextStep()}>Next Step</Button>
-        </Stack>
+        <div className="setting-body">
+          <div className="setting-options">
+            {(selected=='coupon')?(<Coupons coupons={coupons} next={this.changeSetting}/>):(null)}
+            {(selected=='style')?(<Style style={style} next={this.changeSetting}/>):(null)}
+            {(selected=='detail')?(<DetailSetting detailSetting={detailSetting} finish={this.gotoPreview}/>):(null)}
+          </div>
+          <div className="setting-preview"></div>
+        </div>
     </Page>
     )
   }

@@ -1,31 +1,45 @@
-.display-setting {
-    padding-left: 10px;
-    margin-bottom: 20px;
+.setting-header {
+    padding: 16px;
+    font-size: 14px;
+    line-height: 20px;
+    padding-left: 30px;
+    padding-top: 0;
 }
 
-.none-setting {
-    margin-top: 30px;
+.setting-header-left {
+    display: inline-block;
 }
 
-.pricing-plan {
-    margin-top: 30px;
+.setting-header-left div {
+    margin-right: 36px;
+    color: #637381;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
 }
 
-.plan-btn-group {
+.setting-header-left div.selected {
+    border-bottom: 3px solid #5C6AC4;
+    color: #212B36;
+}
+
+.setting-header-right {
+    display: inline-block;
+    vertical-align: middle;
+    float: right;
+}
+
+.setting-body {
     margin-top: 20px;
-    padding-left: 10px;
 }
 
-.page-footer {
-    margin-top: 30px;
-    text-align: left;
+.setting-options {
+    display: inline-block;
+    width: 370px;
 }
 
-#__next {
-    background: white;
-}
-
-.subsetting {
-    margin-left: 40px;
-    margin-bottom: 20px;
+.setting-preview {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 10px;
 }

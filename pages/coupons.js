@@ -8,7 +8,7 @@ class Coupons extends React.Component {
         super(props);
 
         this.state = {
-            discounts: props.discounts,
+            discounts: props.coupons,
             value: 0,
             fixed_type: true,
             minError: false,
@@ -171,7 +171,7 @@ class Coupons extends React.Component {
                 id: Cookies.get('widget_id')
             })
         }).then(resp => {
-            window.location.href = '/style';
+            this.props.next('style');
         })
     }
 
