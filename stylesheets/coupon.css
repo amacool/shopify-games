@@ -103,7 +103,14 @@
     margin-bottom: 20px;
 }
 
+.coupon-title {
+    display: inline-block;
+    margin-top: 20px;
+}
+
 .coupon-delete {
     float: right;
     margin-right: 40px;
+    margin-top: 20px;
+    display: inline-block;
 }

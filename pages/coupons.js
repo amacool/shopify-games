@@ -68,8 +68,8 @@ class Coupons extends React.Component {
                             </div>
                                 ):(
                             <div className="discount-type-group">
-                                <Button onClick={() => this.handleType(true)} primary>$ OFF</Button>
-                                <Button onClick={() => this.handleType(false)}>% OFF</Button>
+                                <Button onClick={() => this.handleType(true)}>$ OFF</Button>
+                                <Button onClick={() => this.handleType(false)} primary>% OFF</Button>
                                 <img src="/public/delete.png" className=""/>
                             </div>
                                 )}
@@ -79,7 +79,7 @@ class Coupons extends React.Component {
                             {Object.keys(discounts).map(key => {
                                 if (key != 'freeShipping' && key != 'discount15p' && key != 'discount25p') {
                                     return (<div>
-                                        <span>{discounts[key].title}</span>
+                                        <div className="coupon-title">{discounts[key].title}</div>
                                         <div className="coupon-delete">
                                             <button onClick={() => this.deleteCoupon(key)} type="button">Delete</button>
                                         </div>
