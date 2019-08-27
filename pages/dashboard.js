@@ -32,6 +32,7 @@ class Dashboard extends React.Component {
   }
 
   handleDateRange = (event, picker) => {
+    console.log(event);
     this.setState({
       fromDate: picker.startDate,
       toDate: picker.toDate
@@ -126,7 +127,7 @@ class Dashboard extends React.Component {
         </div>
         <div className="dashboard-sales">
           <div className="date-select">
-            <DateRangePicker startDate={fromDate} endDate={toDate} onEvent={this.handleDateRange}>
+            <DateRangePicker startDate={fromDate} endDate={toDate} onEvent={this.handleDateRange} autoApply="true">
               <div className="dashboard-daterange">{fromDate + '-' + toDate}</div>
             </DateRangePicker>
           </div>
