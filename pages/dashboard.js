@@ -37,8 +37,8 @@ class Dashboard extends React.Component {
     console.log(picker);
     if(event.type == "hide" && event.type == 'apply') {
       this.setState({
-        fromDate: moment(picker.startDate).format('MMM D, YYYY'),
-        toDate: moment(picker.endDate).format('MMM D, YYYY')
+        fromDate: picker.startDate.format('MMM D, YYYY'),
+        toDate: picker.endDate.format('MMM D, YYYY')
       })
     }
   }
@@ -131,7 +131,7 @@ class Dashboard extends React.Component {
         </div>
         <div className="dashboard-sales">
           <div className="date-select">
-            <DateRangePicker startDate={fromDate} endDate={toDate} onEvent={this.handleDateRange} autoApply={true}>
+            <DateRangePicker startDate={moment(fromDate, 'MMM D, YYYY')} endDate={moment(toDate, 'MMM D, YYYY')} onEvent={this.handleDateRange} autoApply={true}>
               <div className="dashboard-daterange">{fromDate + '-' + toDate}</div>
             </DateRangePicker>
           </div>
