@@ -8,7 +8,17 @@ class Coupons extends React.Component {
         super(props);
 
         this.state = {
-            discounts: props.coupons,
+            discounts: {
+                freeShipping: {
+                    enable: false
+                },
+                discount15p: {
+                    enable: false
+                },
+                dicount25p: {
+                    enable: false
+                }
+            },
             value: 0,
             fixed_type: true,
             minError: false,
@@ -16,6 +26,12 @@ class Coupons extends React.Component {
             minLimit: 1,
             maxLimit: 12
         }
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({
+            discounts: props.coupons
+        })
     }
 
     render() {
