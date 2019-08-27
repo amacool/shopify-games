@@ -2,6 +2,7 @@ import { Link, TextField, Checkbox, Button, Select, RadioButton, Stack, Heading,
 import store from 'store-js';
 import Cookies from 'js-cookie';
 import '../stylesheets/settings.css';
+import '../stylesheets/global.css';
 
 class Style extends React.Component {
   state = {
@@ -44,10 +45,9 @@ class Style extends React.Component {
   render() {
       const { style, options, selected } = this.state;
     return (
-      <Page
-        title="Visual Style"
-      >
-        <div className="style-setting">
+      <div>
+        <Card>
+            <div className="header3">Visual Style</div>
             <div>
                 <Checkbox checked={style == '#dddddd'} label="Clear Theme" onChange={() =>this.changeColor('#dddddd')} />
             </div>
@@ -62,12 +62,16 @@ class Style extends React.Component {
                     value={selected}
                 />
             </Stack>
+        </Card>
+        <div className="coupon-bottom">
+            <div className="coupon-prev-btn-wrapper">
+                <Button onClick={() => this.prevStep()}>Previous Step</Button>
+            </div>
+            <div className="coupon-next-btn-wrapper">
+                <Button primary onClick={() => this.nextStep()}>Next Step</Button>
+            </div>
         </div>
-        <Stack horizontal>
-            <Button onClick={() => this.prevStep()} >Previous Step</Button>
-            <Button primary onClick={() => this.nextStep()}>Next Step</Button>
-        </Stack>
-    </Page>
+    </div>
     )
   }
 
@@ -120,11 +124,11 @@ class Style extends React.Component {
   }
 
   prevStep = () => {
-      window.location.href = '/coupons'
+      this.props.next('coupon');
   }
 
   nextStep = () => {
-      window.location.href = '/detailSetting';
+      this.props.next('detail');
   }
 }
 

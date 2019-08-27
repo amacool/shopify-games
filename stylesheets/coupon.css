@@ -31,6 +31,11 @@
 
 .discount-custom {
     margin: 20px;
+    margin-left: 40px;
+}
+
+.discount-custom > div {
+    margin-top: 20px;
 }
 
 .discount-setting > div > div{
@@ -78,20 +83,6 @@
     cursor: pointer;
 }
 
-.coupon-prev-btn-wrapper {
-    display: inline-block;
-}
-
-.coupon-next-btn-wrapper {
-    display: inline-block;
-    vertical-align: top;
-    float: right;
-}
-
-.coupon-bottom {
-    margin-top: 20px;
-}
-
 .chance-value {
     display: inline-block;
     float: right;
@@ -105,12 +96,9 @@
 
 .coupon-title {
     display: inline-block;
-    margin-top: 20px;
 }
 
 .coupon-delete {
     float: right;
-    margin-right: 40px;
-    margin-top: 20px;
     display: inline-block;
 }

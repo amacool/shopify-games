@@ -40,3 +40,17 @@ input {
     margin: 0 !important;
     max-width: 100% !important;
 }
+
+.coupon-prev-btn-wrapper {
+    display: inline-block;
+}
+
+.coupon-next-btn-wrapper {
+    display: inline-block;
+    vertical-align: top;
+    float: right;
+}
+
+.coupon-bottom {
+    margin-top: 20px;
+}
