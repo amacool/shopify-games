@@ -8,7 +8,7 @@ import 'bootstrap-daterangepicker/daterangepicker.css';
 import '../stylesheets/dashboard.css';
 
 class Dashboard extends React.Component {
-  state = { widgets: [], showPopup: false, index: 0 };
+  state = { widgets: [], showPopup: false, index: 0, fromDate: '9/1/2019', toDate: '9/1/2022' };
 
   componentDidMount = () => {
     fetch(`https://app.trytada.com/getDashboardInfo`, {
@@ -31,8 +31,15 @@ class Dashboard extends React.Component {
     });
   }
 
+  handleDateRange = (event, picker) => {
+    this.setState({
+      fromDate: picker.startDate,
+      toDate: picker.toDate
+    })
+  }
+
   render() {
-      const { widgets, showPopup, index } = this.state;
+    const { widgets, showPopup, index, fromDate, toDate } = this.state;
 		const options = {
 			theme: "light2",
 			animationEnabled: true,
@@ -119,8 +126,8 @@ class Dashboard extends React.Component {
         </div>
         <div className="dashboard-sales">
           <div className="date-select">
-            <DateRangePicker startDate="1/1/2014" endDate="3/1/2014">
-              <button>Click Me To Open Picker!</button>
+            <DateRangePicker startDate={fromDate} endDate={toDate} onEvent={this.handleDateRange}>
+              <div className="dashboard-daterange">{fromDate + '-' + toDate}</div>
             </DateRangePicker>
           </div>
           <div className="dashboard-info">

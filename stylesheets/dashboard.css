@@ -3,12 +3,12 @@
 }
 
 .display-create-btn {
-    max-width: 156px;
     margin-top: 20px;
     margin-left: 30px;
 }
 
 .dashboard-create-btn {
+    max-width: 156px;
     display: inline-block;
 }
 
@@ -37,6 +37,15 @@
     margin-left: 30px;
     width: 100%;
     height: 350px;
+}
+
+.display-widget-group div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .dashboard-widget {
@@ -107,10 +116,6 @@
     vertical-align: middle;
 }
 
-.dashboard-email-body {
-    margin-left: 30px;
-}
-
 .dashboard-email-body .dashboard-email-items {
     margin-bottom: 20px;
     margin-left: 30px;
@@ -156,7 +161,7 @@
 
 .email-export-btn {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: bottom;
 }
 
 .dashboard-email-body .email-footer {
@@ -232,4 +237,37 @@
     margin-top: 20px;
     width: 1030px;
     height: 420px;
+}
+
+.dashboard-daterange {
+    position: relative;
+    height: 36px;
+    width: 218px;
+    line-height: 36px;
+    padding: 0 20px;
+    border: 1px solid #c4cdd5;
+    border-radius: 3px;
+    font-size: 18px;
+    text-align: left;
+    background-color: white;
+    box-shadow: inset 0 0 0 2px rgba(92, 106, 196, 0), inset 0 1px 2px 0 rgba(99, 115, 129, .2);
+    transition-property: border-color,box-shadow;
+    transition-duration: .24s;
+    transition-timing-function: cubic-bezier(.64,0,.35,1);
+}
+
+.dashboard-daterange:focus, .dashboard-daterange:hover {
+    border-color: transparent;
+    box-shadow: inset 0 0 0.2px #5c6ac4, inset 0 1px 2px 0 rgba(99, 116, 129, .2);
+}
+
+.dashboard-daterange:after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    bottom: 4px;
+    width: 20px;
+    background: linear-gradient(270deg, white, 60%, hsla(0,0,100%,0));
+    pointer-events: none;
 }
