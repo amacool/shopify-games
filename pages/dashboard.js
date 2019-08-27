@@ -1,7 +1,7 @@
 import { Popover, ActionList, Button, RadioButton, Stack, Heading, Page } from '@shopify/polaris';
 import store from 'store-js';
 import Cookies from 'js-cookie';
-import CanvasJSReact from '../../assets/canvasjs.react';
+import CanvasJSReact from '../public/canvasjs.react';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import 'bootstrap/dist/css/bootstrap.css';
