@@ -34,10 +34,13 @@ class Dashboard extends React.Component {
 
   handleDateRange = (event, picker) => {
     console.log(event);
-    this.setState({
-      fromDate: moment(picker.startDate, 'MMM D, YYYY').format('MMM D, YYYY'),
-      toDate: moment(picker.endDate, 'MMM D, YYYY').format('MMM D, YYYY')
-    })
+    console.log(picker);
+    if(event.type == "hide" && event.type == 'apply') {
+      this.setState({
+        fromDate: moment(picker.startDate).format('MMM D, YYYY'),
+        toDate: moment(picker.endDate).format('MMM D, YYYY')
+      })
+    }
   }
 
   render() {
