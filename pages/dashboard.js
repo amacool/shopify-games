@@ -13,7 +13,7 @@ class Dashboard extends React.Component {
   state = { widgets: [], showPopup: false, index: 0 };
 
   componentDidMount = () => {
-    fetch(`https://app.trytada.com/getAllWidgets`, {
+    fetch(`https://app.trytada.com/getDashboardInfo`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -24,11 +24,8 @@ class Dashboard extends React.Component {
     })
     .then(resp => resp.json())
     .then(json => {
-      if(json.error) {
-        return;
-      }
       if(json) {
-
+        console.log(json);
         this.setState({
           widgets: json
         });

@@ -25,13 +25,13 @@ async function checkout(ctx, next) {
     ctx.body = 'success';
 }
 
-async function getTotalEmail(ctx, next) {
-    const {shop} = ctx.request.body;
+async function getTotalEmail(shop, from_date, to_date) {
     const shopInfo = await Shop.findOne({ name: shop });
     const discounts = await Discount.aggregate([
         {
             $match: {
-                shop_id: shop
+                shop_id: shopInfo.id,
+                created_at: { $gte: new Date(from_date).toISOString(), $lt: new Date(to_date).toISOString()}
             }
         },
         {
@@ -41,16 +41,39 @@ async function getTotalEmail(ctx, next) {
             }
         }
     ]);
-    ctx.body = discounts.length;
+    return discounts.length;
 }
 
-async function conversionRate(ctx,next) {
-    const { shop } = ctx.request.body;
-    const shopInfo = await Shop.findOne({ name: shop });
-    const totalDiscounts = await Discount.count({ shop_id: shopInfo.id});
-    const usedDiscounts = await Discount.count({ shop_id: shopInfo.id, used: true});
+async function getTotalSales(shop, from_date, to_date) {
+    const shopInfo = await Shop.findOne({name: shop});
+    const discounts = await Discount.aggregate([
+        {
+            $match: {
+                shop_id: shopInfo.id,
+                used: true,
+                used_at: { $gte: new Date(from_date).toISOString(), $lt: new Date(to_date).toISOString()}
+            },
+            $group: {
+                _id: null,
+                count: { $sum: '$used_amount' }
+            }
+        }
+    ]);
+    console.log(discounts);
+    var total = 0;
+    discounts.map(discount => {
+        total += discount.used_amount;
+    })
 
-    ctx.body = (totalDiscounts/usedDiscounts).toFixed(2) * 100;
+    return total;
+}
+
+async function conversionRate(shop, from_date, to_date) {
+    const shopInfo = await Shop.findOne({ name: shop });
+    const totalDiscounts = await Discount.count({ shop_id: shopInfo.id, created_at: { $gte: new Date(from_date).toISOString(), $lt: new Date(to_date).toISOString()}});
+    const usedDiscounts = await Discount.count({ shop_id: shopInfo.id, used: true, used_at: { $gte: new Date(from_date).toISOString(), $lt: new Date(to_date).toISOString()}});
+
+    return (totalDiscounts/usedDiscounts).toFixed(2) * 100;
 }
 
 async function exportEmail(ctx, next) {
@@ -60,7 +83,43 @@ async function exportEmail(ctx, next) {
     ctx.body = discounts
 }
 
+async function getDashboardInfo(ctx, next) {
+    const { shop, from_date, to_date } = ctx.request.body;
+    var totalSales = await getTotalSales(shop, from_date, to_date);
+    var totalEmail = await getTotalEmail(shop, from_date, to_date);
+    var conversionRating = await conversionRate(shop, from_date, to_date);
+    var graphData = await Discount.aggregate([
+        {
+            $match: {
+                shop_id: shopInfo.id,
+                used: true,
+                used_at: { $gte: new Date(from_date).toISOString(), $lt: new Date(to_date).toISOString()}
+            }
+        },
+        { $sort: { used_at: -1 } },
+        {
+            $project: {
+                year: { $year: used_at },
+                month: { $month: used_at },
+                dayOfMonth: { $dayOfMonth: used_at }
+            }
+        },
+        {
+            $group: {
+                _id: {
+                    year: '$year',
+                    month: '$month',
+                    dayOfMonth: '$dayOfMonth'
+                },
+                totalEmail: { $sum: 1 },
+                totalSales: { $sum: '$used_amount' }
+            }
+        }])
+    var widgets = await Widget.find({shop_id: shopInfo.id}, null, { sort: '-created_at'});
+
+    ctx.body = { totalSales, totalEmail, conversionRating, graphData, widgets };
+}
+
 module.exports.checkout = checkout;
-module.exports.getTotalEmail = getTotalEmail;
-module.exports.conversionRate = conversionRate;
 module.exports.exportEmail = exportEmail;
+module.exports.getDashboardInfo = getDashboardInfo;
