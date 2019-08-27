@@ -27,38 +27,71 @@ async function checkout(ctx, next) {
 
 async function getTotalEmail(shop, from_date, to_date) {
     const shopInfo = await Shop.findOne({ name: shop });
-    const discounts = await Discount.aggregate([
-        {
-            $match: {
-                shop_id: shopInfo.id,
-                created_at: { $gte: new Date(from_date).toISOString(), $lt: new Date(to_date).toISOString()}
+    var discounts;
+    if(from_date == null && to_date == null) {
+        discounts = await Discount.aggregate([
+            {
+                $match: {
+                    shop_id: shopInfo.id,
+                }
+            },
+            {
+                $group: {
+                    _id: '$email',
+                    count: {$sum: 1}
+                }
             }
-        },
-        {
-            $group: {
-                _id: '$email',
-                count: {$sum: 1}
+        ]);
+    } else {
+        counts = await Discount.aggregate([
+            {
+                $match: {
+                    shop_id: shopInfo.id,
+                    created_at: { $gte: new Date(from_date).toISOString(), $lt: new Date(to_date).toISOString()}
+                }
+            },
+            {
+                $group: {
+                    _id: '$email',
+                    count: {$sum: 1}
+                }
             }
-        }
-    ]);
+        ]);
+    }
     return discounts.length;
 }
 
 async function getTotalSales(shop, from_date, to_date) {
     const shopInfo = await Shop.findOne({name: shop});
-    const discounts = await Discount.aggregate([
-        {
-            $match: {
-                shop_id: shopInfo.id,
-                used: true,
-                used_at: { $gte: new Date(from_date).toISOString(), $lt: new Date(to_date).toISOString()}
-            },
-            $group: {
-                _id: null,
-                count: { $sum: '$used_amount' }
+    var discounts;
+    if(from_date == null && to_date == null) {
+        discounts = await Discount.aggregate([
+            {
+                $match: {
+                    shop_id: shopInfo.id,
+                    used: true,
+                },
+                $group: {
+                    _id: null,
+                    count: { $sum: '$used_amount' }
+                }
             }
-        }
-    ]);
+        ]);
+    } else {
+        discounts = await Discount.aggregate([
+            {
+                $match: {
+                    shop_id: shopInfo.id,
+                    used: true,
+                    used_at: { $gte: new Date(from_date).toISOString(), $lt: new Date(to_date).toISOString()}
+                },
+                $group: {
+                    _id: null,
+                    count: { $sum: '$used_amount' }
+                }
+            }
+        ]);
+    }
     console.log(discounts);
     var total = 0;
     discounts.map(discount => {
@@ -70,8 +103,14 @@ async function getTotalSales(shop, from_date, to_date) {
 
 async function conversionRate(shop, from_date, to_date) {
     const shopInfo = await Shop.findOne({ name: shop });
-    const totalDiscounts = await Discount.count({ shop_id: shopInfo.id, created_at: { $gte: new Date(from_date).toISOString(), $lt: new Date(to_date).toISOString()}});
-    const usedDiscounts = await Discount.count({ shop_id: shopInfo.id, used: true, used_at: { $gte: new Date(from_date).toISOString(), $lt: new Date(to_date).toISOString()}});
+    var totalDiscounts, usedDiscounts;
+    if(from_date == null && to_date == null) {
+        totalDiscounts = await Discount.count({ shop_id: shopInfo.id});
+        usedDiscounts = await Discount.count({ shop_id: shopInfo.id, used: true});
+    } else {
+        totalDiscounts = await Discount.count({ shop_id: shopInfo.id, created_at: { $gte: new Date(from_date).toISOString(), $lt: new Date(to_date).toISOString()}});
+        usedDiscounts = await Discount.count({ shop_id: shopInfo.id, used: true, used_at: { $gte: new Date(from_date).toISOString(), $lt: new Date(to_date).toISOString()}});
+    }
 
     return (totalDiscounts/usedDiscounts).toFixed(2) * 100;
 }
@@ -88,33 +127,63 @@ async function getDashboardInfo(ctx, next) {
     var totalSales = await getTotalSales(shop, from_date, to_date);
     var totalEmail = await getTotalEmail(shop, from_date, to_date);
     var conversionRating = await conversionRate(shop, from_date, to_date);
-    var graphData = await Discount.aggregate([
-        {
-            $match: {
-                shop_id: shopInfo.id,
-                used: true,
-                used_at: { $gte: new Date(from_date).toISOString(), $lt: new Date(to_date).toISOString()}
-            }
-        },
-        { $sort: { used_at: -1 } },
-        {
-            $project: {
-                year: { $year: used_at },
-                month: { $month: used_at },
-                dayOfMonth: { $dayOfMonth: used_at }
-            }
-        },
-        {
-            $group: {
-                _id: {
-                    year: '$year',
-                    month: '$month',
-                    dayOfMonth: '$dayOfMonth'
-                },
-                totalEmail: { $sum: 1 },
-                totalSales: { $sum: '$used_amount' }
-            }
-        }])
+    var graphData;
+    if(from_date == null && to_date == null) {
+        graphData = await Discount.aggregate([
+            {
+                $match: {
+                    shop_id: shopInfo.id,
+                    used: true,
+                    used_at: { $gte: new Date(from_date).toISOString(), $lt: new Date(to_date).toISOString()}
+                }
+            },
+            { $sort: { used_at: -1 } },
+            {
+                $project: {
+                    year: { $year: used_at },
+                    month: { $month: used_at },
+                    dayOfMonth: { $dayOfMonth: used_at }
+                }
+            },
+            {
+                $group: {
+                    _id: {
+                        year: '$year',
+                        month: '$month',
+                        dayOfMonth: '$dayOfMonth'
+                    },
+                    totalEmail: { $sum: 1 },
+                    totalSales: { $sum: '$used_amount' }
+                }
+            }])
+    } else {
+        graphData = await Discount.aggregate([
+            {
+                $match: {
+                    shop_id: shopInfo.id,
+                    used: true,
+                }
+            },
+            { $sort: { used_at: -1 } },
+            {
+                $project: {
+                    year: { $year: used_at },
+                    month: { $month: used_at },
+                    dayOfMonth: { $dayOfMonth: used_at }
+                }
+            },
+            {
+                $group: {
+                    _id: {
+                        year: '$year',
+                        month: '$month',
+                        dayOfMonth: '$dayOfMonth'
+                    },
+                    totalEmail: { $sum: 1 },
+                    totalSales: { $sum: '$used_amount' }
+                }
+            }])
+    }
     var widgets = await Widget.find({shop_id: shopInfo.id}, null, { sort: '-created_at'});
 
     ctx.body = { totalSales, totalEmail, conversionRating, graphData, widgets };
