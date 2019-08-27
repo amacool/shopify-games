@@ -15,7 +15,7 @@ class Setting extends React.Component {
         discount15p: {
             enable: false
         },
-        dicount25p: {
+        discount25p: {
             enable: false
         }
       },
