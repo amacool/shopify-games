@@ -62,19 +62,19 @@ class Coupons extends React.Component {
                                 { (this.state.fixed_type)?(
                             <div className="discount-type-group">
                                 <Button onClick={() => this.handleType(true)} primary>$ OFF</Button>
-                                <Button onClick={() => this.handleType(false)}>$ OFF</Button>
+                                <Button onClick={() => this.handleType(false)}>% OFF</Button>
                                 <img src="/public/delete.png" className=""/>
                             </div>
                                 ):(
                             <div className="discount-type-group">
                                 <Button onClick={() => this.handleType(true)} primary>$ OFF</Button>
-                                <Button onClick={() => this.handleType(true)}>$ OFF</Button>
+                                <Button onClick={() => this.handleType(false)}>% OFF</Button>
                                 <img src="/public/delete.png" className=""/>
                             </div>
                                 )}
                         </div>
                         <div className="discount-add-link" onClick={() => this.addCoupon()}>+Add one more custom value</div>
-                        <div>
+                        <div className="discount-custom">
                             {Object.keys(discounts).map(key => {
                                 if (key != 'freeShipping' && key != 'discount15p' && key != 'discount25p') {
                                     return (<div>
@@ -233,6 +233,10 @@ class Coupons extends React.Component {
                 discounts: discounts
             });
         }
+    }
+
+    chanceChange = (key) => {
+        
     }
 }
 
