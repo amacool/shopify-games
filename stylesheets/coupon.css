@@ -2,6 +2,10 @@
     margin-top: 20px;
 }
 
+.default-discount:last-child {
+    margin-bottom: 15px;
+}
+
 .discount-add, .coupon-chance {
     margin-top: 20px;
 }
@@ -19,5 +23,44 @@
 
 .discount-add-link {
     margin-top: 30px;
+    padding-left: 40px;
     color: #eafae2;
+}
+
+.discount-setting > div > div{
+    padding-left: 20px;
+}
+
+.discount-setting .header3 {
+    margin-top: 30px;
+}
+
+.discount-add .header3 {
+    margin-top: 30px;
+}
+
+.discount-add > div > div {
+    padding-left: 20px;
+}
+
+.discount-add .add-field {
+    margin-top: 30px;
+}
+
+.coupon-chance > div > div {
+    padding-left: 20px;
+}
+
+.coupon-prev-btn-wrapper {
+    display: inline-block;
+}
+
+.coupon-next-btn-wrapper {
+    display: inline-block;
+    vertical-align: top;
+    float: right;
+}
+
+.coupon-bottom {
+    margin-top: 20px;
 }

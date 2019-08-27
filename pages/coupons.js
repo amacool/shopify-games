@@ -74,7 +74,7 @@ class Coupons extends React.Component {
                                 )}
                         </div>
                         <div className="discount-add-link" onClick={() => this.addCoupon()}>+Add one more custom value</div>
-                        <Stack vertical>
+                        <div>
                             {Object.keys(discounts).map(key => {
                                 if (key != 'freeShipping' && key != 'discount15p' && key != 'discount25p') {
                                     return (<div>
@@ -83,13 +83,13 @@ class Coupons extends React.Component {
                                     </div>)
                                 }
                             })}
-                        </Stack>
+                        </div>
                     </Card>
                 </div>
                 <div className="coupon-chance">
                     <Card>
                         <div className="header3">Edit chances</div>
-                        <Stack vertical>
+                        <div>
                             {Object.keys(discounts).map(key => {
                                 if (key != 'freeShipping' && key != 'discount15p' && key != 'discount25p') {
                                     return (<div>
@@ -98,10 +98,10 @@ class Coupons extends React.Component {
                                     </div>)
                                 }
                             })}
-                        </Stack>
+                        </div>
                     </Card>
                 </div>
-                <div>
+                <div className="coupon-bottom">
                     <div className="coupon-prev-btn-wrapper">
                         <Button disabled="true" onClick={() => this.nextStep()}>Previous Step</Button>
                     </div>

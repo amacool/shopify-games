@@ -4,6 +4,7 @@
     line-height: 20px;
     padding-left: 30px;
     padding-top: 0;
+    padding-bottom: 0;
 }
 
 .setting-header-left {
@@ -16,17 +17,21 @@
     font-size: 14px;
     line-height: 20px;
     text-align: center;
+    display: inline-block;
+    padding-bottom: 15px;
 }
 
 .setting-header-left div.selected {
     border-bottom: 3px solid #5C6AC4;
     color: #212B36;
+    font-weight: 500;
 }
 
 .setting-header-right {
     display: inline-block;
     vertical-align: middle;
     float: right;
+    margin-top: -10px;
 }
 
 .setting-body {
@@ -36,6 +41,7 @@
 .setting-options {
     display: inline-block;
     width: 370px;
+    margin-left: 30px;
 }
 
 .setting-preview {
