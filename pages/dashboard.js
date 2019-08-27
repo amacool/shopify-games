@@ -36,6 +36,8 @@ class Dashboard extends React.Component {
     console.log(event);
     console.log(picker);
     if(event.type == "hide" && event.type == 'apply') {
+      console.log('here');
+      console.log(picker.startDate.format('MMM D, YYYY'));
       this.setState({
         fromDate: picker.startDate.format('MMM D, YYYY'),
         toDate: picker.endDate.format('MMM D, YYYY')
