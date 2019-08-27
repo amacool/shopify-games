@@ -107,9 +107,9 @@ class Coupons extends React.Component {
                                     {Object.keys(discounts).map(key => {
                                         if (key != 'freeShipping' && key != 'discount15p' && key != 'discount25p') {
                                             return (<div>
-                                                <span>{discounts[key].title}</span>
+                                                <div className="chance-discount">{discounts[key].title}</div>
                                                 <div className="chance-value">
-                                                    <TextField onChange={this.chanceChange(key)} label="" type="number" placeholder="Enter value" />
+                                                    <TextField onChange={this.chanceChange(key)} label="" type="number" placeholder="Chance" />
                                                 </div>
                                             </div>)
                                         }
