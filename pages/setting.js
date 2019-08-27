@@ -1,5 +1,8 @@
 import { Button, Page } from '@shopify/polaris';
 import Cookies from 'js-cookie';
+import Coupons from './coupons';
+import Style from './style';
+import DetailSetting from './detailSetting';
 import '../stylesheets/settings.css';
 import '../stylesheets/global.css';
 
