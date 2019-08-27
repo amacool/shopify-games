@@ -8,17 +8,7 @@ class Coupons extends React.Component {
         super(props);
 
         this.state = {
-            discounts: {
-                freeShipping: {
-                    enable: false
-                },
-                discount15p: {
-                    enable: false
-                },
-                dicount25p: {
-                    enable: false
-                }
-            },
+            discounts: props.coupons,
             value: 0,
             fixed_type: true,
             minError: false,

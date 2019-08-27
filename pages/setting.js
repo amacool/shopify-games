@@ -8,7 +8,17 @@ import '../stylesheets/global.css';
 
 class Setting extends React.Component {
   state = {
-      coupons: {},
+      coupons: {
+        freeShipping: {
+          enable: false
+        },
+        discount15p: {
+            enable: false
+        },
+        dicount25p: {
+            enable: false
+        }
+      },
       style: '',
       detailSetting: {},
       selected: 'coupon'
