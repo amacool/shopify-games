@@ -1,6 +1,7 @@
 import { Popover, ActionList, Button, RadioButton, Stack, Heading, Page } from '@shopify/polaris';
 import store from 'store-js';
 import Cookies from 'js-cookie';
+import moment from 'moment';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-daterangepicker/daterangepicker.css';
@@ -8,7 +9,7 @@ import 'bootstrap-daterangepicker/daterangepicker.css';
 import '../stylesheets/dashboard.css';
 
 class Dashboard extends React.Component {
-  state = { widgets: [], showPopup: false, index: 0, fromDate: '9/1/2019', toDate: '9/1/2022' };
+  state = { widgets: [], showPopup: false, index: 0, fromDate: 'Sept 1, 2019', toDate: 'Sept 1, 2022' };
 
   componentDidMount = () => {
     fetch(`https://app.trytada.com/getDashboardInfo`, {
@@ -34,8 +35,8 @@ class Dashboard extends React.Component {
   handleDateRange = (event, picker) => {
     console.log(event);
     this.setState({
-      fromDate: picker.startDate,
-      toDate: picker.toDate
+      fromDate: moment(picker.startDate).format('MMM D, YYYY'),
+      toDate: moment(picker.endDate).format('MMM D, YYYY')
     })
   }
 
