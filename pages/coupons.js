@@ -10,12 +10,12 @@ class Coupons extends React.Component {
         this.state = {
             discounts: {
                 freeShipping: {
-                  enable: false
+                    enable: false
                 },
                 discount15p: {
                     enable: false
                 },
-                dicount25p: {
+                discount25p: {
                     enable: false
                 }
             },
