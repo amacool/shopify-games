@@ -1,0 +1,51 @@
+.style-content {
+    margin-left: 20px;
+}
+
+.style-content > div > div {
+    margin-left: 20px;
+}
+
+.style-content .header3 {
+    margin-top: 30px;
+}
+
+.style-content .default-color {
+    margin-top: 30px;
+}
+
+.color-selector {
+    margin-left: 40px;
+    margin-top: 20px;
+    width: 236px;
+    height: 36px;
+    position: relative;
+}
+
+.color-select {
+    display: block;
+    width: 100%;
+}
+
+.color-name {
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.color-pattern {
+    width: 10px;
+    height: 10px;
+    float: right;
+    margin-right: 5px;
+}
+
+.color-selector-dropdown {
+    position: absolute;
+    top: 36px;
+    left: 0px;
+    width: 100%;
+}
+
+.color-selector-dropdown > div {
+    height: 36px;
+}
