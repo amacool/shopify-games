@@ -143,7 +143,9 @@ class Dashboard extends React.Component {
         <div className="display-setting">
           <div className="dashboard-section-header">Widgets</div>
           <div className="display-create-btn">
-            <Button onClick={() => this.createNewWidget()} primary>Create New Widget</Button>
+            <div className="dashboard-create-btn">
+              <Button onClick={() => this.createNewWidget()} primary>Create New Widget</Button>
+            </div>
             <div className="display-view-all">View all widgets</div>
           </div>
           <div className="display-widget-group">
@@ -175,7 +177,7 @@ class Dashboard extends React.Component {
           </div>
         </div>
         <div className="dashboard-email-integrate">
-          <div classname="dashboard-section-header">Email Integrations & Export</div>
+          <div className="dashboard-section-header">Email Integrations & Export</div>
           <div className="dashboard-email-body">
             <div className="dashboard-email-items">
               <div className="email-kind">
@@ -191,7 +193,9 @@ class Dashboard extends React.Component {
               <div className="email-export-description">
                 Do you want to work independently with your email list using other Email Service or for other purposes? Export CSV file.
               </div>
-              <Button onClick={this.exportCSV} primary>Export CSV</Button>
+              <div className="email-export-btn">
+                <Button onClick={this.exportCSV} primary>Export CSV</Button>
+              </div>
             </div>
             <div className="email-footer">
               <img src="/public/help.png" />
