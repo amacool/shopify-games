@@ -9,7 +9,7 @@ import 'bootstrap-daterangepicker/daterangepicker.css';
 import '../stylesheets/dashboard.css';
 
 class Dashboard extends React.Component {
-  state = { widgets: [], showPopup: false, index: 0, fromDate: 'Sept 1, 2019', toDate: 'Sept 1, 2022' };
+  state = { widgets: [], showPopup: false, index: 0, fromDate: 'Jan 1, 2019', toDate: 'Jan 1, 2022' };
 
   componentDidMount = () => {
     fetch(`https://app.trytada.com/getDashboardInfo`, {
@@ -35,8 +35,8 @@ class Dashboard extends React.Component {
   handleDateRange = (event, picker) => {
     console.log(event);
     this.setState({
-      fromDate: moment(picker.startDate).format('MMM D, YYYY'),
-      toDate: moment(picker.endDate).format('MMM D, YYYY')
+      fromDate: moment(picker.startDate, 'MMM D, YYYY').format('MMM D, YYYY'),
+      toDate: moment(picker.endDate, 'MMM D, YYYY').format('MMM D, YYYY')
     })
   }
 
@@ -128,7 +128,7 @@ class Dashboard extends React.Component {
         </div>
         <div className="dashboard-sales">
           <div className="date-select">
-            <DateRangePicker startDate={fromDate} endDate={toDate} onEvent={this.handleDateRange} autoApply="true">
+            <DateRangePicker startDate={fromDate} endDate={toDate} onEvent={this.handleDateRange} autoApply={true}>
               <div className="dashboard-daterange">{fromDate + '-' + toDate}</div>
             </DateRangePicker>
           </div>
