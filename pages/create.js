@@ -116,7 +116,7 @@ class Create extends React.Component {
               })
           } else {
               Cookies.set('widget_id', json.id);
-              window.location.href = '/setting';
+              window.location.href = '/coupons';
           }
       })
   }
