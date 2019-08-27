@@ -1,8 +1,6 @@
 import { Popover, ActionList, Button, RadioButton, Stack, Heading, Page } from '@shopify/polaris';
 import store from 'store-js';
 import Cookies from 'js-cookie';
-import CanvasJSReact from '../public/canvasjs.react';
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-daterangepicker/daterangepicker.css';
@@ -141,9 +139,6 @@ class Dashboard extends React.Component {
           </div>
         </div>
         <div className="dashboard-graph">
-          <CanvasJSChart options = {options} 
-            onRef={ref => this.chart = ref}
-            />
         </div>
         <div className="display-setting">
           <div className="dashboard-section-header">Widgets</div>
