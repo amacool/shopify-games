@@ -24,7 +24,8 @@ class Coupons extends React.Component {
             minError: false,
             maxError: false,
             minLimit: 1,
-            maxLimit: 12
+            maxLimit: 12,
+            isShowChance: false
         }
     }
 
@@ -79,7 +80,9 @@ class Coupons extends React.Component {
                                 if (key != 'freeShipping' && key != 'discount15p' && key != 'discount25p') {
                                     return (<div>
                                         <span>{discounts[key].title}</span>
-                                        <button onClick={() => this.deleteCoupon(key)} type="button">Delete</button>
+                                        <div className="coupon-delete">
+                                            <button onClick={() => this.deleteCoupon(key)} type="button">Delete</button>
+                                        </div>
                                     </div>)
                                 }
                             })}
@@ -88,17 +91,33 @@ class Coupons extends React.Component {
                 </div>
                 <div className="coupon-chance">
                     <Card>
-                        <div className="header3">Edit chances</div>
                         <div>
-                            {Object.keys(discounts).map(key => {
-                                if (key != 'freeShipping' && key != 'discount15p' && key != 'discount25p') {
-                                    return (<div>
-                                        <span>{discounts[key].title}</span>
-                                        <TextField onChange={this.chanceChange(key)} label="" type="number" placeholder="Enter value" />
-                                    </div>)
-                                }
-                            })}
+                            <div className="header3">Edit chances</div>
+                            {
+                                (!this.state.isShowChance)?(
+                                    <div className="view-chances" onClick={this.showChances}>View chances</div>
+                                ):(
+                                    <div className="view-chances" onClick={this.showChances}>Hide chances</div>
+                                )
+                            }
                         </div>
+                        {
+                            (this.state.isShowChance)?(
+                                <div className="chances-group">
+                                    {Object.keys(discounts).map(key => {
+                                        if (key != 'freeShipping' && key != 'discount15p' && key != 'discount25p') {
+                                            return (<div>
+                                                <span>{discounts[key].title}</span>
+                                                <div className="chance-value">
+                                                    <TextField onChange={this.chanceChange(key)} label="" type="number" placeholder="Enter value" />
+                                                </div>
+                                            </div>)
+                                        }
+                                    })}
+                                </div>
+                            ): (null)
+                        }
+                        
                     </Card>
                 </div>
                 <div className="coupon-bottom">
@@ -116,6 +135,12 @@ class Coupons extends React.Component {
                 </Modal>
             </div>
         )
+    }
+
+    showChances = () => {
+        this.setState({
+            isShowChance: !this.state.isShowChance
+        })
     }
 
     closeModal = () => {
@@ -236,7 +261,7 @@ class Coupons extends React.Component {
     }
 
     chanceChange = (key) => {
-        
+
     }
 }
 

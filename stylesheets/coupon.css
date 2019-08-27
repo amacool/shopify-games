@@ -57,6 +57,21 @@
     padding-left: 20px;
 }
 
+.coupon-chance .header3 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.view-chances {
+    display: inline-block;
+    vertical-align: middle;
+    float: right;
+    margin-right: 20px;
+    color: #006FBB;
+    cursor: pointer;
+}
+
 .coupon-prev-btn-wrapper {
     display: inline-block;
 }
@@ -69,4 +84,18 @@
 
 .coupon-bottom {
     margin-top: 20px;
+}
+
+.chance-value {
+    display: inline-block;
+    float: right;
+}
+
+.chances-group > div {
+    margin-bottom: 20px;
+}
+
+.coupon-delete {
+    float: right;
+    margin-right: 40px;
 }
