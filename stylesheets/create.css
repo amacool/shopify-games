@@ -1,8 +1,8 @@
 .create-header {
-    padding: 25px;
-    font-size: 18px;
+    padding: 16px;
+    font-size: 14px;
     line-height: 20px;
-    padding-left: 40px;
+    padding-left: 30px;
     padding-top: 0;
 }
 
@@ -11,7 +11,7 @@
 }
 
 .widgets-body {
-    padding: 30px 40px;
+    margin: 30px 30px;
 }
 
 .widget-type {
@@ -36,17 +36,17 @@
 }
 
 .create-card {
-    padding: 40px;
-    padding-bottom: 25px;
-    padding-top: 30px;
+    padding: 30px;
+    padding-bottom: 20px;
+    padding-top: 20px;
 }
 
 .header-description {
     width: 350px;
-    font-size: 18px;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    line-height: 25px;
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    line-height: 20px;
 }
 
 .widget-img {
@@ -73,7 +73,8 @@
 }
 
 .widgets-bottom {
-    margin-left: 40px;
+    padding: 30px 30px;
+    padding-top: 0;
 }
 
 .widget-input {

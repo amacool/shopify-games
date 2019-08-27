@@ -45,15 +45,27 @@ class Create extends React.Component {
               <img src="/public/wheel.png" className="widget-img" />
               <div className="header3">SPINNING WHEEL</div>
               <div className="game-badge">Game</div>
-              <Button>Preview</Button>
-              <Button onClick={() => this.selectWidget(1)} primary>Select Widget</Button>
+              <div>
+                <div className="preview-btn">
+                  <Button>Preview</Button>
+                </div>
+                <div className="select-btn">
+                  <Button onClick={() => this.selectWidget(1)} primary>Select Widget</Button>
+                </div>
+              </div>
             </div>
             <div className="widget-type">
               <img src="/public/wheel.png" className="widget-img" />
               <div className="header3">SPINNING WHEEL</div>
               <div className="game-badge">Pop up</div>
-              <Button>Preview</Button>
-              <Button onClick={() => this.selectWidget(2)} primary>Select Widget</Button>
+              <div>
+                <div className="preview-btn">
+                  <Button>Preview</Button>
+                </div>
+                <div className="select-btn">
+                  <Button onClick={() => this.selectWidget(2)} primary>Select Widget</Button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
