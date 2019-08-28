@@ -132,7 +132,7 @@ async function getDashboardInfo(ctx, next) {
     var totalEmail = await getTotalEmail(shop, from_date, to_date);
     var conversionRating = await conversionRate(shop, from_date, to_date);
     var graphData;
-    if(from_date == null && to_date == null) {
+    if(from_date != null && to_date != null) {
         graphData = await Discount.aggregate([
             {
                 $match: {
