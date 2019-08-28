@@ -26,9 +26,25 @@ class Style extends React.Component {
     };
 
     componentWillReceiveProps(props) {
-        this.setState({
-            style: props
-        })
+        var style = props.style;
+        var selected = {};
+        if(style != '#ffffff' && style != '#3333333') {
+            const options = this.state.options;
+            for(var i=0; i< options.length; i++) {
+                if(options[i].value1 == style) {
+                    selected = options[i];
+                    this.setState({
+                        style,
+                        selected
+                    })
+                    break;
+                }
+            }
+        } else {
+            this.setState({
+                style
+            })
+        }
     }
 
   render() {
@@ -56,12 +72,12 @@ class Style extends React.Component {
                 <div className="color-selector-dropdown" style={{display: (isDropdown)?'block':'none'}}>
                     {
                         options.map(option => (
-                            <div>
+                            <div onClick={() => this.selectColor(option)}>
                                 <div className="color-name">
                                     {option.label}
                                 </div>
-                                <div className="color-pattern" style={{backgroundColor: option.value1}}></div>
                                 <div className="color-pattern" style={{backgroundColor: option.value2}}></div>
+                                <div className="color-pattern" style={{backgroundColor: option.value1}}></div>
                             </div>
                         ))
                     }
@@ -78,6 +94,22 @@ class Style extends React.Component {
         </div>
     </div>
     )
+  }
+
+  selectColor = (option) => {
+      const { style } = this.state;
+      if(style == '#ffffff' || style == '#333333') {
+          this.setState({
+              selected: option,
+              isDropdown: false
+          })
+      } else {
+          this.setState({
+              selected: option,
+              style: option.value1,
+              isDropdown: false
+          })
+      }
   }
 
   showDropdown = () => {

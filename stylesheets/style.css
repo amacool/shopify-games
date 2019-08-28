@@ -15,7 +15,7 @@
 }
 
 .color-selector {
-    margin-left: 40px;
+    margin-left: 40px !important;
     margin-top: 20px;
     margin-bottom: 30px;
     width: 236px;
@@ -36,13 +36,17 @@
     font-size: 14px;
     color: #637381;
     line-height: 20px;
+    display: inline-block;
 }
 
 .color-pattern {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     float: right;
-    margin-right: 10px;
+    margin-right: 5px;
+    display: inline-block;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
 }
 
 .color-selector-dropdown {
@@ -50,10 +54,16 @@
     top: 36px;
     left: 0px;
     width: 100%;
+    display: block;
 }
 
 .color-selector-dropdown > div {
     height: 36px;
+    background: white;
+}
+
+.color-selector-dropdown > div:hover, .color-selector-dropdown > div:focus {
+    background: #B1B6D7;
 }
 
 .color-select-icon {
