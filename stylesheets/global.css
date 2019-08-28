@@ -54,3 +54,7 @@ input {
 .coupon-bottom {
     margin-top: 20px;
 }
+
+.Polaris-Card {
+    overflow: visible !important;
+}

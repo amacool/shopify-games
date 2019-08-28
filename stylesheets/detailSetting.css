@@ -1,0 +1,104 @@
+.default-discount {
+    margin-top: 20px;
+}
+
+.default-discount:last-child {
+    margin-bottom: 15px;
+}
+
+.discount-add, .coupon-chance {
+    margin-top: 20px;
+}
+
+.discount-input-field {
+    max-width: 100px;
+    display: inline-block;
+}
+
+.discount-type-group {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 30px;
+}
+
+.discount-add-link {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 40px !important;
+    color: #006FBB;
+    cursor: pointer;
+}
+
+.discount-custom {
+    margin: 20px;
+    margin-left: 40px;
+}
+
+.discount-custom > div {
+    margin-top: 20px;
+}
+
+.discount-setting > div > div{
+    padding-left: 20px;
+}
+
+.discount-setting .header3 {
+    margin-top: 30px;
+}
+
+.discount-add .header3 {
+    margin-top: 30px;
+}
+
+.discount-add > div > div {
+    padding-left: 20px;
+}
+
+.discount-add .add-field {
+    margin-top: 30px;
+}
+
+.coupon-chance > div > div {
+    padding-left: 20px;
+}
+
+.coupon-chance .header3 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.chance-discount {
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.view-chances {
+    display: inline-block;
+    vertical-align: middle;
+    float: right;
+    margin-right: 20px;
+    margin-top: 30px;
+    color: #006FBB;
+    cursor: pointer;
+}
+
+.chance-value {
+    display: inline-block;
+    float: right;
+    max-width: 150px;
+    margin-right: 20px;
+}
+
+.chances-group > div {
+    margin-bottom: 20px;
+}
+
+.coupon-title {
+    display: inline-block;
+}
+
+.coupon-delete {
+    float: right;
+    display: inline-block;
+}

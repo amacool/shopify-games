@@ -44,6 +44,7 @@
     height: 16px;
     float: right;
     margin-right: 5px;
+    margin-top: 3px;
     display: inline-block;
     border: 1px solid #dddddd;
     border-radius: 3px;
@@ -60,6 +61,7 @@
 .color-selector-dropdown > div {
     height: 36px;
     background: white;
+    padding: 10px;
 }
 
 .color-selector-dropdown > div:hover, .color-selector-dropdown > div:focus {
