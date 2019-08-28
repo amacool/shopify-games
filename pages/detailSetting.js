@@ -139,18 +139,18 @@ class DetailSetting extends React.Component {
                   <Button onClick={() => this.handleTimerEnable(true)}>Enable</Button>
                   <Button onClick={() => this.handleTimerEnable(false)} primary>Disable</Button>
                 </div>)}
-                <div>
-                  <Select
-                    options={timerPositionOptions[timerType]}
-                    onChange={this.handleTimerPosition}
-                    value={timerPosition}
-                    />
-                </div>
-                <div>
+                <div className="timer-type">
                   <Select
                     options={timerTypeOptions}
                     onChange={this.handleTimerType}
                     value={timerType}
+                    />
+                </div>
+                <div className="timer-position">
+                  <Select
+                    options={timerPositionOptions[timerType]}
+                    onChange={this.handleTimerPosition}
+                    value={timerPosition}
                     />
                 </div>
             </Card>
