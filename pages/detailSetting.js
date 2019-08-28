@@ -179,7 +179,7 @@ class DetailSetting extends React.Component {
         </div>
         <div className="coupon-bottom">
             <div className="coupon-prev-btn-wrapper">
-                <Button disabled="true" onClick={() => this.saveSetting('style')}>Previous Step</Button>
+                <Button onClick={() => this.saveSetting('style')}>Previous Step</Button>
             </div>
             <div className="coupon-next-btn-wrapper">
                 <Button primary onClick={() => this.saveSetting('final')}>Finish</Button>

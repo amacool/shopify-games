@@ -73,7 +73,8 @@ async function getTotalSales(shop, from_date, to_date) {
                 },
                 $group: {
                     _id: null,
-                    count: { $sum: '$used_amount' }
+                    // count: { $sum: '$used_amount' }
+                    count: { $sum: 1 }
                 }
             }
         ]);
