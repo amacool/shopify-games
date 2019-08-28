@@ -17,6 +17,7 @@
 .color-selector {
     margin-left: 40px;
     margin-top: 20px;
+    margin-bottom: 30px;
     width: 236px;
     height: 36px;
     position: relative;
@@ -25,18 +26,23 @@
 .color-select {
     display: block;
     width: 100%;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    padding: 5px;
 }
 
 .color-name {
     margin-left: 10px;
     font-size: 14px;
+    color: #637381;
+    line-height: 20px;
 }
 
 .color-pattern {
-    width: 10px;
-    height: 10px;
+    width: 20px;
+    height: 20px;
     float: right;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 .color-selector-dropdown {
@@ -48,4 +54,9 @@
 
 .color-selector-dropdown > div {
     height: 36px;
+}
+
+.color-select-icon {
+    display: inline-block;
+    float: right;
 }

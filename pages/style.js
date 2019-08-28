@@ -25,32 +25,11 @@ class Style extends React.Component {
       isDropdown: false
     };
 
-  componentDidMount = () => {
-    fetch('https://app.trytada.com/getStyle', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify({
-            id: Cookies.get('widget_id')
-        })
-    }).then(resp => resp.json())
-    .then(json => {
-        if(json.error) {
-            console.log('err');
-            return;
-        }
-        var style = json.style;
+    componentWillReceiveProps(props) {
         this.setState({
-            style
+            style: props
         })
-        if(style != '#ffffff' && style != '#333333') {
-            this.setState({
-                selected: style
-            })
-        }
-    })
-  }
+    }
 
   render() {
     const { style, options, selected, isDropdown } = this.state;
@@ -70,9 +49,9 @@ class Style extends React.Component {
             <div className="color-selector">
                 <div className="color-select" onClick={this.showDropdown}>
                     <span className="color-name">{selected.label}</span>
-                    <span className="color-pattern" style={{backgroundColor: selected.value1}}></span>
+                    <span class="color-select-icon"><span class="Polaris-Icon"><svg viewBox="0 0 20 20" class="Polaris-Icon__Svg" focusable="false" aria-hidden="true"><path d="M13 8l-3-3-3 3h6zm-.1 4L10 14.9 7.1 12h5.8z" fill-rule="evenodd"></path></svg></span></span>
                     <span className="color-pattern" style={{backgroundColor: selected.value2}}></span>
-                    <span class="Polaris-Select__Icon"><span class="Polaris-Icon"><svg viewBox="0 0 20 20" class="Polaris-Icon__Svg" focusable="false" aria-hidden="true"><path d="M13 8l-3-3-3 3h6zm-.1 4L10 14.9 7.1 12h5.8z" fill-rule="evenodd"></path></svg></span></span>
+                    <span className="color-pattern" style={{backgroundColor: selected.value1}}></span>
                 </div>
                 <div className="color-selector-dropdown" style={{display: (isDropdown)?'block':'none'}}>
                     {
