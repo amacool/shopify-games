@@ -127,6 +127,7 @@ async function exportEmail(ctx, next) {
 
 async function getDashboardInfo(ctx, next) {
     const { shop, from_date, to_date } = ctx.request.body;
+    const shopInfo = await Shop.findOne({ name: shop });
     var totalSales = await getTotalSales(shop, from_date, to_date);
     var totalEmail = await getTotalEmail(shop, from_date, to_date);
     var conversionRating = await conversionRate(shop, from_date, to_date);
