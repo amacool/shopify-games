@@ -28,6 +28,8 @@
     padding-left: 40px !important;
     color: #006FBB;
     cursor: pointer;
+    font-size: 14px;
+    height: 40px;
 }
 
 .discount-custom {
@@ -86,6 +88,7 @@
     margin-top: 30px;
     color: #006FBB;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .chance-value {

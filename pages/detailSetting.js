@@ -1,7 +1,8 @@
 import { Select, Link, TextField, Checkbox, Button, RadioButton, Stack, Card } from '@shopify/polaris';
 import store from 'store-js';
 import Cookies from 'js-cookie';
-import '../stylesheets/settings.css';
+import '../stylesheets/detailSetting.css';
+import '../stylesheets/global.css';
 
 class DetailSetting extends React.Component {
   state = { 
