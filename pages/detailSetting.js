@@ -92,7 +92,7 @@ class DetailSetting extends React.Component {
   }
 
   render() {
-    const { displaySetting, displaySettingOptions, frequency, frequencyDay, frequencyHour, frequencyMin, displayFrequencyOptions} = this.state;
+    const { displaySetting, displaySettingOptions, frequency, frequencyDay, frequencyHour, frequencyMin, displayFrequencyOptions, timerPositionOptions, timerPosition, timerType, timerTypeOptions} = this.state;
     return (
       <div>
         <div className="discount-setting">
@@ -141,14 +141,14 @@ class DetailSetting extends React.Component {
                 </div>)}
                 <div>
                   <Select
-                    options={timerPositionOption[timerType]}
+                    options={timerPositionOptions[timerType]}
                     onChange={this.handleTimerPosition}
                     value={timerPosition}
                     />
                 </div>
                 <div>
                   <Select
-                    options={timerTypeOption}
+                    options={timerTypeOptions}
                     onChange={this.handleTimerType}
                     value={timerType}
                     />
