@@ -71,6 +71,8 @@ async function getTotalSales(shop, from_date, to_date) {
                     shop_id: shopInfo.id,
                     used: true,
                 },
+            },
+            {
                 $group: {
                     _id: null,
                     // count: { $sum: '$used_amount' }
