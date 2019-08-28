@@ -7,7 +7,7 @@
 }
 
 .style-content .header3 {
-    margin-top: 30px;
+    padding-top: 30px;
 }
 
 .style-content .default-color {
@@ -17,15 +17,17 @@
 .color-selector {
     margin-left: 40px !important;
     margin-top: 20px;
-    margin-bottom: 30px;
+    padding-bottom: 30px;
     width: 236px;
-    height: 36px;
+    height: 60px;
     position: relative;
+    z-index: 999;
 }
 
 .color-select {
     display: block;
     width: 100%;
+    height: 36px;
     border: 1px solid #dddddd;
     border-radius: 3px;
     padding: 5px;

@@ -1,4 +1,4 @@
-import { Select, Link, TextField, Checkbox, Button, RadioButton, Stack, Heading, Page } from '@shopify/polaris';
+import { Select, Link, TextField, Checkbox, Button, RadioButton, Stack, Card } from '@shopify/polaris';
 import store from 'store-js';
 import Cookies from 'js-cookie';
 import '../stylesheets/settings.css';

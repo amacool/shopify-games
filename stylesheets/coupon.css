@@ -4,6 +4,7 @@
 
 .default-discount:last-child {
     margin-bottom: 15px;
+    height: 50px;
 }
 
 .discount-add, .coupon-chance {
@@ -32,10 +33,15 @@
 .discount-custom {
     margin: 20px;
     margin-left: 40px;
+    margin-top: -20px;
 }
 
 .discount-custom > div {
     margin-top: 20px;
+}
+
+.discount-custom > div:last-child {
+    height: 40px;
 }
 
 .discount-setting > div > div{
@@ -43,11 +49,11 @@
 }
 
 .discount-setting .header3 {
-    margin-top: 30px;
+    padding-top: 30px;
 }
 
 .discount-add .header3 {
-    margin-top: 30px;
+    padding-top: 30px;
 }
 
 .discount-add > div > div {
