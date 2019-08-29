@@ -179,7 +179,7 @@ class Dashboard extends React.Component {
                       <div>{widget.name}</div>
                       <img src="/public/dropdown.png" onClick={() => this.showDropdown(key)}/>
                       {(this.state.isDropdown && this.state.selectedWidget == key)?(
-                        <div classsName="widget-dropdown">
+                        <div className="widget-dropdown">
                           <div><img src="/public/edit.png" /><span>Edit</span></div>
                           <div><img src="/public/pause.png" /><span>Pause</span></div>
                           <div><img src="/public/duplicate.png" /><span>Duplicate & Edit</span></div>
