@@ -171,9 +171,9 @@ async function getDashboardInfo(ctx, next) {
             { $sort: { used_at: -1 } },
             {
                 $project: {
-                    year: { $year: used_at },
-                    month: { $month: used_at },
-                    dayOfMonth: { $dayOfMonth: used_at }
+                    year: { $year: "$used_at" },
+                    month: { $month: "$used_at" },
+                    dayOfMonth: { $dayOfMonth: "$used_at" }
                 }
             },
             {
