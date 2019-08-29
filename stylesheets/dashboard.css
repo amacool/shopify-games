@@ -294,6 +294,7 @@
     padding: 13px 22px;
     width: 100%;
     background: white;
+    cursor: pointer;
 }
 
 .dashboard-widget .widget-name .widget-dropdown > div > img {

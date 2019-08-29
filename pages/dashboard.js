@@ -171,7 +171,7 @@ class Dashboard extends React.Component {
                 if(key < 3) {
                   const created_at = new Date(widget.created_at);
                   return (
-                  <div className="dashboard-widget" onClick={() => this.togglePopover(key)}>
+                  <div className="dashboard-widget">
                     <div className="widget-img">
                       <img src="/public/wheel.png" />
                     </div>
@@ -180,10 +180,10 @@ class Dashboard extends React.Component {
                       <img src="/public/dropdown.png" onClick={() => this.showDropdown(key)}/>
                       {(this.state.isDropdown && this.state.selectedWidget == key)?(
                         <div className="widget-dropdown">
-                          <div><img src="/public/edit.png" onClick={() => this.editWidget(key)}/><span>Edit</span></div>
-                          <div><img src="/public/pause.png" onClick={() => this.pauseWidget(key)}/><span>Pause</span></div>
-                          <div><img src="/public/duplicate.png" onClick={() => this.duplicate(key)}/><span>Duplicate & Edit</span></div>
-                          <div><img src="/public/delete.png" onClick={() => this.deleteWidgetModal(key)}/><span style={{color: '#BF0711'}}>Delete</span></div>
+                          <div onClick={() => this.editWidget(key)}><img src="/public/edit.png"/><span>Edit</span></div>
+                          <div onClick={() => this.pauseWidget(key)}><img src="/public/pause.png"/><span>Pause</span></div>
+                          <div onClick={() => this.duplicate(key)}><img src="/public/duplicate.png" /><span>Duplicate & Edit</span></div>
+                          <div onClick={() => this.deleteWidgetModal(key)}><img src="/public/delete.png" /><span style={{color: '#BF0711'}}>Delete</span></div>
                         </div>
                       ):(null)}
                     </div>
