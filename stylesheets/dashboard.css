@@ -280,19 +280,21 @@
 .widget-dropdown {
     width: 280px;
     padding: 5px 0;
+    background: white;
 }
 
 .widget-dropdown > div {
     height: 40px;
     padding: 13px 22px;
+    width: 100%;
 }
 
-.widget-dropdown img {
+.widget-dropdown > div > img {
     width: 13px;
     height: 13px;
 }
 
-.widget-dropdown span {
+.widget-dropdown > div > span {
     color: #212B36;
     font-size: 14px;
     line-height: 16px;
