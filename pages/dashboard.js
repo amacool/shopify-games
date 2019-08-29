@@ -9,7 +9,7 @@ import 'bootstrap-daterangepicker/daterangepicker.css';
 import '../stylesheets/dashboard.css';
 
 class Dashboard extends React.Component {
-  state = { widgets: [], showPopup: false, index: 0, fromDate: 'Jan 1, 2019', toDate: 'Jan 1, 2022' };
+  state = { widgets: [], showPopup: false, index: 0, conversionRating: 0, totalEmail: 0, totalSales:0, graphData: 0, fromDate: 'Jan 1, 2019', toDate: 'Jan 1, 2022' };
 
   componentDidMount = () => {
     fetch(`https://app.trytada.com/getDashboardInfo`, {
@@ -26,7 +26,11 @@ class Dashboard extends React.Component {
       if(json) {
         console.log(json);
         this.setState({
-          widgets: json
+          widgets: json.widgets,
+          graphData: json.graphData,
+          totalEmail: json.totalEmail,
+          totalSales: json.totalSales,
+          conversionRating: json.conversionRating
         });
       }
     });
@@ -42,7 +46,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { widgets, showPopup, index, fromDate, toDate } = this.state;
+    const { widgets, showPopup, index, conversionRating, totalEmail, totalSales, graphData, fromDate, toDate } = this.state;
 		const options = {
 			theme: "light2",
 			animationEnabled: true,
@@ -135,15 +139,15 @@ class Dashboard extends React.Component {
           </div>
           <div className="dashboard-info">
             <div className="dashboard-info-element">
-              <div className="info-values">$2,543</div>
+              <div className="info-values">${totalSales}</div>
               <div className="info-description">Sales amount using coupons</div>
             </div>
             <div className="dashboard-info-element">
-              <div className="info-values">24</div>
+              <div className="info-values">{totalEmail}</div>
               <div className="info-description">Emails</div>
             </div>
             <div className="dashboard-info-element">
-              <div className="info-values">12%</div>
+              <div className="info-values">{conversionRating}%</div>
               <div className="info-description">Conversion rate from games</div>
             </div>
           </div>

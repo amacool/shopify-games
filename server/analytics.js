@@ -114,8 +114,11 @@ async function conversionRate(shop, from_date, to_date) {
         totalDiscounts = await Discount.count({ shop_id: shopInfo.id, created_at: { $gte: new Date(from_date).toISOString(), $lt: new Date(to_date).toISOString()}});
         usedDiscounts = await Discount.count({ shop_id: shopInfo.id, used: true, used_at: { $gte: new Date(from_date).toISOString(), $lt: new Date(to_date).toISOString()}});
     }
-
-    return (totalDiscounts/usedDiscounts).toFixed(2) * 100;
+    if(usedDiscounts == 0) {
+        return 0;
+    } else {
+        return (totalDiscounts/usedDiscounts).toFixed(2) * 100;
+    }
 }
 
 async function exportEmail(ctx, next) {
