@@ -40,7 +40,7 @@
 }
 
 .display-widget-group div {
-    display: flex;
+    display: inline-block;
     height: 100%;
     font-size: 16px;
     font-weight: 500;
@@ -97,20 +97,20 @@
     padding: 3px 7px;
     border-radius: 4px;
     font-size: 12px;
-    line-height: 20px;
+    line-height: 14px;
     background: #108043;
     color: white;
-    margin-left: 20px;
     display: inline-block;
 }
 
 .dashboard-widget .widget-status .hold {
-    width: fit-content;
+    float: left;
+    padding: 3px 7px;
+    border-radius: 4px;
     font-size: 12px;
-    line-height: 20px;
+    line-height: 14px;
     background: #eec200;
     color: white;
-    margin-left: 20px;
     display: inline-block;
 }
 
@@ -275,4 +275,26 @@
     width: 20px;
     background: linear-gradient(270deg, white, 60%, hsla(0,0,100%,0));
     pointer-events: none;
+}
+
+.widget-dropdown {
+    width: 280px;
+    padding: 5px 0;
+}
+
+.widget-dropdown > div {
+    height: 40px;
+    padding: 13px 22px;
+}
+
+.widget-dropdown img {
+    width: 13px;
+    height: 13px;
+}
+
+.widget-dropdown span {
+    color: #212B36;
+    font-size: 14px;
+    line-height: 16px;
+    margin-left: 17px;
 }

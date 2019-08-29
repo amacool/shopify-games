@@ -5,11 +5,10 @@ import moment from 'moment';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-daterangepicker/daterangepicker.css';
-
 import '../stylesheets/dashboard.css';
 
 class Dashboard extends React.Component {
-  state = { widgets: [], showPopup: false, index: 0, conversionRating: 0, totalEmail: 0, totalSales:0, graphData: 0, fromDate: 'Jan 1, 2019', toDate: 'Jan 1, 2022' };
+  state = { widgets: [], showPopup: false, index: 0, conversionRating: 0, totalEmail: 0, totalSales:0, graphData: 0, fromDate: 'Jan 1, 2019', toDate: 'Jan 1, 2022', isDropdown: false, selectedWidget: -1 };
 
   componentDidMount = () => {
     fetch(`https://app.trytada.com/getDashboardInfo`, {
@@ -170,18 +169,27 @@ class Dashboard extends React.Component {
             ):(
               widgets.map((widget, key) => {
                 if(key < 3) {
+                  const created_at = new Date(widget.created_at);
                   return (
                   <div className="dashboard-widget" onClick={() => this.togglePopover(key)}>
                     <div className="widget-img">
-                      <img src="/public/wheel-full.png" />
+                      <img src="/public/wheel.png" />
                     </div>
                     <div className="widget-name">
                       <div>{widget.name}</div>
-                      <img src="/public/dropdown.png" />
+                      <img src="/public/dropdown.png" onClick={() => this.showDropdown(key)}/>
+                      {(this.state.isDropdown && this.state.selectedWidget == key)?(
+                        <div classsName="widget-dropdown">
+                          <div><img src="/public/edit.png" /><span>Edit</span></div>
+                          <div><img src="/public/pause.png" /><span>Pause</span></div>
+                          <div><img src="/public/duplicate.png" /><span>Duplicate & Edit</span></div>
+                          <div><img src="/public/delete.png" /><span>Delete</span></div>
+                        </div>
+                      ):(null)}
                     </div>
                     <div className="widget-status">
                       <div className={widget.pause?'hold':'active'}>{(widget.pause)?'On Hold':'Active'}</div>
-                      <div className='modify-label'>Last modified: {widget.created_at}</div>
+                      <div className='modify-label'>Last modified: {created_at.getDate() + '.' + created_at.getMonth() + '.' + create_at.getFullYear()}</div>
                     </div>
                   </div>
                   );
@@ -219,6 +227,20 @@ class Dashboard extends React.Component {
         </div>
     </Page>
     )
+  }
+
+  showDropdown = (key) => {
+    const { isDropdown } = this.state;
+    if(isDropdown) {
+      this.setState({
+        isDropdown: false
+      })
+    } else {
+      this.setState({
+        isDropdown: true,
+        selectedWidget: key
+      })
+    }
   }
 
   togglePopover = (key) => {
