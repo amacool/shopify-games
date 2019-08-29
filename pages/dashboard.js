@@ -8,7 +8,7 @@ import 'bootstrap-daterangepicker/daterangepicker.css';
 import '../stylesheets/dashboard.css';
 
 class Dashboard extends React.Component {
-  state = { widgets: [], showPopup: false, index: 0, conversionRating: 0, totalEmail: 0, totalSales:0, graphData: 0, fromDate: 'Jan 1, 2019', toDate: 'Jan 1, 2022', isDropdown: false, selectedWidget: -1 };
+  state = { widgets: [], showPopup: false, index: 0, conversionRating: 0, totalEmail: 0, totalSales:0, graphData: 0, fromDate: 'Jan 1, 2019', toDate: 'Jan 1, 2022', isDropdown: false, selectedWidget: -1, duplicatedName: '', showDuplicate: false, showDeleteModal: false };
 
   componentDidMount = () => {
     fetch(`https://app.trytada.com/getDashboardInfo`, {
@@ -180,10 +180,10 @@ class Dashboard extends React.Component {
                       <img src="/public/dropdown.png" onClick={() => this.showDropdown(key)}/>
                       {(this.state.isDropdown && this.state.selectedWidget == key)?(
                         <div className="widget-dropdown">
-                          <div><img src="/public/edit.png" /><span>Edit</span></div>
-                          <div><img src="/public/pause.png" /><span>Pause</span></div>
-                          <div><img src="/public/duplicate.png" /><span>Duplicate & Edit</span></div>
-                          <div><img src="/public/delete.png" /><span>Delete</span></div>
+                          <div><img src="/public/edit.png" onClick={() => this.editWidget(key)}/><span>Edit</span></div>
+                          <div><img src="/public/pause.png" onClick={() => this.pauseWidget(key)}/><span>Pause</span></div>
+                          <div><img src="/public/duplicate.png" onClick={() => this.duplicate(key)}/><span>Duplicate & Edit</span></div>
+                          <div><img src="/public/delete.png" onClick={() => this.deleteWidgetModal(key)}/><span style={{color: '#BF0711'}}>Delete</span></div>
                         </div>
                       ):(null)}
                     </div>
@@ -225,8 +225,78 @@ class Dashboard extends React.Component {
             </div>
           </div>
         </div>
+        <Modal
+          open={this.state.showDuplicate}
+          onClose={this.closeDuplicate}
+          title="Duplicate Widget"
+          primaryAction={{
+            content: 'OK',
+            onAction: this.gotoSetting
+          }}
+          secondaryAction={{
+            content: 'Cancel',
+            onAction: this.closeDuplicate
+          }}
+          >
+          <Modal.Section>
+            <TextContainer>
+              <p>Please input name of duplicated widget!</p>
+              <TextField label="" value={this.state.duplicatedName} onChange={this.onChangeDuplicated} />
+            </TextContainer>
+          </Modal.Section>
+        </Modal>
+        <Modal
+          open={this.state.showDeleteModal}
+          onClose={this.closeDeleteModal}
+          title="Delete Widget"
+          primaryAction={{
+            content: 'OK',
+            onAction: this.deleteWidget
+          }}
+          secondaryAction={{
+            content: 'Cancel',
+            onAction: this.closeDeleteModal
+          }}
+          >
+          <Modal.Section>
+            <TextContainer>
+              <p>Do you want to delete this Widget?</p>
+              <p style={{color: '#BF0711', fontSize: '12px'}}>This widget will be permanently deleted and you can not recover this widget in the future!</p>
+            </TextContainer>
+          </Modal.Section>
+        </Modal>
     </Page>
     )
+  }
+
+  closeDuplicate = () => {
+    this.setState({
+      showDuplicate: false,
+      duplicatedName: ''
+    })
+  }
+
+  onChangeDuplicated = (value) => {
+    this.setState({
+      duplicatedName: value
+    })
+  }
+
+  gotoSetting = () => {
+    fetch('https://app.trytada.com/duplicateWidget', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        widget_id: Cookies.get('widget_id'),
+        name: this.state.duplicatedName
+      })
+    }).then(resp => resp.json())
+    .then(json => {
+      Cookies.set('widget_id', json.id);
+      window.location.href = '/setting';
+    })
   }
 
   showDropdown = (key) => {
@@ -243,23 +313,25 @@ class Dashboard extends React.Component {
     }
   }
 
-  togglePopover = (key) => {
-    const {showPopup} = this.state;
-    this.setState({
-      showPopup: !showPopup,
-      index: key
-    });
-  }
-
   createNewWidget = () => {
       window.location.href = '/create';
+  }
+
+  duplicate = (key) => {
+    const { widgets } = this.state;
+    Cookies.set('widget_id', widgets[key]._id);
+    this.setState({
+      showDuplicate: true,
+      duplicatedName: '',
+      isDropdown: false
+    })
   }
 
   editWidget = (key) => {
     const {widgets} = this.state;
     Cookies.set('widget_id', widgets[key]._id);
     Cookies.set('tada_game_type', widgets[key].type);
-    window.location.href = '/coupons';
+    window.location.href = '/setting';
   }
 
   pauseWidget = (key) => {
@@ -275,31 +347,46 @@ class Dashboard extends React.Component {
     })
     .then(resp => {
         widgets[key].pause = !widgets[key].pause;
-        this.togglePopover(key);
         this.setState({
-          widgets: widgets
+          widgets: widgets,
+          isDropdown: false
         });
     });
   }
 
-  deleteWidget = (key) => {
-      var widgets = this.state.widgets;
-      fetch(`https://app.trytada.com/deleteWidget`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          widget_id: widgets[key]._id,
-        })
+  closeDeleteModal = () => {
+    this.setState({
+      showDeleteModal: false
+    })
+  }
+
+  deleteWidgetModal = (key) => {
+    Cookies.set('delete_index', key);
+    this.setState({
+      showDeleteModal: true,
+      isDropdown: false
+    })
+  }
+
+  deleteWidget = () => {
+    const key = Cookies.get('delete_index');
+    var widgets = this.state.widgets;
+    fetch(`https://app.trytada.com/deleteWidget`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        widget_id: widgets[key]._id
       })
-      .then(resp => {
-          this.togglePopover(key);
-	  widgets.splice(key, 1);
-          this.setState({
-            widgets: widgets
-          });
-      });
+    })
+    .then(resp => {
+        this.closeDeleteModal();
+        widgets.splice(key, 1);
+        this.setState({
+          widgets: widgets
+        });
+    });
   }
 }
 

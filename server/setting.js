@@ -302,6 +302,34 @@ async function updateStyle(ctx, next) {
     }
 }
 
+async function duplicateWidget(ctx, next) {
+    const { widget_id, name } = ctx.request.body;
+    var oldWidget = await Widget.findById(widget_id);
+    var newWidget = new Widget();
+    newWidget.type = oldWidget.type;
+    newWidget.name = name;
+    newWidget.pause = oldWidget.pause;
+    newWidget.style = oldWidget.style;
+    newWidget.shop_id = oldWidget.shop_id;
+    newWidget.discountType = oldWidget.discountType;
+    newWidget.couponExpire = oldWidget.couponExpire;
+    newWidget.displaySetting = oldWidget.displaySetting;
+    newWidget.pageSetting = oldWidget.pageSetting;
+    newWidget.timer = oldWidget.timer;
+    newWidget.frequency = oldWidget.frequency;
+    newWidget.displayFrequency = oldWidget.displayFrequency;
+    newWidget.exitIntent = oldWidget.exitIntent;
+    newWidget.exitIntentTime = oldWidget.exitIntentTime;
+    newWidget.description = oldWidget.description;
+    newWidget.headline = oldWidget.headline;
+    newWidget.button = oldWidget.button;
+    newWidget.placeholder = oldWidget.placeholder;
+    newWidget.created_at = oldWidget.created_at;
+    newWidget.save();
+
+    ctx.body = {id: newWidget.id};
+}
+
 module.exports.getSetting = getSetting;
 module.exports.saveSetting = saveSetting;
 module.exports.getPageSetting = getPageSetting;
@@ -315,3 +343,4 @@ module.exports.updateDiscount = updateDiscount;
 module.exports.getDiscounts = getDiscounts;
 module.exports.updateStyle = updateStyle;
 module.exports.getStyle = getStyle;
+module.exports.duplicateWidget = duplicateWidget;

@@ -18,7 +18,7 @@ const { default: graphQLProxy } = require('@shopify/koa-shopify-graphql-proxy');
 const { ApiVersion } = require('@shopify/koa-shopify-graphql-proxy');
 const Router = require('koa-router');
 const { receiveWebhook } = require('@shopify/koa-shopify-webhooks');
-const {  getPageSetting, savePageSetting, getWidgets, createWidget, pauseWidget, deleteWidget, removeExpiredCode, getSetting, saveSetting, getDiscounts, updateDiscount, getStyle, updateStyle }  = require('./server/setting');
+const {  getPageSetting, savePageSetting, getWidgets,duplicateWidget, createWidget, pauseWidget, deleteWidget, removeExpiredCode, getSetting, saveSetting, getDiscounts, updateDiscount, getStyle, updateStyle }  = require('./server/setting');
 const { processPayment, freeMembership, premiumMembership } = require('./server/payment');
 const { checkout, getDashboardInfo, exportEmail } = require('./server/analytics');
 const { addDiscount, sendWidget } = require('./server/frontend');
@@ -63,6 +63,7 @@ app.prepare().then(() => {
   router.post('/pauseWidget', pauseWidget);
   router.post('/deleteWidget', deleteWidget);
   router.post('/createWidget', createWidget);
+  router.post('/duplcateWidget', duplicateWidget);
 
   router.post('/getDiscounts', getDiscounts);
   router.post('/updateCoupon', updateDiscount);
