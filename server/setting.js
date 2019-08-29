@@ -14,7 +14,7 @@ async function removeExpiredCode() {
     const shops = await Shop.find();
 
     if (shops && shops.length > 0) {
-        shop.map(appSetting => {
+        shops.map(appSetting => {
             if (appSetting.install == 1) {
                 const priceRuleUrl = `admin/api/${API_VERSION}/price_rules.json`;
                 const options = {

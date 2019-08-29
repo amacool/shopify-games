@@ -173,23 +173,23 @@ class Dashboard extends React.Component {
                   return (
                   <div className="dashboard-widget">
                     <div className="widget-img">
-                      <img src="/public/wheel.png" />
+                      <img src={require("../public/wheel.png")} />
                     </div>
                     <div className="widget-name">
                       <div>{widget.name}</div>
-                      <img src="/public/dropdown.png" onClick={() => this.showDropdown(key)}/>
+                      <img src={require("../public/dropdown.png")} onClick={() => this.showDropdown(key)}/>
                       {(this.state.isDropdown && this.state.selectedWidget == key)?(
                         <div className="widget-dropdown">
-                          <div onClick={() => this.editWidget(key)}><img src="/public/edit.png"/><span>Edit</span></div>
-                          <div onClick={() => this.pauseWidget(key)}><img src="/public/pause.png"/><span>{(widget.pause)?'Resume':'Pause'}</span></div>
-                          <div onClick={() => this.duplicate(key)}><img src="/public/duplicate.png" /><span>Duplicate & Edit</span></div>
-                          <div onClick={() => this.deleteWidgetModal(key)}><img src="/public/delete.png" /><span style={{color: '#BF0711'}}>Delete</span></div>
+                          <div onClick={() => this.editWidget(key)}><img src={require("../public/edit.png")}/><span>Edit</span></div>
+                          <div onClick={() => this.pauseWidget(key)}><img src={require("../public/pause.png")}/><span>{(widget.pause)?'Resume':'Pause'}</span></div>
+                          <div onClick={() => this.duplicate(key)}><img src={require("../public/duplicate.png")} /><span>Duplicate & Edit</span></div>
+                          <div onClick={() => this.deleteWidgetModal(key)}><img src={require("../public/delete.png")} /><span style={{color: '#BF0711'}}>Delete</span></div>
                         </div>
                       ):(null)}
                     </div>
                     <div className="widget-status">
                       <div className={widget.pause?'hold':'active'}>{(widget.pause)?'On Hold':'Active'}</div>
-                      <div className='modify-label'>Last modified: {created_at.getDate() + '.' + created_at.getMonth() + '.' + created_at.getFullYear()}</div>
+                      <div className='modify-label'>Last modified: {created_at.getDate() + '.' + created_at.getUTCMonth() + '.' + created_at.getFullYear()}</div>
                     </div>
                   </div>
                   );
@@ -203,11 +203,11 @@ class Dashboard extends React.Component {
           <div className="dashboard-email-body">
             <div className="dashboard-email-items">
               <div className="email-kind">
-                <img src="/public/mailchimp.png" />
+                <img src={require("../public/mailchimp.png")} />
                 <div>MAILCHIMP</div>
               </div>
               <div className="email-kind">
-                <img src="/public/klaviyo.png" />
+                <img src={require("../public/klaviyo.png")} />
                 <div>KLAVIYO</div>
               </div>
             </div>
@@ -220,7 +220,7 @@ class Dashboard extends React.Component {
               </div>
             </div>
             <div className="email-footer">
-              <img src="/public/help.png" />
+              <img src={require("../public/help.png")} />
               <span>Learn more about <a href="#">Email Integration & export</a>.</span>
             </div>
           </div>
@@ -263,7 +263,7 @@ class Dashboard extends React.Component {
           >
           <Modal.Section>
             <TextContainer>
-              <p>Do you want to delete this Widget?</p>
+              <p className="error-duplicate">Do you want to delete this Widget?</p>
               <p style={{color: '#BF0711', fontSize: '12px'}}>This widget will be permanently deleted and you can not recover this widget in the future!</p>
             </TextContainer>
           </Modal.Section>
