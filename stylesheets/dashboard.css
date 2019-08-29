@@ -277,24 +277,25 @@
     pointer-events: none;
 }
 
-.widget-dropdown {
+.dashboard-widget .widget-name .widget-dropdown {
     width: 280px;
     padding: 5px 0;
     background: white;
 }
 
-.widget-dropdown > div {
+.dashboard-widget .widget-name .widget-dropdown > div {
     height: 40px;
     padding: 13px 22px;
     width: 100%;
 }
 
-.widget-dropdown > div > img {
+.dashboard-widget .widget-name .widget-dropdown > div > img {
     width: 13px;
     height: 13px;
+    float: left;
 }
 
-.widget-dropdown > div > span {
+.dashboard-widget .widget-name .widget-dropdown > div > span {
     color: #212B36;
     font-size: 14px;
     line-height: 16px;
