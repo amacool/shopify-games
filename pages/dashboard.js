@@ -179,7 +179,7 @@ class Dashboard extends React.Component {
                       <div>{widget.name}</div>
                       <img src="/public/dropdown.png" />
                     </div>
-                    <div className="widget-staus">
+                    <div className="widget-status">
                       <div className={widget.pause?'hold':'active'}>{(widget.pause)?'On Hold':'Active'}</div>
                       <div className='modify-label'>Last modified: {widget.created_at}</div>
                     </div>

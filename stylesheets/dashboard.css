@@ -41,8 +41,6 @@
 
 .display-widget-group div {
     display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100%;
     font-size: 16px;
     font-weight: 500;
@@ -66,10 +64,14 @@
 
 .dashboard-widget .widget-name {
     margin-top: 20px;
+    height: 16px;
+    text-align: left;
+    width: 100%;
 }
 
 .dashboard-widget .widget-name > div {
     font-size: 12px;
+    font-weight: bold;
     line-height: 16px;
     color: #212b36;
     display: inline-block;
@@ -85,11 +87,15 @@
 }
 
 .dashboard-widget .widget-status {
-    margin-top: 20px;
+    margin-top: 10px;
+    height: 20px;
+    width: 100%;
 }
 
 .dashboard-widget .widget-status .active {
-    width: fit-content;
+    float: left;
+    padding: 3px 7px;
+    border-radius: 4px;
     font-size: 12px;
     line-height: 20px;
     background: #108043;
@@ -112,7 +118,6 @@
     color: #637381;
     font-size:12px;
     line-height: 16px;
-    display: inline-block;
     vertical-align: middle;
 }
 
