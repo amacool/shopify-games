@@ -173,17 +173,17 @@ class Dashboard extends React.Component {
                   return (
                   <div className="dashboard-widget">
                     <div className="widget-img">
-                      <img src={require("../public/wheel.png")} />
+                      <img src="/wheel.png" />
                     </div>
                     <div className="widget-name">
                       <div>{widget.name}</div>
-                      <img src={require("../public/dropdown.png")} onClick={() => this.showDropdown(key)}/>
+                      <img src="/dropdown.png" onClick={() => this.showDropdown(key)}/>
                       {(this.state.isDropdown && this.state.selectedWidget == key)?(
                         <div className="widget-dropdown">
-                          <div onClick={() => this.editWidget(key)}><img src={require("../public/edit.png")}/><span>Edit</span></div>
-                          <div onClick={() => this.pauseWidget(key)}><img src={require("../public/pause.png")}/><span>{(widget.pause)?'Resume':'Pause'}</span></div>
-                          <div onClick={() => this.duplicate(key)}><img src={require("../public/duplicate.png")} /><span>Duplicate & Edit</span></div>
-                          <div onClick={() => this.deleteWidgetModal(key)}><img src={require("../public/delete.png")} /><span style={{color: '#BF0711'}}>Delete</span></div>
+                          <div onClick={() => this.editWidget(key)}><img src="/edit.png"/><span>Edit</span></div>
+                          <div onClick={() => this.pauseWidget(key)}><img src="/pause.png"/><span>{(widget.pause)?'Resume':'Pause'}</span></div>
+                          <div onClick={() => this.duplicate(key)}><img src="/duplicate.png" /><span>Duplicate & Edit</span></div>
+                          <div onClick={() => this.deleteWidgetModal(key)}><img src="/delete.png" /><span style={{color: '#BF0711'}}>Delete</span></div>
                         </div>
                       ):(null)}
                     </div>
@@ -203,11 +203,11 @@ class Dashboard extends React.Component {
           <div className="dashboard-email-body">
             <div className="dashboard-email-items">
               <div className="email-kind">
-                <img src={require("../public/mailchimp.png")} />
+                <img src="/mailchimp.png" />
                 <div>MAILCHIMP</div>
               </div>
               <div className="email-kind">
-                <img src={require("../public/klaviyo.png")} />
+                <img src="/klaviyo.png" />
                 <div>KLAVIYO</div>
               </div>
             </div>
@@ -220,7 +220,7 @@ class Dashboard extends React.Component {
               </div>
             </div>
             <div className="email-footer">
-              <img src={require("../public/help.png")} />
+              <img src="/help.png" />
               <span>Learn more about <a href="#">Email Integration & export</a>.</span>
             </div>
           </div>
