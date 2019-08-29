@@ -181,7 +181,7 @@ class Dashboard extends React.Component {
                       {(this.state.isDropdown && this.state.selectedWidget == key)?(
                         <div className="widget-dropdown">
                           <div onClick={() => this.editWidget(key)}><img src="/public/edit.png"/><span>Edit</span></div>
-                          <div onClick={() => this.pauseWidget(key)}><img src="/public/pause.png"/><span>Pause</span></div>
+                          <div onClick={() => this.pauseWidget(key)}><img src="/public/pause.png"/><span>{(widget.pause)?'Resume':'Pause'}</span></div>
                           <div onClick={() => this.duplicate(key)}><img src="/public/duplicate.png" /><span>Duplicate & Edit</span></div>
                           <div onClick={() => this.deleteWidgetModal(key)}><img src="/public/delete.png" /><span style={{color: '#BF0711'}}>Delete</span></div>
                         </div>
@@ -240,8 +240,11 @@ class Dashboard extends React.Component {
           >
           <Modal.Section>
             <TextContainer>
-              <p>Please input name of duplicated widget!</p>
+              <p className="error-duplicate">Please input name of duplicated widget!</p>
               <TextField label="" value={this.state.duplicatedName} onChange={this.onChangeDuplicated} />
+              {(this.state.nameDuplicatedError)?(
+                <InlineError message="Already exist!" fieldID="existID"></InlineError>
+              ):(null)}
             </TextContainer>
           </Modal.Section>
         </Modal>
@@ -283,6 +286,15 @@ class Dashboard extends React.Component {
   }
 
   gotoSetting = () => {
+    const { duplicatedName, widgets } = this.state;
+    for(var i=0; i<widgets.length; i++) {
+      if(widgets[i].name == duplicatedName) {
+        this.setState({
+          nameDuplicatedError: true
+        })
+        return;
+      }
+    }
     fetch('https://app.trytada.com/duplicateWidget', {
       method: 'POST',
       headers: {
@@ -290,7 +302,7 @@ class Dashboard extends React.Component {
       },
       body: JSON.stringify({
         widget_id: Cookies.get('widget_id'),
-        name: this.state.duplicatedName
+        name: duplicatedName
       })
     }).then(resp => resp.json())
     .then(json => {

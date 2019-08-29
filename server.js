@@ -63,7 +63,7 @@ app.prepare().then(() => {
   router.post('/pauseWidget', pauseWidget);
   router.post('/deleteWidget', deleteWidget);
   router.post('/createWidget', createWidget);
-  router.post('/duplcateWidget', duplicateWidget);
+  router.post('/duplicateWidget', duplicateWidget);
 
   router.post('/getDiscounts', getDiscounts);
   router.post('/updateCoupon', updateDiscount);

@@ -309,3 +309,7 @@
     line-height: 16px;
     margin-left: 17px;
 }
+
+.error-duplicate {
+    font-size: 14px;
+}
