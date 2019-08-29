@@ -64,13 +64,13 @@ class Coupons extends React.Component {
                             <div className="discount-type-group">
                                 <Button onClick={() => this.handleType(true)} primary>$ OFF</Button>
                                 <Button onClick={() => this.handleType(false)}>% OFF</Button>
-                                <img src="/delete.png" className=""/>
+                                <img src="/remove.png" className=""/>
                             </div>
                                 ):(
                             <div className="discount-type-group">
                                 <Button onClick={() => this.handleType(true)}>$ OFF</Button>
                                 <Button onClick={() => this.handleType(false)} primary>% OFF</Button>
-                                <img src="/delete.png" className=""/>
+                                <img src="/remove.png" className=""/>
                             </div>
                                 )}
                         </div>
@@ -81,7 +81,7 @@ class Coupons extends React.Component {
                                     return (<div>
                                         <div className="coupon-title">{discounts[key].title}</div>
                                         <div className="coupon-delete">
-                                            <img src="/delete.png" onClick={() => this.deleteCoupon(key)} />
+                                            <img src="/remove.png" onClick={() => this.deleteCoupon(key)} />
                                         </div>
                                     </div>)
                                 }
