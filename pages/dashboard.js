@@ -1,4 +1,4 @@
-import { Modal, TextContainer, Button, TextField, Page } from '@shopify/polaris';
+import { Modal, TextContainer, Button, TextField, Page, InlineError } from '@shopify/polaris';
 import store from 'store-js';
 import Cookies from 'js-cookie';
 import moment from 'moment';
