@@ -64,7 +64,11 @@ class DetailSetting extends React.Component {
     resultShortText: '',
     subscribe: '',
     couponExpiry: '',
-    logo: ''
+    logo: '',
+    timerHour: 0,
+    timerMin: 0,
+    expiryHour: 0,
+    expiryMin: 0
   };
 
   componentDidMount = () => {
@@ -108,7 +112,7 @@ class DetailSetting extends React.Component {
   }
 
   render() {
-    const { displaySetting, displaySettingOptions, frequency, frequencyDay, frequencyHour, frequencyMin, displayFrequencyOptions, timerPositionOptions, timerPosition, timerType, timerTypeOptions} = this.state;
+    const { displaySetting, displaySettingOptions, frequency, frequencyDay, frequencyHour, frequencyMin, displayFrequencyOptions, timerPositionOptions, timerPosition, timerType, timerTypeOptions, deviceTypes, timerHour, timerMin, headline, shortText, resultShortText, resultHeadline, cta, couponExpiry, exitButton, placeholder, subscribe, expiryHour, expiryMin, exitIntent} = this.state;
     return (
       <div>
         <div className="discount-setting">
@@ -220,7 +224,7 @@ class DetailSetting extends React.Component {
                         </div>
                         <div className="widget-other">
                           <p>Automatically add your subscriber to your shopify customer list?</p>
-                          {(this.state.subscribe)?(<div className="subscribe-btn-group">
+                          {(subscribe)?(<div className="subscribe-btn-group">
                             <Button onClick={() => this.handleSubscribe(true)} primary>Enable</Button>
                             <Button onClick={() => this.handleSubscribe(false)}>Disable</Button>
                           </div>):(
@@ -230,13 +234,13 @@ class DetailSetting extends React.Component {
                           </div>)}
                           <p>Coupon expiry</p>
                           <div>
-                            <TextField label="" value={timerHour} onChange={this.handleInput('expiryHour')} />
+                            <TextField label="" value={expiryHour} onChange={this.handleInput('expiryHour')} />
                             <span>hours</span>
-                            <TextField lable="" value={timerMin} onChange={this.handleInput('expiryMin')} />
+                            <TextField lable="" value={expiryMin} onChange={this.handleInput('expiryMin')} />
                             <span>minutes</span>
                           </div>
                           <p>Exit intent</p>
-                          {(this.state.exit)?(<div className="exit-btn-group">
+                          {(exitIntent)?(<div className="exit-btn-group">
                             <Button onClick={() => this.handleExit(true)} primary>Enable</Button>
                             <Button onClick={() => this.handleExit(false)}>Disable</Button>
                           </div>):(
