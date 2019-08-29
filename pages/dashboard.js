@@ -189,7 +189,7 @@ class Dashboard extends React.Component {
                     </div>
                     <div className="widget-status">
                       <div className={widget.pause?'hold':'active'}>{(widget.pause)?'On Hold':'Active'}</div>
-                      <div className='modify-label'>Last modified: {created_at.getDate() + '.' + created_at.getMonth() + '.' + create_at.getFullYear()}</div>
+                      <div className='modify-label'>Last modified: {created_at.getDate() + '.' + created_at.getMonth() + '.' + created_at.getFullYear()}</div>
                     </div>
                   </div>
                   );
