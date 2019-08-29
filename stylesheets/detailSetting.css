@@ -126,3 +126,90 @@
     float: right;
     display: inline-block;
 }
+
+.device-filter {
+    border-bottom: .1rem solid rgba(92, 106, 196, .2);
+}
+
+.device-filter > p {
+    margin-bottom: 10px;
+}
+
+.device-filter > div {
+    margin-bottom: 20px;
+}
+
+.device-filter > div:last-child {
+    margin-bottom: 30px;
+}
+
+.widget-text {
+    border-bottom: .1rem solid rgba(92, 106, 196, .2);
+    padding-top: 30px;
+}
+
+.widget-text > div {
+    margin-bottom: 30px;
+}
+
+.widget-text > p {
+    margin-bottom: 5px;
+}
+
+.widget-result {
+    padding-top: 30px;
+    border-bottom: .1rem solid rgba(92, 106, 196, .2);
+}
+
+.widget-result > p {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.widget-result > div {
+    margin-bottom: 20px;
+}
+
+.widget-other {
+    padding-top: 20px;
+    border-bottom: .1rem solid rgba(92, 106, 196, .2);
+}
+
+.widget-other > p {
+    margin-bottom: 5px;
+}
+
+.widget-other > div {
+    margin-bottom: 30px;
+}
+
+.widget-other > div > span {
+    margin-right: 10px;
+}
+
+.widget-logo {
+    padding-top: 30px;
+}
+
+.widget-logo > p {
+    margn-bottom: 10px;
+}
+
+.widget-logo-upload {
+    width: 114px;
+    height: 114px;
+    border: 2px solid #DFE3E8;
+    border-radius: 2px;
+    padding: 20px;
+}
+
+.widget-logo-upload a {
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.widget-logo-upload div {
+    font-size: 12px;
+    color:  #637381;
+}

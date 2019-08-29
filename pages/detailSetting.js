@@ -12,10 +12,10 @@ class DetailSetting extends React.Component {
       {label: 'All Product Pages', value: 'products'},
       {label: 'All Blog Pages', value: 'blogs'},
       {label: 'All Static Pages', value: 'pages'},
-      {label: 'Specifi Pages', value: 'specific'},
-      // {label: 'Specific Product/Collection', value: 'specificProduct'},
-      // {label: 'Specific Blog Posts', value: 'specificBlog'},
-      // {label: 'Specific Pages', value: 'specificPage'},
+      // {label: 'Specifi Pages', value: 'specific'},
+      {label: 'Specific Product/Collection', value: 'specificProduct'},
+      {label: 'Specific Blog Posts', value: 'specificBlog'},
+      {label: 'Specific Pages', value: 'specificPage'},
     ],
     displayFrequencyOptions:[
       {label: 'Every new visit of page', value: 'every'},
@@ -49,7 +49,22 @@ class DetailSetting extends React.Component {
     frequency: '',
     saveDisabled: true,
     exitIntent: true,
-    exitIntentTime: 5
+    exitIntentTime: 5,
+    deviceTypes: {
+      desktop: true,
+      tablet: true,
+      mobile: true
+    },
+    headline: '',
+    shortText: '',
+    cta: '',
+    exitButton: '',
+    placeholder: '',
+    resultHeadline: '',
+    resultShortText: '',
+    subscribe: '',
+    couponExpiry: '',
+    logo: ''
   };
 
   componentDidMount = () => {
@@ -164,14 +179,86 @@ class DetailSetting extends React.Component {
                         (!this.state.isShowAdvance)?(
                             <div className="view-chances" onClick={this.showAdvance}>View Settings</div>
                         ):(
-                            <div className="view-chances" onClick={this.showAdvance}>Hide Settings</div>
+                            <div className="view-chances" onClick={this.showAdvance}>Close</div>
                         )
                     }
                 </div>
                 {
                     (this.state.isShowAdvance)?(
-                        <div className="chances-group">
+                      <div>
+                        <div className="device-filter">
+                          <p>Where to display the game?</p>
+                          <Checkbox checked={deviceTypes.desktop} onChange={this.handleDeviceType('desktop')} label="Desktop" />
+                          <Checkbox checked={deviceTypes.tablet} onChange={this.handleDeviceType('tablet')} label="Tablet" />
+                          <Checkbox checked={deviceTypes.mobile} onChange={this.handleDeviceType('mobile')} label="Mobile" />
                         </div>
+                        <div className="widget-text">
+                          <TextField label="HeadLine" value={headline} onChange={this.handleInput('headline')} />
+                          <TextField label="Short Text" value={shortText} onChange={this.handleInput('shortText')} />
+                          <Select label="Delay before showing Widget"
+                            options={[
+                              {label: 'Yes', value: true},
+                              {label: 'No', value: false}
+                            ]}
+                            onChange={this.handleTimer}
+                            />
+                          <p>Time Entry</p>
+                          <div>
+                            <TextField label="" value={timerHour} onChange={this.handleInput('timerHour')} />
+                            <span>hours</span>
+                            <TextField lable="" value={timerMin} onChange={this.handleInput('timerMin')} />
+                            <span>minutes</span>
+                          </div>
+                          <TextField label="CTA" value={CTA} onChange={this.handleInput('cta')} />
+                          <TextField label="Exit Button" value={exitButton} onChange={this.handleInput('exitButton')} />
+                          <TextField label="Email" value={placeholder} onChange={this.handleInput('placeholder')} />
+                        </div>
+                        <div className="widget-result">
+                          <p>Result Screen</p>
+                          <TextField label="Headline" value={resultHeadline}  onChange={this.handleInput('resultHeadline')} />
+                          <TextField label="Short Text" value={resultShortText}  onChange={this.handleInput('resultShortText')} />
+                        </div>
+                        <div className="widget-other">
+                          <p>Automatically add your subscriber to your shopify customer list?</p>
+                          {(this.state.subscribe)?(<div className="subscribe-btn-group">
+                            <Button onClick={() => this.handleSubscribe(true)} primary>Enable</Button>
+                            <Button onClick={() => this.handleSubscribe(false)}>Disable</Button>
+                          </div>):(
+                          <div className="subscribe-btn-group">
+                            <Button onClick={() => this.handleSubscribe(true)}>Enable</Button>
+                            <Button onClick={() => this.handleSubscribe(false)} primary>Disable</Button>
+                          </div>)}
+                          <p>Coupon expiry</p>
+                          <div>
+                            <TextField label="" value={timerHour} onChange={this.handleInput('expiryHour')} />
+                            <span>hours</span>
+                            <TextField lable="" value={timerMin} onChange={this.handleInput('expiryMin')} />
+                            <span>minutes</span>
+                          </div>
+                          <p>Exit intent</p>
+                          {(this.state.exit)?(<div className="exit-btn-group">
+                            <Button onClick={() => this.handleExit(true)} primary>Enable</Button>
+                            <Button onClick={() => this.handleExit(false)}>Disable</Button>
+                          </div>):(
+                          <div className="exit-btn-group">
+                            <Button onClick={() => this.handleExit(true)}>Enable</Button>
+                            <Button onClick={() => this.handleExit(false)} primary>Disable</Button>
+                          </div>)}
+                          <p>How often should the Exit Intent show?</p>
+                          <div>
+                            <TextField label="" value={exitIntentTime} onChange={this.handleInput('exitIntentTime')} />
+                            <span>hours</span>
+                          </div>
+                        </div>
+                        <div className="widget-logo">
+                          <p>Logo (optional)</p>
+                          <div className="widget-logo-upload">
+                            <input type="file" name="logo" />
+                            <a href="#">Add Image</a>
+                            <div>or drop files to upload</div>
+                          </div>
+                        </div>
+                      </div>
                     ): (null)
                 }
                 
