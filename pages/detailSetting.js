@@ -112,7 +112,7 @@ class DetailSetting extends React.Component {
   }
 
   render() {
-    const { displaySetting, displaySettingOptions, frequency, frequencyDay, frequencyHour, frequencyMin, displayFrequencyOptions, timerPositionOptions, timerPosition, timerType, timerTypeOptions, deviceTypes, timerHour, timerMin, headline, shortText, resultShortText, resultHeadline, cta, couponExpiry, exitButton, placeholder, subscribe, expiryHour, expiryMin, exitIntent} = this.state;
+    const { displaySetting, displaySettingOptions, frequency, frequencyDay, frequencyHour, frequencyMin, displayFrequencyOptions, timerPositionOptions, timerPosition, timerType, timerTypeOptions, deviceTypes, timerHour, timerMin, headline, shortText, resultShortText, resultHeadline, cta, couponExpiry, exitButton, placeholder, subscribe, expiryHour, expiryMin, exitIntent, exitIntentTime} = this.state;
     return (
       <div>
         <div className="discount-setting">
