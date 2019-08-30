@@ -280,6 +280,34 @@ class DetailSetting extends React.Component {
     );
   }
 
+  handleDeviceType = (key) => {
+    return (value) => {
+      this.setState({
+        [key]: value
+      })
+    }
+  }
+
+  handleInput = (key) => {
+    return (value) => {
+      this.setState({
+        [key]: value
+      })
+    }
+  }
+
+  handleSubscribe = (value) => {
+    this.setState({
+      subscribe: value
+    })
+  }
+
+  handleExit = (value) => {
+    this.setState({
+      exitIntent: value
+    })
+  }
+
   handleTimerPosition = (value) => {
     this.setState({
       timerPostion: value
