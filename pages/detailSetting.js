@@ -192,9 +192,15 @@ class DetailSetting extends React.Component {
                       <div>
                         <div className="device-filter">
                           <p>Where to display the game?</p>
-                          <Checkbox checked={deviceTypes.desktop} onChange={this.handleDeviceType('desktop')} label="Desktop" />
-                          <Checkbox checked={deviceTypes.tablet} onChange={this.handleDeviceType('tablet')} label="Tablet" />
-                          <Checkbox checked={deviceTypes.mobile} onChange={this.handleDeviceType('mobile')} label="Mobile" />
+                          <div>
+                            <Checkbox checked={deviceTypes.desktop} onChange={this.handleDeviceType('desktop')} label="Desktop" />
+                          </div>
+                          <div>
+                            <Checkbox checked={deviceTypes.tablet} onChange={this.handleDeviceType('tablet')} label="Tablet" />
+                          </div>
+                          <div>
+                            <Checkbox checked={deviceTypes.mobile} onChange={this.handleDeviceType('mobile')} label="Mobile" />
+                          </div>
                         </div>
                         <div className="widget-text">
                           <TextField label="HeadLine" value={headline} onChange={this.handleInput('headline')} />
@@ -208,9 +214,13 @@ class DetailSetting extends React.Component {
                             />
                           <p>Time Entry</p>
                           <div>
-                            <TextField label="" value={timerHour} onChange={this.handleInput('timerHour')} />
+                            <div className="hour-field">
+                              <TextField label="" value={timerHour} onChange={this.handleInput('timerHour')} />
+                            </div>
                             <span>hours</span>
-                            <TextField lable="" value={timerMin} onChange={this.handleInput('timerMin')} />
+                            <div className="min-field">
+                              <TextField lable="" value={timerMin} onChange={this.handleInput('timerMin')} />
+                            </div>
                             <span>minutes</span>
                           </div>
                           <TextField label="CTA" value={cta} onChange={this.handleInput('cta')} />
@@ -234,9 +244,13 @@ class DetailSetting extends React.Component {
                           </div>)}
                           <p>Coupon expiry</p>
                           <div>
-                            <TextField label="" value={expiryHour} onChange={this.handleInput('expiryHour')} />
+                            <div className="hour-field">
+                              <TextField label="" value={expiryHour} onChange={this.handleInput('expiryHour')} />
+                            </div>
                             <span>hours</span>
-                            <TextField lable="" value={expiryMin} onChange={this.handleInput('expiryMin')} />
+                            <div className="min-field">
+                              <TextField lable="" value={expiryMin} onChange={this.handleInput('expiryMin')} />
+                            </div>
                             <span>minutes</span>
                           </div>
                           <p>Exit intent</p>
@@ -250,7 +264,9 @@ class DetailSetting extends React.Component {
                           </div>)}
                           <p>How often should the Exit Intent show?</p>
                           <div>
-                            <TextField label="" value={exitIntentTime} onChange={this.handleInput('exitIntentTime')} />
+                            <div className="min-field">
+                              <TextField label="" value={exitIntentTime} onChange={this.handleInput('exitIntentTime')} />
+                            </div>
                             <span>hours</span>
                           </div>
                         </div>

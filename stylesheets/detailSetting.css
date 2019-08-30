@@ -82,10 +82,6 @@
     margin-top: 30px;
 }
 
-.coupon-chance > div > div {
-    padding-left: 20px;
-}
-
 .coupon-chance .header3 {
     margin-top: 30px;
     margin-bottom: 20px;
@@ -193,7 +189,7 @@
 }
 
 .widget-logo > p {
-    margn-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .widget-logo-upload {
@@ -212,4 +208,21 @@
 .widget-logo-upload div {
     font-size: 12px;
     color:  #637381;
+}
+
+.coupon-chance > div > div > div {
+    padding-left: 20px;
+    padding-right: 20px;    
+}
+
+.hour-field {
+    display: inline-block;
+    vertical-align: middle;
+    width: 80px;
+}
+
+.min-field {
+    display: inline-block;
+    vertical-align: middle;
+    width: 80px;
 }
