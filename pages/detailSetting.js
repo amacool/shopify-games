@@ -213,7 +213,7 @@ class DetailSetting extends React.Component {
                             <TextField lable="" value={timerMin} onChange={this.handleInput('timerMin')} />
                             <span>minutes</span>
                           </div>
-                          <TextField label="CTA" value={CTA} onChange={this.handleInput('cta')} />
+                          <TextField label="CTA" value={cta} onChange={this.handleInput('cta')} />
                           <TextField label="Exit Button" value={exitButton} onChange={this.handleInput('exitButton')} />
                           <TextField label="Email" value={placeholder} onChange={this.handleInput('placeholder')} />
                         </div>
