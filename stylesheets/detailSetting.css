@@ -181,7 +181,8 @@
 }
 
 .widget-other > div > span {
-    margin-right: 10px;
+    margin-right: 27px;
+    margin-left: 5px;
 }
 
 .widget-logo {
@@ -225,4 +226,8 @@
     display: inline-block;
     vertical-align: middle;
     width: 80px;
+}
+
+.image-file {
+    display: none;
 }

@@ -273,8 +273,10 @@ class DetailSetting extends React.Component {
                         <div className="widget-logo">
                           <p>Logo (optional)</p>
                           <div className="widget-logo-upload">
-                            <input type="file" name="logo" />
-                            <a href="#">Add Image</a>
+                            <label>
+                              <input type="file" name="logo" accept="image/*" className="image-file"/>
+                              <a>Add Image</a>
+                            </label>
                             <div>or drop files to upload</div>
                           </div>
                         </div>
