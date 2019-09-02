@@ -131,7 +131,7 @@ class Style extends React.Component {
               style: selected
           })
       }
-      fetch('https://app.trytada.com/updateStyle', {
+      fetch('https://b49ce7ab.ngrok.io/updateStyle', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'
@@ -153,7 +153,7 @@ class Style extends React.Component {
               selected: value,
               style: value
           });
-          fetch('https://app.trytada.com/updateStyle', {
+          fetch('https://b49ce7ab.ngrok.io/updateStyle', {
               method: 'POST',
               headers: {
                   'Content-type': 'application/json'

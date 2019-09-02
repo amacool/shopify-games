@@ -176,11 +176,11 @@ function generateDiscountItems(widget) {
     'textAligment': 'outer',
     'segments':            // Definition of all the segments.
         [`;
-    
+
   var i = 0;
   Object.keys(discountTypes).map(key => {
     if(discountTypes[key].enable) {
-      result += ` { 'fillStyle': '${colors[i]}', 'text': '${discountTypes[key].title}'}, 
+      result += ` { 'fillStyle': '${colors[i]}', 'text': '${discountTypes[key].title}'},
                 `;
       i++;
     }
@@ -211,8 +211,8 @@ function selectWidgetBySetting(widget) {
       <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
       <div id="spinny"
           style="background-color: white;border: 1px solid black;display: block;padding: 20px; text-align: center;position: absolute;z-index:9999;">
-          <img src="https://app.trytada.com/close.png" id="modal_close" />
-          <img src="https://app.trytada.com/logo.png" class="tada-app-logo" />
+          <img src="https://b49ce7ab.ngrok.io/close.png" id="modal_close" />
+          <img src="https://b49ce7ab.ngrok.io/logo.png" class="tada-app-logo" />
           <h1> Spin to win a BIG prize! 🎁 </h1>
           <div>Enter your email address to find out if you're the winner</div>
           <div style="display: flex; justify-content: center; align-items: center;">
@@ -228,7 +228,7 @@ function selectWidgetBySetting(widget) {
                   data-responsiveMinWidth="100">
                   Canvas not supported, use another browser.
               </canvas>
-              <img src="https://app.trytada.com/arrow.jpg" class="tada-arrow" />
+              <img src="https://b49ce7ab.ngrok.io/arrow.jpg" class="tada-arrow" />
           </div>
       </div>
       <div id="result_box">
@@ -243,7 +243,7 @@ function selectWidgetBySetting(widget) {
       </div>
   </div>
   <div id="tadaclockdiv">
-      <img src="https://app.trytada.com/close.png" id="clock_close" />
+      <img src="https://b49ce7ab.ngrok.io/close.png" id="clock_close" />
       <div>
         <span class="hours"></span>
       </div>
@@ -281,7 +281,7 @@ function selectWidgetBySetting(widget) {
 
       function startSpinning() {
           var email = document.getElementById("spin_email").value;
-          
+
           var domain = email.split('@')[1];
           if (!validateEmail(email)) {
               document.getElementById('tada_email_validate').style.display = 'block';
@@ -361,7 +361,7 @@ function selectWidgetBySetting(widget) {
                 discount_type = "Free Shipping";
               }
               $.ajax({
-                  url: 'https://app.trytada.com/addDiscount',
+                  url: 'https://b49ce7ab.ngrok.io/addDiscount',
                   type: 'POST',
                   contentType: 'application/json',
                   data: JSON.stringify({
@@ -449,7 +449,7 @@ function selectWidgetBySetting(widget) {
         window.location.href = '/cart?discount=' + discount_code;
       }
 
-      function detectmob() { 
+      function detectmob() {
         if( navigator.userAgent.match(/Android/i)
         || navigator.userAgent.match(/webOS/i)
         || navigator.userAgent.match(/iPhone/i)
@@ -472,7 +472,7 @@ function selectWidgetBySetting(widget) {
               clearInterval(counter);
               eraseCookie('tada_${id}_clockClose');
 
-              $.getScript('https://app.trytada.com/Winwheel.js', function(data, textStatus, jqxhr) {
+              $.getScript('https://b49ce7ab.ngrok.io/Winwheel.js', function(data, textStatus, jqxhr) {
                 if(jqxhr.status == 200) {
                   if(getCookie('tada_${id}_modalClose') == null) {
                     tadaCallback();
@@ -485,14 +485,14 @@ function selectWidgetBySetting(widget) {
                       $(document).mouseleave(function(e) {
                         if(e.clientY < 0) {
                           var tadaTokenDiff = (new Date().getTime()) - getCookie('tada_${id}_timeToken');
-                          
+
                             if(tadaTokenDiff > 86400000) {
                                 clearInterval(counter);
                                 ${generateDiscountItems(widget)}
                                 if(getCookie('tada_${id}_modalClose') == null && getCookie('tada_${id}_ExitIntent') == null) {
                                   var box = document.getElementById('spinny_box');
                                   document.getElementById('tada_email_validate').style.display = 'none';
-                    
+
                                   if (box.style.display == '' || box.style.display == 'none') {
                                     setCookie('tada_${id}_ExitIntent', 1, ${widget.exitIntentTime});
                                   }
@@ -517,18 +517,18 @@ function selectWidgetBySetting(widget) {
               $('#tadaclockdiv').show();
               days = parseInt(timeRemaining / 86400);
               timeRemaining = (timeRemaining % 86400);
-              
+
               hours = parseInt(timeRemaining / 3600);
               timeRemaining = (timeRemaining % 3600);
-              
+
               minutes = parseInt(timeRemaining / 60);
               timeRemaining = (timeRemaining % 60);
-              
+
               seconds = parseInt(timeRemaining);
               if(seconds < 10) {
                 seconds = '0' + seconds;
               }
-              
+
               $('#tadaclockdiv').find('.hours').html(hours);
               $('#tadaclockdiv').find('.minutes').html(minutes);
               $('#tadaclockdiv').find('.seconds').html(seconds);

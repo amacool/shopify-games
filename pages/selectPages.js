@@ -27,7 +27,7 @@ export default class SelectPage extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`https://app.trytada.com/getPageSetting`, {
+        fetch(`https://b49ce7ab.ngrok.io/getPageSetting`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -360,7 +360,7 @@ export default class SelectPage extends React.Component {
             homepage, products, pages, blogs, cart, search
         });
 
-        fetch('https://app.trytada.com/savePageSetting', {
+        fetch('https://b49ce7ab.ngrok.io/savePageSetting', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'

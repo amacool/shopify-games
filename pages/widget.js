@@ -5,7 +5,6 @@ import DetailSetting from'./detailSetting';
 import store from 'store-js';
 import Cookies from 'js-cookie';
 import '../stylesheets/coupon.css';
-import Coupons from './coupons';
 
 class Widget extends React.Component {
     state = {
@@ -30,7 +29,7 @@ class Widget extends React.Component {
     };
 
     componentDidMount = () => {
-        fetch('https://app.trytada.com/getSetting', {
+        fetch('https://b49ce7ab.ngrok.io/getSetting', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
@@ -50,7 +49,7 @@ class Widget extends React.Component {
                     detailSetting: json
                 });
             })
-                
+
     }
 
     render() {
@@ -71,7 +70,7 @@ class Widget extends React.Component {
                 <div className="settings-body">
                     <div className="settings-left">
                         {
-                            (selected == 'coupon') ? 
+                            (selected == 'coupon') ?
                                 (<Coupons />):
                                 ((selected == 'style')?
                                     (<Style />):(
