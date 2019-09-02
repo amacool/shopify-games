@@ -201,468 +201,143 @@ function generateDiscountItems(widget) {
 
 function selectWidgetBySetting(widget) {
   var html = '';
+  var widget_url = `${TUNNEL_URL}/game`;
+  var game_start_icon_position = 2;
+  var game_theme_style = 2;
   if(widget.type == 0) {
     var id = widget.id;
-    html = `<div id="tada_app_widget">
-  <div id="spinny_box"
-      style="display: flex;width: 100%;height: 100%;display: none;top: 0;position: fixed;z-index: 9999;left: 0;justify-content: center;align-items: center;">
-      <div style="background-color: #00000077;width: 100%;height: 100%;position: absolute;z-index: 9998;"
-          id="tada_modal_background"></div>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
-      <div id="spinny"
-          style="background-color: white;border: 1px solid black;display: block;padding: 20px; text-align: center;position: absolute;z-index:9999;">
-          <img src="https://b49ce7ab.ngrok.io/close.png" id="modal_close" />
-          <img src="https://b49ce7ab.ngrok.io/logo.png" class="tada-app-logo" />
-          <h1> Spin to win a BIG prize! 🎁 </h1>
-          <div>Enter your email address to find out if you're the winner</div>
-          <div style="display: flex; justify-content: center; align-items: center;">
-              <input type="email" name="email" id="spin_email" placeholder="Enter your email"
-                  style="display: inline-block;" required>
-              <input type="button" name="spin" value="Spin" onclick="startSpinning()" style="display: inline-block;">
+    html = `
+    <div id="tada_app_widget">
+      <div id="spinny_box">
+          <div class="tada_start_icon_div" data-toggle="modal" data-target="#gamestartmodal">
+            <img id="tada_start_icon" src="${widget_url}/default_start_icon.png"/>
           </div>
-          <div style="text-align: center; color: red; display: none;" id="tada_email_validate">
-              You need to input valid email address!
-          </div>
-          <div style="display: flex; justify-content: center; align-items: center;">
-              <canvas id='canvas' width="360" height="360" class="spinny-widget" data-responsiveScaleHeight="true"
-                  data-responsiveMinWidth="100">
-                  Canvas not supported, use another browser.
-              </canvas>
-              <img src="https://b49ce7ab.ngrok.io/arrow.jpg" class="tada-arrow" />
-          </div>
-      </div>
-      <div id="result_box">
-          <div>
-              <p id="tada_result_label">Tada, you've won <span id="tada_discount_type"></span>!</p>
-              <div id="tada_result_coupon">
-                  <p>Coupon Code: <span id="tada_coupon"></span></p>
-                  <p>This coupon code will expire in 1 day!</p>
-              </div>
-              <button type="button" onclick="hideModal()" class="hide-btn-tada">OK</button>
-          </div>
-      </div>
-  </div>
-  <div id="tadaclockdiv">
-      <img src="https://b49ce7ab.ngrok.io/close.png" id="clock_close" />
-      <div>
-        <span class="hours"></span>
-      </div>
-      :
-      <div>
-        <span class="minutes"></span>
-      </div>
-      :
-      <div>
-        <span class="seconds"></span>
-      </div>
-  </div>
-  <div id="tadaCouponModal">
-    <div style="background-color: #00000077;width: 100%;height: 100%;position: absolute;z-index: 9998;"
-            id="tada_modal_background"></div>
-    <div id="tada_modal_result_box">
-      <div>
-          <p id="tada_modal_result_label">You've won <span id="tada_modal_discount_type"></span>!</p>
-          <div id="tada_modal_result_coupon">
-              <p>Coupon Code: <span id="tada_modal_coupon"></span></p>
-          </div>
-          <p>Your coupon code will expire in <span id="tada_modal_expire"></span></p>
-          <button type="button" onclick="hideCouponModal()" class="hide-btn-tada">OK</button>
       </div>
     </div>
-  </div>
-  <script>
-  let theWheel;
-      var exitIntentFlag = ${ widget.exitIntent};
-      var widgetId = '${id}';
-      function validateEmail(email) {
-          var re = /^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/;
-          return re.test(email);
-      }
-
-      function startSpinning() {
-          var email = document.getElementById("spin_email").value;
-
-          var domain = email.split('@')[1];
-          if (!validateEmail(email)) {
-              document.getElementById('tada_email_validate').style.display = 'block';
-          }
-          else {
-            $.get('https://domain-availability-api.whoisxmlapi.com/api/v1?apiKey=at_de2sXtsBZn3RBpC9TBnrQqH9fZLe7&domainName=' + domain, function(data) {
-              if(data.DomainInfo.domainAvailability == "UNAVAILABLE") {
-                document.getElementById('tada_email_validate').style.display = 'none';
-                theWheel.startAnimation();
-              } else {
-                document.getElementById('tada_email_validate').style.display = 'block';
-              }
-            });
-          }
-      }
-
-      $('#modal_close').on('click', function() {
-        showSpinny();
-        setCookie('tada_${id}_modalClose', 1, 120);
-      });
-
-      function showSpinny() {
-          var box = document.getElementById('spinny_box');
-          document.getElementById('tada_email_validate').style.display = 'none';
-
-          if (box.style.display == '' || box.style.display == 'none') {
-              box.style.display = 'flex';
-              $('body').addClass('tada-modal-open');
-              document.getElementById('spin_email').value = "";
-          }
-          else {
-              $('body').removeClass('tada-modal-open');
-              box.style.display = 'none';
-          }
-
-      }
-
-      function showExitSpinny() {
-        var box = document.getElementById('spinny_box');
-        document.getElementById('tada_email_validate').style.display = 'none';
-
-        box.style.display = 'flex';
-        $('body').addClass('tada-modal-open');
-        document.getElementById('spin_email').value = "";
-      }
-
-      $('#tada_modal_background').on('click', function () {
-          showSpinny();
-      });
-
-      var counter;
-
-      function alertPrize(indicatedSegment) {
-          // Do basic alert of the segment text.
-          var discount_type = indicatedSegment.text;
-          console.log(discount_type);
-          if (discount_type == "No Lucky") {
-              document.getElementById('tada_result_coupon').style.display = 'none';
-          } else {
-              var randomCoupon = makeid();
-              document.getElementById('tada_discount_type').innerText = indicatedSegment.text;
-              document.getElementById('tada_result_coupon').style.display = 'block';
-              document.getElementById('tada_coupon').innerText = randomCoupon;
-              var discount_type = '';
-              var discount_value = 0;
-              if(indicatedSegment.text != "Free Shipping"){
-                if(indicatedSegment.text.indexOf('%') > -1) {
-                  discount_type = 'percentage';
-                  discount_value = 1 * indicatedSegment.text.split('%')[0];
-                } else {
-                  discount_type = 'fixed_amount';
-                  var temp = indicatedSegment.text.split(' ')[0];
-                  temp = temp.substring(1, temp.length);
-                  discount_value = 1 * temp;
-                }
-              } else {
-                discount_type = "Free Shipping";
-              }
-              $.ajax({
-                  url: 'https://b49ce7ab.ngrok.io/addDiscount',
-                  type: 'POST',
-                  contentType: 'application/json',
-                  data: JSON.stringify({
-                      discount_code: randomCoupon,
-                      discount_type: discount_type,
-                      discount_value: discount_value,
-                      widget_id: widgetId
-                  }),
-                  success: function (resp) {
-                      console.log(resp);
-                  },
-                  error: function () {
-                      console.log('error');
-                  }
-              });
-              var d = new Date();
-              var now = d.getTime();
-              setCookie('tada_${id}_timeToken', now, 120);
-              setCookie('tada_${id}_Coupon', randomCoupon, 1);
-              setCookie('tada_${id}_DiscountType', indicatedSegment.text, 1);
-              counter = setInterval(timer, 1000);
-
-          }
-          document.getElementById('spinny').style.display = 'none';
-          document.getElementById('result_box').style.display = 'block';
-      }
-
-      function makeid(length = 12) {
-          var result = '';
-          var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-          var charactersLength = characters.length;
-          for (var i = 0; i < length; i++) {
-              result += characters.charAt(Math.floor(Math.random() * charactersLength));
-          }
-          return result;
-      }
-
-      function hideModal() {
-          document.getElementById('result_box').style.display = 'none';
-          document.getElementById('spinny').style.display = 'block';
-          showSpinny();
-      }
-
-      function setCookie(name, value, mins) {
-          var expires = "";
-          if (mins) {
-              var date = new Date();
-              date.setTime(date.getTime() + (mins * 60 * 1000));
-              expires = "; expires=" + date.toUTCString();
-          }
-          document.cookie = name + "=" + (value || "") + expires + "; path=/";
-      }
-
-      function getCookie(name) {
-          var nameEQ = name + "=";
-          var ca = document.cookie.split(';');
-          for (var i = 0; i < ca.length; i++) {
-              var c = ca[i];
-              while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-              if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-          }
-          return null;
-      }
-
-      function eraseCookie(name) {
-          document.cookie = name + '=; Max-Age=-99999999;';
-      }
-
-      counter = setInterval(timer, 1000);
-
-      $('#tadaclockdiv div').on('click', function() {
-        $('#tada_modal_coupon').html(getCookie('tada_${id}_Coupon'));
-        $('#tada_modal_discount_type').html(getCookie('tada_${id}_DiscountType'));
-        document.getElementById('tadaCouponModal').style.display = 'flex';
-      });
-
-      $('#tadaclockdiv img').on('click', function() {
-        $('#tadaclockdiv').hide();
-        setCookie('tada_${id}_clockClose', 1, 120);
-      });
-
-      function hideCouponModal() {
-        var discount_code = $('#tada_modal_coupon').html();
-        document.getElementById('tadaCouponModal').style.display = 'none';
-        window.location.href = '/cart?discount=' + discount_code;
-      }
-
-      function detectmob() {
-        if( navigator.userAgent.match(/Android/i)
-        || navigator.userAgent.match(/webOS/i)
-        || navigator.userAgent.match(/iPhone/i)
-        || navigator.userAgent.match(/iPad/i)
-        || navigator.userAgent.match(/iPod/i)
-        || navigator.userAgent.match(/BlackBerry/i)
-        || navigator.userAgent.match(/Windows Phone/i)
-        ){
-           return true;
-         }
-        else {
-           return false;
-         }
-       }
-
-      function timer() {
-          var tadaTokenDiff = (new Date().getTime()) - getCookie('tada_${id}_timeToken');
-          console.log('token diff - ', tadaTokenDiff);
-          if(tadaTokenDiff > 86400000 || getCookie('tada_${id}_timeToken')==null) {
-              clearInterval(counter);
-              eraseCookie('tada_${id}_clockClose');
-
-              $.getScript('https://b49ce7ab.ngrok.io/Winwheel.js', function(data, textStatus, jqxhr) {
-                if(jqxhr.status == 200) {
-                  if(getCookie('tada_${id}_modalClose') == null) {
-                    tadaCallback();
-                  }
-                }
-              });
-              var tadaCallback = function() {
-                  if(exitIntentFlag && !detectmob()) {
-                    $(document).ready(function() {
-                      $(document).mouseleave(function(e) {
-                        if(e.clientY < 0) {
-                          var tadaTokenDiff = (new Date().getTime()) - getCookie('tada_${id}_timeToken');
-
-                            if(tadaTokenDiff > 86400000) {
-                                clearInterval(counter);
-                                ${generateDiscountItems(widget)}
-                                if(getCookie('tada_${id}_modalClose') == null && getCookie('tada_${id}_ExitIntent') == null) {
-                                  var box = document.getElementById('spinny_box');
-                                  document.getElementById('tada_email_validate').style.display = 'none';
-
-                                  if (box.style.display == '' || box.style.display == 'none') {
-                                    setCookie('tada_${id}_ExitIntent', 1, ${widget.exitIntentTime});
-                                  }
-                                  setTimeout(showExitSpinny, 0);
-                                }
-                                return;
-                            }
-                        }
-                      });
-                    });
-                  } else {
-                    ${generateDiscountItems(widget)}
-                    setTimeout(showSpinny, ${ widget.timer * 1000});
-                  }
-              }
-              return;
-          }
-
-          let timeRemaining = parseInt((86400000 - tadaTokenDiff) / 1000);
-
-          if (timeRemaining >= 0 && getCookie('tada_${id}_clockClose')==null) {
-              $('#tadaclockdiv').show();
-              days = parseInt(timeRemaining / 86400);
-              timeRemaining = (timeRemaining % 86400);
-
-              hours = parseInt(timeRemaining / 3600);
-              timeRemaining = (timeRemaining % 3600);
-
-              minutes = parseInt(timeRemaining / 60);
-              timeRemaining = (timeRemaining % 60);
-
-              seconds = parseInt(timeRemaining);
-              if(seconds < 10) {
-                seconds = '0' + seconds;
-              }
-
-              $('#tadaclockdiv').find('.hours').html(hours);
-              $('#tadaclockdiv').find('.minutes').html(minutes);
-              $('#tadaclockdiv').find('.seconds').html(seconds);
-              $('#tada_modal_expire').html(hours+':'+minutes+':'+seconds);
-          } else {
-              $('#tadaclockdiv').hide();
-          }
-      }
-      </script>
-  </script>
-  <style>
-      .spinny-widget {
-          margin-top: 30px;
-          background-color: ${widget.style}
-      }
-
-      .tada-arrow {
-          display: inline-block;
-          width: 4vw;
-          max-width: 80px;
-      }
-
-      .hide-btn-tada {
-          background: black;
-          width: 100px;
-          height: 40px;
-          border-radius: 10px;
-          font-size: 20px;
-          color: white;
-      }
-
-      body.tada-modal-open {
-          overflow: hidden;
-      }
-
-      #modal_close {
-        width: 20px;
-        float: right;
-        margin-top: -15px;
-        margin-right: -15px;
-        cursor: pointer;
-      }
-
-      #result_box {
-          z-index: 99999;
-          display: none;
-          position: absolute;
-          width: 80%;
-          text-align: center;
-          justify-content: center;
-          align-items: center;
-          background: white;
-      }
-
-      .open-spinny-btn {
-          width: 100px;
-          height: 30px;
-          background-color: blue;
-          color: white;
-          border-radius: 10px;
-      }
-
-      .tada-app-logo {
-          width: 150px;
-      }
-
-      #tadaclockdiv{
-        position: fixed;
-        top: 91vh;
-        left: 100px;
-        background-color: #1cab83;
-        padding: 0px;
-        font-family: sans-serif;
-        color: #fff;
-        display: none;
-        font-weight: 100;
-        text-align: center;
-        font-size: 30px;
-        cursor: pointer;
-      }
-
-      #clock_close {
-        width: 20px;
-        position: inherit;
-        margin-left: 200px;
-        margin-top: -15px;
-        cursor: pointer;
-      }
-
-      #tadaclockdiv > div{
-        width: 52px;
-        padding: 6px;
-        border-radius: 3px;
-        background: #00BF96;
-        display: inline-block;
-      }
-
-      #tadaclockdiv div > span{
-        padding: 3px;
-        width: 40px;
-        border-radius: 3px;
-        background: #00816A;
-        display: inline-block;
-      }
-
-      #tada_modal_result_box {
-        z-index: 99999;
-        position: absolute;
-        width: 80%;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        background: white;
-    }
-
-    #tadaCouponModal {
-  z-index: 9999;
+    <!--Game Modal -->
+    <div class="modal fade" id="gamestartmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content tada_game_modal">
+          <div class="modal-header">
+            <h5 class="modal-title tada_game_start_title" id="exampleModalCenterTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+<style>
+#gamestartmodal {
+  opacity: 1;
+  background: transparent;
+}
+#tada_app_widget {
+		width: 100%;
+		height: 100%;
+		display: flex;
+	}
+  #spinny_box {
+	  display: flex;
+      top:	50%;
       position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      display: none;
-      justify-content: center;
+      z-index: 9999;
+      justify-content: left;
       align-items: center;
-    }
+	}
+.tada_start_icon_div {
+  width: fit-content;
+      display: flex;
+      border-radius: 8px;
+      flex-direction: column;
+      background-size: cover;
+      width: 50px;
+      height: 50px;
+      justify-content: center;
+      align-items: flex-start;
+      position: absolute;
+      cursor: pointer;
+      padding: 10px;
+      background-repeat: no-repeat;
+      -webkit-box-shadow: 3px 3px 0px 0px rgba(230,230,230,1);
+      -moz-box-shadow: 3px 3px 0px 0px rgba(230,230,230,1);
+      box-shadow: 3px 3px 0px 0px rgba(230,230,230,1);
+}
+.tada_start_icon_div img {
+  display: flex;
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
 
-      @media (max-width: 400px) {
-          #spinny {
-              padding: 0px;
-          }
-      }
-  </style>
-  </div>`;
+.modal-header {
+		padding: 6px 0 !important;
+		margin:0 15px;
+	}
+	.tada_game_modal {
+		padding:15px;
+	}
+  .tada_game_start_title {
+		font-weight: bold;
+		font-family: "Open Sans";
+	}
+</style>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script>
+var game_start_icon_position = ${game_start_icon_position};
+var game_theme_style = ${game_theme_style};
+
+changeGameThemeStyle(game_theme_style);
+changeGameStartIconPosition(game_start_icon_position);
+
+function changeGameThemeStyle (game_theme) {
+  switch (game_theme) {
+    case 1:
+      document.getElementsByClassName('tada_start_icon_div')[0].style.backgroundColor = '#f2f2f2';
+      document.getElementsByClassName('tada_start_icon_div')[0].style.alignItems = 'center';
+      document.getElementById('tada_start_icon').src = '${widget_url}/default_start_icon.png';
+      break;
+    case 2:
+      document.getElementsByClassName('tada_start_icon_div')[0].style.backgroundImage = "url('${widget_url}/aattention_start_icon_back.png')";
+      document.getElementsByClassName('tada_start_icon_div')[0].style.height = "60px";
+      document.getElementsByClassName('tada_start_icon_div')[0].style.boxShadow = "unset";
+      document.getElementById('tada_start_icon').src = '${widget_url}/attention_start_icon.png';
+      break;
+    case 3:
+      document.getElementsByClassName('tada_start_icon_div')[0].style.backgroundColor = '#f2f2f2';
+      document.getElementsByClassName('tada_start_icon_div')[0].style.alignItems = 'center';
+      document.getElementById('tada_start_icon').src = '${widget_url}/default_start_icon.png';
+      break;
+  }
+}
+
+function changeGameStartIconPosition (position) {
+    switch (position) {
+      case 1:
+        document.getElementById('spinny_box').style.left = '15px';
+        break;
+      case 2:
+        document.getElementById('spinny_box').style.right = '65px';
+        break;
+      case 3:
+        document.getElementById('spinny_box').style.top = 'unset';
+        document.getElementById('spinny_box').style.left = '50%';
+        document.getElementById('spinny_box').style.bottom = '50px';
+        break;
+    }
+  }
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    `;
     }
     return html;
 }
