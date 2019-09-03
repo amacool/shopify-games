@@ -25,7 +25,7 @@ class Setting extends React.Component {
     };
 
   componentDidMount = () => {
-    fetch('https://b49ce7ab.ngrok.io/getSetting', {
+    fetch('https://f9f5a14b.ngrok.io/getSetting', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'
