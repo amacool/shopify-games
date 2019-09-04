@@ -1,28 +1,27 @@
-
-var game_start_icon_position = ${game_start_icon_position};
-var game_theme_style = ${game_theme_style};
+var game_start_icon_position = parseInt(window.game_start_icon_position);
+var game_theme_style = parseInt(window.game_theme_style);
 var game_them_main_color = '#29abe2';
 var game_encouragement_text = ["What are you gonna get?", "Let’s see what you got!", "Excited to see your discount?"];
+var widget_url = window.global_widget_url;
 changeGameThemeStyle(game_theme_style);
 changeGameStartIconPosition(game_start_icon_position);
 showRandomEncouragementText();
 function changeGameThemeStyle (game_theme) {
   switch (game_theme) {
     case 1:
-      document.getElementsByClassName('tada_start_icon_div')[0].style.backgroundColor = '#f2f2f2';
-      document.getElementsByClassName('tada_start_icon_div')[0].style.alignItems = 'center';
-      document.getElementById('tada_start_icon').src = '${widget_url}/default_start_icon.png';
+      $('.tada_start_icon_div').css({'background-color':'#f2f2f2', 'alignItems' : 'center'});
+      $('#tada_start_icon').attr('src', widget_url+'/default_start_icon.svg');
+      animation_sinnyBox ();
       break;
     case 2:
-      document.getElementsByClassName('tada_start_icon_div')[0].style.backgroundImage = "url('${widget_url}/aattention_start_icon_back.png')";
-      document.getElementsByClassName('tada_start_icon_div')[0].style.height = "60px";
-      document.getElementsByClassName('tada_start_icon_div')[0].style.boxShadow = "unset";
-      document.getElementById('tada_start_icon').src = '${widget_url}/attention_start_icon.png';
+      $('.tada_start_icon_div').css({'background-image':'url(' + widget_url + '/aattention_start_icon_back.svg)', 'height' : '60px', 'boxShadow': 'unset'});
+      $('#tada_start_icon').attr('src', widget_url+'/attention_start_icon.svg');
+      animation_sinnyBox ();
       break;
     case 3:
-      document.getElementsByClassName('tada_start_icon_div')[0].style.backgroundColor = '#f2f2f2';
-      document.getElementsByClassName('tada_start_icon_div')[0].style.alignItems = 'center';
-      document.getElementById('tada_start_icon').src = '${widget_url}/default_start_icon.png';
+      $('.tada_start_icon_div').css({'background-color':'#f2f2f2','alignItems':'center'});
+      $('#tada_start_icon').attr('src', widget_url+'/default_start_icon.svg');
+      animation_sinnyBox ();
       break;
   }
 }
@@ -35,15 +34,13 @@ function showRandomEncouragementText () {
 function changeGameStartIconPosition (position) {
     switch (position) {
       case 1:
-        document.getElementById('spinny_box').style.left = '15px';
+        $('#spinny_box').css({'left' : '15px'});
         break;
       case 2:
-        document.getElementById('spinny_box').style.right = '65px';
+        $('#spinny_box').css({'right' : '65px'});
         break;
       case 3:
-        document.getElementById('spinny_box').style.top = 'unset';
-        document.getElementById('spinny_box').style.left = '50%';
-        document.getElementById('spinny_box').style.bottom = '50px';
+        $('#spinny_box').css({'top' : 'unset', 'left' : '50%', 'bottom' : '50px'});
         break;
     }
   }
@@ -116,31 +113,16 @@ function drawRouletteWheel() {
       ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
       ctx.restore();
     }
-
-    //Arrow
-    //var markPos = 100;
-    //ctx.fillStyle = "black";
-
-    // ctx.beginPath();
-    // ctx.moveTo(250 - 4, markPos - (outsideRadius + 5));
-    // ctx.lineTo(250 + 4, markPos - (outsideRadius + 5));
-    // ctx.lineTo(250 + 4, markPos - (outsideRadius - 5));
-    // ctx.lineTo(250 + 9, markPos - (outsideRadius - 5));
-    // ctx.lineTo(250 + 0, markPos - (outsideRadius - 13));
-    // ctx.lineTo(250 - 9, markPos - (outsideRadius - 5));
-    // ctx.lineTo(250 - 4, markPos - (outsideRadius - 5));
-    // ctx.lineTo(250 - 4, markPos - (outsideRadius + 5));
-    // ctx.fill();
   }
 }
 	var canvas1 = document.getElementById("canvas1");
   	ctx1 = canvas1.getContext("2d");
 	make_base();
-    function make_base()
+function make_base()
 	{
 	  base_image = new Image();
-	  base_image.src = '${widget_url}/choose_pos.png';
-	  base_image.onload = function(){
+	  base_image.src = widget_url+'/choose_pos.png';
+	  base_image.onload = function() {
 	  ctx1.drawImage(base_image, 217, 40);
 	 }
 }
@@ -210,5 +192,9 @@ function easeOut(t, b, c, d) {
   var tc = ts*t;
   return b+c*(tc + -3*ts + 3*t);
 }
-
+animation_sinnyBox () {
+  $( "#spinny_box" ).animate({
+    opacity: 1,
+  }, 1500 );
+}
 drawRouletteWheel();

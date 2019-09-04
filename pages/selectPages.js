@@ -27,7 +27,7 @@ export default class SelectPage extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`https://f9f5a14b.ngrok.io/getPageSetting`, {
+        fetch(`https://9a99fd6d.ngrok.io/getPageSetting`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -360,7 +360,7 @@ export default class SelectPage extends React.Component {
             homepage, products, pages, blogs, cart, search
         });
 
-        fetch('https://f9f5a14b.ngrok.io/savePageSetting', {
+        fetch('https://9a99fd6d.ngrok.io/savePageSetting', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'

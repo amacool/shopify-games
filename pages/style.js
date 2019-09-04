@@ -131,7 +131,7 @@ class Style extends React.Component {
               style: selected
           })
       }
-      fetch('https://f9f5a14b.ngrok.io/updateStyle', {
+      fetch('https://9a99fd6d.ngrok.io/updateStyle', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'
@@ -153,7 +153,7 @@ class Style extends React.Component {
               selected: value,
               style: value
           });
-          fetch('https://f9f5a14b.ngrok.io/updateStyle', {
+          fetch('https://9a99fd6d.ngrok.io/updateStyle', {
               method: 'POST',
               headers: {
                   'Content-type': 'application/json'
