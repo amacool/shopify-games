@@ -213,20 +213,31 @@ function selectWidgetBySetting(widget) {
       window.game_start_icon_position = "${game_start_icon_position}";
       window.game_theme_style = "${game_theme_style}";
     </script>
+    <script src="${widget_url}/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/easytimer@1.1.1/dist/easytimer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenLite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="${widget_url}/custom.js"></script>
 
     <div id="tada_app_widget">
       <div id="spinny_box">
-          <div class="tada_start_icon_div" data-toggle="modal" data-target="#gamestartmodal">
-            <img id="tada_start_icon" src="${widget_url}/default_start_icon.svg"/>
+          <div class="tada_start_icon_div" data-toggle="modal" data-target="#gamestartmodal" >
+            <img id="tada_start_icon" src="${game_theme_style===1 ? widget_url+'/default_start_icon.svg' : widget_url+'/attention_start_icon.svg'}"/>
           </div>
       </div>
     </div>
+    <!--Flowers falling -->
+    <div id="tada-flower-falling"></div>
     <!--Game Modal -->
     <div class="modal fade" id="gamestartmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered tada-modal-custom" role="document">
     <div class="modal-content tada_game_modal">
       <div class="modal-header">
-        <h5 class="modal-title tada_game_start_title" id="exampleModalCenterTitle">Logo</h5>
+        <img class="modal-title tada_game_start_title" id="exampleModalCenterTitle" src="${widget_url}/logo.svg"/>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -236,8 +247,8 @@ function selectWidgetBySetting(widget) {
         <p class="tada-game-spin-text">Lorem Ipsum is simply dummy text of the printing and typesetting</p>
         <p class="tada-game-spin-text">industry. Lorem Ipsum has been the industry's standard dummy text</p>
         <div class="tada-dialog-mail-container">
-	        <input type="email" class="form-control" id="tada_game_email_input" aria-describedby="emailHelp" placeholder="Enter your email address">
-	        <button id="tada_spin_start_button" value="spin">SPIN</button>
+	        <input type="email" class="form-control" id="tada_game_email_input" aria-describedby="emailHelp" placeholder="Enter your email address" required>
+	        <button id="tada_spin_start_button" class="bubbly-button" value="spin">SPIN</button>
         </div>
         <p class="tada-game-state-text">Excited to see your discount?</p>
         <p id="tada-game-count-number">5</p>
@@ -265,7 +276,7 @@ function selectWidgetBySetting(widget) {
         	<p class="tada-game-discount-code-title">Your Discount Code is:</p>
         	<p class="tada-game-discount-code-text">SASDERWERT3H3G24</p>
         </div>
-        <button id="tada_spin_start_button" value="spin">APPLY MY DISCOUNT</button>
+        <button id="tada_apply_my_discount" class="bubbly-button" value="spin">APPLY MY DISCOUNT</button>
       </div>
       <div class="modal-footer tada-modal-footer">
         <img src="${widget_url}/game_dialog_button_icon.png" />
@@ -274,12 +285,8 @@ function selectWidgetBySetting(widget) {
   </div>
 </div>
 <link rel="stylesheet" href="${widget_url}/custom.css"/>
+<link rel="stylesheet" href="${widget_url}/bubbly-button.css"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="${widget_url}/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/easytimer@1.1.1/dist/easytimer.min.js"></script>
-<script src="${widget_url}/custom.js"></script>
     `;
     }
     return html;

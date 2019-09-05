@@ -1,7 +1,7 @@
 var game_start_icon_position = parseInt(window.game_start_icon_position);
 var game_theme_style = parseInt(window.game_theme_style);
 var game_them_main_color = '#29abe2';
-var game_encouragement_text = ["What are you gonna get?", "Let’s see what you got!", "Excited to see your discount?"];
+var game_encouragement_text = ["What are you going to get?", "Let’s see what you got!", "Excited to see your discount?", "Feeling lucky today?", "Get a discount and apply it to this store!", "Spin me :)"];
 var widget_url = window.global_widget_url;
 changeGameThemeStyle(game_theme_style);
 changeGameStartIconPosition(game_start_icon_position);
@@ -10,17 +10,14 @@ function changeGameThemeStyle (game_theme) {
   switch (game_theme) {
     case 1:
       $('.tada_start_icon_div').css({'background-color':'#f2f2f2', 'alignItems' : 'center'});
-      $('#tada_start_icon').attr('src', widget_url+'/default_start_icon.svg');
       animation_sinnyBox ();
       break;
     case 2:
       $('.tada_start_icon_div').css({'background-image':'url(' + widget_url + '/aattention_start_icon_back.svg)', 'height' : '60px', 'boxShadow': 'unset'});
-      $('#tada_start_icon').attr('src', widget_url+'/attention_start_icon.svg');
       animation_sinnyBox ();
       break;
     case 3:
       $('.tada_start_icon_div').css({'background-color':'#f2f2f2','alignItems':'center'});
-      $('#tada_start_icon').attr('src', widget_url+'/default_start_icon.svg');
       animation_sinnyBox ();
       break;
   }
@@ -31,6 +28,59 @@ function showRandomEncouragementText () {
   	$('.tada-game-state-text').html(game_encouragement_text[random]);
   }
 
+///Email Validation
+function validateEmail(email) {
+          var re = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+          return re.test(email);
+}
+
+//////////////////Event///////////////////
+$('#tada_game_email_input').focusin(function() {
+  $(this).css({'box-shadow':'unset','border':'1px solid #ced4da'});
+})
+
+$('#tada_apply_my_discount').click(function() {
+  $("#tada-flower-falling").fadeOut("slow", function () {
+      $(this).css({display:"none"});
+  });
+})
+//////////Animation////////////////////////
+// $('.tada_start_icon_div').hover(function() {
+//   $(this).effect( "shake", {times:1,direction:"up", distance:10}, 1000 );
+//   //$('.tada_start_icon_div').effect( "pulsate" );
+// });
+// $('#tada_spin_start_button').hover(function() {
+//   $(this).effect( "size", {
+//     to: { width: 200}
+//   }, 1000 );
+// })
+function animation_sinnyBox () {
+    $( "#spinny_box" ).animate({
+      opacity: 1,
+    }, 1500 );
+  }
+  var animateButton = function(e) {
+
+    e.preventDefault;
+    //reset animation
+    e.target.classList.remove('animate');
+
+    e.target.classList.add('animate');
+    setTimeout(function(){
+      e.target.classList.remove('animate');
+    },1700);
+  };
+
+  var bubblyButtons = document.getElementsByClassName("bubbly-button");
+
+  for (var i = 0; i < bubblyButtons.length; i++) {
+    bubblyButtons[i].addEventListener('click', animateButton, false);
+  }
+
+
+
+
+// Wheel Animation
 function changeGameStartIconPosition (position) {
     switch (position) {
       case 1:
@@ -45,7 +95,7 @@ function changeGameStartIconPosition (position) {
     }
   }
   // Wheel Animation
-  	var options = ["$10 Cash", "40% OFF", "Not Luck Today", "Almost", "30% OFF", "$24 Cash", "Luck Today"];
+  var options = ["$10 Cash", "40% OFF", "Not Luck Today", "Almost", "30% OFF", "$24 Cash", "Luck Today"];
 
 	var startAngle = 0;
 	var arc = Math.PI / (options.length / 2);
@@ -128,6 +178,12 @@ function make_base()
 }
 
 function spin() {
+  var email = $('#tada_game_email_input').val();
+  if (!validateEmail(email)){
+    $('#tada_game_email_input').css({'box-shadow':'0 0 0 0.2rem #ec245257','border':'1px solid #ec245257'});
+    $('#tada_game_email_input').effect( "shake",{direction: "left", distance: 5, times: 6} );
+    return;
+  }
 	$('.tada-dialog-mail-container').css({"display": "none"});
 	$('.tada-game-state-text').css({"display": "none"});
 	$('#tada-game-count-number').css({"display" : "block"});
@@ -140,11 +196,16 @@ function spin() {
 	timer.addEventListener('secondsUpdated', function (e) {
 		timer_number--;
     	$('#tada-game-count-number').html(timer_number.toString());
+      $('#tada-game-count-number').css({"webkitAnimation": "none"});
+      setTimeout(()=> {
+        $('#tada-game-count-number').css({"webkitAnimation": ''});
+      }, 10);
     	if(timer_number == 0) {
     		$('#tada-game-count-number').css({"marginBottom" : "0"});
     		$('.tada-game-state-text').css({"display": "block"});
     		$('.tada-game-state-text').html("Good Luck!");
     		$('#tada-game-count-number').html("");
+
     		timer.stop();
     		spinAngleStart = Math.random() * 10 + 20;
 			  spinTime = 0;
@@ -185,6 +246,7 @@ function stopRotateWheel() {
   $('#tada-success-maker-text').html(text);
   $('.tada-dialog-body-success').css({"display" : "flex"});
   $('.tada-dialog-body').css({"display" : "none"});
+  $('#tada-flower-falling').css({"display" : "block"});
 }
 
 function easeOut(t, b, c, d) {
@@ -192,9 +254,37 @@ function easeOut(t, b, c, d) {
   var tc = ts*t;
   return b+c*(tc + -3*ts + 3*t);
 }
-animation_sinnyBox () {
-  $( "#spinny_box" ).animate({
-    opacity: 1,
-  }, 1500 );
-}
 drawRouletteWheel();
+
+
+////////////////Flowers Falling Animation////////////////////////////////////
+
+TweenLite.set("#tada-flower-falling",{perspective:600})
+//TweenLite.set("img",{xPercent:"-50%",yPercent:"-50%"})
+var fireworkSVGPathArray = ["/simple-svg/circle.svg", "/simple-svg/polyline.svg", "/simple-svg/rectangle.svg", "/simple-svg/wave.svg"];
+function showRandomFireworkSVG () {
+  	var random = Math.floor(Math.random() * (fireworkSVGPathArray.length));
+    $(".dot").css("background", 'url('+ widget_url + fireworkSVGPathArray[random]+')');
+    //console.log(random);
+  	//$('.tada-game-state-text').html(fireworkSVGPathArray[random]);
+  }
+
+var total = 120;
+var warp = document.getElementById("tada-flower-falling"),	w = window.innerWidth , h = window.innerHeight;
+ for (i=0; i<total; i++){
+   var Div = document.createElement('div');
+   var random = Math.floor(Math.random() * (fireworkSVGPathArray.length));
+   Div.style.background = 'url('+ widget_url + fireworkSVGPathArray[random]+')';//("background", 'url('+ widget_url + fireworkSVGPathArray[random]+')');
+   //showRandomFireworkSVG();
+   TweenLite.set(Div,{attr:{class:'dot'},x:R(0,w),y:R(-200,-150),z:R(-200,200)});
+   warp.appendChild(Div);
+   animm(Div);
+ }
+
+ function animm(elm){
+   TweenMax.to(elm,R(2,0.6),{y:h+100,ease:Linear.easeNone,repeat:-1,delay:-6});
+   TweenMax.to(elm,R(2,0.5),{x:'+=100',rotationZ:R(0,180),repeat:-1,yoyo:true,ease:Sine.easeInOut});
+   TweenMax.to(elm,R(2,0.5),{rotationX:R(0,360),rotationY:R(0,360),repeat:-1,yoyo:true,ease:Sine.easeInOut,delay:-5});
+ };
+
+function R(min,max) {return min+Math.random()*(max-min)};
