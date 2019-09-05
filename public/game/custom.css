@@ -87,6 +87,12 @@
 		font-weight: bold;
 		margin-top: 15px;
 	}
+  .tada_apply_my_account_parent {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   #tada_apply_my_discount {
 		background-color: #29abe2;
 		outline:none;
@@ -98,6 +104,7 @@
 		font-size: 15px;
 		font-weight: bold;
 		margin-top: 15px;
+    opacity: 1;
 	}
   .tada-dialog-body {
 		display: flex;
@@ -264,6 +271,53 @@
 		-moz-box-shadow: -8px 8px 5px 2px rgba(0,0,0,0.25);
 		box-shadow: -8px 8px 5px 2px rgba(0,0,0,0.25);
 	}
+.tada_remaind_bar {
+  position: fixed;
+  bottom:0;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  background-color: #29abe2;
+  display: flex;
+  opacity: 0;
+}
+#tada_notifi_cash_view {
+  font-weight: bold;
+}
+#tada_notifi_cash_remaind_time {
+  font-weight: bold;
+}
+.tada_remaind_bar span {
+  font-size: 16px;
+  color: white;
+  font-family: "Open Sans";
+}
+#tada_remained_notify_close {
+  position: absolute;
+  right: 0;
+  display: flex;
+  padding-right: 20px;
+  padding-bottom: 15px;
+}
+#tada_remained_notify_close span {
+  font-size: 25px;
+  opacity: 1;
+  color: white;
+}
+#tada_ramaind_view_coupon_button {
+    width: 200px;
+    padding: 5px;
+    border-radius: 30px;
+    border: none;
+    background-color: #f7931e;
+    color: white;
+    font-family: "Open Sans";
+    font-weight: bold;
+    font-size: 14px;
+    margin-left:20px;
+}
+
 
   @keyframes changeopacity {
     from {

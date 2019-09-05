@@ -232,6 +232,17 @@ function selectWidgetBySetting(widget) {
     </div>
     <!--Flowers falling -->
     <div id="tada-flower-falling"></div>
+    <!--RemainerBar -->
+    <div class="tada_remaind_bar">
+      <span>You've won</span>&nbsp;
+      <span id="tada_notifi_cash_view"></span>&nbsp;
+      <span>and is reserved for</span>&nbsp;
+      <span id="tada_notifi_cash_remaind_time">15m : 20s</span>&nbsp;
+      <button id="tada_ramaind_view_coupon_button">SEE MY COUPON</button>
+      <button id="tada_remained_notify_close" class="close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
     <!--Game Modal -->
     <div class="modal fade" id="gamestartmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered tada-modal-custom" role="document">
@@ -276,7 +287,9 @@ function selectWidgetBySetting(widget) {
         	<p class="tada-game-discount-code-title">Your Discount Code is:</p>
         	<p class="tada-game-discount-code-text">SASDERWERT3H3G24</p>
         </div>
-        <button id="tada_apply_my_discount" class="bubbly-button" value="spin">APPLY MY DISCOUNT</button>
+        <div class="tada_apply_my_account_parent">
+          <button id="tada_apply_my_discount" data-dismiss="modal" aria-label="Close" class="close bubbly-button" value="spin">APPLY MY DISCOUNT</button>
+        </div>
       </div>
       <div class="modal-footer tada-modal-footer">
         <img src="${widget_url}/game_dialog_button_icon.png" />

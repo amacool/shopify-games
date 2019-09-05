@@ -3,6 +3,7 @@ var game_theme_style = parseInt(window.game_theme_style);
 var game_them_main_color = '#29abe2';
 var game_encouragement_text = ["What are you going to get?", "Let’s see what you got!", "Excited to see your discount?", "Feeling lucky today?", "Get a discount and apply it to this store!", "Spin me :)"];
 var widget_url = window.global_widget_url;
+var couponText = '';
 changeGameThemeStyle(game_theme_style);
 changeGameStartIconPosition(game_start_icon_position);
 showRandomEncouragementText();
@@ -42,6 +43,15 @@ $('#tada_game_email_input').focusin(function() {
 $('#tada_apply_my_discount').click(function() {
   $("#tada-flower-falling").fadeOut("slow", function () {
       $(this).css({display:"none"});
+  });
+  $(".tada_remaind_bar").fadeIn("slow", function () {
+      $(this).css({opacity:1});
+  });
+  $('#tada_notifi_cash_view').html(couponText);
+})
+$('#tada_remained_notify_close').click(function () {
+  $(".tada_remaind_bar").fadeOut("slow", function () {
+      $(this).css({opacity:1});
   });
 })
 //////////Animation////////////////////////
@@ -240,6 +250,7 @@ function stopRotateWheel() {
   // ctx.save();
   // ctx.font = 'bold 30px Helvetica, Arial';
   var text = options[index]
+  couponText = text;
   // ctx.fillText(text, 250 - ctx.measureText(text).width / 2, 250 + 10);
   // ctx.restore();
   // alert(text);
