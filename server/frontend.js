@@ -203,8 +203,9 @@ function selectWidgetBySetting(widget) {
   var html = '';
   //window.global_widget_url = `${TUNNEL_URL}/game`;
   var widget_url = `${TUNNEL_URL}/game`;//`${TUNNEL_URL}/game`;//global_widget_url;
-  var game_start_icon_position = 1;
+  var game_start_icon_position = 3;
   var game_theme_style = 2;
+  var game_start_time = 6;
   if(widget.type == 0) {
     var id = widget.id;
     html = `
@@ -212,6 +213,7 @@ function selectWidgetBySetting(widget) {
       window.global_widget_url = "${widget_url}";
       window.game_start_icon_position = "${game_start_icon_position}";
       window.game_theme_style = "${game_theme_style}";
+      window.game_start_time = "${game_start_time}"
     </script>
     <script src="${widget_url}/jquery.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -234,10 +236,12 @@ function selectWidgetBySetting(widget) {
     <div id="tada-flower-falling"></div>
     <!--RemainerBar -->
     <div class="tada_remaind_bar">
-      <span>You've won</span>&nbsp;
-      <span id="tada_notifi_cash_view"></span>&nbsp;
-      <span>and is reserved for</span>&nbsp;
-      <span id="tada_notifi_cash_remaind_time">15m : 20s</span>&nbsp;
+      <div class="d-flex">
+        <span>You've won</span>&nbsp;
+        <span id="tada_notifi_cash_view"></span>&nbsp;
+        <span>and is reserved for</span>&nbsp;
+        <span id="tada_notifi_cash_remaind_time">15m : 20s</span>&nbsp;
+      </div>
       <button id="tada_ramaind_view_coupon_button">SEE MY COUPON</button>
       <button id="tada_remained_notify_close" class="close">
         <span aria-hidden="true">&times;</span>
@@ -255,17 +259,16 @@ function selectWidgetBySetting(widget) {
       </div>
       <div class="modal-body tada-dialog-body">
         <p class="tada-game-spin-title">Spin and Win</p>
-        <p class="tada-game-spin-text">Lorem Ipsum is simply dummy text of the printing and typesetting</p>
-        <p class="tada-game-spin-text">industry. Lorem Ipsum has been the industry's standard dummy text</p>
+        <p class="tada-game-spin-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</p>
         <div class="tada-dialog-mail-container">
 	        <input type="email" class="form-control" id="tada_game_email_input" aria-describedby="emailHelp" placeholder="Enter your email address" required>
 	        <button id="tada_spin_start_button" class="bubbly-button" value="spin">SPIN</button>
         </div>
         <p class="tada-game-state-text">Excited to see your discount?</p>
-        <p id="tada-game-count-number">5</p>
-        <div class="d-block tada-wheel-container">
+        <p id="tada-game-count-number">${game_start_time}</p>
+        <div class="d-flex tada-wheel-container">
         	<canvas id="canvas1" width="500" height="400"></canvas>
-			<canvas id="canvas" width="500" height="400"></canvas>
+			    <canvas id="canvas" width="500" height="400"></canvas>
         </div>
       </div>
       <div class="modal-body tada-dialog-body-success">
@@ -276,8 +279,7 @@ function selectWidgetBySetting(widget) {
       			<p id="tada-success-maker-text">$10 Cash</p>
       		</div>
       	</div>
-      	<p class="tada-game-spin-text">Lorem Ipsum is simply dummy text of the printing and typesetting</p>
-        <p class="tada-game-spin-text">industry. Lorem Ipsum has been the industry's standard dummy text</p>
+      	<p class="tada-game-spin-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</p>
         <div class="tada-game-expiry d-flex">
         	<p class="tada-game-expiry-title">How long until expiry:</p>
         	<p class="tada-game-expiry-time">22:59:43</p>

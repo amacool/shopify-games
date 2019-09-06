@@ -11,7 +11,7 @@
 	  display: flex;
       top:	50%;
       position: fixed;
-      z-index: 500;
+      z-index: 1000;
       justify-content: left;
       align-items: center;
       opacity: 0;
@@ -170,6 +170,8 @@
   .tada-wheel-container {
 		max-height: 250px;
 		overflow: hidden;
+    flex-direction: column;
+    align-items: center;
 	}
 	#canvas1 {
 		position: absolute;
@@ -318,6 +320,123 @@
     margin-left:20px;
 }
 
+@media (max-width: 520px) {
+  .tada-dialog-body {
+    width: 100%;
+  }
+  .tada-dialog-mail-container {
+    width: 100%;
+  }
+  .tada-game-spin-title {
+    font-size:26px;
+  }
+  .tada_game_start_title  {
+    height: 35px;
+  }
+  .tada-modal-custom {
+    margin: 0 !important;
+  }
+  .tada_game_modal {
+    position: fixed !important;
+    bottom:0 !important;
+    overflow: hidden;
+    padding-bottom: 5px !important;
+    padding-top: 5px !important;
+  }
+  #gamestartmodal {
+    -webkit-transform: none;
+    transform: none;
+  }
+  .tada-game-spin-text {
+    font-size: 14px;
+  }
+  .tada-game-spin-title1 {
+    font-size: 26px;
+  }
+  .tada-dialog-body-success {
+    width: 100%;
+  }
+  .tada-success-maker-board {
+    width: 100%;
+    background-position:center;
+  }
+  .tada-game-discount-code-text {
+    font-size: 17px;
+  }
+  .tada-game-expiry-title {
+    font-size: 14px;
+  }
+  .tada-game-discount-code-title {
+    font-size: 14px;
+  }
+  .tada_apply_my_account_parent {
+    width: 100%;
+  }
+  .tada-success-maker-left-text {
+    font-size: 20px;
+  }
+  #tada-success-maker-text {
+    font-size: 20px;
+  }
+  #tada_apply_my_discount {
+    font-size: 13px;
+  }
+  .tada-dialog-body-success {
+    padding-top: 5px !important;
+  }
+  .tada-game-spin-title1 {
+    margin-bottom: 5px;
+  }
+  .tada-game-expiry  {
+    margin-top: 5px;
+  }
+  .tada-game-body-divide {
+    width: 70%;
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+  .tada-game-discount-code-title {
+    margin-bottom:5px;
+  }
+  #tada_apply_my_discount {
+    margin-top:5px;
+  }
+  .tada-modal-footer img{
+    margin-top: 5px;
+  }
+  .tada_remaind_bar {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .tada-game-state-text {
+    font-size: 23px;
+    margin-top: 10px;
+  }
+  .tada-game-spin-title {
+    margin-bottom: 10px;
+  }
+  .tada-dialog-mail-container {
+    margin-top: 10px;
+  }
+  .tada_remaind_bar {
+    height:fit-content;
+    padding: 10px;
+  }
+  .tada_remaind_bar span {
+    font-size: 11px;
+  }
+  #tada_remained_notify_close {
+    top: 0;
+    right:10px;
+    padding: 0;
+  }
+  #tada_ramaind_view_coupon_button {
+    margin-left: 0;
+    font-size: 12px;
+    width: 150px;
+  }
+}
 
   @keyframes changeopacity {
     from {
