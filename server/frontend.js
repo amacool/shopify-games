@@ -204,7 +204,7 @@ function selectWidgetBySetting(widget) {
   //window.global_widget_url = `${TUNNEL_URL}/game`;
   var widget_url = `${TUNNEL_URL}/game`;//`${TUNNEL_URL}/game`;//global_widget_url;
   var game_start_icon_position = 3;
-  var game_theme_style = 2;
+  var game_theme_style = 1;
   var game_start_time = 6;
   if(widget.type == 0) {
     var id = widget.id;
@@ -231,16 +231,17 @@ function selectWidgetBySetting(widget) {
             <img id="tada_start_icon" src="${game_theme_style===1 ? widget_url+'/default_start_icon.svg' : widget_url+'/attention_start_icon.svg'}"/>
           </div>
       </div>
-      <div class="tada-floating-dialog scale-in-center">
+      <div class="tada-floating-dialog scale-in-center" style="background-color: ${game_theme_style==3 ? 'black':'white'}">
         <div class="d-flex">
-          <p>You've won</p> &nbsp;
-          <p id="tada_floating-dialog_cashview"></p>
+          <p style="color: ${game_theme_style==3 ? 'white' : 'black'}">You've won</p> &nbsp;
+          <p id="tada_floating-dialog_cashview" style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}"></p>
         </div>
         <div class="d-flex">
-          <p>and is reserved for</p>&nbsp;
-          <p id='tada-floating-dialog-countdownTime'>15m : 20s</p>
+          <p style="color: ${game_theme_style==3 ? 'white' : 'black'}">and is reserved for</p>&nbsp;
+          <p id='tada-floating-dialog-countdownTime' style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}">15m : 20s</p>
         </div>
-        <button id="tada-floating-couponview-button">SEE MY COUPON</button>
+        <button id="tada-floating-couponview-button" style="background-color: ${game_theme_style==2 ? '#ff5c6c' : game_theme_style==3 ? 'white' : '#29abe2'};
+        color : ${game_theme_style ==3 ? 'black' : 'white'}; ">SEE MY COUPON</button>
     </div>
     <!--Flowers falling -->
     <div id="tada-flower-falling"></div>
@@ -248,14 +249,14 @@ function selectWidgetBySetting(widget) {
     <div class="tada_remaind_bar" style="background-color: ${game_theme_style==1 ? '#29abe2': game_theme_style==2 ? '#9a54d6' : 'black'}">
       <div class="d-flex">
         <span>You've won</span>&nbsp;
-        <span id="tada_notifi_cash_view"></span>&nbsp;
+        <span id="tada_notifi_cash_view" style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}"></span>&nbsp;
         <span>and is reserved for</span>&nbsp;
-        <span id="tada_notifi_cash_remaind_time">15m : 20s</span>&nbsp;
+        <span id="tada_notifi_cash_remaind_time" style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}">15m : 20s</span>&nbsp;
       </div>
       <button id="tada_ramaind_view_coupon_button" style="background-color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#ff5c6c' : 'white'};
         color: ${game_theme_style==3 ? 'black' : 'white'};">SEE MY COUPON</button>
       <button id="tada_remained_notify_close" class="close">
-        <span aria-hidden="true" style="color: ${game_theme_style==3 ? 'black' : 'white'}">&times;</span>
+        <span aria-hidden="true" style="color: ${game_theme_style==3 ? 'white' : 'black'}">&times;</span>
       </button>
     </div>
     <!--Game Modal -->
