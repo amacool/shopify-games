@@ -6,7 +6,7 @@ var widget_url = window.global_widget_url;
 var couponText = '';
 var mobileMode = window.innerWidth > 520 ? false : true;
 var timer_number = parseInt(window.game_start_time);
-
+var game_done = false;
 changeGameThemeStyle(game_theme_style);
 changeGameStartIconPosition(game_start_icon_position);
 showRandomEncouragementText();
@@ -43,7 +43,22 @@ $('#tada_game_email_input').focusin(function() {
   $(this).css({'box-shadow':'unset','border':'1px solid #ced4da'});
 })
 
+$('.tada_start_icon_div').click(function () {
+  if (game_done)
+    alert('floating');
+})
+
 $('#tada_apply_my_discount').click(function() {
+  game_done = true;
+  // Remove the Open Dialog event
+  $('.tada_start_icon_div').attr('data-target', '');
+
+  // Replace the Attention icon to floating icon
+  $('#tada_start_icon').fadeOut(400, function() {
+      $("#tada_start_icon").attr('src',widget_url+'/floating-bar-icon.svg');
+  })
+  .fadeIn(400);
+
   $("#tada-flower-falling").fadeOut("slow", function () {
       $(this).css({display:"none"});
   });
