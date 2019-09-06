@@ -11,7 +11,7 @@ class Dashboard extends React.Component {
   state = { widgets: [], showPopup: false, index: 0, conversionRating: 0, totalEmail: 0, totalSales:0, graphData: 0, fromDate: 'Jan 1, 2019', toDate: 'Jan 1, 2022', isDropdown: false, selectedWidget: -1, duplicatedName: '', showDuplicate: false, showDeleteModal: false };
 
   componentDidMount = () => {
-    fetch(`https://0d0d0333.ngrok.io/getDashboardInfo`, {
+    fetch(`https://9c64a7b6.ngrok.io/getDashboardInfo`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -295,7 +295,7 @@ class Dashboard extends React.Component {
         return;
       }
     }
-    fetch('https://0d0d0333.ngrok.io/duplicateWidget', {
+    fetch('https://9c64a7b6.ngrok.io/duplicateWidget', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -348,7 +348,7 @@ class Dashboard extends React.Component {
 
   pauseWidget = (key) => {
     var { widgets } = this.state;
-    fetch(`https://0d0d0333.ngrok.io/pauseWidget`, {
+    fetch(`https://9c64a7b6.ngrok.io/pauseWidget`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -383,7 +383,7 @@ class Dashboard extends React.Component {
   deleteWidget = () => {
     const key = Cookies.get('delete_index');
     var widgets = this.state.widgets;
-    fetch(`https://0d0d0333.ngrok.io/deleteWidget`, {
+    fetch(`https://9c64a7b6.ngrok.io/deleteWidget`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

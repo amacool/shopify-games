@@ -81,7 +81,7 @@ async function installing(ctx) {
                                 $(document).ready(function () {
                                     setTimeout(function () {
                                         $.ajax({
-                                            url: 'https://0d0d0333.ngrok.io/getWidget',
+                                            url: 'https://9c64a7b6.ngrok.io/getWidget',
                                             type: 'post',
                                             data: JSON.stringify({
                                                 shop: window.location.hostname,
@@ -152,7 +152,7 @@ async function installing(ctx) {
                                     $(document).ready(function () {
                                         setTimeout(function () {
                                             $.ajax({
-                                                url: 'https://0d0d0333.ngrok.io/getWidget',
+                                                url: 'https://9c64a7b6.ngrok.io/getWidget',
                                                 type: 'post',
                                                 data: JSON.stringify({
                                                     shop: window.location.hostname,
