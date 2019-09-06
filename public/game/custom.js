@@ -7,6 +7,7 @@ var couponText = '';
 var mobileMode = window.innerWidth > 520 ? false : true;
 var timer_number = parseInt(window.game_start_time);
 var game_done = false;
+
 changeGameThemeStyle(game_theme_style);
 changeGameStartIconPosition(game_start_icon_position);
 showRandomEncouragementText();
@@ -43,9 +44,26 @@ $('#tada_game_email_input').focusin(function() {
   $(this).css({'box-shadow':'unset','border':'1px solid #ced4da'});
 })
 
+$('#tada-floating-couponview-button').click (function () {
+  $('.tada-floating-dialog').css({"webkitAnimation": 'none'});
+  $('.tada-floating-dialog').fadeOut("slow", function() {
+    $('.tada-floating-dialog').css({'display' : 'none'});
+  })
+})
+
 $('.tada_start_icon_div').click(function () {
-  if (game_done)
-    alert('floating');
+  var floating_component = $('.tada-floating-dialog');
+  if (game_done) {
+    if (floating_component.css('display') == 'flex') {
+      floating_component.css({"webkitAnimation": 'none'});
+      floating_component.fadeOut("slow", function() {
+        floating_component.css({'display' : 'none'});
+      })
+    } else {
+      floating_component.css({"webkitAnimation": ''});
+      floating_component.css({'display' : 'flex'});
+    }
+  }
 })
 
 $('#tada_apply_my_discount').click(function() {
@@ -66,6 +84,8 @@ $('#tada_apply_my_discount').click(function() {
       $(this).css({opacity:1});
   });
   $('#tada_notifi_cash_view').html(couponText);
+  // floating view couponText
+  $('#tada_floating-dialog_cashview').html(couponText)
 })
 $('#tada_remained_notify_close').click(function () {
   $(".tada_remaind_bar").fadeOut("slow", function () {
@@ -104,17 +124,24 @@ if(mobileMode) {
 }
 
 
-// Wheel Animation
+// change the Attention position
 function changeGameStartIconPosition (position) {
     switch (position) {
       case 1:
         $('#spinny_box').css({'left' : '15px'});
+        $('.tada-floating-dialog').css({'left' : '65px', 'margin-top' : '10px'});
         break;
       case 2:
         $('#spinny_box').css({'right' : '65px'});
+        $('.tada-floating-dialog').css({'right' : '70px', 'margin-top' : '10px'});
         break;
       case 3:
-          $('#spinny_box').css({'top' : 'unset', 'left' : window.innerWidth/2-25 + 'px', 'top' : '50px'});
+        $('#spinny_box').css({'top' : 'unset', 'left' : window.innerWidth/2-25 + 'px', 'top' : '50px'});
+        if(window.innerWidth > 520) {
+          $('.tada-floating-dialog').css({'top' : 'unset', 'left' : window.innerWidth/2+35 + 'px', 'top' : '30px'});
+        }
+        else
+          $('.tada-floating-dialog').css({'top' : 'unset', 'left' : '15px', 'top' : '85px'});
         break;
     }
   }
@@ -241,7 +268,7 @@ function spin() {
         $('#tada-game-count-number').css({"webkitAnimation": "none"});
         setTimeout(()=> {
           $('#tada-game-count-number').css({"webkitAnimation": ''});
-        }, 10);
+        }, 100);
       }
 	});
 

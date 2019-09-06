@@ -9,13 +9,59 @@
 	}
   #spinny_box {
 	  display: flex;
-      top:	50%;
-      position: fixed;
-      z-index: 1000;
-      justify-content: left;
-      align-items: center;
-      opacity: 0;
+    top:	50%;
+    position: fixed;
+    z-index: 1000;
+    justify-content: left;
+    align-items: center;
+    opacity: 0;
 	}
+  .tada-floating-dialog {
+    display: none;
+    flex-direction: column;
+    top:	50%;
+    position: fixed;
+    z-index: 1001;
+    justify-content: center;
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px 40px;
+    -webkit-box-shadow: 10px 10px 19px 0px rgba(133,131,133,1);
+    -moz-box-shadow: 10px 10px 19px 0px rgba(133,131,133,1);
+    box-shadow: 10px 10px 19px 0px rgba(133,131,133,1);
+  }
+  .tada-floating-dialog p{
+    font-size: 16px;
+    font-family: "Open Sans";
+  }
+  .tada-floating-dialog button {
+    border-radius: 20px;
+    border:none;
+    outline: none !important;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #29abe2;
+    font-family: "Open Sans";
+    padding: 7px;
+    /* animation-name: none !important; */
+  }
+  .tada-floating-dialog button:hover {
+    -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
+	  animation: heartbeat 1.5s ease-in-out infinite both;
+  }
+  /* .tada-floating-dialog button:active {
+    background-color: #29abe2;
+  } */
+  #tada_floating-dialog_cashview {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Open Sans";
+    color: #f7931e;
+  }
+  #tada-floating-dialog-countdownTime {
+    font-weight: bold;
+  }
 .tada_start_icon_div {
   width: fit-content;
       display: flex;
@@ -302,6 +348,10 @@
   padding-right: 20px;
   padding-bottom: 15px;
 }
+#tada_ramaind_view_coupon_button:hover {
+  -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
+  animation: heartbeat 1.5s ease-in-out infinite both;
+}
 #tada_remained_notify_close span {
   font-size: 25px;
   opacity: 1;
@@ -316,8 +366,10 @@
     color: white;
     font-family: "Open Sans";
     font-weight: bold;
+    outline: none;
     font-size: 14px;
     margin-left:20px;
+    /* animation-name: none !important; */
 }
 
 @media (max-width: 520px) {
@@ -435,6 +487,111 @@
     margin-left: 0;
     font-size: 12px;
     width: 150px;
+  }
+}
+/* Animation Class */
+.scale-in-center {
+  -webkit-animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+
+/**
+ * ----------------------------------------
+ * animation heartbeat
+ * ----------------------------------------
+ */
+@-webkit-keyframes heartbeat {
+  from {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: center center;
+            transform-origin: center center;
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  10% {
+    -webkit-transform: scale(0.91);
+            transform: scale(0.91);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  17% {
+    -webkit-transform: scale(0.98);
+            transform: scale(0.98);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  33% {
+    -webkit-transform: scale(0.87);
+            transform: scale(0.87);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  45% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+}
+@keyframes heartbeat {
+  from {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: center center;
+            transform-origin: center center;
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  10% {
+    -webkit-transform: scale(0.91);
+            transform: scale(0.91);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  17% {
+    -webkit-transform: scale(0.98);
+            transform: scale(0.98);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+  33% {
+    -webkit-transform: scale(0.87);
+            transform: scale(0.87);
+    -webkit-animation-timing-function: ease-in;
+            animation-timing-function: ease-in;
+  }
+  45% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+            animation-timing-function: ease-out;
+  }
+}
+
+@-webkit-keyframes scale-in-center {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes scale-in-center {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
   }
 }
 
