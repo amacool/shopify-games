@@ -1,11 +1,8 @@
 .bubbly-button {
-	 font-family: 'Helvetica', 'Arial', sans-serif;
 	 display: inline-block;
 	 font-size: 1em;
 	 -webkit-appearance: none;
 	 appearance: none;
-	 background-color: #29abe2;
-	 color: #fff;
 	 border-radius: 4px;
 	 border: none;
 	 cursor: pointer;
@@ -13,13 +10,6 @@
 	 transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
 	 box-shadow: 0 2px 25px rgba(41, 171, 226, 0.5);
    animation-duration: 0.8s;
-    animation-name: changewidth;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-.bubbly-button:hover {
-  animation: none;
-  width: 100%;
 }
  .bubbly-button:focus {
 	 outline: 0;
@@ -48,13 +38,4 @@
  .bubbly-button.animate:after {
 	 display: block;
 	 animation: bottomBubbles ease-in-out 0.75s forwards;
-}
-@keyframes changewidth {
-  from {
-    width: 100%;
-  }
-
-  to {
-    width: 60%;
-  }
 }

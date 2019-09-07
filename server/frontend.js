@@ -215,11 +215,9 @@ function selectWidgetBySetting(widget) {
       window.game_theme_style = "${game_theme_style}";
       window.game_start_time = "${game_start_time}"
     </script>
-    <script src="${widget_url}/jquery.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenLite.min.js"></script>
     <script src="${widget_url}/TweenMax.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="${widget_url}/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/easytimer@1.1.1/dist/easytimer.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -241,7 +239,10 @@ function selectWidgetBySetting(widget) {
           <p id='tada-floating-dialog-countdownTime' style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}">15m : 20s</p>
         </div>
         <button id="tada-floating-couponview-button" style="background-color: ${game_theme_style==2 ? '#ff5c6c' : game_theme_style==3 ? 'white' : '#29abe2'};
-        color : ${game_theme_style ==3 ? 'black' : 'white'}; ">SEE MY COUPON</button>
+        color : ${game_theme_style ==3 ? 'black' : 'white'}; " data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
+    </div>
+    <div class="tada_image_temp" style="background-image: ${game_theme_style == 2 ? 'url('+widget_url+'/success_mark_board2.svg)' : 'url('+widget_url+'/success_mark_board.svg)' }">
+      <img src="${widget_url}/floating-bar-icon.svg"/>
     </div>
     <!--Flowers falling -->
     <div id="tada-flower-falling"></div>
@@ -254,7 +255,7 @@ function selectWidgetBySetting(widget) {
         <span id="tada_notifi_cash_remaind_time" style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}">15m : 20s</span>&nbsp;
       </div>
       <button id="tada_ramaind_view_coupon_button" style="background-color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#ff5c6c' : 'white'};
-        color: ${game_theme_style==3 ? 'black' : 'white'};">SEE MY COUPON</button>
+        color: ${game_theme_style==3 ? 'black' : 'white'};" data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
       <button id="tada_remained_notify_close" class="close">
         <span aria-hidden="true" style="color: ${game_theme_style==3 ? 'white' : 'black'}">&times;</span>
       </button>
@@ -288,8 +289,8 @@ function selectWidgetBySetting(widget) {
       </div>
       <div class="modal-body tada-dialog-body-success">
       	<p class="tada-game-spin-title1" style="color: ${game_theme_style==3 ? 'white':'black'}">Congratulations</p>
-        <div class="tada-success-maker-board" style="background-image: ${game_theme_style == 2 ? 'url('+widget_url+'/success_mark_board2.png)' : 'url('+widget_url+'/success_mark_board.png)' }">
-      		<p class="tada-success-maker-left-text col-4">Your've </br>Win</p>
+        <div class="tada-success-maker-board" style="background-image: ${game_theme_style == 2 ? 'url('+widget_url+'/success_mark_board2.svg)' : 'url('+widget_url+'/success_mark_board.svg)' }">
+      		<p class="tada-success-maker-left-text col-4">You've </br>Win</p>
       		<div class="col-8 tada-success-maker-text-div col-8">
       			<p id="tada-success-maker-text" style="color: ${game_theme_style===2 ? '#ff5c6c' : '#29abe2'}">$10 Cash</p>
       		</div>
@@ -311,7 +312,7 @@ function selectWidgetBySetting(widget) {
         </div>
       </div>
       <div class="modal-footer tada-modal-footer">
-        <img src="${widget_url}/game_dialog_button_icon.png" />
+        <img src="${widget_url}/game_dialog_button_icon.svg" />
       </div>
     </div>
   </div>
