@@ -275,6 +275,7 @@ function selectWidgetBySetting(widget) {
         <p class="tada-game-spin-title" style="color: ${game_theme_style==3 ? 'white':'black'}">Spin and Win</p>
         <p class="tada-game-spin-text" style="color: ${game_theme_style==3 ? 'white':'black'}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</p>
         <div class="tada-dialog-mail-container">
+          <div id="snackbar">Input correctly Email.</div>
 	        <input type="email" class="form-control" id="tada_game_email_input" aria-describedby="emailHelp" placeholder="Enter your email address" required
             style="background-color : ${game_theme_style == 3 ? 'black' : 'white'}; color: ${game_theme_style == 3 ? 'white' : 'black'};">
 	        <button id="tada_spin_start_button" class="bubbly-button" value="spin"

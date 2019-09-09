@@ -91,6 +91,7 @@ $('.tada_start_icon_div').click(function() {
             });
         }
     }
+    $('.tada_game_modal').addClass('fade-in');
 })
 
 $('#tada_apply_my_discount').click(function() {
@@ -303,6 +304,7 @@ function make_base() {
 function spin() {
     var email = $('#tada_game_email_input').val();
     if (!validateEmail(email)) {
+        showNotification();
         $(this).removeClass('jello-horizontal');
         $('#tada_game_email_input').css({
             'box-shadow': '0 0 0 0.2rem #ec245257',
@@ -476,3 +478,9 @@ setTimeout(function() {
 function R(min, max) {
     return min + Math.random() * (max - min)
 };
+
+function showNotification() {
+  var x = document.getElementById("snackbar");
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
