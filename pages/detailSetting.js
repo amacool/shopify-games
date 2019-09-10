@@ -72,7 +72,7 @@ class DetailSetting extends React.Component {
   };
 
   componentDidMount = () => {
-    fetch(`https://ee6dcb3e.ngrok.io/getSetting`, {
+    fetch(`https://dev-frontend.trytada.com/getSetting`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -382,7 +382,7 @@ class DetailSetting extends React.Component {
    updateSetting.frequency = frequency;
    updateSetting.exitIntent = exitIntent;
    updateSetting.exitIntentTime = exitIntentTime;
-   fetch(`https://ee6dcb3e.ngrok.io/saveSetting`, {
+   fetch(`https://dev-frontend.trytada.com/saveSetting`, {
      method: 'POST',
      headers: {
        'Content-Type': 'application/json'

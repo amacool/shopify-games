@@ -205,7 +205,7 @@ function selectWidgetBySetting(widget) {
   var widget_url = `${TUNNEL_URL}/game`;//`${TUNNEL_URL}/game`;//global_widget_url;
   var game_start_icon_position = 3;
   var game_theme_style = 1;
-  var game_start_time = 6;
+  var game_start_time = 5;
   if(widget.type == 0) {
     var id = widget.id;
     html = `
@@ -227,7 +227,11 @@ function selectWidgetBySetting(widget) {
     <div id="tada_app_widget">
       <div id="spinny_box">
           <div class="tada_start_icon_div" data-toggle="modal" data-target="#gamestartmodal" >
-            <img id="tada_start_icon" src="${game_theme_style===1 ? widget_url+'/default_start_icon.svg' : widget_url+'/attention_start_icon.svg'}"/>
+            <!--<img id="tada_start_icon" src="${game_theme_style===1 ? widget_url+'/default_start_icon.svg' : widget_url+'/attention_start_icon.svg'}"/>--!>
+            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31 30"><defs><style>.cls-1{fill:#ff5c6c;}.cls-2{fill:${game_theme_style===1 ? '#ff5c6c' : '#8e52ce'};}.cls-3{fill:${game_theme_style===1 ? '#ff5c6c' : '#8e52ce'};}.cls-4{fill:#fbb03b;}.cls-5{fill:${game_theme_style===1 ? '#e82d1a' : '#8e52ce'};}.cls-6{fill:#f4a63d;}.cls-7{fill:#e59739;}</style></defs><title>Game1 - spin</title>
+              <path class="cls-1" d="M23.27,3.84c-0.86-1.62-1.9-2.43-3.08-2.43-1.35,0-2.76,1.11-4.18,3.29-0.18.28-.35,0.56-0.51,0.83C15.34,5.26,15.17,5,15,4.7c-1.42-2.19-2.83-3.29-4.18-3.29-1.18,0-2.21.82-3.08,2.43a2.5,2.5,0,0,0-.1,2.59C8.18,7.36,9.43,8,11.43,8.34a24.1,24.1,0,0,0,4,.32h0.14a24.1,24.1,0,0,0,4-.32c2-.36,3.25-1,3.8-1.91a2.51,2.51,0,0,0-.1-2.59h0Z"/>
+              <path class="cls-2" fill=${game_theme_style===1 ? '#ff5c6c' : '#8e52ce'} d="M28.19,13.08A1.21,1.21,0,0,0,27,11.87H4a1.21,1.21,0,0,0-1.21,1.21V27.39A1.21,1.21,0,0,0,4,28.59H27a1.21,1.21,0,0,0,1.21-1.21V13.08h0Z"/>
+              <path class="cls-3" fill=${game_theme_style===1 ? '#ff5c6c' : '#8e52ce'} d="M30,14.09a1.21,1.21,0,0,1-1.21,1.21H2.21A1.21,1.21,0,0,1,1,14.09v-6A1.21,1.21,0,0,1,2.21,6.84H28.79A1.21,1.21,0,0,1,30,8.05v6h0Z"/><polygon class="cls-4" points="12.48 6.84 18.52 6.84 18.52 15.3 12.48 15.3 12.48 6.84 12.48 6.84"/><polygon class="cls-5" points="2.81 16.5 28.19 18.8 28.19 15.34 2.81 15.34 2.81 16.5 2.81 16.5"/><polygon class="cls-6" points="12.48 15.3 18.52 15.3 18.52 28.59 12.48 28.59 12.48 15.3 12.48 15.3"/><polygon class="cls-7" points="12.48 17.38 18.52 17.93 18.52 15.34 12.48 15.34 12.48 17.38 12.48 17.38"/></svg>
           </div>
       </div>
       <div class="tada-floating-dialog scale-in-center" style="background-color: ${game_theme_style==3 ? 'black':'white'}">
@@ -258,7 +262,7 @@ function selectWidgetBySetting(widget) {
       <button id="tada_ramaind_view_coupon_button" style="background-color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#ff5c6c' : 'white'};
         color: ${game_theme_style==3 ? 'black' : 'white'};" data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
       <button id="tada_remained_notify_close" class="close">
-        <span aria-hidden="true" style="color: ${game_theme_style==3 ? 'white' : 'black'}">&times;</span>
+        <span aria-hidden="true" style="color: ${game_theme_style==3 ? 'white' : 'black'}" class='tada-dialog-close-button'>&times;</span>
       </button>
     </div>
     <!--Game Modal -->
@@ -267,7 +271,7 @@ function selectWidgetBySetting(widget) {
     <div class="modal-content tada_game_modal" style="background-color: ${game_theme_style==3 ? 'black':'white'}">
       <div class="modal-header">
         <img class="modal-title tada_game_start_title" id="exampleModalCenterTitle" src="${widget_url}/logo.svg"/>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close tada-dialog-close-button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" style="color: ${game_theme_style==3 ? 'white':'black'}">&times;</span>
         </button>
       </div>
@@ -318,7 +322,7 @@ function selectWidgetBySetting(widget) {
         </div>
       </div>
       <div class="modal-footer tada-modal-footer">
-        <img src="${widget_url}/game_dialog_button_icon.svg" />
+        <a href="https://trytada.com" target="_blank"><img src="${widget_url}/game_dialog_button_icon.svg" /></a>
       </div>
     </div>
   </div>

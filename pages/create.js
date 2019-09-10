@@ -98,7 +98,7 @@ class Create extends React.Component {
           });
           return;
       }
-      fetch(`https://ee6dcb3e.ngrok.io/createWidget`, {
+      fetch(`https://dev-frontend.trytada.com/createWidget`, {
           method: 'POST',
           headers: {
               'Content-type': 'application/json'
