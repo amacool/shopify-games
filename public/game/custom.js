@@ -7,6 +7,8 @@ var couponText = '';
 var mobileMode = window.innerWidth > 520 ? false : true;
 var timer_number = parseInt(window.game_start_time);
 var game_done = false;
+var expireTime = '';
+
 
 changeGameThemeStyle(game_theme_style);
 changeGameStartIconPosition(game_start_icon_position);
@@ -39,9 +41,11 @@ function changeGameThemeStyle(game_theme) {
     }
 }
 
-function showRandomEncouragementText() {
+
+
+function showRandomEncouragementText(class_name) {
     var random = Math.floor(Math.random() * (game_encouragement_text.length + 1));
-    $('.tada-game-state-text').html(game_encouragement_text[random]);
+    $('#'+class_name).html(game_encouragement_text[random]);
 }
 
 ///Email Validation
@@ -92,7 +96,28 @@ $('.tada_start_icon_div').click(function() {
         }
     }
     $('.tada_game_modal').addClass('fade-in');
-})
+    showRandomEncouragementText ('tada-game-state-first-text');
+    $('#tada-game-state-first-text').addClass('fadein-fadeout-animation');
+    setInterval(function () {
+      if (!$('#tada-game-state-first-text').hasClass('fadein-fadeout-animation')) {
+        showRandomEncouragementText ('tada-game-state-first-text');
+        $('#tada-game-state-second-text').removeClass('fadein-fadeout-animation');
+        $('#tada-game-state-first-text').addClass('fadein-fadeout-animation');
+      } else {
+        showRandomEncouragementText ('tada-game-state-second-text');
+        $('#tada-game-state-first-text').removeClass('fadein-fadeout-animation');
+        $('#tada-game-state-second-text').addClass('fadein-fadeout-animation');
+      }
+
+    }, 3000);
+    // setTimeout(function () {
+    //   setInterval(function () {
+    //     $('#tada-game-state-first-text').removeClass('fadein-fadeout-animation');
+    //     $('#tada-game-state-second-text').addClass('fadein-fadeout-animation');
+    //   }, 3000);
+    // }, 3000);
+  })
+    //$('#tada-game-state-first-text').addClass('fadein-fadeout-animation');
 
 $('#tada_apply_my_discount').click(function() {
     game_done = true;
@@ -289,6 +314,11 @@ function drawRouletteWheel() {
         ctx.stroke();
     }
 }
+
+// Idle Wheel animation Remove
+$('#canvas').addClass('breathing-animation');
+$('#canvas1').addClass('breathing-animation');
+
 var canvas1 = document.getElementById("canvas1");
 ctx1 = canvas1.getContext("2d");
 make_base();
@@ -330,6 +360,9 @@ function spin() {
     timer.addEventListener('secondsUpdated', function(e) {
         timer_number--;
         if (timer_number == 0) {
+          // Idle Wheel animation Remove
+          $('#canvas').removeClass('breathing-animation');
+          $('#canvas1').removeClass('breathing-animation');
             $('#tada-game-count-number').html("START");
             $('#tada-game-count-number').css({
                 "webkitAnimation": "none"
@@ -339,7 +372,7 @@ function spin() {
                     "webkitAnimation": ''
                 });
             }, 100);
-        } else if (timer_number == -1) {
+        } else if (timer_number <= -1) {
             $('#tada-game-count-number').css({
                 "marginBottom": "0"
             });
@@ -381,6 +414,33 @@ function rotateWheel() {
     spinTimeout = setTimeout('rotateWheel()', 20);
 }
 
+function expireTimeCountDown () {
+  var countDownDate = new Date().getTime()+(1000 * 60 * 60 * 24);
+
+// Update the count down every 1 second
+  var x = setInterval(function() {
+
+    // Get today's date and time
+    var now = new Date().getTime();
+
+    // Find the distance between now and the count down date
+    var distance = countDownDate - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    expireTime = hours + ":" + minutes + ":" + seconds;
+    // If the count down is over, write some text
+    if (distance < 0) {
+      clearInterval(x);
+      expireTime = "EXPIRED";
+    }
+    $('.tada-expire-time').html(expireTime);
+  }, 1000);
+}
+
 function stopRotateWheel() {
     clearTimeout(spinTimeout);
     var degrees = startAngle * 180 / Math.PI + 90;
@@ -404,6 +464,25 @@ function stopRotateWheel() {
     $('#tada-flower-falling').css({
         "display": "block"
     });
+    $('.tada-success-maker-board').addClass('fade-in-custom');
+    setTimeout (function () {
+      //$('.tada-success-maker-board').css('transform', 'scale(2.5)');
+      $('.tada-success-maker-board').removeClass('fade-in-custom');
+      $('.tada-success-maker-board').addClass('bounce-top');
+    },1200);
+    setTimeout(function() {
+      $('.tada-success-maker-board').removeClass('bounce-top');
+      $('.tada-success-maker-board').addClass('swirl-in-fwd-reverse');
+      setTimeout(function() {
+        $('.tada-success-maker-board').removeClass('swirl-in-fwd-reverse');
+      }, 2000);
+    }, 6000);
+    //expire time set
+    expireTimeCountDown();
+
+    //remove animation
+  //  $('#canvas').removeClass('breathing-animation');
+   //$('#canvas1').removeClass('breathing-animation');
 }
 
 function easeOut(t, b, c, d) {

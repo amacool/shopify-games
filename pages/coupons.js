@@ -202,7 +202,7 @@ class Coupons extends React.Component {
             return;
         }
 
-        fetch('https://dev-frontend.trytada.com/updateCoupon', {
+        fetch('https://ee6dcb3e.ngrok.io/updateCoupon', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'

@@ -237,7 +237,7 @@ function selectWidgetBySetting(widget) {
         </div>
         <div class="d-flex">
           <p style="color: ${game_theme_style==3 ? 'white' : 'black'}">and is reserved for</p>&nbsp;
-          <p id='tada-floating-dialog-countdownTime' style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}">15m : 20s</p>
+          <p id='tada-floating-dialog-countdownTime' class="tada-expire-time" style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}">15m : 20s</p>
         </div>
         <button id="tada-floating-couponview-button" style="background-color: ${game_theme_style==2 ? '#ff5c6c' : game_theme_style==3 ? 'white' : '#29abe2'};
         color : ${game_theme_style ==3 ? 'black' : 'white'}; " data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
@@ -253,7 +253,7 @@ function selectWidgetBySetting(widget) {
         <span>You've won</span>&nbsp;
         <span id="tada_notifi_cash_view" style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}"></span>&nbsp;
         <span>and is reserved for</span>&nbsp;
-        <span id="tada_notifi_cash_remaind_time" style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}">15m : 20s</span>&nbsp;
+        <span id="tada_notifi_cash_remaind_time" class="tada-expire-time" style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}">15m : 20s</span>&nbsp;
       </div>
       <button id="tada_ramaind_view_coupon_button" style="background-color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#ff5c6c' : 'white'};
         color: ${game_theme_style==3 ? 'black' : 'white'};" data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
@@ -275,14 +275,18 @@ function selectWidgetBySetting(widget) {
         <p class="tada-game-spin-title" style="color: ${game_theme_style==3 ? 'white':'black'}">Spin and Win</p>
         <p class="tada-game-spin-text" style="color: ${game_theme_style==3 ? 'white':'black'}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</p>
         <div class="tada-dialog-mail-container">
-          <div id="snackbar">Input correctly Email.</div>
+          <!--Email validation notification -->
+          <div id="snackbar">You have entered an invalid e-mail address. Please try again.</div>
 	        <input type="email" class="form-control" id="tada_game_email_input" aria-describedby="emailHelp" placeholder="Enter your email address" required
             style="background-color : ${game_theme_style == 3 ? 'black' : 'white'}; color: ${game_theme_style == 3 ? 'white' : 'black'};">
 	        <button id="tada_spin_start_button" class="bubbly-button" value="spin"
             style="background-color: ${game_theme_style==2 ? '#ff5c6c' : game_theme_style==3 ? 'white' : '#29abe2'};
             color : ${game_theme_style ==3 ? 'black' : 'white'}; ">SPIN</button>
         </div>
-        <p class="tada-game-state-text" style="color: ${game_theme_style===2 ? '#ff5c6c' : '#ffa022'}">Excited to see your discount?</p>
+        <div class="tada-game-state-text-div">
+          <p class="tada-game-state-text" style="color: ${game_theme_style===2 ? '#ff5c6c' : '#ffa022'}" id="tada-game-state-first-text">Excited to see your discount?</p>
+          <p class="tada-game-state-text" style="color: ${game_theme_style===2 ? '#ff5c6c' : '#ffa022'}" id="tada-game-state-second-text">Let’s see what you got!</p>
+        </div>
         <p id="tada-game-count-number" style="color: ${game_theme_style===2 ? '#ff5c6c' : '#29abe2'}" >${game_start_time}</p>
         <div class="d-flex tada-wheel-container">
         	<canvas id="canvas1" width="500" height="400"></canvas>
@@ -297,10 +301,10 @@ function selectWidgetBySetting(widget) {
       			<p id="tada-success-maker-text" style="color: ${game_theme_style===2 ? '#ff5c6c' : '#29abe2'}">$10 Cash</p>
       		</div>
       	</div>
-      	<p class="tada-game-spin-text" style="color: ${game_theme_style==3 ? 'white':'black'}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</p>
+      	<p class="tada-game-spin-text" style="color: ${game_theme_style==3 ? 'white':'black'}">Here’s your unique coupon! You can use it on any purchase in this store 🎉! Don’t wait too long, it expires soon.</p>
         <div class="tada-game-expiry d-flex">
         	<p class="tada-game-expiry-title" style="color: ${game_theme_style==3 ? 'white':'black'}">How long until expiry:</p>
-        	<p class="tada-game-expiry-time" style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}">22:59:43</p>
+        	<p class="tada-game-expiry-time tada-expire-time" style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}">22:59:43</p>
         </div>
         <div class="tada-game-body-divide"></div>
         <div class="tada-game-discount-code">

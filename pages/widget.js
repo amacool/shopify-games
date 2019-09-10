@@ -29,7 +29,7 @@ class Widget extends React.Component {
     };
 
     componentDidMount = () => {
-        fetch('https://dev-frontend.trytada.com/getSetting', {
+        fetch('https://ee6dcb3e.ngrok.io/getSetting', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
