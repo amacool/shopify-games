@@ -416,7 +416,7 @@ function spin() {
     $('.tada-game-spin-title').html(game_encouragement_text[random]);
     spinAngleStart = Math.random() * 10+20;
     spinTime = 200;
-    spinTimeTotal = (wheel_run_time - 1) * 1000;
+    spinTimeTotal = (wheel_run_time) * 1000;
     $('#canvas').removeClass('breathing-animation');
     $('#canvas1').removeClass('breathing-animation');
     rotateWheel();
@@ -531,6 +531,7 @@ function stopRotateWheel() {
       setTimeout(function() {
         $('.tada-success-maker-board').removeClass('swirl-in-fwd-reverse');
         $('.tada-success-maker-board').addClass('breathing-animation');
+        $('#tada-flower-falling').fadeOut('slow');
       }, 1200);
     }, 4000);
     //expire time set
@@ -550,9 +551,7 @@ drawRouletteWheel();
 
 
 ////////////////Flowers Falling Animation////////////////////////////////////
-TweenLite.set("#tada-flower-falling", {
-    perspective: 600
-})
+
 //TweenLite.set("img",{xPercent:"-50%",yPercent:"-50%"})
 var fireworkSVGPathArray = ["<svg width='50' height='50' version='1.1' xmlns='http://www.w3.org/2000/svg'><style>.cls-confetti-theme-wave{fill:#ff5c6c;stroke:#ff5c6c;}</style><path d='M20,10 Q40,5 50,30 T90,30' class='cls-confetti-theme-wave' stroke-width='5'/></svg>",
                             "<svg width='50' height='50' version='1.1' xmlns='http://www.w3.org/2000/svg'><style>.cls-confetti-theme-polyline{fill:#ff7d00;stroke:#ff7d00;}</style><polyline points='60 10 65 20 70 15 75 30 80 25 85 90 90 35 5 50 110 45' stroke-width='10' class='cls-confetti-theme-polyline'/></svg>",
@@ -566,6 +565,9 @@ function showRandomFireworkSVG() {
     //$('.tada-game-state-text').html(fireworkSVGPathArray[random]);
 }
 animm = function(elm) {
+  TweenLite.set("#tada-flower-falling", {
+      perspective: 600
+  })
     TweenMax.to(elm, R(2, 3), {
         y: h + 100,
         ease: Linear.easeNone,
@@ -612,7 +614,7 @@ setTimeout(function() {
         warp.appendChild(Div);
         animm(Div);
     }
-}, 3000);
+}, 4000);
 
 function R(min, max) {
     return min + Math.random() * (max - min)

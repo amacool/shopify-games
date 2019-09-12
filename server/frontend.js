@@ -314,7 +314,7 @@ function selectWidgetBySetting(widget) {
             style="background-color : ${game_theme_style == 3 ? 'black' : 'white'}; color: ${game_theme_style == 3 ? 'white' : 'black'};">
 	        <button id="tada_spin_start_button" class="bubbly-button" value="spin"
             style="background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].second};
-            color : ${game_theme_style ==3 ? 'black' : 'white'}; ">SPIN</button>
+            color : ${game_theme_style ==3 ? 'black' : 'white'}; box-shadow: 0 2px 13px ${theme_colors[game_theme_style].second};" >SPIN</button>
         </div>
         <div class="tada-game-state-text-div">
           <p class="tada-game-state-text" style="color: ${game_theme_style===3 ? theme_colors[1].first : theme_colors[game_theme_style].first}" id="tada-game-state-first-text">Excited to see your discount?</p>
@@ -347,7 +347,7 @@ function selectWidgetBySetting(widget) {
         <div class="tada_apply_my_account_parent">
           <button id="tada_apply_my_discount" data-dismiss="modal" aria-label="Close" class="close bubbly-button" value="spin"
           style="background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].second};
-          color : ${game_theme_style ==3 ? 'black' : 'white'}; ">APPLY MY DISCOUNT</button>
+          color : ${game_theme_style ==3 ? 'black' : 'white'};  box-shadow: 0 2px 13px ${theme_colors[game_theme_style].second}; ">APPLY MY DISCOUNT</button>
         </div>
       </div>
       <div class="modal-footer tada-modal-footer">
