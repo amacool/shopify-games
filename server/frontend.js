@@ -201,11 +201,32 @@ function generateDiscountItems(widget) {
 
 function selectWidgetBySetting(widget) {
   var html = '';
-  //window.global_widget_url = `${TUNNEL_URL}/game`;
-  var widget_url = `${TUNNEL_URL}/game`;//`${TUNNEL_URL}/game`;//global_widget_url;
+  var theme_colors = [
+    {
+      'first': '#ffd500',
+      'second': '#29abe2'
+    },
+    {
+      'first': '#ffd500',
+      'second': '#29abe2'
+    },
+    {
+      'first': '#9a54d6',
+      'second': '#ff5c6c'
+    },
+    {
+      'first': '#000000',
+      'second': '#ffffff'
+    }
+  ];
+  var widget_url = `${TUNNEL_URL}/game`;
   var game_start_icon_position = 3;
-  var game_theme_style = 1;
-  var game_start_time = 5;
+  var game_theme_style = 2;
+  var wheel_run_time = 5;
+  var wheel_item = ["$10 Cash", "40% OFF", "Not Luck Today", "Almost", "30% OFF", "$24 Cash", "Luck Today", "$20 Cash", "Almost", "30% OFF", "$24 Cash", "Luck Today"];
+
+  var theme_first_color = game_theme_style==3 ? theme_colors[1].first:theme_colors[game_theme_style].first;
+  var theme_second_color = game_theme_style==3 ? theme_colors[1].second:theme_colors[game_theme_style].second;
   if(widget.type == 0) {
     var id = widget.id;
     html = `
@@ -213,13 +234,14 @@ function selectWidgetBySetting(widget) {
       window.global_widget_url = "${widget_url}";
       window.game_start_icon_position = "${game_start_icon_position}";
       window.game_theme_style = "${game_theme_style}";
-      window.game_start_time = "${game_start_time}"
+      window.wheel_run_time = "${wheel_run_time}";
+      window.wheel_item = "${wheel_item}";
+      window.theme_first_color = "${theme_first_color}";
+      window.theme_second_color = "${theme_second_color}";
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenLite.min.js"></script>
     <script src="${widget_url}/TweenMax.min.js"></script>
-    <script src="${widget_url}/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/easytimer@1.1.1/dist/easytimer.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="${widget_url}/custom.js"></script>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
@@ -230,39 +252,44 @@ function selectWidgetBySetting(widget) {
             <!--<img id="tada_start_icon" src="${game_theme_style===1 ? widget_url+'/default_start_icon.svg' : widget_url+'/attention_start_icon.svg'}"/>--!>
             <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31 30"><defs><style>.cls-1{fill:#ff5c6c;}.cls-2{fill:${game_theme_style===1 ? '#ff5c6c' : '#8e52ce'};}.cls-3{fill:${game_theme_style===1 ? '#ff5c6c' : '#8e52ce'};}.cls-4{fill:#fbb03b;}.cls-5{fill:${game_theme_style===1 ? '#e82d1a' : '#8e52ce'};}.cls-6{fill:#f4a63d;}.cls-7{fill:#e59739;}</style></defs><title>Game1 - spin</title>
               <path class="cls-1" d="M23.27,3.84c-0.86-1.62-1.9-2.43-3.08-2.43-1.35,0-2.76,1.11-4.18,3.29-0.18.28-.35,0.56-0.51,0.83C15.34,5.26,15.17,5,15,4.7c-1.42-2.19-2.83-3.29-4.18-3.29-1.18,0-2.21.82-3.08,2.43a2.5,2.5,0,0,0-.1,2.59C8.18,7.36,9.43,8,11.43,8.34a24.1,24.1,0,0,0,4,.32h0.14a24.1,24.1,0,0,0,4-.32c2-.36,3.25-1,3.8-1.91a2.51,2.51,0,0,0-.1-2.59h0Z"/>
-              <path class="cls-2" fill=${game_theme_style===1 ? '#ff5c6c' : '#8e52ce'} d="M28.19,13.08A1.21,1.21,0,0,0,27,11.87H4a1.21,1.21,0,0,0-1.21,1.21V27.39A1.21,1.21,0,0,0,4,28.59H27a1.21,1.21,0,0,0,1.21-1.21V13.08h0Z"/>
-              <path class="cls-3" fill=${game_theme_style===1 ? '#ff5c6c' : '#8e52ce'} d="M30,14.09a1.21,1.21,0,0,1-1.21,1.21H2.21A1.21,1.21,0,0,1,1,14.09v-6A1.21,1.21,0,0,1,2.21,6.84H28.79A1.21,1.21,0,0,1,30,8.05v6h0Z"/><polygon class="cls-4" points="12.48 6.84 18.52 6.84 18.52 15.3 12.48 15.3 12.48 6.84 12.48 6.84"/><polygon class="cls-5" points="2.81 16.5 28.19 18.8 28.19 15.34 2.81 15.34 2.81 16.5 2.81 16.5"/><polygon class="cls-6" points="12.48 15.3 18.52 15.3 18.52 28.59 12.48 28.59 12.48 15.3 12.48 15.3"/><polygon class="cls-7" points="12.48 17.38 18.52 17.93 18.52 15.34 12.48 15.34 12.48 17.38 12.48 17.38"/></svg>
+              <path class="cls-2" fill=${game_theme_style===3 ? theme_colors[0].second : theme_colors[game_theme_style].second} d="M28.19,13.08A1.21,1.21,0,0,0,27,11.87H4a1.21,1.21,0,0,0-1.21,1.21V27.39A1.21,1.21,0,0,0,4,28.59H27a1.21,1.21,0,0,0,1.21-1.21V13.08h0Z"/>
+              <path class="cls-3" fill=${game_theme_style===3 ? theme_colors[0].second : theme_colors[game_theme_style].second} d="M30,14.09a1.21,1.21,0,0,1-1.21,1.21H2.21A1.21,1.21,0,0,1,1,14.09v-6A1.21,1.21,0,0,1,2.21,6.84H28.79A1.21,1.21,0,0,1,30,8.05v6h0Z"/><polygon class="cls-4" points="12.48 6.84 18.52 6.84 18.52 15.3 12.48 15.3 12.48 6.84 12.48 6.84"/><polygon class="cls-5" points="2.81 16.5 28.19 18.8 28.19 15.34 2.81 15.34 2.81 16.5 2.81 16.5"/><polygon class="cls-6" points="12.48 15.3 18.52 15.3 18.52 28.59 12.48 28.59 12.48 15.3 12.48 15.3"/><polygon class="cls-7" points="12.48 17.38 18.52 17.93 18.52 15.34 12.48 15.34 12.48 17.38 12.48 17.38"/></svg>
           </div>
       </div>
-      <div class="tada-floating-dialog scale-in-center" style="background-color: ${game_theme_style==3 ? 'black':'white'}">
+      <div class="tada-floating-dialog scale-in-center" style="background-color: ${game_theme_style==3 ? theme_colors[game_theme_style].first:'white'}">
         <div class="d-flex">
           <p style="color: ${game_theme_style==3 ? 'white' : 'black'}">You've won</p> &nbsp;
-          <p id="tada_floating-dialog_cashview" style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}"></p>
+          <p id="tada_floating-dialog_cashview" style="color: ${theme_colors[game_theme_style].first}"></p>
         </div>
         <div class="d-flex">
           <p style="color: ${game_theme_style==3 ? 'white' : 'black'}">and is reserved for</p>&nbsp;
-          <p id='tada-floating-dialog-countdownTime' class="tada-expire-time" style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}">15m : 20s</p>
+          <p id='tada-floating-dialog-countdownTime' class="tada-expire-time">15m : 20s</p>
         </div>
-        <button id="tada-floating-couponview-button" style="background-color: ${game_theme_style==2 ? '#ff5c6c' : game_theme_style==3 ? 'white' : '#29abe2'};
+        <button id="tada-floating-couponview-button" style="background-color: ${theme_colors[game_theme_style].second};
         color : ${game_theme_style ==3 ? 'black' : 'white'}; " data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
     </div>
-    <div class="tada_image_temp" style="background-image: ${game_theme_style == 2 ? 'url('+widget_url+'/success_mark_board2.svg)' : 'url('+widget_url+'/success_mark_board.svg)' }">
+    <div class="tada_image_temp" style="background-image: ${game_theme_style == 2 ? 'url('+widget_url+'/success_mark_board.svg)' : 'url('+widget_url+'/success_mark_board2.svg)' }">
       <img src="${widget_url}/floating-bar-icon.svg"/>
     </div>
     <!--Flowers falling -->
     <div id="tada-flower-falling"></div>
     <!--RemainerBar -->
-    <div class="tada_remaind_bar" style="background-color: ${game_theme_style==1 ? '#29abe2': game_theme_style==2 ? '#9a54d6' : 'black'}">
-      <div class="d-flex">
+    <div class="tada_remaind_bar" style="background-color: ${theme_colors[game_theme_style].first}">
+      <div class="d-flex tada_remaind_bar_children">
         <span>You've won</span>&nbsp;
-        <span id="tada_notifi_cash_view" style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}"></span>&nbsp;
+        <span id="tada_notifi_cash_view"></span>&nbsp;
         <span>and is reserved for</span>&nbsp;
-        <span id="tada_notifi_cash_remaind_time" class="tada-expire-time" style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}">15m : 20s</span>&nbsp;
+        <span id="tada_notifi_cash_remaind_time" class="tada-expire-time">15m : 20s</span>&nbsp;
       </div>
-      <button id="tada_ramaind_view_coupon_button" style="background-color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#ff5c6c' : 'white'};
-        color: ${game_theme_style==3 ? 'black' : 'white'};" data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
+      <button id="tada_ramaind_view_coupon_button" style="background-color: ${game_theme_style==3 ? theme_colors[0].second: theme_colors[game_theme_style].second}"
+        data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
+        <div id="tada_remained_notify_close" class="close circCont">
+          <button class="circle boxShadow" data-animation="fadeOut" data-remove="3000"/>
+        </div>
       <button id="tada_remained_notify_close" class="close">
-        <span aria-hidden="true" style="color: ${game_theme_style==3 ? 'white' : 'black'}" class='tada-dialog-close-button'>&times;</span>
+        <div class="tada-close-button-div">
+            <span aria-hidden="true">&times;</span>
+        </div>
       </button>
     </div>
     <!--Game Modal -->
@@ -272,7 +299,9 @@ function selectWidgetBySetting(widget) {
       <div class="modal-header">
         <img class="modal-title tada_game_start_title" id="exampleModalCenterTitle" src="${widget_url}/logo.svg"/>
         <button type="button" class="close tada-dialog-close-button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" style="color: ${game_theme_style==3 ? 'white':'black'}">&times;</span>
+          <div class="tada-close-button-div">
+            <span aria-hidden="true">&times;</span>
+          </div">
         </button>
       </div>
       <div class="modal-body tada-dialog-body">
@@ -284,14 +313,14 @@ function selectWidgetBySetting(widget) {
 	        <input type="email" class="form-control" id="tada_game_email_input" aria-describedby="emailHelp" placeholder="Enter your email address" required
             style="background-color : ${game_theme_style == 3 ? 'black' : 'white'}; color: ${game_theme_style == 3 ? 'white' : 'black'};">
 	        <button id="tada_spin_start_button" class="bubbly-button" value="spin"
-            style="background-color: ${game_theme_style==2 ? '#ff5c6c' : game_theme_style==3 ? 'white' : '#29abe2'};
+            style="background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].second};
             color : ${game_theme_style ==3 ? 'black' : 'white'}; ">SPIN</button>
         </div>
         <div class="tada-game-state-text-div">
-          <p class="tada-game-state-text" style="color: ${game_theme_style===2 ? '#ff5c6c' : '#ffa022'}" id="tada-game-state-first-text">Excited to see your discount?</p>
-          <p class="tada-game-state-text" style="color: ${game_theme_style===2 ? '#ff5c6c' : '#ffa022'}" id="tada-game-state-second-text">Let’s see what you got!</p>
+          <p class="tada-game-state-text" style="color: ${game_theme_style===3 ? theme_colors[1].first : theme_colors[game_theme_style].first}" id="tada-game-state-first-text">Excited to see your discount?</p>
+          <p class="tada-game-state-text" style="color: ${game_theme_style===3 ? theme_colors[1].first : theme_colors[game_theme_style].first}" id="tada-game-state-second-text">Let’s see what you got!</p>
         </div>
-        <p id="tada-game-count-number" style="color: ${game_theme_style===2 ? '#ff5c6c' : '#29abe2'}" >${game_start_time}</p>
+        <p id="tada-game-count-number" style="color: ${game_theme_style==3 ? theme_colors[1].second : theme_colors[1].second}" >${wheel_run_time}</p>
         <div class="d-flex tada-wheel-container">
         	<canvas id="canvas1" width="500" height="400"></canvas>
 			    <canvas id="canvas" width="500" height="400"></canvas>
@@ -299,25 +328,25 @@ function selectWidgetBySetting(widget) {
       </div>
       <div class="modal-body tada-dialog-body-success">
       	<p class="tada-game-spin-title1" style="color: ${game_theme_style==3 ? 'white':'black'}">Congratulations</p>
-        <div class="tada-success-maker-board" style="background-image: ${game_theme_style == 2 ? 'url('+widget_url+'/success_mark_board2.svg)' : 'url('+widget_url+'/success_mark_board.svg)' }">
+        <div class="tada-success-maker-board" style="background-image: ${game_theme_style == 2 ? 'url('+widget_url+'/success_mark_board.svg)' : 'url('+widget_url+'/success_mark_board2.svg)' }">
       		<p class="tada-success-maker-left-text col-4">You've </br>Win</p>
       		<div class="col-8 tada-success-maker-text-div col-8">
-      			<p id="tada-success-maker-text" style="color: ${game_theme_style===2 ? '#ff5c6c' : '#29abe2'}">$10 Cash</p>
+      			<p id="tada-success-maker-text" style="color: ${game_theme_style==3 ? theme_colors[1].second : theme_colors[game_theme_style].second}">$10 Cash</p>
       		</div>
       	</div>
       	<p class="tada-game-spin-text" style="color: ${game_theme_style==3 ? 'white':'black'}">Here’s your unique coupon! You can use it on any purchase in this store 🎉! Don’t wait too long, it expires soon.</p>
         <div class="tada-game-expiry d-flex">
         	<p class="tada-game-expiry-title" style="color: ${game_theme_style==3 ? 'white':'black'}">How long until expiry:</p>
-        	<p class="tada-game-expiry-time tada-expire-time" style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}">22:59:43</p>
+        	<p class="tada-game-expiry-time tada-expire-time" style="color: ${game_theme_style==3 ? theme_colors[1].first : theme_colors[game_theme_style].first}">22:59:43</p>
         </div>
         <div class="tada-game-body-divide"></div>
         <div class="tada-game-discount-code">
         	<p class="tada-game-discount-code-title" style="color: ${game_theme_style==3 ? 'white':'black'}">Your Discount Code is:</p>
-        	<p class="tada-game-discount-code-text" style="color: ${game_theme_style==1 ? '#f7931e': game_theme_style==2 ? '#9a54d6' : '#29abe2'}">SASDERWERT3H3G24</p>
+        	<p class="tada-game-discount-code-text" style="color: ${game_theme_style==3 ? theme_colors[1].first : theme_colors[game_theme_style].first}">SASDERWERT3H3G24</p>
         </div>
         <div class="tada_apply_my_account_parent">
           <button id="tada_apply_my_discount" data-dismiss="modal" aria-label="Close" class="close bubbly-button" value="spin"
-          style="background-color: ${game_theme_style==2 ? '#ff5c6c' : game_theme_style==3 ? 'white' : '#29abe2'};
+          style="background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].second};
           color : ${game_theme_style ==3 ? 'black' : 'white'}; ">APPLY MY DISCOUNT</button>
         </div>
       </div>

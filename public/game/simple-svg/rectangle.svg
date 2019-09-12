@@ -1,3 +1,4 @@
 <svg width="20" height="50" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <rect x="10" y="10" width="30" height="90" fill="#29abe2"/>
+  <style>.cls-confetti-theme-rectangle{fill:#29abe2;stroke:#29abe2;}</style>
+  <rect x="10" y="10" width="30" height="90" class="cls-confetti-theme-rectangle"/>
 </svg>

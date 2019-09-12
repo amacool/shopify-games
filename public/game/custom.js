@@ -5,9 +5,12 @@ var game_encouragement_text = ["What are you going to get?", "Let’s see what y
 var widget_url = window.global_widget_url;
 var couponText = '';
 var mobileMode = window.innerWidth > 520 ? false : true;
-var wheel_run_time = parseInt(window.game_start_time);
+var wheel_run_time = parseInt(window.wheel_run_time);
 var game_done = false;
 var expireTime = '';
+var window_width = window.innerWidth;
+var options = window.wheel_item.split(',');
+console.log(options);
 
 changeGameThemeStyle(game_theme_style);
 changeGameStartIconPosition(game_start_icon_position);
@@ -61,6 +64,8 @@ $('#tada_game_email_input').focusin(function() {
     });
     $(this).removeClass('jello-horizontal');
 })
+
+
 
 $('#tada-floating-couponview-button').click(function() {
     $('.tada-floating-dialog').css({
@@ -118,6 +123,14 @@ $('.tada_start_icon_div').click(function() {
   })
     //$('#tada-game-state-first-text').addClass('fadein-fadeout-animation');
 
+$('.tada-dialog-close-button').click (function () {
+  $("#tada-flower-falling").fadeOut("slow", function() {
+      $(this).css({
+          display: "none"
+      });
+  });
+});
+
 $('#tada_apply_my_discount').click(function() {
     game_done = true;
     // Remove the Open Dialog event
@@ -143,7 +156,7 @@ $('#tada_apply_my_discount').click(function() {
     // floating view couponText
     $('#tada_floating-dialog_cashview').html(couponText)
 })
-$('#tada_remained_notify_close').click(function() {
+$('.tada-close-button-div').click(function() {
     $(".tada_remaind_bar").fadeOut("slow", function() {
         $(this).css({
             opacity: 1
@@ -168,6 +181,22 @@ var animateButton = function(e) {
     }, 1700);
 };
 
+$(window).resize(function(){
+    window_width = window.innerWidth;
+    if (mobileMode) {
+        $('#canvas1').css({
+            'width': window_width - 30
+        });
+        $('#canvas').css({
+            'width': window_width - 30
+        });
+        $('.tada-wheel-container').css({
+            'max-height': (window_width - 30) / 2
+        })
+    }
+    changeGameStartIconPosition(game_start_icon_position);
+  });
+
 var bubblyButtons = document.getElementsByClassName("bubbly-button");
 
 for (var i = 0; i < bubblyButtons.length; i++) {
@@ -177,13 +206,13 @@ for (var i = 0; i < bubblyButtons.length; i++) {
 //Mobile responsive
 if (mobileMode) {
     $('#canvas1').css({
-        'width': window.innerWidth - 30
+        'width': window_width - 30
     });
     $('#canvas').css({
-        'width': window.innerWidth - 30
+        'width': window_width - 30
     });
     $('.tada-wheel-container').css({
-        'max-height': (window.innerWidth - 30) / 2
+        'max-height': (window_width - 30) / 2
     })
 }
 
@@ -212,13 +241,13 @@ function changeGameStartIconPosition(position) {
         case 3:
             $('#spinny_box').css({
                 'top': 'unset',
-                'left': window.innerWidth / 2 - 25 + 'px',
+                'left': window_width / 2 - 25 + 'px',
                 'top': '50px'
             });
-            if (window.innerWidth > 520) {
+            if (window_width > 520) {
                 $('.tada-floating-dialog').css({
                     'top': 'unset',
-                    'left': window.innerWidth / 2 + 35 + 'px',
+                    'left': window_width / 2 + 35 + 'px',
                     'top': '30px'
                 });
             } else
@@ -231,7 +260,6 @@ function changeGameStartIconPosition(position) {
     }
 }
 // Wheel Animation
-var options = ["$10 Cash", "40% OFF", "Not Luck Today", "Almost", "30% OFF", "$24 Cash", "Luck Today", "$20 Cash"];
 
 var startAngle = 0;
 var arc = (Math.PI / (options.length / 2));
@@ -270,7 +298,7 @@ function drawRouletteWheel() {
         ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, 500, 500);
 
-        ctx.strokeStyle = "#29abe2";
+        ctx.strokeStyle = window.theme_second_color;
         ctx.lineWidth = 0;
 
         ctx.font = 'bold 14px Open Sans';
@@ -308,7 +336,7 @@ function drawRouletteWheel() {
         ctx.stroke();
         ctx.beginPath();
         ctx.lineWidth = 10;
-        ctx.strokeStyle = "#ffa022";
+        ctx.strokeStyle = window.theme_first_color;
         ctx.arc(250, 250, outsideRadius, 0, 2 * Math.PI, false);
         ctx.stroke();
     }
@@ -323,11 +351,24 @@ ctx1 = canvas1.getContext("2d");
 make_base();
 
 function make_base() {
-    base_image = new Image();
-    base_image.src = widget_url + '/choose_pos.svg';
-    base_image.onload = function() {
-        ctx1.drawImage(base_image, 217, 40);
-    }
+  ctx1.beginPath();
+  var dy = 35;
+  var dx = 21;
+  var pos_x = 250;
+  var pos_y = 60;
+  // ctx1.strokeStyle = window.theme_first_color;
+  ctx1.shadowOffsetX = 3;
+  ctx1.shadowOffsetY = 3;
+  ctx1.shadowBlur = 5;
+  ctx1.shadowColor = "#00000063";
+  ctx1.beginPath();
+  ctx1.moveTo(pos_x, pos_y);
+  ctx1.lineTo(pos_x+dx, pos_y+dy*0.8);
+  ctx1.lineTo(pos_x, pos_y+dy*2);
+  ctx1.lineTo(pos_x-dx, pos_y+dy*0.8);
+  ctx1.lineTo(pos_x, pos_y);
+  ctx1.fillStyle = window.theme_first_color;
+  ctx1.fill();
 }
 
 function spin() {
@@ -342,21 +383,40 @@ function spin() {
         $('#tada_game_email_input').addClass('jello-horizontal');
         return;
     }
+    // $(".tada-dialog-mail-container").fadeOut("slow", function() {
+    //     $(this).css({
+    //         "opacity":"0"
+    //     });
+    // });
+    //
+    // $(".tada-game-state-text-div").fadeOut("slow", function() {
+    //     $(this).css({
+    //         "opacity":"0"
+    //     });
+    // });
     $('.tada-dialog-mail-container').css({
         "display": "none"
     });
-    $('.tada-game-state-text').css({
+
+    $('.tada-game-state-text-div').css({
         "display": "none"
     });
-    $('#tada-game-count-number').css({
-        "display": "block"
+
+
+    $("#tada-game-count-number").fadeIn("slow", function() {
+        $(this).css({
+            "display":"block"
+        });
     });
+    // $('#tada-game-count-number').css({
+    //     "display": "block"
+    // });
 
     var random = Math.floor(Math.random() * (game_encouragement_text.length + 1));
     $('.tada-game-spin-title').html(game_encouragement_text[random]);
     spinAngleStart = Math.random() * 10+20;
     spinTime = 200;
-    spinTimeTotal =Math.random() * 3 + (wheel_run_time-1)*1000;
+    spinTimeTotal = (wheel_run_time - 1) * 1000;
     $('#canvas').removeClass('breathing-animation');
     $('#canvas1').removeClass('breathing-animation');
     rotateWheel();
@@ -369,10 +429,11 @@ function showCountDownNumber () {
   timer.start();
   var timecount = wheel_run_time;
   $('#tada-game-count-number').html(wheel_run_time.toString());
+  $('#tada-game-count-number').css({"color" : window.theme_first_color});
   timer.addEventListener('secondsUpdated', function(e) {
       timecount--;
       if (timecount == 0) {
-        $('#tada-game-count-number').html('Good Today!');
+        $('#tada-game-count-number').html('0');
         $('#tada-game-count-number').css({
             "webkitAnimation": "none"
         });
@@ -381,6 +442,9 @@ function showCountDownNumber () {
                 "webkitAnimation": ''
             });
         }, 100);
+        // setTimeout(function() {
+        //   $("#tada-game-count-number").fadeOut("slow");
+        // }, 1000);
           timer.stop();
       } else {
           $('#tada-game-count-number').html(timecount.toString());
@@ -397,6 +461,9 @@ function showCountDownNumber () {
 }
 function rotateWheel() {
     spinTime += 20;
+    if(spinTime>(spinTimeTotal-300)) {
+      $("#tada-game-count-number").fadeOut("slow");
+    }
     if (spinTime >= spinTimeTotal) {
         stopRotateWheel();
         return;
@@ -458,18 +525,14 @@ function stopRotateWheel() {
         "display": "block"
     });
     $('.tada-success-maker-board').addClass('fade-in-custom');
-    setTimeout (function () {
-      //$('.tada-success-maker-board').css('transform', 'scale(2.5)');
-      $('.tada-success-maker-board').removeClass('fade-in-custom');
-      $('.tada-success-maker-board').addClass('bounce-top');
-    },1200);
     setTimeout(function() {
-      $('.tada-success-maker-board').removeClass('bounce-top');
+      $('.tada-success-maker-board').removeClass('fade-in-custom');
       $('.tada-success-maker-board').addClass('swirl-in-fwd-reverse');
       setTimeout(function() {
         $('.tada-success-maker-board').removeClass('swirl-in-fwd-reverse');
-      }, 2000);
-    }, 6000);
+        $('.tada-success-maker-board').addClass('breathing-animation');
+      }, 1200);
+    }, 4000);
     //expire time set
     expireTimeCountDown();
 
@@ -491,11 +554,14 @@ TweenLite.set("#tada-flower-falling", {
     perspective: 600
 })
 //TweenLite.set("img",{xPercent:"-50%",yPercent:"-50%"})
-var fireworkSVGPathArray = ["/simple-svg/circle.svg", "/simple-svg/polyline.svg", "/simple-svg/rectangle.svg", "/simple-svg/wave.svg"];
+var fireworkSVGPathArray = ["<svg width='50' height='50' version='1.1' xmlns='http://www.w3.org/2000/svg'><style>.cls-confetti-theme-wave{fill:#ff5c6c;stroke:#ff5c6c;}</style><path d='M20,10 Q40,5 50,30 T90,30' class='cls-confetti-theme-wave' stroke-width='5'/></svg>",
+                            "<svg width='50' height='50' version='1.1' xmlns='http://www.w3.org/2000/svg'><style>.cls-confetti-theme-polyline{fill:#ff7d00;stroke:#ff7d00;}</style><polyline points='60 10 65 20 70 15 75 30 80 25 85 90 90 35 5 50 110 45' stroke-width='10' class='cls-confetti-theme-polyline'/></svg>",
+                            "<svg width='50' height='20' version='1.1' xmlns='http://www.w3.org/2000/svg'><style>.cls-confetti-theme-circle{fill:#ff5c6c;stroke:#ff5c6c;}</style><ellipse cx='33' cy='30' rx='10' ry='22' class='cls-confetti-theme-circle'/></svg>",
+                            "<svg width='20' height='50' version='1.1' xmlns='http://www.w3.org/2000/svg'><style>.cls-confetti-theme-rectangle{fill:#29abe2;stroke:#29abe2;}</style><rect x='10' y='10' width='30' height='90' class='cls-confetti-theme-rectangle'/></svg>"];
 
 function showRandomFireworkSVG() {
     var random = Math.floor(Math.random() * (fireworkSVGPathArray.length));
-    $(".dot").css("background", 'url(' + widget_url + fireworkSVGPathArray[random] + ')');
+    $(".dot").css("background", "url(data:image/svg+xml;base64," +  fireworkSVGPathArray[random] + ")");
     //console.log(random);
     //$('.tada-game-state-text').html(fireworkSVGPathArray[random]);
 }
@@ -523,16 +589,17 @@ animm = function(elm) {
     });
 };
 
-var total = 120;
+var total = 220;
 var warp = document.getElementById("tada-flower-falling"),
-    w = window.innerWidth,
-    h = window.innerHeight;
+    w = window_width,
+    h = window_width;
 
 setTimeout(function() {
     for (i = 0; i < total; i++) {
         var Div = document.createElement('div');
         var random = Math.floor(Math.random() * (fireworkSVGPathArray.length));
-        Div.style.background = 'url(' + widget_url + fireworkSVGPathArray[random] + ')'; //("background", 'url('+ widget_url + fireworkSVGPathArray[random]+')');
+        var svgImg = window.btoa(fireworkSVGPathArray[random]);
+        Div.style.background = "url(data:image/svg+xml;base64," + svgImg + ")";//'url(' + widget_url + fireworkSVGPathArray[random] + ')'; //("background", 'url('+ widget_url + fireworkSVGPathArray[random]+')');
         //showRandomFireworkSVG();
         TweenLite.set(Div, {
             attr: {
