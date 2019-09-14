@@ -223,7 +223,8 @@ function selectWidgetBySetting(widget) {
   var game_start_icon_position = 3;
   var game_theme_style = 2;
   var wheel_run_time = 5;
-  var wheel_item = ["$10 Cash", "40% OFF", "Not Luck Today", "Almost", "30% OFF", "$24 Cash", "Luck Today", "$20 Cash", "Almost", "30% OFF", "$24 Cash", "Luck Today"];
+  var wheel_item = ["$10 Cash", "40% OFF"];
+  var progress_bar = true;
 
   var theme_first_color = game_theme_style==3 ? theme_colors[1].first:theme_colors[game_theme_style].first;
   var theme_second_color = game_theme_style==3 ? theme_colors[1].second:theme_colors[game_theme_style].second;
@@ -244,17 +245,26 @@ function selectWidgetBySetting(widget) {
     <script src="https://cdn.jsdelivr.net/npm/easytimer@1.1.1/dist/easytimer.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="${widget_url}/custom.js"></script>
+    <script src="${widget_url}/animation.js"></script>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
     <div id="tada_app_widget">
-      <div id="spinny_box">
-          <div class="tada_start_icon_div" data-toggle="modal" data-target="#gamestartmodal" >
-            <!--<img id="tada_start_icon" src="${game_theme_style===1 ? widget_url+'/default_start_icon.svg' : widget_url+'/attention_start_icon.svg'}"/>--!>
-            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31 30"><defs><style>.cls-1{fill:#ff5c6c;}.cls-2{fill:${game_theme_style===1 ? '#ff5c6c' : '#8e52ce'};}.cls-3{fill:${game_theme_style===1 ? '#ff5c6c' : '#8e52ce'};}.cls-4{fill:#fbb03b;}.cls-5{fill:${game_theme_style===1 ? '#e82d1a' : '#8e52ce'};}.cls-6{fill:#f4a63d;}.cls-7{fill:#e59739;}</style></defs><title>Game1 - spin</title>
-              <path class="cls-1" d="M23.27,3.84c-0.86-1.62-1.9-2.43-3.08-2.43-1.35,0-2.76,1.11-4.18,3.29-0.18.28-.35,0.56-0.51,0.83C15.34,5.26,15.17,5,15,4.7c-1.42-2.19-2.83-3.29-4.18-3.29-1.18,0-2.21.82-3.08,2.43a2.5,2.5,0,0,0-.1,2.59C8.18,7.36,9.43,8,11.43,8.34a24.1,24.1,0,0,0,4,.32h0.14a24.1,24.1,0,0,0,4-.32c2-.36,3.25-1,3.8-1.91a2.51,2.51,0,0,0-.1-2.59h0Z"/>
-              <path class="cls-2" fill=${game_theme_style===3 ? theme_colors[0].second : theme_colors[game_theme_style].second} d="M28.19,13.08A1.21,1.21,0,0,0,27,11.87H4a1.21,1.21,0,0,0-1.21,1.21V27.39A1.21,1.21,0,0,0,4,28.59H27a1.21,1.21,0,0,0,1.21-1.21V13.08h0Z"/>
-              <path class="cls-3" fill=${game_theme_style===3 ? theme_colors[0].second : theme_colors[game_theme_style].second} d="M30,14.09a1.21,1.21,0,0,1-1.21,1.21H2.21A1.21,1.21,0,0,1,1,14.09v-6A1.21,1.21,0,0,1,2.21,6.84H28.79A1.21,1.21,0,0,1,30,8.05v6h0Z"/><polygon class="cls-4" points="12.48 6.84 18.52 6.84 18.52 15.3 12.48 15.3 12.48 6.84 12.48 6.84"/><polygon class="cls-5" points="2.81 16.5 28.19 18.8 28.19 15.34 2.81 15.34 2.81 16.5 2.81 16.5"/><polygon class="cls-6" points="12.48 15.3 18.52 15.3 18.52 28.59 12.48 28.59 12.48 15.3 12.48 15.3"/><polygon class="cls-7" points="12.48 17.38 18.52 17.93 18.52 15.34 12.48 15.34 12.48 17.38 12.48 17.38"/></svg>
-          </div>
+      <div id="spinny_box" class="tada_start_icon_div" data-toggle="modal" data-target="#gamestartmodal">
+      <div role='button' class='retro-btn'>
+        <a class='btn tada-btn'>
+          <span class='btn-inner'>
+            <span class='content-wrapper'>
+
+              <svg class='btn-content' id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31 30"><defs><style>.cls-1{fill:#ff5c6c;}.cls-2{fill:${game_theme_style===1 ? '#ff5c6c' : '#8e52ce'};}.cls-3{fill:${game_theme_style===1 ? '#ff5c6c' : '#8e52ce'};}.cls-4{fill:#fbb03b;}.cls-5{fill:${game_theme_style===1 ? '#e82d1a' : '#8e52ce'};}.cls-6{fill:#f4a63d;}.cls-7{fill:#e59739;}</style></defs><title>Game1 - spin</title>
+                <path class="cls-1" d="M23.27,3.84c-0.86-1.62-1.9-2.43-3.08-2.43-1.35,0-2.76,1.11-4.18,3.29-0.18.28-.35,0.56-0.51,0.83C15.34,5.26,15.17,5,15,4.7c-1.42-2.19-2.83-3.29-4.18-3.29-1.18,0-2.21.82-3.08,2.43a2.5,2.5,0,0,0-.1,2.59C8.18,7.36,9.43,8,11.43,8.34a24.1,24.1,0,0,0,4,.32h0.14a24.1,24.1,0,0,0,4-.32c2-.36,3.25-1,3.8-1.91a2.51,2.51,0,0,0-.1-2.59h0Z"/>
+                <path class="cls-2" fill=${game_theme_style===3 ? theme_colors[0].second : theme_colors[game_theme_style].second} d="M28.19,13.08A1.21,1.21,0,0,0,27,11.87H4a1.21,1.21,0,0,0-1.21,1.21V27.39A1.21,1.21,0,0,0,4,28.59H27a1.21,1.21,0,0,0,1.21-1.21V13.08h0Z"/>
+                <path class="cls-3" fill=${game_theme_style===3 ? theme_colors[0].second : theme_colors[game_theme_style].second} d="M30,14.09a1.21,1.21,0,0,1-1.21,1.21H2.21A1.21,1.21,0,0,1,1,14.09v-6A1.21,1.21,0,0,1,2.21,6.84H28.79A1.21,1.21,0,0,1,30,8.05v6h0Z"/><polygon class="cls-4" points="12.48 6.84 18.52 6.84 18.52 15.3 12.48 15.3 12.48 6.84 12.48 6.84"/><polygon class="cls-5" points="2.81 16.5 28.19 18.8 28.19 15.34 2.81 15.34 2.81 16.5 2.81 16.5"/><polygon class="cls-6" points="12.48 15.3 18.52 15.3 18.52 28.59 12.48 28.59 12.48 15.3 12.48 15.3"/><polygon class="cls-7" points="12.48 17.38 18.52 17.93 18.52 15.34 12.48 15.34 12.48 17.38 12.48 17.38"/></svg>
+
+            </span>
+          </span>
+        </a>
+      </div>
+
       </div>
       <div class="tada-floating-dialog scale-in-center" style="background-color: ${game_theme_style==3 ? theme_colors[game_theme_style].first:'white'}">
         <div class="d-flex">
@@ -265,8 +275,10 @@ function selectWidgetBySetting(widget) {
           <p style="color: ${game_theme_style==3 ? 'white' : 'black'}">and is reserved for</p>&nbsp;
           <p id='tada-floating-dialog-countdownTime' class="tada-expire-time">15m : 20s</p>
         </div>
-        <button id="tada-floating-couponview-button" style="background-color: ${theme_colors[game_theme_style].second};
-        color : ${game_theme_style ==3 ? 'black' : 'white'}; " data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
+        <div class="tada-floating-dialog-button-div">
+          <button id="tada-floating-couponview-button" style="background-color: ${theme_colors[game_theme_style].second};
+          color : ${game_theme_style ==3 ? 'black' : 'white'}; " data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
+        </div>
     </div>
     <div class="tada_image_temp" style="background-image: ${game_theme_style == 2 ? 'url('+widget_url+'/success_mark_board.svg)' : 'url('+widget_url+'/success_mark_board2.svg)' }">
       <img src="${widget_url}/floating-bar-icon.svg"/>
@@ -312,13 +324,18 @@ function selectWidgetBySetting(widget) {
           <div id="snackbar">You have entered an invalid e-mail address. Please try again.</div>
 	        <input type="email" class="form-control" id="tada_game_email_input" aria-describedby="emailHelp" placeholder="Enter your email address" required
             style="background-color : ${game_theme_style == 3 ? 'black' : 'white'}; color: ${game_theme_style == 3 ? 'white' : 'black'};">
-	        <button id="tada_spin_start_button" class="bubbly-button" value="spin"
+	        <button id="tada_spin_start_button" value="spin"
             style="background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].second};
-            color : ${game_theme_style ==3 ? 'black' : 'white'}; box-shadow: 0 2px 13px ${theme_colors[game_theme_style].second};" >SPIN</button>
+            color : ${game_theme_style ==3 ? 'black' : 'white'}; box-shadow: 0 2px 13px ${theme_colors[game_theme_style].second};">SPIN</button>
+          <p class="tada-progress-bar-top-text" style="display: ${progress_bar ? 'block' : 'none'}">70% of the offers sold out, hurry up!</p>
+          <div class="tada-progress-bar" style="display: ${progress_bar ? 'block' : 'none'}">
+            <div class="tada-progress-value" style="width:40%; background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].first};">
+            </div>
+          </div>
         </div>
         <div class="tada-game-state-text-div">
-          <p class="tada-game-state-text" style="color: ${game_theme_style===3 ? theme_colors[1].first : theme_colors[game_theme_style].first}" id="tada-game-state-first-text">Excited to see your discount?</p>
-          <p class="tada-game-state-text" style="color: ${game_theme_style===3 ? theme_colors[1].first : theme_colors[game_theme_style].first}" id="tada-game-state-second-text">Let’s see what you got!</p>
+          <p class="tada-game-state-text" style="color: ${game_theme_style===3 ? theme_colors[1].second : theme_colors[game_theme_style].second}" id="tada-game-state-first-text">Excited to see your discount?</p>
+          <p class="tada-game-state-text" style="color: ${game_theme_style===3 ? theme_colors[1].second : theme_colors[game_theme_style].second}" id="tada-game-state-second-text">Let’s see what you got!</p>
         </div>
         <p id="tada-game-count-number" style="color: ${game_theme_style==3 ? theme_colors[1].second : theme_colors[1].second}" >${wheel_run_time}</p>
         <div class="d-flex tada-wheel-container">
@@ -345,7 +362,7 @@ function selectWidgetBySetting(widget) {
         	<p class="tada-game-discount-code-text" style="color: ${game_theme_style==3 ? theme_colors[1].first : theme_colors[game_theme_style].first}">SASDERWERT3H3G24</p>
         </div>
         <div class="tada_apply_my_account_parent">
-          <button id="tada_apply_my_discount" data-dismiss="modal" aria-label="Close" class="close bubbly-button" value="spin"
+          <button id="tada_apply_my_discount" data-dismiss="modal" aria-label="Close" class="close" value="spin"
           style="background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].second};
           color : ${game_theme_style ==3 ? 'black' : 'white'};  box-shadow: 0 2px 13px ${theme_colors[game_theme_style].second}; ">APPLY MY DISCOUNT</button>
         </div>

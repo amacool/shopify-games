@@ -20,22 +20,19 @@ function changeGameThemeStyle(game_theme) {
     switch (game_theme) {
         case 1:
             $('.tada_start_icon_div').css({
-                'background-color': '#f2f2f2',
                 'alignItems': 'center'
             });
             animation_sinnyBox();
             break;
         case 2:
             $('.tada_start_icon_div').css({
-                'background-image': 'url(' + widget_url + '/aattention_start_icon_back.svg)',
-                'height': '60px',
-                'boxShadow': 'unset'
+                'alignItems': 'center'
             });
             animation_sinnyBox();
             break;
         case 3:
             $('.tada_start_icon_div').css({
-                'background-color': '#f2f2f2',
+
                 'alignItems': 'center'
             });
             animation_sinnyBox();
@@ -298,7 +295,7 @@ function drawRouletteWheel() {
         ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, 500, 500);
 
-        ctx.strokeStyle = window.theme_second_color;
+        ctx.strokeStyle = window.theme_first_color;
         ctx.lineWidth = 0;
 
         ctx.font = 'bold 14px Open Sans';
@@ -336,7 +333,7 @@ function drawRouletteWheel() {
         ctx.stroke();
         ctx.beginPath();
         ctx.lineWidth = 10;
-        ctx.strokeStyle = window.theme_first_color;
+        ctx.strokeStyle = window.theme_second_color;
         ctx.arc(250, 250, outsideRadius, 0, 2 * Math.PI, false);
         ctx.stroke();
     }
@@ -367,7 +364,7 @@ function make_base() {
   ctx1.lineTo(pos_x, pos_y+dy*2);
   ctx1.lineTo(pos_x-dx, pos_y+dy*0.8);
   ctx1.lineTo(pos_x, pos_y);
-  ctx1.fillStyle = window.theme_first_color;
+  ctx1.fillStyle = window.theme_second_color;
   ctx1.fill();
 }
 
@@ -383,17 +380,7 @@ function spin() {
         $('#tada_game_email_input').addClass('jello-horizontal');
         return;
     }
-    // $(".tada-dialog-mail-container").fadeOut("slow", function() {
-    //     $(this).css({
-    //         "opacity":"0"
-    //     });
-    // });
-    //
-    // $(".tada-game-state-text-div").fadeOut("slow", function() {
-    //     $(this).css({
-    //         "opacity":"0"
-    //     });
-    // });
+
     $('.tada-dialog-mail-container').css({
         "display": "none"
     });
@@ -408,9 +395,7 @@ function spin() {
             "display":"block"
         });
     });
-    // $('#tada-game-count-number').css({
-    //     "display": "block"
-    // });
+
 
     var random = Math.floor(Math.random() * (game_encouragement_text.length + 1));
     $('.tada-game-spin-title').html(game_encouragement_text[random]);
@@ -429,7 +414,7 @@ function showCountDownNumber () {
   timer.start();
   var timecount = wheel_run_time;
   $('#tada-game-count-number').html(wheel_run_time.toString());
-  $('#tada-game-count-number').css({"color" : window.theme_first_color});
+  $('#tada-game-count-number').css({"color" : window.theme_second_color});
   timer.addEventListener('secondsUpdated', function(e) {
       timecount--;
       if (timecount == 0) {
@@ -442,9 +427,7 @@ function showCountDownNumber () {
                 "webkitAnimation": ''
             });
         }, 100);
-        // setTimeout(function() {
-        //   $("#tada-game-count-number").fadeOut("slow");
-        // }, 1000);
+
           timer.stop();
       } else {
           $('#tada-game-count-number').html(timecount.toString());
@@ -531,9 +514,13 @@ function stopRotateWheel() {
       setTimeout(function() {
         $('.tada-success-maker-board').removeClass('swirl-in-fwd-reverse');
         $('.tada-success-maker-board').addClass('breathing-animation');
-        $('#tada-flower-falling').fadeOut('slow');
-      }, 1200);
-    }, 4000);
+      }, 800);
+    }, 600);
+
+    //hide the flower Falling
+    setTimeout(function() {
+      $('#tada-flower-falling').fadeOut('slow');
+    }, 3500);
     //expire time set
     expireTimeCountDown();
 
@@ -591,7 +578,7 @@ animm = function(elm) {
     });
 };
 
-var total = 220;
+var total = 80;
 var warp = document.getElementById("tada-flower-falling"),
     w = window_width,
     h = window_width;
