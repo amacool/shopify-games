@@ -1,7 +1,7 @@
 var game_start_icon_position = parseInt(window.game_start_icon_position);
 var game_theme_style = parseInt(window.game_theme_style);
 var game_them_main_color = '#29abe2';
-var game_encouragement_text = ["What are you going to get?", "Let’s see what you got!", "Excited to see your discount?", "Feeling lucky today?", "Get a discount and apply it to this store!", "Spin me :)"];
+var game_encouragement_text = ["What are you going to get?", "Let’s see what you got!", "Excited to see your discount?", "Feeling lucky today?", "Get a discount and apply it to this store!", "Here's a discount."];
 var widget_url = window.global_widget_url;
 var couponText = '';
 var mobileMode = window.innerWidth > 520 ? false : true;
@@ -39,8 +39,6 @@ function changeGameThemeStyle(game_theme) {
             break;
     }
 }
-
-
 
 function showRandomEncouragementText(class_name) {
     var random = Math.floor(Math.random() * (game_encouragement_text.length + 1));
@@ -153,6 +151,7 @@ $('#tada_apply_my_discount').click(function() {
     // floating view couponText
     $('#tada_floating-dialog_cashview').html(couponText)
 })
+
 $('.tada-close-button-div').click(function() {
     $(".tada_remaind_bar").fadeOut("slow", function() {
         $(this).css({
@@ -160,6 +159,10 @@ $('.tada-close-button-div').click(function() {
         });
     });
 })
+
+// Progress Bar Percent position
+var progress_bar_value = parseInt($('#tada-progressbar-percent-number').html());
+$('.tada-progress-value').css({width:progress_bar_value+'%'});
 //////////Animation////////////////////////
 function animation_sinnyBox() {
     $("#spinny_box").animate({
@@ -369,6 +372,8 @@ function make_base() {
 }
 
 function spin() {
+  $('.tada-dialog-body').addClass('fade-out');
+  setTimeout(()=> {
     var email = $('#tada_game_email_input').val();
     if (!validateEmail(email)) {
         showNotification();
@@ -395,7 +400,8 @@ function spin() {
             "display":"block"
         });
     });
-
+    $('.tada-dialog-body').removeClass('fade-out');
+    $('.tada-dialog-body').addClass('fade-in');
 
     var random = Math.floor(Math.random() * (game_encouragement_text.length + 1));
     $('.tada-game-spin-title').html(game_encouragement_text[random]);
@@ -406,7 +412,18 @@ function spin() {
     $('#canvas1').removeClass('breathing-animation');
     rotateWheel();
     showCountDownNumber();
+  }, 500);
+}
 
+function resetNumberAnimation () {
+  $('#tada-game-count-number').css({
+      "webkitAnimation": "none"
+  });
+  setTimeout(() => {
+      $('#tada-game-count-number').css({
+          "webkitAnimation": ''
+      });
+  }, 30);
 }
 
 function showCountDownNumber () {
@@ -415,36 +432,30 @@ function showCountDownNumber () {
   var timecount = wheel_run_time;
   $('#tada-game-count-number').html(wheel_run_time.toString());
   $('#tada-game-count-number').css({"color" : window.theme_second_color});
+  $('#tada-game-count-number').css({
+      "webkitAnimation": "none"
+  });
   timer.addEventListener('secondsUpdated', function(e) {
       timecount--;
       if (timecount == 0) {
         $('#tada-game-count-number').html('0');
-        $('#tada-game-count-number').css({
-            "webkitAnimation": "none"
-        });
-        setTimeout(() => {
-            $('#tada-game-count-number').css({
-                "webkitAnimation": ''
-            });
-        }, 100);
-
-          timer.stop();
-      } else {
-          $('#tada-game-count-number').html(timecount.toString());
-          $('#tada-game-count-number').css({
-              "webkitAnimation": "none"
-          });
+        resetNumberAnimation ();
+        timer.stop();
+      } else if (timecount < 0) {
+        $('#tada-game-count-number').html('Lagging...');
+        resetNumberAnimation ();
+      }
+      else {
+        resetNumberAnimation ();
           setTimeout(() => {
-              $('#tada-game-count-number').css({
-                  "webkitAnimation": ''
-              });
-          }, 100);
+            $('#tada-game-count-number').html((timecount).toString());
+          }, 450);
       }
   });
 }
 function rotateWheel() {
     spinTime += 20;
-    if(spinTime>(spinTimeTotal-300)) {
+    if(spinTime>(spinTimeTotal+300)) {
       $("#tada-game-count-number").fadeOut("slow");
     }
     if (spinTime >= spinTimeTotal) {
@@ -601,7 +612,7 @@ setTimeout(function() {
         warp.appendChild(Div);
         animm(Div);
     }
-}, 4000);
+}, 7000);
 
 function R(min, max) {
     return min + Math.random() * (max - min)

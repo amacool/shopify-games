@@ -223,7 +223,7 @@ function selectWidgetBySetting(widget) {
   var game_start_icon_position = 3;
   var game_theme_style = 2;
   var wheel_run_time = 5;
-  var wheel_item = ["$10 Cash", "40% OFF"];
+  var wheel_item = ["$10 Cash", "40% OFF", "Not Luck Today", "ALmost", "30% OFF", "$30 Cach"];
   var progress_bar = true;
 
   var theme_first_color = game_theme_style==3 ? theme_colors[1].first:theme_colors[game_theme_style].first;
@@ -293,8 +293,10 @@ function selectWidgetBySetting(widget) {
         <span>and is reserved for</span>&nbsp;
         <span id="tada_notifi_cash_remaind_time" class="tada-expire-time">15m : 20s</span>&nbsp;
       </div>
-      <button id="tada_ramaind_view_coupon_button" style="background-color: ${game_theme_style==3 ? theme_colors[0].second: theme_colors[game_theme_style].second}"
-        data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
+      <div class="tada-remained_notify_button_container">
+        <button id="tada_ramaind_view_coupon_button" style="background-color: ${game_theme_style==3 ? theme_colors[0].second: theme_colors[game_theme_style].second}"
+          data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
+      </div>
         <div id="tada_remained_notify_close" class="close circCont">
           <button class="circle boxShadow" data-animation="fadeOut" data-remove="3000"/>
         </div>
@@ -317,8 +319,8 @@ function selectWidgetBySetting(widget) {
         </button>
       </div>
       <div class="modal-body tada-dialog-body">
-        <p class="tada-game-spin-title" style="color: ${game_theme_style==3 ? 'white':'black'}">Spin and Win</p>
-        <p class="tada-game-spin-text" style="color: ${game_theme_style==3 ? 'white':'black'}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</p>
+        <p class="tada-game-spin-title" style="color: ${game_theme_style==3 ? 'white':'black'}">Here's a discount</p>
+        <p class="tada-game-spin-text" style="color: ${game_theme_style==3 ? 'white':'black'}">Spin the wheel below and win a discount to use on any item on this store! What will you get?</p>
         <div class="tada-dialog-mail-container">
           <!--Email validation notification -->
           <div id="snackbar">You have entered an invalid e-mail address. Please try again.</div>
@@ -327,9 +329,9 @@ function selectWidgetBySetting(widget) {
 	        <button id="tada_spin_start_button" value="spin"
             style="background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].second};
             color : ${game_theme_style ==3 ? 'black' : 'white'}; box-shadow: 0 2px 13px ${theme_colors[game_theme_style].second};">SPIN</button>
-          <p class="tada-progress-bar-top-text" style="display: ${progress_bar ? 'block' : 'none'}">70% of the offers sold out, hurry up!</p>
+          <p class="tada-progress-bar-top-text" style="display: ${progress_bar ? 'block' : 'none'}"><span id="tada-progressbar-percent-number">70</span>% of our discounts have already been given, hurry up!</p>
           <div class="tada-progress-bar" style="display: ${progress_bar ? 'block' : 'none'}">
-            <div class="tada-progress-value" style="width:40%; background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].first};">
+            <div class="tada-progress-value" style="width:40%; background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].second};">
             </div>
           </div>
         </div>
@@ -346,7 +348,7 @@ function selectWidgetBySetting(widget) {
       <div class="modal-body tada-dialog-body-success">
       	<p class="tada-game-spin-title1" style="color: ${game_theme_style==3 ? 'white':'black'}">Congratulations</p>
         <div class="tada-success-maker-board" style="background-image: ${game_theme_style == 2 ? 'url('+widget_url+'/success_mark_board.svg)' : 'url('+widget_url+'/success_mark_board2.svg)' }">
-      		<p class="tada-success-maker-left-text col-4">You've </br>Win</p>
+      		<p class="tada-success-maker-left-text col-4">You've </br>Won</p>
       		<div class="col-8 tada-success-maker-text-div col-8">
       			<p id="tada-success-maker-text" style="color: ${game_theme_style==3 ? theme_colors[1].second : theme_colors[game_theme_style].second}">$10 Cash</p>
       		</div>
