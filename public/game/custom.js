@@ -372,19 +372,20 @@ function make_base() {
 }
 
 function spin() {
-    var email = $('#tada_game_email_input').val();
-    if (!validateEmail(email)) {
-      $('.tada-dialog-body').addClass('fade-out');
-      setTimeout(()=> {
-        showNotification();
-        $(this).removeClass('jello-horizontal');
-        $('#tada_game_email_input').css({
-            'box-shadow': '0 0 0 0.2rem #ec245257',
-            'border': '1px solid #ec245257'
-        });
-        $('#tada_game_email_input').addClass('jello-horizontal');
-        return;
-    }
+
+  var email = $('#tada_game_email_input').val();
+  if (!validateEmail(email)) {
+      showNotification();
+      $(this).removeClass('jello-horizontal');
+      $('#tada_game_email_input').css({
+          'box-shadow': '0 0 0 0.2rem #ec245257',
+          'border': '1px solid #ec245257'
+      });
+      $('#tada_game_email_input').addClass('jello-horizontal');
+      return;
+  }
+  $('.tada-dialog-body').addClass('fade-out');
+  setTimeout(()=> {
 
     $('.tada-dialog-mail-container').css({
         "display": "none"
