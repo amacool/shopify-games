@@ -43,12 +43,12 @@ for(var i = 0; i < buttons.length; i++) {
 //
 // ---Retro Submit Button---
 //
-var pButton = document.querySelector('.loader-button');
-
-// Click
-pButton.addEventListener('mousedown', function() {
-  this.classList.add('btn-active');
-});
-pButton.addEventListener('mouseup', function() {
-  this.classList.remove('btn-active');
-});
+// var pButton = document.querySelector('.loader-button');
+//
+// // Click
+// pButton.addEventListener('mousedown', function() {
+//   this.classList.add('btn-active');
+// });
+// pButton.addEventListener('mouseup', function() {
+//   this.classList.remove('btn-active');
+// });
