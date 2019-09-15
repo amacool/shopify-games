@@ -61,6 +61,7 @@
 	background-color: #29abe2;
 	font-family: "Open Sans";
 	padding: 7px;
+	transition: 0.4s all ease;
 	/* animation-name: none !important;
      */
 }

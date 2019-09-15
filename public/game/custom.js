@@ -372,10 +372,10 @@ function make_base() {
 }
 
 function spin() {
-  $('.tada-dialog-body').addClass('fade-out');
-  setTimeout(()=> {
     var email = $('#tada_game_email_input').val();
     if (!validateEmail(email)) {
+      $('.tada-dialog-body').addClass('fade-out');
+      setTimeout(()=> {
         showNotification();
         $(this).removeClass('jello-horizontal');
         $('#tada_game_email_input').css({
