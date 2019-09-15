@@ -329,7 +329,7 @@ function selectWidgetBySetting(widget) {
 	        <button id="tada_spin_start_button" value="spin"
             style="background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].second};
             color : ${game_theme_style ==3 ? 'black' : 'white'}; box-shadow: 0 2px 13px ${theme_colors[game_theme_style].second};">SPIN</button>
-          <p class="tada-progress-bar-top-text" style="display: ${progress_bar ? 'block' : 'none'}"><span id="tada-progressbar-percent-number">70</span>% of our discounts have already been given, hurry up!</p>
+          <p class="tada-progress-bar-top-text" style="display: ${progress_bar ? 'block' : 'none'}"><span id="tada-progressbar-percent-number">70</span>% of discounts have been given, hurry up!</p>
           <div class="tada-progress-bar" style="display: ${progress_bar ? 'block' : 'none'}">
             <div class="tada-progress-value" style="width:40%; background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].second};">
             </div>
