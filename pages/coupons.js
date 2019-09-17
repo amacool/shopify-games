@@ -202,7 +202,7 @@ class Coupons extends React.Component {
             return;
         }
 
-        fetch('https://dev-frontend-tada.myshopify.com/updateCoupon', {
+        fetch('https://dev-frontend-trytada.com/updateCoupon', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
