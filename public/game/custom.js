@@ -9,6 +9,7 @@ var wheel_run_time = parseInt(window.wheel_run_time);
 var game_done = false;
 var expireTime = '';
 var window_width = window.innerWidth;
+var window_height = window.innerHeight;
 var options = window.wheel_item.split(',');
 console.log(options);
 
@@ -73,6 +74,14 @@ $('#tada-floating-couponview-button').click(function() {
     })
 })
 
+$('#tada_ramaind_view_coupon_button').click(function() {
+  $(".tada_remaind_bar").fadeOut("slow", function() {
+      $(this).css({
+          opacity: 1
+      });
+  });
+})
+
 $('.tada_start_icon_div').click(function() {
     var floating_component = $('.tada-floating-dialog');
     if (game_done) {
@@ -95,28 +104,21 @@ $('.tada_start_icon_div').click(function() {
         }
     }
     $('.tada_game_modal').addClass('fade-in');
-    showRandomEncouragementText ('tada-game-state-first-text');
-    $('#tada-game-state-first-text').addClass('fadein-fadeout-animation');
+    showRandomEncouragementText ('tada-game-state-second-text');
+    var fade_text = $('#tada-game-state-second-text');
+    fade_text.addClass('fadein-fadeout-animation');
     setInterval(function () {
-      if (!$('#tada-game-state-first-text').hasClass('fadein-fadeout-animation')) {
-        showRandomEncouragementText ('tada-game-state-first-text');
-        $('#tada-game-state-second-text').removeClass('fadein-fadeout-animation');
-        $('#tada-game-state-first-text').addClass('fadein-fadeout-animation');
-      } else {
-        showRandomEncouragementText ('tada-game-state-second-text');
-        $('#tada-game-state-first-text').removeClass('fadein-fadeout-animation');
-        $('#tada-game-state-second-text').addClass('fadein-fadeout-animation');
-      }
-
+      showRandomEncouragementText ('tada-game-state-second-text');
+        fade_text.css({
+            "webkitAnimation": "none"
+        });
+        setTimeout(() => {
+            fade_text.css({
+                "webkitAnimation": ''
+            });
+        }, 30);
     }, 3000);
-    // setTimeout(function () {
-    //   setInterval(function () {
-    //     $('#tada-game-state-first-text').removeClass('fadein-fadeout-animation');
-    //     $('#tada-game-state-second-text').addClass('fadein-fadeout-animation');
-    //   }, 3000);
-    // }, 3000);
   })
-    //$('#tada-game-state-first-text').addClass('fadein-fadeout-animation');
 
 $('.tada-dialog-close-button').click (function () {
   $("#tada-flower-falling").fadeOut("slow", function() {
@@ -183,6 +185,8 @@ var animateButton = function(e) {
 
 $(window).resize(function(){
     window_width = window.innerWidth;
+    window_height = window.innerHeight;
+    mobileMode = window_width > 520 ? false : true;
     if (mobileMode) {
         $('#canvas1').css({
             'width': window_width - 30
@@ -193,6 +197,16 @@ $(window).resize(function(){
         $('.tada-wheel-container').css({
             'max-height': (window_width - 30) / 2
         })
+    } else {
+      $('#canvas1').css({
+          'width': 500
+      });
+      $('#canvas').css({
+          'width': 500
+      });
+      $('.tada-wheel-container').css({
+          'max-height': 250
+      })
     }
     changeGameStartIconPosition(game_start_icon_position);
   });
@@ -244,18 +258,11 @@ function changeGameStartIconPosition(position) {
                 'left': window_width / 2 - 25 + 'px',
                 'top': '50px'
             });
-            if (window_width > 520) {
-                $('.tada-floating-dialog').css({
-                    'top': 'unset',
-                    'left': window_width / 2 + 35 + 'px',
-                    'top': '30px'
-                });
-            } else
-                $('.tada-floating-dialog').css({
-                    'top': 'unset',
-                    'left': '15px',
-                    'top': '85px'
-                });
+            $('.tada-floating-dialog').css({
+                'top': 'unset',
+                'left': window_width / 2 - 140 + 'px',
+                'top': '120px'
+            });
             break;
     }
 }
@@ -405,7 +412,11 @@ function spin() {
     $('.tada-dialog-body').addClass('fade-in');
 
     var random = Math.floor(Math.random() * (game_encouragement_text.length + 1));
-    $('.tada-game-spin-title').html(game_encouragement_text[random]);
+    //randon text
+    //$('.tada-game-spin-title').html(game_encouragement_text[random]);
+    //state text
+    //$('.tada-game-spin-title').html(game_encouragement_text[random]);
+
     spinAngleStart = Math.random() * 10+20;
     spinTime = 200;
     spinTimeTotal = (wheel_run_time) * 1000;
@@ -593,7 +604,7 @@ animm = function(elm) {
 var total = 80;
 var warp = document.getElementById("tada-flower-falling"),
     w = window_width,
-    h = window_width;
+    h = window_height;
 
 setTimeout(function() {
     for (i = 0; i < total; i++) {
@@ -606,7 +617,7 @@ setTimeout(function() {
             attr: {
                 class: 'dot'
             },
-            x: R(0, w),
+            x: R(-200, w),
             y: R(-200, -150),
             z: R(-200, 200)
         });

@@ -297,9 +297,6 @@ function selectWidgetBySetting(widget) {
         <button id="tada_ramaind_view_coupon_button" style="background-color: ${game_theme_style==3 ? theme_colors[0].second: theme_colors[game_theme_style].second}"
           data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
       </div>
-        <div id="tada_remained_notify_close" class="close circCont">
-          <button class="circle boxShadow" data-animation="fadeOut" data-remove="3000"/>
-        </div>
       <button id="tada_remained_notify_close" class="close">
         <div class="tada-close-button-div">
             <span aria-hidden="true">&times;</span>
@@ -336,7 +333,6 @@ function selectWidgetBySetting(widget) {
           </div>
         </div>
         <div class="tada-game-state-text-div">
-          <p class="tada-game-state-text" style="color: ${game_theme_style===3 ? theme_colors[1].second : theme_colors[game_theme_style].second}" id="tada-game-state-first-text">Excited to see your discount?</p>
           <p class="tada-game-state-text" style="color: ${game_theme_style===3 ? theme_colors[1].second : theme_colors[game_theme_style].second}" id="tada-game-state-second-text">Let’s see what you got!</p>
         </div>
         <p id="tada-game-count-number" style="color: ${game_theme_style==3 ? theme_colors[1].second : theme_colors[1].second}" >${wheel_run_time}</p>
