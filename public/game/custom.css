@@ -1,6 +1,6 @@
 #gamestartmodal {
 	opacity: 1;
-	background: transparent;
+	background: #0000008c;
 }
 
 #tada_app_widget {
@@ -30,7 +30,7 @@
 	-webkit-animation: breathing 7s ease-out infinite normal;
     animation: breathing 7s ease-out infinite normal;
 }
-.tada-floating-dialog {
+.bootstrap-wrapper .tada-floating-dialog {
 	display: none;
 	flex-direction: column;
 	top: 50%;
@@ -45,12 +45,12 @@
 	box-shadow: 10px 10px 19px 0px rgba(133, 131, 133, 1);
 }
 
-.tada-floating-dialog p {
+.bootstrap-wrapper .tada-floating-dialog p {
 	font-size: 16px;
 	font-family: "Open Sans";
 }
 
-.tada-floating-dialog button {
+.bootstrap-wrapper .tada-floating-dialog button {
 	border-radius: 20px;
 	border: none;
 	outline: none !important;
@@ -65,7 +65,7 @@
 	/* animation-name: none !important;
      */
 }
-.tada-floating-dialog-button-div {
+.bootstrap-wrapper .tada-floating-dialog-button-div {
 		width: 100%;
 		display: flex;
 		justify-content: center;
@@ -121,17 +121,17 @@
 	align-items: center;
 }
 
-.modal-header {
+.bootstrap-wrapper .modal-header {
 	padding: 6px 0 !important;
 	margin: 0 15px;
 	min-height: 60px;
 }
 
-.tada_game_modal {
+.bootstrap-wrapper .tada_game_modal {
 	padding: 15px;
 }
 
-.tada_game_start_title {
+.bootstrap-wrapper .tada_game_start_title {
 	object-fit: contain;
 	height: 45px;
 	position: absolute;
@@ -149,7 +149,7 @@
 	display: none;
 }
 
-.dot {
+.bootstrap-wrapper .dot {
 	width: 50px;
 	height: 50px;
 	position: absolute;
@@ -184,7 +184,7 @@
 	width: 90%;
 }
 
-.tada_apply_my_account_parent {
+.bootstrap-wrapper .tada_apply_my_account_parent {
 	width: 70%;
 	display: flex;
 	align-items: center;
@@ -219,7 +219,7 @@
   width: 80%;
 }
 
-.tada-dialog-body {
+.bootstrap-wrapper .tada-dialog-body {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -229,7 +229,7 @@
 	overflow: hidden;
 }
 
-.tada-dialog-body-success {
+.bootstrap-wrapper .tada-dialog-body-success {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -239,7 +239,7 @@
 	display: none;
 }
 
-.tada-dialog-mail-container {
+.bootstrap-wrapper .tada-dialog-mail-container {
 	width: 75%;
 	justify-content: center;
 	display: flex;
@@ -248,11 +248,14 @@
 	margin-top: 25px;
 	align-items: center;
 }
-.tada-dialog-mail-container #tada_game_email_input {
+.bootstrap-wrapper .tada-dialog-mail-container #tada_game_email_input {
 	width: 90%;
+	height: 38px;
+	font-size: 17px;
+	font-family: "Open Sans";
 }
 
-.tada-game-spin-title {
+.bootstrap-wrapper .tada-game-spin-title {
 	text-align: center;
 	font-size: 36px;
 	color: black;
@@ -260,7 +263,7 @@
 	font-weight: bold;
 }
 
-.tada-game-spin-title1 {
+.bootstrap-wrapper .tada-game-spin-title1 {
 	text-align: center;
 	font-size: 36px;
 	color: black;
@@ -268,38 +271,40 @@
 	font-weight: bold;
 }
 
-.tada-game-spin-text {
+.bootstrap-wrapper .tada-game-spin-text {
 	text-align: center;
 	font-size: 16px;
 	margin: 0;
 	color: #666666;
 }
-
+.bootstrap-wrapper .tada-modal-custom {
+	padding-top: 10vh;
+}
 @media (min-width: 780px) {
-	.tada-modal-custom {
+	.bootstrap-wrapper .tada-modal-custom {
 		max-width: 700px !important;
 	}
 }
 
-.tada-modal-footer {
+.bootstrap-wrapper .tada-modal-footer {
 	justify-content: center !important;
 	padding: 0 !important;
 	align-items: center;
 	display: flex;
 }
-.tada-modal-footer a {
+.bootstrap-wrapper .tada-modal-footer a {
 	z-index: 2000;
 }
-.tada-modal-footer img {
+.bootstrap-wrapper .tada-modal-footer img {
 	margin-top: 10px;
 	height: 30px;
 	filter: grayscale(1);
 }
-.tada-modal-footer img:hover {
+.bootstrap-wrapper .tada-modal-footer img:hover {
 	 filter: unset;
 }
 
-.tada-wheel-container {
+.bootstrap-wrapper .tada-wheel-container {
 	max-height: 250px;
 	overflow: hidden;
 	flex-direction: column;
@@ -310,7 +315,7 @@
 	position: absolute;
 }
 
-.tada-game-state-text {
+.bootstrap-wrapper .tada-game-state-text {
 	font-size: 25px;
 	font-weight: bold;
 	color: #ffa022;
@@ -320,15 +325,16 @@
 	opacity: 0;
 
 }
-.tada-game-state-text-div {
+.bootstrap-wrapper .tada-game-state-text-div {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
 	justify-content: center;
 }
-.tada-game-state-text-div p {
+.bootstrap-wrapper .tada-game-state-text-div p {
 	text-align: center;
+	font-family: "Open Sans";
 }
 
 #tada-game-state-second-text {
@@ -355,39 +361,39 @@
 	        animation: rotate-vert-center 1s 1 both;
 }
 
-.tada-game-expiry {
+.bootstrap-wrapper .tada-game-expiry {
 	justify-content: center;
 	margin-top: 20px;
 }
 
-.tada-game-expiry-title {
+.bootstrap-wrapper .tada-game-expiry-title {
 	text-align: center;
 	font-size: 16px;
 	margin: 0;
 	color: #666666;
 }
 
-.tada-game-expiry-time {
+.bootstrap-wrapper .tada-game-expiry-time {
 	font-size: 17px;
 	font-weight: bold;
 	color: #f7931e;
 	padding-left: 5px;
 }
 
-.tada-game-discount-code-title {
+.bootstrap-wrapper .tada-game-discount-code-title {
 	text-align: center;
 	font-size: 16px;
 	color: #666666;
 }
 
-.tada-game-discount-code-text {
+.bootstrap-wrapper .tada-game-discount-code-text {
 	font-size: 25px;
 	font-weight: bold;
 	color: #f7931e;
 	text-align: center;
 }
 
-.tada-game-body-divide {
+.bootstrap-wrapper .tada-game-body-divide {
 	height: 1px;
 	background-color: black;
 	opacity: 0.2;
@@ -397,7 +403,7 @@
 	margin-top: 1rem;
 }
 
-.tada-success-maker-board {
+.bootstrap-wrapper .tada-success-maker-board {
 	background-size: contain;
 	background-repeat: no-repeat;
 	display: flex;
@@ -408,21 +414,23 @@
 	padding-bottom: 30px;
 }
 
-.tada-success-maker-left-text {
+.bootstrap-wrapper .tada-success-maker-left-text {
 	color: white;
 	font-size: 25px;
 	font-weight: bold;
 	text-align: center;
 	margin: 0;
+	width: 34%;
 }
 
-.tada-success-maker-text-div {
+.bootstrap-wrapper .tada-success-maker-text-div {
 	display: flex;
 	justify-content: center;
+	width: 66%;
 }
 
 #tada-success-maker-text {
-	font-size: 25px;
+	font-size: 23px;
 	font-weight: bold;
 	color: #29abe2;
 	text-align: center;
@@ -436,7 +444,7 @@
 	box-shadow: -8px 8px 5px 2px rgba(0, 0, 0, 0.25);
 }
 
-.tada_remaind_bar {
+.bootstrap-wrapper .tada_remaind_bar {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
@@ -457,7 +465,7 @@
 	font-weight: bold;
 }
 
-.tada_remaind_bar_children span {
+.bootstrap-wrapper .tada_remaind_bar_children span {
 	font-size: 16px;
 	color: white;
 	font-family: "Open Sans";
@@ -499,22 +507,24 @@
 	/* animation-name: none !important;
      */
 }
-
-.tada_image_temp {
+.bootstrap-wrapper .d-flex {
+	display: flex;
+}
+.bootstrap-wrapper .tada_image_temp {
 	width: 0;
 	height: 0;
 	z-index: 0;
 	opacity: 0;
 }
 
-.tada_image_temp img {
+.bootstrap-wrapper .tada_image_temp img {
 	width: 0;
 	height: 0;
 	opacity: 0;
 }
 
-.tada-close-button-div span {
-	height: 25px;
+.bootstrap-wrapper .tada-close-button-div span {
+	height: 20px;
 	font-size: 20px;
 }
 
@@ -549,12 +559,25 @@
 }
 @media (max-width: 520px) {
 
-	.tada-close-button-div span {
-		height: 24px;
+	.bootstrap-wrapper .tada-close-button-div span {
+		height: 20px;
 		font-size: 20px!important;
 		font-weight: 500;
 	}
 
+#tada_spin_start_button {
+	padding: 5px;
+	font-size:13px;
+}
+.bootstrap-wrapper .tada-progress-bar {
+	width: 100%;
+	border-radius: 30px;
+	height: 20px;
+	background-color: #e6e6e6;
+	-webkit-box-shadow: 2px 2px 2px 0px rgba(232,232,232,1);
+	-moz-box-shadow: 2px 2px 2px 0px rgba(232,232,232,1);
+	box-shadow: 2px 2px 2px 0px rgba(232,232,232,1);
+}
 	#snackbar {
 	  visibility: hidden;
 	  min-width: 100%;
@@ -571,55 +594,57 @@
 	  font-size: 17px;
 	}
 
-	.tada-dialog-body {
+	.bootstrap-wrapper .tada-dialog-body {
 		width: 100%;
 	}
-	.tada-dialog-mail-container {
+	.bootstrap-wrapper .tada-dialog-mail-container {
 		width: 100%;
 	}
-	.tada-game-spin-title {
+	.bootstrap-wrapper .tada-game-spin-title {
 		font-size: 26px;
 	}
-	.tada-modal-custom {
+	.bootstrap-wrapper .tada-modal-custom {
 		margin: 0 !important;
 	}
-	.tada_game_modal {
+	.bootstrap-wrapper .tada_game_modal {
 		position: fixed !important;
 		bottom: 0 !important;
 		overflow: hidden;
 		padding-bottom: 5px !important;
 		padding-top: 5px !important;
+		width: 100%;
 	}
 	#gamestartmodal {
 		-webkit-transform: none;
 		transform: none;
+		background: #0000008a;
 	}
-	.tada-game-spin-text {
+	.bootstrap-wrapper .tada-game-spin-text {
 		font-size: 14px;
 	}
-	.tada-game-spin-title1 {
+	.bootstrap-wrapper .tada-game-spin-title1 {
 		font-size: 26px;
 	}
-	.tada-dialog-body-success {
+	.bootstrap-wrapper .tada-dialog-body-success {
 		width: 100%;
 	}
-	.tada-success-maker-board {
+	.bootstrap-wrapper .tada-success-maker-board {
 		width: 100%;
 		background-position: center;
 	}
-	.tada-game-discount-code-text {
+	.bootstrap-wrapper .tada-game-discount-code-text {
 		font-size: 17px;
 	}
-	.tada-game-expiry-title {
+	.bootstrap-wrapper .tada-game-expiry-title {
 		font-size: 14px;
 	}
-	.tada-game-discount-code-title {
+	.bootstrap-wrapper .tada-game-discount-code-title {
 		font-size: 14px;
 	}
-	.tada_apply_my_account_parent {
+	.bootstrap-wrapper .tada_apply_my_account_parent {
 		width: 100%;
 	}
-	.tada-success-maker-left-text {
+	.bootstrap-wrapper .tada-success-maker-left-text {
 		font-size: 20px;
 	}
 	#tada-success-maker-text {
@@ -628,16 +653,16 @@
 	#tada_apply_my_discount {
 		font-size: 13px;
 	}
-	.tada-dialog-body-success {
+	.bootstrap-wrapper .tada-dialog-body-success {
 		padding-top: 5px !important;
 	}
-	.tada-game-spin-title1 {
+	.bootstrap-wrapper .tada-game-spin-title1 {
 		margin-bottom: 5px;
 	}
-	.tada-game-expiry {
+	.bootstrap-wrapper .tada-game-expiry {
 		margin-top: 5px;
 	}
-	.tada-game-body-divide {
+	.bootstrap-wrapper .tada-game-body-divide {
 		width: 70%;
 		margin-bottom: 5px;
 		margin-top: 5px;
@@ -648,19 +673,31 @@
 	#tada_apply_my_discount {
 		margin-top: 5px;
 	}
-	.tada-modal-footer img {
+	.bootstrap-wrapper .tada-modal-footer img {
 		margin-top: 5px;
 	}
-	.tada_remaind_bar {
+	.bootstrap-wrapper .tada_remaind_bar {
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 	}
-	.tada-game-state-text {
-		font-size: 23px;
+	.bootstrap-wrapper .tada-game-state-text {
+		font-size: 16px;
 		margin-top: 10px;
 	}
-	.tada-game-spin-title {
+	.bootstrap-wrapper .modal-header {
+		min-height: 50px;
+	}
+	.bootstrap-wrapper .tada_game_start_title {
+		height: 35px;
+	}
+	.tada-progress-bar-top-text {
+			font-size: 14px;
+	}
+	.tada-progress-bar-top-text {
+		padding-top: 15px;
+	}
+	.bootstrap-wrapper .tada-game-spin-title {
 		margin-bottom: 10px;
 	}
 	.tada-dialog-mail-container {

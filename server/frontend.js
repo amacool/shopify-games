@@ -249,6 +249,7 @@ function selectWidgetBySetting(widget) {
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
     <div id="tada_app_widget">
+    <div class="bootstrap-wrapper">
       <div id="spinny_box" class="tada_start_icon_div" data-toggle="modal" data-target="#gamestartmodal">
       <div role='button' class='retro-btn'>
         <a class='btn tada-btn'>
@@ -368,12 +369,13 @@ function selectWidgetBySetting(widget) {
       <div class="modal-footer tada-modal-footer">
         <a href="https://trytada.com" target="_blank"><img src="${widget_url}/game_dialog_button_icon.svg" /></a>
       </div>
+      </div>
     </div>
   </div>
 </div>
 <link rel="stylesheet" href="${widget_url}/custom.css"/>
 <link rel="stylesheet" href="${widget_url}/bubbly-button.css"/>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="${widget_url}/tada-bootstrap.css"/>
     `;
     }
     return html;
