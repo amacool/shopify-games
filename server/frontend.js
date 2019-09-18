@@ -241,15 +241,18 @@ function selectWidgetBySetting(widget) {
       window.theme_second_color = "${theme_second_color}";
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenLite.min.js"></script>
-    <script src="${widget_url}/TweenMax.min.js"></script>
+    <script src="${widget_url}/tadaFire.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/easytimer@1.1.1/dist/easytimer.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="${widget_url}/custom.js"></script>
-    <script src="${widget_url}/animation.js"></script>
+    <script src="${widget_url}/tadaMain.js"></script>
+    <script src="${widget_url}/tadaAnimation.js"></script>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    <link rel="stylesheet" href="${widget_url}/tadaMain.css"/>
+    <link rel="stylesheet" href="${widget_url}/tadaBubbly.css"/>
+    <link rel="stylesheet" href="${widget_url}/tadaStyle.css"/>
 
     <div id="tada_app_widget">
-    <div class="bootstrap-wrapper">
+    <div class="tada-wheel-wrapper">
       <div id="spinny_box" class="tada_start_icon_div" data-toggle="modal" data-target="#gamestartmodal">
       <div role='button' class='retro-btn'>
         <a class='btn tada-btn'>
@@ -373,9 +376,6 @@ function selectWidgetBySetting(widget) {
     </div>
   </div>
 </div>
-<link rel="stylesheet" href="${widget_url}/custom.css"/>
-<link rel="stylesheet" href="${widget_url}/bubbly-button.css"/>
-<link rel="stylesheet" href="${widget_url}/tada-bootstrap.css"/>
     `;
     }
     return html;

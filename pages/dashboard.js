@@ -11,7 +11,7 @@ class Dashboard extends React.Component {
   state = { widgets: [], showPopup: false, index: 0, conversionRating: 0, totalEmail: 0, totalSales:0, graphData: 0, fromDate: 'Jan 1, 2019', toDate: 'Jan 1, 2022', isDropdown: false, selectedWidget: -1, duplicatedName: '', showDuplicate: false, showDeleteModal: false };
 
   componentDidMount = () => {
-    fetch(`https://1b4a266b.ngrok.io/getDashboardInfo`, {
+    fetch(`https://dev-frontend.trytada.com/getDashboardInfo`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -295,7 +295,7 @@ class Dashboard extends React.Component {
         return;
       }
     }
-    fetch('https://1b4a266b.ngrok.io/duplicateWidget', {
+    fetch('https://dev-frontend.trytada.com/duplicateWidget', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -348,7 +348,7 @@ class Dashboard extends React.Component {
 
   pauseWidget = (key) => {
     var { widgets } = this.state;
-    fetch(`https://1b4a266b.ngrok.io/pauseWidget`, {
+    fetch(`https://dev-frontend.trytada.com/pauseWidget`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -383,7 +383,7 @@ class Dashboard extends React.Component {
   deleteWidget = () => {
     const key = Cookies.get('delete_index');
     var widgets = this.state.widgets;
-    fetch(`https://1b4a266b.ngrok.io/deleteWidget`, {
+    fetch(`https://dev-frontend.trytada.com/deleteWidget`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
