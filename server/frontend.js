@@ -231,6 +231,7 @@ function selectWidgetBySetting(widget) {
   if(widget.type == 0) {
     var id = widget.id;
     html = `
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <script>
       window.global_widget_url = "${widget_url}";
       window.game_start_icon_position = "${game_start_icon_position}";
@@ -241,15 +242,11 @@ function selectWidgetBySetting(widget) {
       window.theme_second_color = "${theme_second_color}";
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenLite.min.js"></script>
-    <script src="${widget_url}/tadaFire.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/easytimer@1.1.1/dist/easytimer.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="${widget_url}/tadaMain.js"></script>
-    <script src="${widget_url}/tadaAnimation.js"></script>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" href="${widget_url}/tadaMain.css"/>
-    <link rel="stylesheet" href="${widget_url}/tadaBubbly.css"/>
-    <link rel="stylesheet" href="${widget_url}/tadaStyle.css"/>
 
     <div id="tada_app_widget">
     <div class="tada-wheel-wrapper">
@@ -370,7 +367,7 @@ function selectWidgetBySetting(widget) {
         </div>
       </div>
       <div class="modal-footer tada-modal-footer">
-        <a href="https://trytada.com" target="_blank"><img src="${widget_url}/game_dialog_button_icon.svg" /></a>
+        <a href="https://trytada.com" target="_blank"><img src="${widget_url}/gameDialogButtonIcon.svg" /></a>
       </div>
       </div>
     </div>
