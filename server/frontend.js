@@ -220,10 +220,10 @@ function selectWidgetBySetting(widget) {
     }
   ];
   var widget_url = `${TUNNEL_URL}/game`;
-  var game_start_icon_position = 3;
+  var game_start_icon_position = 1;
   var game_theme_style = 2;
   var wheel_run_time = 5;
-  var wheel_item = ["$10 Cash", "40% OFF", "Not Luck Today", "ALmost", "30% OFF", "$30 Cach"];
+  var wheel_item = ["$10 Cash", "40% OFF", "Not Luck Today", "Almost", "30% OFF", "$30 Cach"];
   var progress_bar = true;
 
   var theme_first_color = game_theme_style==3 ? theme_colors[1].first:theme_colors[game_theme_style].first;
@@ -241,11 +241,7 @@ function selectWidgetBySetting(widget) {
       window.theme_first_color = "${theme_first_color}";
       window.theme_second_color = "${theme_second_color}";
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenLite.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/easytimer@1.1.1/dist/easytimer.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="${widget_url}/tadaMain.js"></script>
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" href="${widget_url}/tadaMain.css"/>
 
     <div id="tada_app_widget">
