@@ -105,6 +105,7 @@
 
 .tada-wheel-wrapper .tada-floating-dialog p {
   font-size: 16px;
+  margin:0;
   font-family: "Open Sans";
 }
 
@@ -130,6 +131,7 @@
   justify-content: center;
   align-items: center;
   transition: 0.4s all ease;
+  margin-top: 25px;
 }
 
 .tada-floating-dialog button:hover {
@@ -3424,7 +3426,7 @@
 .tada-wheel-wrapper .pull-right{float:right !important}
 .tada-wheel-wrapper .pull-left{float:left !important}
 .tada-wheel-wrapper .hide{display:none !important}
-.tada-wheel-wrapper .show{display:block !important; height: 103vh;}
+.tada-wheel-wrapper .show{display:block !important; height: 106vh;}
 .tada-wheel-wrapper .invisible{visibility:hidden}
 .tada-wheel-wrapper .text-hide{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0}
 .tada-wheel-wrapper .hidden{display:none !important}

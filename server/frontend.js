@@ -220,7 +220,7 @@ function selectWidgetBySetting(widget) {
     }
   ];
   var widget_url = `${TUNNEL_URL}/game`;
-  var game_start_icon_position = 1;
+  var game_start_icon_position = 3;
   var game_theme_style = 2;
   var wheel_run_time = 5;
   var wheel_item = ["$10 Cash", "40% OFF", "Not Luck Today", "Almost", "30% OFF", "$30 Cach"];
