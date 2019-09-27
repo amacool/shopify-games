@@ -241,9 +241,8 @@ function selectWidgetBySetting(widget) {
       window.theme_first_color = "${theme_first_color}";
       window.theme_second_color = "${theme_second_color}";
     </script>
-    <script src="${widget_url}/tadaMain.js"></script>
     <link rel="stylesheet" href="${widget_url}/tadaMain.css"/>
-
+    <script src="${widget_url}/tadaMain.js"></script>
     <div id="tada_app_widget">
     <div class="tada-wheel-wrapper">
       <div id="spinny_box" class="tada_start_icon_div" data-toggle="modal" data-target="#gamestartmodal">
@@ -313,6 +312,7 @@ function selectWidgetBySetting(widget) {
         </button>
       </div>
       <div class="modal-body tada-dialog-body">
+      <div class="tada-modal-top-section">
         <p class="tada-game-spin-title" style="color: ${game_theme_style==3 ? 'white':'black'}">Here's a discount</p>
         <p class="tada-game-spin-text" style="color: ${game_theme_style==3 ? 'white':'black'}">Spin the wheel below and win a discount to use on any item on this store! What will you get?</p>
         <div class="tada-dialog-mail-container">
@@ -329,16 +329,20 @@ function selectWidgetBySetting(widget) {
             </div>
           </div>
         </div>
+      </div>
+      <div class="tada-modal-bottom-section">
         <div class="tada-game-state-text-div">
           <p class="tada-game-state-text" style="color: ${game_theme_style===3 ? theme_colors[1].second : theme_colors[game_theme_style].second}" id="tada-game-state-second-text">Let’s see what you got!</p>
         </div>
         <p id="tada-game-count-number" style="color: ${game_theme_style==3 ? theme_colors[1].second : theme_colors[1].second}" >${wheel_run_time}</p>
         <div class="d-flex tada-wheel-container">
-        	<canvas id="canvas1" width="500" height="400"></canvas>
-			    <canvas id="canvas" width="500" height="400"></canvas>
+        	<canvas id="canvas1" width="500" height="500"></canvas>
+			    <canvas id="canvas" width="500" height="500"></canvas>
         </div>
       </div>
+      </div>
       <div class="modal-body tada-dialog-body-success">
+      <div class="tada-success-top-section">
       	<p class="tada-game-spin-title1" style="color: ${game_theme_style==3 ? 'white':'black'}">Congratulations</p>
         <div class="tada-success-maker-board" style="background-image: ${game_theme_style == 2 ? 'url('+widget_url+'/success_mark_board.svg)' : 'url('+widget_url+'/success_mark_board2.svg)' }">
       		<p class="tada-success-maker-left-text col-4">You've </br>Won</p>
@@ -346,6 +350,8 @@ function selectWidgetBySetting(widget) {
       			<p id="tada-success-maker-text" style="color: ${game_theme_style==3 ? theme_colors[1].second : theme_colors[game_theme_style].second}">$10 Cash</p>
       		</div>
       	</div>
+      </div>
+      <div class="tada-success-bottom-section">
       	<p class="tada-game-spin-text" style="color: ${game_theme_style==3 ? 'white':'black'}">Here’s your unique coupon! You can use it on any purchase in this store 🎉! Don’t wait too long, it expires soon.</p>
         <div class="tada-game-expiry d-flex">
         	<p class="tada-game-expiry-title" style="color: ${game_theme_style==3 ? 'white':'black'}">How long until expiry:</p>
@@ -360,6 +366,7 @@ function selectWidgetBySetting(widget) {
           <button id="tada_apply_my_discount" data-dismiss="modal" aria-label="Close" class="close" value="spin"
           style="background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].second};
           color : ${game_theme_style ==3 ? 'black' : 'white'};  box-shadow: 0 2px 13px ${theme_colors[game_theme_style].second}; ">APPLY MY DISCOUNT</button>
+        </div>
         </div>
       </div>
       <div class="modal-footer tada-modal-footer">
