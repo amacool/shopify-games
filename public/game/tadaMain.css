@@ -372,6 +372,12 @@
   animation: flickerAnimation 3s;
 }
 
+.fadein-fadeout-animation5 {
+  -webkit-animation: flickerAnimation 5s;
+  -moz-animation: flickerAnimation 5s;
+  -o-animation: flickerAnimation 5s;
+  animation: flickerAnimation 5s;
+}
 #tada-game-count-number {
   text-align: center;
   font-family: "Open Sans";
@@ -793,7 +799,7 @@
 }
 
 @media only screen
-and (max-device-width : 750px)
+and (max-device-width : 850px)
 and (orientation : landscape) {
   .tada-wheel-wrapper .tada-success-maker-left-text {
     font-size: 18px;
@@ -811,8 +817,9 @@ and (orientation : landscape) {
     display: block;
     transform: scale(1);
   }
-  .tada-wheel-wrapper .modal-dialog {
-    margin: 35px;
+  .tada-wheel-wrapper .tada-modal-custom-parent .tada-modal-custom {
+    margin: 0 auto;
+    margin-top: 50px;
   }
   .tada-wheel-wrapper .tada-dialog-body {
     width:100%;
@@ -876,9 +883,6 @@ and (orientation : landscape) {
   .tada-wheel-wrapper .modal-header {
     min-height:48px;
   }
-  .tada-wheel-wrapper .modal-dialog {
-    margin-top: 30px !important;
-  }
   .tada-wheel-wrapper .tada-dialog-body-success {
     flex-direction: row;
     width: 100%;
@@ -922,6 +926,14 @@ and (orientation : landscape) {
   }
 }
 
+@media only screen
+and (max-device-width : 720px)
+and (orientation : landscape){
+  .tada-wheel-wrapper .tada-modal-custom-parent .tada-modal-custom {
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+}
 .tada-close-button-div {
   border: 1px solid #a0a0a0;
   border-radius: 50%;
@@ -964,6 +976,10 @@ and (orientation : landscape) {
 .fade-in {
   -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
   animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+.fade-in5 {
+  -webkit-animation: fade-in 2.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  animation: fade-in 2.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
 .fade-in-custom {

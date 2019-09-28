@@ -12,6 +12,7 @@ var window_width = window.innerWidth;
 var window_height = window.innerHeight;
 var options = window.wheel_item.split(',');
 var wheelStopState = false;
+var randomTextNumber = 0;
 
 changeGameThemeStyle(game_theme_style);
 changeGameStartIconPosition(game_start_icon_position);
@@ -38,7 +39,7 @@ changeDialogPosition();
 function displaySizeInit() {
   window_width = window.innerWidth;
 	window_height = window.innerHeight;
-  landscapeMode = window.innerWidth > window.innerHeight && window_height < 520
+  landscapeMode = window.innerWidth > window.innerHeight && window_height < 850
 	mobileMode = window_width > 520 ? false : true;
   if(window.innerWidth>520 && window.innerHeight<780 && (!landscapeMode)) {
     $('.tada-modal-custom').css({'transform': 'scale('+window.innerHeight/780+')'});
@@ -66,6 +67,13 @@ function displaySizeInit() {
 		$('.tada-wheel-container').css({
 			'max-height': window_width/4
 		})
+    if(window_height < 380) {
+      $('.tada-modal-custom').css({'margin-top': '30px'});
+    } else if(window_width < 720){
+      $('.tada-modal-custom').css({'margin-top': '30px'});
+    } else {
+      $('.tada-modal-custom').css({'margin-top': '50px'});
+    }
   } else {
 		$('#canvas1').css({
 			'width': 500
@@ -111,8 +119,15 @@ function changeGameThemeStyle(game_theme) {
 }
 
 function showRandomEncouragementText(class_name) {
-	var random = Math.floor(Math.random() * (game_encouragement_text.length + 1));
-	$('#' + class_name).html(game_encouragement_text[random]);
+	var random = Math.floor(Math.random() * (game_encouragement_text.length));
+  if (randomTextNumber == random) {
+    if (random < 1)
+      randomTextNumber = random+1;
+    else randomTextNumber = random-1;
+  }
+  else
+    randomTextNumber = random;
+	$('#' + class_name).html(game_encouragement_text[randomTextNumber]);
 }
 
 ///Email Validation
@@ -171,11 +186,11 @@ $('.tada_start_icon_div').click(function () {
 			});
 		}
 	}
-  if(!$('.tada_game_modal').hasClass('fade-in')) {
-    $('.tada_game_modal').addClass('fade-in');
+  if(!$('.tada_game_modal').hasClass('fade-in5')) {
+    $('.tada_game_modal').addClass('fade-in5');
     showRandomEncouragementText('tada-game-state-second-text');
   	var fade_text = $('#tada-game-state-second-text');
-  	fade_text.addClass('fadein-fadeout-animation');
+  	fade_text.addClass('fadein-fadeout-animation5');
   	setInterval(function () {
   		showRandomEncouragementText('tada-game-state-second-text');
   		fade_text.css({
@@ -186,7 +201,7 @@ $('.tada_start_icon_div').click(function () {
   				"webkitAnimation": ''
   			});
   		}, 30);
-  	}, 3000);
+  	}, 5000);
   }
 })
 
@@ -604,7 +619,10 @@ function easeOut(t, b, c, d) {
 	var tc = ts * t;
 	return b + c * (tc + -3 * ts + 3 * t);
 }
-drawRouletteWheel();
+setTimeout(function() {
+  drawRouletteWheel();
+}, 2000);
+
 
 
 ////////////////Flowers Falling Animation////////////////////////////////////

@@ -300,7 +300,7 @@ function selectWidgetBySetting(widget) {
       </button>
     </div>
     <!--Game Modal -->
-    <div class="modal fade" id="gamestartmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade tada-modal-custom-parent" id="gamestartmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered tada-modal-custom" role="document">
     <div class="modal-content tada_game_modal" style="background-color: ${game_theme_style==3 ? 'black':'white'}">
       <div class="modal-header">
