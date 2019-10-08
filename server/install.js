@@ -81,7 +81,7 @@ async function installing(ctx) {
                                 $(document).ready(function () {
                                     setTimeout(function () {
                                         $.ajax({
-                                            url: 'https://dev-frontend.trytada.com/getWidget',
+                                            url: 'https://04b3238a.ngrok.io/getWidget',
                                             type: 'post',
                                             data: JSON.stringify({
                                                 shop: window.location.hostname,
@@ -152,7 +152,7 @@ async function installing(ctx) {
                                     $(document).ready(function () {
                                         setTimeout(function () {
                                             $.ajax({
-                                                url: 'https://dev-frontend.trytada.com/getWidget',
+                                                url: 'https://04b3238a.ngrok.io/getWidget',
                                                 type: 'post',
                                                 data: JSON.stringify({
                                                     shop: window.location.hostname,

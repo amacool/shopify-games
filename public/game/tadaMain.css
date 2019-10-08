@@ -3944,3 +3944,203 @@ and (orientation : landscape){
   opacity: 1;
   z-index: -1;
 }
+
+
+/* tada popup, game */
+/* tada full screen modal */
+.tada-full-modal {
+  color: #1c1f23;
+  max-width: 100% !important;
+  display: flex;
+  justify-content: center;
+  opacity: 1;
+  background-color: white;
+}
+
+.tada-full-modal .tada-full-modal-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-size: cover
+}
+
+.tada-full-modal .tada-full-modal-left {
+  text-align: center;
+  padding: 0 70px;
+}
+
+.tada-full-modal .tada-full-modal-left .form-control {
+  height: 40px;
+  border-radius: 7px;
+}
+
+.tada-full-modal .tada-full-modal-left h2 {
+  text-transform: none;
+}
+
+.tada-full-modal .tada-full-modal-left .tada-full-modal-form-policy label {
+  margin-right: 10px;
+  font-size: 13px;
+}
+
+.tada-full-modal .tada-full-modal-left a {
+  text-decoration: underline;
+}
+
+.tada-full-modal .tada-full-modal-left p {
+  font-size: 15px;
+  margin-bottom: 30px;
+}
+
+.tada-full-modal .tada-full-modal-left button {
+  font-weight: 500;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.tada-full-modal .tada-full-modal-left .tada-full-modal-form-submit p {
+  font-size: 13px;
+  color: #1c1f23;
+  cursor: pointer;
+}
+
+.tada-full-modal .tada-full-modal-left .tada-full-modal-form-submit button {
+  width: 100%;
+  font-size: 15px;
+  outline: none;
+}
+
+.tada-full-modal-btn-close {
+
+}
+
+.tada-full-modal-theme-1 {
+
+}
+
+.tada-full-modal-theme-2 {
+
+}
+
+/* tada game modal */
+.tada-game-modal {
+  background: transparent;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.tada-game-modal .tada-game-modal-container {
+  display: flex;
+  align-items: center;
+  top: 20%;
+}
+
+.tada-game-modal .tada-game-modal-content {
+  width: 45%;
+  background: white;
+  border-radius: 7px;
+  box-shadow: 10px 3px 18px -10px rgba(0,0,0,0.37);
+}
+
+.tada-game-modal .tada-game-modal-content > div {
+  display: flex;
+  padding: 25px;
+}
+
+.tada-game-modal .tada-game-modal-top {
+  color: white;
+}
+
+.tada-game-modal .tada-game-modal-top p {
+  color: white;
+  border-radius: 0 7px 0 0;
+}
+
+.tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-policy {
+  margin: 15px 0;
+}
+
+.tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-submit button {
+  text-transform: uppercase;
+  color: white;
+  border: none;
+  margin-bottom: 15px;
+}
+
+.tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-submit p {
+  padding: 0;
+  margin: 10px 0;
+  display: block;
+  color: black;
+  font-weight: 600;
+}
+
+.tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-submit .tada-progress-bar {
+  height: 10px;
+  box-shadow: none;
+  border-radius: unset;
+}
+
+.taga-game-modal .tada-game-modal-footer .tada-game-modal-right {
+  display: flex;
+  justify-content: flex-end;
+  float: right;
+  width: 65%;
+}
+
+.taga-game-modal .tada-game-modal-footer button {
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.taga-game-modal .tada-game-modal-footer button .tada-dialog-btn-close-inner {
+  border-radius: 50%;
+  display: flex;
+  opacity: 1 !important;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  color: black;
+}
+
+.tada-game-modal .tada-game-modal-left-blank {
+  width: 40%;
+}
+
+.tada-game-modal .tada-game-modal-right {
+  width: 60%;
+}
+
+/* custom checbox */
+.tada-custom-checkbox {
+  display: flex;
+  font-size: 13px;
+}
+.tada-custom-checkbox input {
+  display: none;
+}
+.tada-custom-checkbox .tada-custom-checkbox-overlay {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: solid 1px red;
+  margin-right: 12px;
+  z-index: 400000;
+  padding: 1px;
+}
+.tada-custom-checkbox .tada-custom-checkbox-overlay svg {
+  margin-top: -1px;
+  position: absolute;
+  width: 20px;
+}
