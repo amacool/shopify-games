@@ -583,7 +583,11 @@ function stopRotateWheel() {
 	console.log(couponText);
 
   followingAnimationStart();
+  $('#tada-success-maker-text').css('display', 'block');
 	$('#tada-success-maker-text').html(text);
+	$('#tada_game_modal_email').css('display', 'none');
+	$('.tada-game-modal-form-policy').css('display', 'none');
+	$('.tada-game-modal-form-submit').css('display', 'none');
 	$('.tada-dialog-body').css({
 		"display": "none"
 	});

@@ -3969,7 +3969,24 @@ and (orientation : landscape){
 }
 .tada-full-modal .tada-full-modal-left {
   text-align: center;
-  padding: 0 70px;
+  padding: 0 75px;
+  width: 40%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+.tada-full-modal .tada-full-modal-left .tada-full-modal-logo {
+  margin-bottom: 30px;
+}
+.tada-full-modal .tada-full-modal-left .tada-full-modal-title {
+  padding: 0 15px;
+  margin-bottom: 30px;
+}
+.tada-full-modal .tada-full-modal-left .tada-full-modal-form input {
+  text-align: center;
+  font-size: 14px;
 }
 .tada-full-modal .tada-full-modal-left .tada-full-modal-form .tada-custom-checkbox {
   margin: 10px 10px 20px;
@@ -3978,8 +3995,10 @@ and (orientation : landscape){
   height: 40px;
   border-radius: 7px;
 }
-.tada-full-modal .tada-full-modal-left h2 {
-  text-transform: none;
+.tada-full-modal .tada-full-modal-left h3 {
+  font-size: 28px;
+  line-height: 150%;
+  color: #1C1F23;
 }
 .tada-full-modal .tada-full-modal-left .tada-full-modal-form-policy label {
   margin-right: 10px;
@@ -3989,8 +4008,10 @@ and (orientation : landscape){
   text-decoration: underline;
 }
 .tada-full-modal .tada-full-modal-left p {
-  font-size: 15px;
-  margin-bottom: 30px;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 150%;
+  color: #1C1F23;
 }
 .tada-full-modal .tada-full-modal-left button {
   font-weight: 500;
@@ -4047,6 +4068,14 @@ and (orientation : landscape){
 .tada-game-modal .tada-game-modal-top p {
   color: white;
   border-radius: 0 7px 0 0;
+}
+.tada-game-modal .tada-game-modal-bottom {
+  min-height: 240px;
+}
+.tada-game-modal .tada-game-modal-bottom .tada-game-modal-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-policy {
   margin: 15px 0;
