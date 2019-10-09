@@ -311,100 +311,34 @@ function selectWidgetBySetting(widget) {
               <p>You have a chance to win a nice big fat discount.<br/>Are you feeling lucky?</p>
             </div>
             <div class="tada-full-modal-form">
+              <div id="snackbar">You have entered an invalid e-mail address. Please try again.</div>
               <input type="email" class="form-control" id="tada_full_modal_email" placeholder="Enter your email address" required>
-              <div class="custom-control custom-checkbox tada-full-modal-form-policy">
-                <input type="checkbox" class="custom-control-input" id="tada_full_modal_agree_policy">
-                <label class="custom-control-label" for="tada_full_modal_agree_policy">
-                  I agree to <a style="color: ${theme_first_color}">Terms</a> and I have read our <a style="color: ${theme_first_color}">Privacy policy</a>.
+              <div class="tada-custom-checkbox tada-game-modal-form-policy">
+                <div class="tada-custom-checkbox-overlay" style="border-color: ${theme_second_color}">
+                  <svg fill="${theme_second_color}" version="1.1" class="tada-custom-checkbox-overlay-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                     viewBox="0 0 512 512" style="enable-background:new 0 0 512 512; display: none;" xml:space="preserve">
+                    <g>
+                      <g>
+                        <path d="M504.502,75.496c-9.997-9.998-26.205-9.998-36.204,0L161.594,382.203L43.702,264.311c-9.997-9.998-26.205-9.997-36.204,0
+                          c-9.998,9.997-9.998,26.205,0,36.203l135.994,135.992c9.994,9.997,26.214,9.99,36.204,0L504.502,111.7
+                          C514.5,101.703,514.499,85.494,504.502,75.496z"/>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+                <input type="checkbox" class="custom-control-input" id="tada_full_modal_agree_policy" style="display: none">
+                <label class="tada-custom-checkbox-label" for="tada_full_modal_agree_policy">
+                  I agree to <a style="color: ${theme_second_color}">Terms</a> and I have read our <a style="color: ${theme_second_color}">Privacy policy</a>.
                 </label>
               </div>
               <div class="tada-full-modal-form-submit">
-                <button class="form-control" id="tada_full_modal_btn_access" style="background-color: ${theme_first_color}">Access now</button>
-                <p style="text-decoration: underline;" data-dismiss="modal" class="tada-full-modal-btn-close">No, thank you</p>
+                <button class="form-control tada_full_modal_btn_access" style="background-color: ${theme_first_color}">Access now</button>
+                <p style="text-decoration: underline; color: ${theme_second_color}" class="tada-full-modal-btn-no-thank-you">No, thank you</p>
+                <button class="tada-full-modal-btn-close" data-dismiss="modal" style="display: none;"></button>
               </div>
             </div>
           </div>
           <div class="tada-full-modal-right" style="width: 67%"></div>
-        </div>
-      </div>
-      
-      <!--Game Modal --> 
-      <div class="modal fade tada-modal-custom-parent" id="abc123123" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered tada-modal-custom" role="document">
-          <div class="modal-content tada_game_modal" style="background-color: ${game_theme_style==3 ? 'black':'white'}">
-            <div class="modal-body tada-dialog-body">
-              <div class="tada-modal-top-section">
-                <p class="tada-game-spin-title" style="color: ${game_theme_style==3 ? 'white':'black'}">Spin to win a BIG brize right now!</p>
-                <p class="tada-game-spin-text" style="color: ${game_theme_style==3 ? 'white':'black'}">
-                  You have a chance to win a nice big fat discount.<br/>
-                  Are you feeling lucky? Give it a spin. If you win, you can claim your coupon for 15 mins only!
-                </p>
-                <div class="tada-dialog-mail-container">
-                  <!--Email validation notification -->
-                  <div id="snackbar">You have entered an invalid e-mail address. Please try again.</div>
-                  <input type="email" class="form-control" id="tada_game_email_input" aria-describedby="emailHelp" placeholder="Enter your email address" required
-                    style="background-color : ${game_theme_style == 3 ? 'black' : 'white'}; color: ${game_theme_style == 3 ? 'white' : 'black'};">
-                  <button id="tada_spin_start_button" value="spin"
-                    style="background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].second};
-                    color : ${game_theme_style ==3 ? 'black' : 'white'}; box-shadow: 0 2px 13px ${theme_colors[game_theme_style].second};">SPIN</button>
-                  <p class="tada-progress-bar-top-text" style="display: ${progress_bar ? 'block' : 'none'}"><span id="tada-progressbar-percent-number">70</span>% of discounts have been given, hurry up!</p>
-                  <div class="tada-progress-bar" style="display: ${progress_bar ? 'block' : 'none'}">
-                    <div class="tada-progress-value" style="width:40%; background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].second};">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="tada-modal-bottom-section">
-                <div class="tada-game-state-text-div">
-                  <p class="tada-game-state-text" style="color: ${game_theme_style===3 ? theme_colors[1].second : theme_colors[game_theme_style].second}" id="tada-game-state-second-text">Let’s see what you got!</p>
-                </div>
-                <p id="tada-game-count-number" style="color: ${game_theme_style==3 ? theme_colors[1].second : theme_colors[1].second}" >${wheel_run_time}</p>
-                <div class="d-flex tada-wheel-container">
-                  <canvas id="canvas1" width="500" height="500"></canvas>
-                  <canvas id="canvas" width="500" height="500"></canvas>
-                </div>
-              </div>
-            </div>
-            <div class="modal-body tada-dialog-body-success">
-              <div class="tada-success-top-section">
-                <p class="tada-game-spin-title1" style="color: ${game_theme_style==3 ? 'white':'black'}">Congratulations</p>
-                <div class="tada-success-maker-board" style="background-image: ${game_theme_style == 2 ? 'url('+widget_url+'/success_mark_board.svg)' : 'url('+widget_url+'/success_mark_board2.svg)' }">
-                  <p class="tada-success-maker-left-text col-4">You've </br>Won</p>
-                  <div class="col-8 tada-success-maker-text-div col-8">
-                    <p id="tada-success-maker-text" style="color: ${game_theme_style==3 ? theme_colors[1].second : theme_colors[game_theme_style].second}">$10 Cash</p>
-                  </div>
-                </div>
-              </div>
-              <div class="tada-success-bottom-section">
-                <p class="tada-game-spin-text" style="color: ${game_theme_style==3 ? 'white':'black'}">Here’s your unique coupon! You can use it on any purchase in this store 🎉! Don’t wait too long, it expires soon.</p>
-                <div class="tada-game-expiry d-flex">
-                  <p class="tada-game-expiry-title" style="color: ${game_theme_style==3 ? 'white':'black'}">How long until expiry:</p>
-                  <p class="tada-game-expiry-time tada-expire-time" style="color: ${game_theme_style==3 ? theme_colors[1].first : theme_colors[game_theme_style].first}">22:59:43</p>
-                </div>
-                <div class="tada-game-body-divide"></div>
-                <div class="tada-game-discount-code">
-                  <p class="tada-game-discount-code-title" style="color: ${game_theme_style==3 ? 'white':'black'}">Your Discount Code is:</p>
-                  <p class="tada-game-discount-code-text" style="color: ${game_theme_style==3 ? theme_colors[1].first : theme_colors[game_theme_style].first}">SASDERWERT3H3G24</p>
-                </div>
-                <div class="tada_apply_my_account_parent">
-                  <button id="tada_apply_my_discount" data-dismiss="modal" aria-label="Close" class="close" value="spin"
-                  style="background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].second};
-                  color : ${game_theme_style ==3 ? 'black' : 'white'};  box-shadow: 0 2px 13px ${theme_colors[game_theme_style].second}; ">APPLY MY DISCOUNT</button>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer tada-modal-footer">
-              <a href="https://trytada.com" target="_blank"><img src="${widget_url}/gameDialogButtonIcon.svg" /></a>
-            </div>
-            <div class="modal-header">
-              <img class="modal-title tada_game_start_title" id="exampleModalCenterTitle" src="${widget_url}/logo.svg"/>
-              <button type="button" class="close tada-dialog-close-button" data-dismiss="modal" aria-label="Close">
-                <div class="tada-close-button-div">
-                  <span aria-hidden="true">&times;</span>
-                </div>
-              </button>
-            </div>
-          </div>
         </div>
       </div>
       
@@ -422,11 +356,13 @@ function selectWidgetBySetting(widget) {
             <div class="tada-game-modal-bottom">
               <div class="tada-game-modal-left-blank"></div>
               <div class="tada-game-modal-form tada-game-modal-right">
+                <div id="snackbar">You have entered an invalid e-mail address. Please try again.</div>
+                <p id="tada-success-maker-text" style="color: ${theme_second_color}; display: none;">$10 Cash</p>
                 <input type="email" class="form-control" id="tada_game_modal_email" placeholder="Enter your email address" required>
-                <div class="custom-checkbox tada-custom-checkbox tada-game-modal-form-policy">
+                <div class="tada-custom-checkbox tada-game-modal-form-policy">
                   <div class="tada-custom-checkbox-overlay" style="border-color: ${theme_second_color}">
                     <svg fill="${theme_second_color}" version="1.1" class="tada-custom-checkbox-overlay-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                       viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                       viewBox="0 0 512 512" style="enable-background:new 0 0 512 512; display: none;" xml:space="preserve">
                       <g>
                         <g>
                           <path d="M504.502,75.496c-9.997-9.998-26.205-9.998-36.204,0L161.594,382.203L43.702,264.311c-9.997-9.998-26.205-9.997-36.204,0
@@ -436,8 +372,8 @@ function selectWidgetBySetting(widget) {
                       </g>
                     </svg>
                   </div>
-                  <input type="checkbox" class="custom-control-input" id="tada_game_modal_agree_policy">
-                  <label class="custom-control-label" for="tada_game_modal_agree_policy">
+                  <input type="checkbox" class="custom-control-input" id="tada_game_modal_agree_policy" style="display: none">
+                  <label class="tada-custom-checkbox-label" for="tada_game_modal_agree_policy">
                     I agree to <a style="color: ${theme_second_color}">Terms</a> and I have read our <a style="color: ${theme_second_color}">Privacy policy</a>.
                   </label>
                 </div>
@@ -453,15 +389,20 @@ function selectWidgetBySetting(widget) {
             </div>
             <div class="tada-game-modal-footer" style="background-color: ${theme_first_color}">
               <div class="tada-game-modal-left-blank"></div>
-              <div class="tada-game-modal-right">
+              <div class="tada-game-modal-right tada-game-modal-footer-right">
                 No, I don't feel lucky 
-                <button type="button" class="close tada-dialog-btn-close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close tada-game-modal-btn-close-fake" aria-label="Close">
                   <div class="tada-dialog-btn-close-inner">
                     <span aria-hidden="true" style="color: ${theme_first_color}"> &times;</span>
                   </div>
                 </button>
+                <button class="tada-game-modal-btn-close" data-dismiss="modal" style="display: none;"></button>
               </div>
             </div>
+          </div>
+          <div class="tada-wheel-container">
+            <canvas id="canvas1" width="500" height="500"></canvas>
+            <canvas id="canvas" width="500" height="500"></canvas>
           </div>
         </div>
       </div>
