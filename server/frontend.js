@@ -153,9 +153,9 @@ async function sendWidget(ctx, next) {
 function getLength(discounts){
   var result = 0;
   Object.keys(discounts).map(key => {
-      if (discounts[key].enable) {
-          result++;
-      }
+    if (discounts[key].enable) {
+      result++;
+    }
   })
   return result;
 }
@@ -223,12 +223,12 @@ function selectWidgetBySetting(widget) {
   var game_start_icon_position = 3;
   var game_theme_style = 1;
   var wheel_run_time = 5;
-  var wheel_item = ["$10 Cash", "40% Discount", "Not Luck Today", "Almost", "30% Discount", "$30 Cach"];
+  var wheel_item = ["3% Discount", "40% Discount", "Not Luck Today", "10% Discount", "30% Discount", "FREE SHIPPING", "50% Discount", "3% Discount", "10% Discount", "20% Discount", "30% Discount"];
   var progress_bar = true;
   var popup_back_img_type = 1;
+  var theme_first_color = game_theme_style === 3 ? theme_colors[1].first : theme_colors[game_theme_style].first;
+  var theme_second_color = game_theme_style === 3 ? theme_colors[1].second : theme_colors[game_theme_style].second;
 
-  var theme_first_color = game_theme_style === 3 ? theme_colors[1].first:theme_colors[game_theme_style].first;
-  var theme_second_color = game_theme_style === 3 ? theme_colors[1].second:theme_colors[game_theme_style].second;
   if(widget.type === 0) {
     var id = widget.id;
     html = `
@@ -308,7 +308,7 @@ function selectWidgetBySetting(widget) {
           <div class="tada-full-modal-left">
             <div class="inner-wrapper">
               <div class="tada-full-modal-logo">
-                <img src="${widget_url}/full-modal/popup-mark.png">
+                <img id="tada-game-logo" src="${widget_url}/full-modal/popup-mark.png">
               </div>
               <div class="tada-full-modal-title">
                 <h3>Want the internet's favorite items at 25% off?</h3>
@@ -354,15 +354,19 @@ function selectWidgetBySetting(widget) {
             <div class="tada-game-modal-top" style="background-color: ${theme_first_color}">
               <div class="tada-game-modal-left-blank"></div>
               <div class="tada-game-modal-right">
-                <h3>Want the internet's favorite items at 25% off?</h3>
-                <p>You have a chance to win a nice big fat discount.<br/>Are you feeling lucky?</p>
+                <h3 class="tada-game-modal-heading-1">Spin to win a BIG prize right now!  🎁</h3>
+                <p class="tada-game-modal-heading-2">You have a chance to win a nice big fat discount.<br/>Are you feeling lucky? Give it a spin. If you win, you can claim your coupon for 15 mins only!</p>
+                <div class="tada-game-expire-in-wrapper" style="display: none">
+                  <span>Expires in: </span>
+                  <span style="font-weight: 600; color: ${theme_second_color}">01:56:34</span>
+                </div>
               </div>
             </div>
             <div class="tada-game-modal-bottom">
               <div class="tada-game-modal-left-blank"></div>
               <div class="tada-game-modal-form tada-game-modal-right">
+                <div class='counter-wrapper'></div>
                 <div id="snackbar">You have entered an invalid e-mail address. Please try again.</div>
-                <p id="tada-success-maker-text" style="color: ${theme_second_color}; display: none;">$10 Cash</p>
                 <input type="email" class="form-control" id="tada_game_modal_email" placeholder="Enter your email address" required>
                 <div class="tada-custom-checkbox tada-game-modal-form-policy">
                   <div class="tada-custom-checkbox-overlay" style="border-color: ${theme_second_color}">
@@ -383,13 +387,20 @@ function selectWidgetBySetting(widget) {
                   </label>
                 </div>
                 <div class="tada-game-modal-form-submit">
-                  <button class="form-control" id="tada_game_modal_btn_try" style="background-color: ${theme_second_color}">try your luck</button>
+                  <button class="form-control tada-game-modal-btn" id="tada_game_modal_btn_try" style="background-color: ${theme_second_color}">try your luck</button>
                   <div class="tada-progress-bar" style="display: ${progress_bar ? 'block' : 'none'}">
                     <div class="tada-progress-value" style="width:40%; background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].second};">
                     </div>
                   </div>
                   <p class="tada-progress-bar-text" style="display: ${progress_bar ? 'block' : 'none'}"><span id="tada-progressbar-percent-number">70</span>% offers claimed. Hurry up!</p>
                 </div>
+
+                <div class="tada-game-result-panel" style="display: none; background-image: url(${widget_url}/game-modal/result-back.svg)">
+                  <p class="tada-game-result-text" style="color: ${theme_second_color};">$10 Cash</p>
+                  <p class="tada-game-result-code-label">Code:</p>
+                  <p class="tada-game-result-code">EZG37YVZ5Q2P</p>
+                </div>
+                <button class="form-control tada-game-modal-btn" id="tada_game_btn_apply_discount" style="background-color: ${theme_second_color}; display: none;">apply my discount</button>
               </div>
             </div>
             <div class="tada-game-modal-footer" style="background-color: ${theme_first_color}">
@@ -413,8 +424,8 @@ function selectWidgetBySetting(widget) {
       </div>
     </div>
     `;
-    }
-    return html;
+  }
+  return html;
 }
 
 function getPathAndPageName(pathname) {
