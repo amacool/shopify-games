@@ -357,7 +357,6 @@ function changeGameStartIconPosition(position) {
 var startAngle = 0;
 var arc = (Math.PI / (options.length / 2));
 var spinTimeout = null;
-var spinArcStart = 0;
 var spinTime = 0;
 var spinTimeTotal = 0;
 var ctx;
@@ -429,9 +428,9 @@ $('#canvas1').addClass('breathing-animation');
 
 var canvas1 = document.getElementById("canvas1");
 ctx1 = canvas1.getContext("2d");
-make_base();
+drawRouletteMarker();
 
-function make_base() {
+function drawRouletteMarker() {
   // drawing marker
   let x1 = 410;
   let x2 = 250;
@@ -483,12 +482,6 @@ function spin() {
 		$('.tada-dialog-body').removeClass('fade-out');
 		$('.tada-dialog-body').addClass('fade-in');
 
-		var random = Math.floor(Math.random() * (game_encouragement_text.length + 1));
-		//randon text
-		//$('.tada-game-spin-title').html(game_encouragement_text[random]);
-		//state text
-		//$('.tada-game-spin-title').html(game_encouragement_text[random]);
-
 		spinAngleStart = Math.random() * 10 + 20;
 		spinTime = 200;
 		spinTimeTotal = (wheel_run_time) * 1000;
@@ -507,7 +500,6 @@ function spin() {
  */
 function startCounterAnimation(count, callback) {
   let curNum = count;
-  // $(".counter-wrapper").append("<div class='lines'>" + curNum + "</div>");
   let intervalId = setInterval(function() {
     $(".counter-wrapper").prepend("<div class='lines' style='font-size: 120px'>" + curNum + "</div>");
     curNum --;
@@ -604,7 +596,6 @@ function stopRotateWheel() {
 	var index = Math.floor((360 - degrees % 360) / arcd);
 	var text = options[index];
 	couponText = text;
-	console.log(couponText);
 
   followingAnimationStart();
 
@@ -613,6 +604,7 @@ function stopRotateWheel() {
   $(".tada-game-modal-heading-2").text("You have a chance to win a nice big fat discount. Are you feeling lucky?");
   $(".tada-game-modal-heading-2").css("display", "block");
   $(".tada-game-expire-in-wrapper").css("display", "block");
+  $(".tada-game-modal-top .tada-game-modal-right").addClass('fade-in5');
 
   $('.tada-game-result-panel').css('display', 'flex');
   $('.tada-game-result-panel').addClass('fade-in5');
