@@ -1,30 +1,29 @@
-var game_start_icon_position = parseInt(window.game_start_icon_position);
-var game_theme_style = parseInt(window.game_theme_style);
-var game_encouragement_text = ["What are you going to get?", "Let’s see what you got!", "Excited to see your discount?", "Feeling lucky today?", "Get a discount and apply it to this store!", "Here's a discount."];
-var widget_url = window.global_widget_url;
-var couponText = '';
-var mobileMode = window.innerWidth <= 520;
-var wheel_run_time = parseInt(window.wheel_run_time);
-var game_done = false;
-var expireTime = '';
-var window_width = window.innerWidth;
-var window_height = window.innerHeight;
-var options = window.wheel_item.split(',');
-var wheelStopState = false;
-var randomTextNumber = 0;
-var rouletteColors = Array(3);
-var logo_image = document.getElementById("tada-game-logo");
-var spinAngleStart = 0;
+let game_start_icon_position = parseInt(window.game_start_icon_position);
+let game_theme_style = parseInt(window.game_theme_style);
+let game_encouragement_text = ["What are you going to get?", "Let’s see what you got!", "Excited to see your discount?", "Feeling lucky today?", "Get a discount and apply it to this store!", "Here's a discount."];
+let widget_url = window.global_widget_url;
+let couponText = '';
+let mobileMode = window.innerWidth <= 520;
+let wheel_run_time = parseInt(window.wheel_run_time);
+let game_done = false;
+let expireTime = '';
+let window_width = window.innerWidth;
+let window_height = window.innerHeight;
+let options = window.wheel_item.split(',');
+let wheelStopState = false;
+let randomTextNumber = 0;
+let rouletteColors = Array(3);
+let logo_image = document.getElementById("tada-game-logo");
+let spinAngleStart = 0;
 
 getRouletteColors(3);
 changeGameThemeStyle(game_theme_style);
-// changeGameStartIconPosition(game_start_icon_position);
 showRandomEncouragementText();
 displaySizeInit();
 changeDialogPosition();
 
 // Show the modal, Body scroll hidden
-var observer = new MutationObserver(function(mutations) {
+let observer = new MutationObserver(function(mutations) {
   mutations.forEach(function(mutationRecord) {
     if ($('#tada_game_modal_2').css('display') == 'none') {
       const targetElement = document.querySelector("#tada_game_modal_2");
@@ -35,10 +34,10 @@ var observer = new MutationObserver(function(mutations) {
     }
   });
 });
-var gameModal_view = document.getElementById('tada_game_modal_2');
+let gameModal_view = document.getElementById('tada_game_modal_2');
 observer.observe(gameModal_view, { attributes : true, attributeFilter : ['style'] });
 
-var observer1 = new MutationObserver(function(mutations) {
+let observer1 = new MutationObserver(function(mutations) {
   mutations.forEach(function(mutationRecord) {
     if ($('#tada_full_modal').css('display') == 'none') {
       const targetElement = document.querySelector("#tada_full_modal");
@@ -49,14 +48,14 @@ var observer1 = new MutationObserver(function(mutations) {
     }
   });
 });
-var gameModal_view1 = document.getElementById('tada_full_modal');
+let gameModal_view1 = document.getElementById('tada_full_modal');
 observer1.observe(gameModal_view1, { attributes : true, attributeFilter : ['style'] });
 
 function displaySizeInit() {
   window_width = window.innerWidth;
 	window_height = window.innerHeight;
   let landscapeMode = window.innerWidth > window.innerHeight && window_height < 850;
-  mobileMode = window_width <= 520;
+  mobileMode = window_width <= 600;
   if (window.innerWidth > 520 && window.innerHeight < 780 && (!landscapeMode)) {
     $('.tada-modal-custom').css({'transform': 'scale('+window.innerHeight/780+')'});
   } else {
@@ -65,31 +64,31 @@ function displaySizeInit() {
 
 	if (mobileMode) {
 		$('#canvas1').css({
-			'width': window_width - 30
+			'width': '100%'
 		});
 		$('#canvas').css({
-			'width': window_width - 30
+			'width': '100%'
 		});
-		$('.tada-wheel-container').css({
-			'max-height': (window_width - 30) / 2
-		})
+		// $('.tada-wheel-container').css({
+		// 	'max-height': (window_width - 30) / 2
+		// })
 	} else if (landscapeMode) {
-    $('#canvas1').css({
-			'width': window_width/2
-		});
-		$('#canvas').css({
-			'width': window_width/2
-		});
-		$('.tada-wheel-container').css({
-			'max-height': window_width/4
-		});
-    if(window_height < 380) {
-      $('.tada-modal-custom').css({'margin-top': '30px'});
-    } else if(window_width < 720){
-      $('.tada-modal-custom').css({'margin-top': '30px'});
-    } else {
-      $('.tada-modal-custom').css({'margin-top': '50px'});
-    }
+    // $('#canvas1').css({
+		// 	'width': window_width/2
+		// });
+		// $('#canvas').css({
+		// 	'width': window_width/2
+		// });
+		// $('.tada-wheel-container').css({
+		// 	'max-height': window_width/4
+		// });
+    // if(window_height < 380) {
+    //   $('.tada-modal-custom').css({'margin-top': '30px'});
+    // } else if(window_width < 720){
+    //   $('.tada-modal-custom').css({'margin-top': '30px'});
+    // } else {
+    //   $('.tada-modal-custom').css({'margin-top': '50px'});
+    // }
   } else {
 		$('#canvas1').css({
 			'width': 500
@@ -100,6 +99,7 @@ function displaySizeInit() {
 		$('.tada-wheel-container').css({
 			'max-height': 250
 		});
+    $(".tada-game-modal-container").css({ 'top': 'calc((100% - 530px)/2)' });
 	}
 	changeGameStartIconPosition(game_start_icon_position);
 }
@@ -134,7 +134,7 @@ function changeGameThemeStyle(game_theme) {
 }
 
 function showRandomEncouragementText(class_name) {
-	var random = Math.floor(Math.random() * (game_encouragement_text.length));
+	let random = Math.floor(Math.random() * (game_encouragement_text.length));
   if (randomTextNumber == random) {
     if (random < 1)
       randomTextNumber = random+1;
@@ -145,30 +145,9 @@ function showRandomEncouragementText(class_name) {
 	$('#' + class_name).html(game_encouragement_text[randomTextNumber]);
 }
 
-function getRouletteColors(count) {
-  const r1 = parseInt(window.theme_first_color.substr(1, 2), 16);
-  const g1 = parseInt(window.theme_first_color.substr(3, 2), 16);
-  const b1 = parseInt(window.theme_first_color.substr(5, 2), 16);
-  const r2 = parseInt(window.theme_second_color.substr(1, 2), 16);
-  const g2 = parseInt(window.theme_second_color.substr(3, 2), 16);
-  const b2 = parseInt(window.theme_second_color.substr(5, 2), 16);
-  const delta1 = Math.abs(r1 - r2) / (count + 1);
-  const delta2 = Math.abs(g1 - g2) / (count + 1);
-  const delta3 = Math.abs(b1 - b2) / (count + 1);
-  const min_r = Math.min(r1, r2);
-  const min_g = Math.min(g1, g2);
-  const min_b = Math.min(b1, b2);
-  for (let i = 0; i < count; i++) {
-    const rr = parseInt((min_r + (i + 1) * delta1).toFixed(0)).toString(16);
-    const gg = parseInt((min_g + (i + 1) * delta2).toFixed(0)).toString(16);
-    const bb = parseInt((min_b + (i + 1) * delta3).toFixed(0)).toString(16);
-    rouletteColors[i] = `#${rr}${gg}${bb}`;
-  }
-}
-
 // Email Validation
 function validateEmail(email) {
-	var re = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	let re = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 	return re.test(email);
 }
 
@@ -220,7 +199,7 @@ $("#present_time_reminder_2").click(function() {
 });
 
 $('.tada_start_icon_div').click(function () {
-	var floating_component = $('.tada-floating-dialog');
+	let floating_component = $('.tada-floating-dialog');
 	if (game_done) {
 		if (floating_component.css('display') == 'flex') {
 			floating_component.css({
@@ -245,7 +224,7 @@ $('.tada_start_icon_div').click(function () {
   if(!$('.tada-full-modal').hasClass('fade-in5')) {
     $('.tada-full-modal').addClass('fade-in5');
     showRandomEncouragementText('tada-game-state-second-text');
-  	var fade_text = $('#tada-game-state-second-text');
+  	let fade_text = $('#tada-game-state-second-text');
   	fade_text.addClass('fadein-fadeout-animation5');
   	setInterval(function () {
   		showRandomEncouragementText('tada-game-state-second-text');
@@ -309,7 +288,7 @@ $('.tada-close-button-div').click(function () {
 });
 
 // Progress Bar Percent position
-var progress_bar_value = parseInt($('#tada-progressbar-percent-number').html());
+let progress_bar_value = parseInt($('#tada-progressbar-percent-number').html());
 $('.tada-progress-value').css({
 	width: progress_bar_value + '%'
 });
@@ -320,7 +299,7 @@ function animation_sinnyBox() {
 		opacity: 1,
 	}, 1500);
 }
-var animateButton = function (e) {
+let animateButton = function (e) {
 	e.preventDefault();
 	e.target.classList.remove('animate');
 	e.target.classList.add('animate');
@@ -333,9 +312,9 @@ $(window).resize(function () {
   displaySizeInit();
 });
 
-var bubblyButtons = document.getElementsByClassName("bubbly-button");
+let bubblyButtons = document.getElementsByClassName("bubbly-button");
 
-for (var i = 0; i < bubblyButtons.length; i++) {
+for (let i = 0; i < bubblyButtons.length; i++) {
 	bubblyButtons[i].addEventListener('click', animateButton, false);
 }
 
@@ -363,7 +342,6 @@ function changeGameStartIconPosition(position) {
 		case 3:
 			$("#spinny_box").css({ 'left': 0 });
 			$("#present_time_reminder_container").css({ 'right': '-25px', 'top': '46.5%' });
-			$(".tada-game-modal-container").css({ 'top': 'calc((100% - 530px)/2)' });
 			$(".tada-floating-dialog").css({
 				'left': window_width / 2 - 140 + 'px',
 				'top': '120px'
@@ -373,15 +351,15 @@ function changeGameStartIconPosition(position) {
 }
 
 // Wheel Animation
-var startAngle = 0;
-var arc = (Math.PI / (options.length / 2));
-var spinTimeout = null;
-var spinTime = 0;
-var spinTimeTotal = 0;
-var ctx;
+let startAngle = 0;
+let arc = (Math.PI / (options.length / 2));
+let spinTimeout = null;
+let spinTime = 0;
+let spinTimeTotal = 0;
+let ctx;
 
 function byte2Hex(n) {
-	var nybHexString = "0123456789ABCDEF";
+	let nybHexString = "0123456789ABCDEF";
 	return String(nybHexString.substr((n >> 4) & 0x0F, 1)) + nybHexString.substr(n & 0x0F, 1);
 }
 
@@ -393,12 +371,42 @@ function getColor(item, count) {
 	return rouletteColors[item % count];
 }
 
+function getNumberFromPixel(val) {
+  return parseInt(val.replace('px', ''));
+}
+
+function getNumberFromFilter(val) {
+  if (val === 'none') return 0;
+  return parseFloat(val.replace("blur(", "").replace("px)", ""));
+}
+
+function getRouletteColors(count) {
+  const r1 = parseInt(window.theme_first_color.substr(1, 2), 16);
+  const g1 = parseInt(window.theme_first_color.substr(3, 2), 16);
+  const b1 = parseInt(window.theme_first_color.substr(5, 2), 16);
+  const r2 = parseInt(window.theme_second_color.substr(1, 2), 16);
+  const g2 = parseInt(window.theme_second_color.substr(3, 2), 16);
+  const b2 = parseInt(window.theme_second_color.substr(5, 2), 16);
+  const delta1 = Math.abs(r1 - r2) / (count + 1);
+  const delta2 = Math.abs(g1 - g2) / (count + 1);
+  const delta3 = Math.abs(b1 - b2) / (count + 1);
+  const min_r = Math.min(r1, r2);
+  const min_g = Math.min(g1, g2);
+  const min_b = Math.min(b1, b2);
+  for (let i = 0; i < count; i++) {
+    const rr = parseInt((min_r + (i + 1) * delta1).toFixed(0)).toString(16);
+    const gg = parseInt((min_g + (i + 1) * delta2).toFixed(0)).toString(16);
+    const bb = parseInt((min_b + (i + 1) * delta3).toFixed(0)).toString(16);
+    rouletteColors[i] = `#${rr}${gg}${bb}`;
+  }
+}
+
 function drawRouletteWheel() {
-	var canvas = document.getElementById("canvas");
+	let canvas = document.getElementById("canvas");
 	if (canvas.getContext) {
-		var outsideRadius = 70;
-		var textRadius = 125;
-		var insideRadius = 180;
+		let outsideRadius = 70;
+		let textRadius = 125;
+		let insideRadius = 180;
 
 		ctx = canvas.getContext("2d");
 		ctx.clearRect(0, 0, 500, 500);
@@ -406,8 +414,8 @@ function drawRouletteWheel() {
 		ctx.lineWidth = 0;
 		ctx.font = '13px Open Sans';
 
-		for (var i = 0; i < options.length; i++) {
-			var angle = startAngle + i * arc;
+		for (let i = 0; i < options.length; i++) {
+			let angle = startAngle + i * arc;
 			ctx.fillStyle = getColor(i, 3);
 			ctx.beginPath();
 			ctx.arc(250, 250, outsideRadius, angle, angle + arc, false);
@@ -418,7 +426,7 @@ function drawRouletteWheel() {
 			ctx.translate(250 + Math.cos(angle + arc / 2) * textRadius,
 				250 + Math.sin(angle + arc / 2) * textRadius);
 			ctx.rotate(80 + angle + arc / 2 + Math.PI / 2);
-			var text = options[i];
+			let text = options[i];
 			ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
 			ctx.restore();
 		}
@@ -441,35 +449,48 @@ function drawRouletteWheel() {
 	}
 }
 
-// Idle Wheel animation Remove
-$('#canvas').addClass('breathing-animation');
-$('#canvas1').addClass('breathing-animation');
-
-var canvas1 = document.getElementById("canvas1");
-ctx1 = canvas1.getContext("2d");
-drawRouletteMarker();
-
 function drawRouletteMarker() {
-  // drawing marker
-  let x1 = 410;
-  let x2 = 250;
+  let isMobile = window_width <= 600;
+
+  // define start point : center of circle
+  let x1 = isMobile ? 250 : 430;
+  let y1 = isMobile ? 70 : 250;
+
+  // marker on the right middle
   let r1 = 25;
   let a = Math.PI / 6;
-  let d = r1 / Math.cos(a);
-  let r2 = Math.sqrt(d * d - r1 * r1);
-  let h = r1 * Math.sin(a);
-  let w = r1 * Math.cos(a);
+  let b = isMobile ? (-Math.PI / 4) : 0;
+  let c = Math.PI / 4 - a - b;
+  let d = Math.PI / 4 - a + b;
+  let w = r1 / Math.cos(a);
+  let r2 = w * Math.sin(a);
+
+  let deltaX1 = w / Math.cos(b);
+  let deltaY1 = Math.sqrt(w * w - deltaX1 * deltaX1);
+  let x2 = x1 - deltaX1;
+  let y2 = y1 - deltaY1;
+
+  let deltaX2 = r2 * Math.cos(c);
+  let deltaY2 = r2 * Math.sin(c);
+  let x3 = x1 - deltaX2;
+  let y3 = y1 + deltaY2;
+
+  let deltaX3 = r2 * Math.cos(d);
+  let deltaY3 = r2 * Math.sin(d);
+  let x4 = x1 - deltaX3;
+  let y4 = y1 - deltaY3;
+
   ctx1.beginPath();
   ctx1.fillStyle = window.theme_first_color;
   ctx1.shadowOffsetX = 0;
   ctx1.shadowOffsetY = 0;
   ctx1.shadowBlur = 0;
-  ctx1.moveTo(x1, x2);
-  ctx1.lineTo(x1 + w, x2 - h);
-  ctx1.lineTo(x1 + w, x2 + h);
-  ctx1.moveTo(x1, x2);
+  ctx1.moveTo(x3, y3);
+  ctx1.lineTo(x2, y2);
+  ctx1.lineTo(x4, y4);
+  ctx1.moveTo(x3, y3);
   ctx1.fill();
-  ctx1.ellipse(x1 + d, x2, r2, r2, 0, 0, 2 * Math.PI);
+  ctx1.ellipse(x1, y1, r2, r2, 0, 0, 2 * Math.PI);
   ctx1.fill();
   ctx1.beginPath();
   ctx1.fillStyle = 'white';
@@ -477,9 +498,17 @@ function drawRouletteMarker() {
   ctx1.shadowOffsetY = 2;
   ctx1.shadowBlur = 2;
   ctx1.shadowColor = "#999";
-  ctx1.ellipse(x1 + d, x2, r2 / 3, r2 / 3, 0, 0, 2 * Math.PI);
+  ctx1.ellipse(x1, y1, r2 / 3, r2 / 3, 0, 0, 2 * Math.PI);
   ctx1.fill();
 }
+
+// Idle Wheel animation Remove
+$('#canvas').addClass('breathing-animation');
+$('#canvas1').addClass('breathing-animation');
+
+let canvas1 = document.getElementById("canvas1");
+ctx1 = canvas1.getContext("2d");
+drawRouletteMarker();
 
 function spin() {
 	$('.tada-dialog-body').addClass('fade-out');
@@ -520,14 +549,8 @@ function spin() {
 function startCounterAnimation(count, callback) {
   let curNum = count;
   let intervalId = setInterval(function() {
-    $(".counter-wrapper").prepend("<div class='lines' style='font-size: 120px'>" + curNum + "</div>");
+    $(".counter-wrapper").prepend("<div class='lines' style='font-size: 120px; position: absolute; left: 0;'>" + curNum + "</div>");
     curNum --;
-    if (curNum < 0) {
-      clearInterval(intervalId);
-      callback();
-      $(".counter-wrapper").css("display", "none");
-      return;
-    }
     $(".counter-wrapper .lines").each(function(index) {
       if (index > 2) {
         $(this).remove();
@@ -535,25 +558,31 @@ function startCounterAnimation(count, callback) {
       }
       $(this).animate({
         "fontSize": (120 - (index + 1)*40) + "px",
-        "marginLeft": 80 + "px"
+        "left": (getNumberFromPixel($(this).css('left')) + 100) + "px"
       }, 1000, "linear");
     });
+    if (curNum < 0) {
+      clearInterval(intervalId);
+      callback();
+      $(".counter-wrapper").css("display", "none");
+      return;
+    }
   }, 1000);
 
   // blur effect
-  $({blurRadius: 0}).animate({blurRadius: 3 * count}, {
-    duration: 1000 * count,
-    easing: 'swing',
-    step: function() {
-      let radius = this.blurRadius;
-      $(".counter-wrapper .lines").each(function(index) {
-        $(this).css({
-          "-webkit-filter": "blur(" + (radius/(count - 3*index) - 2) + "px)",
-          "filter": "blur(" + (radius/(count - 3*index) - 2) + "px)"
-        });
-      });
+  let blurCount = (count + 1) * 10;
+  let blurIntervalId = setInterval(function() {
+    blurCount --;
+    if (blurCount < 0) {
+      clearInterval(blurIntervalId);
     }
-  });
+    $(".counter-wrapper .lines").each(function(index) {
+      $(this).css({
+        "-webkit-filter": "blur(" + (getNumberFromFilter($(this).css('filter')) + 0.5) + "px)",
+        "filter": "blur(" + (getNumberFromFilter($(this).css('filter')) + 0.5) + "px)"
+      });
+    });
+  }, 100);
 }
 
 function rotateWheel() {
@@ -567,29 +596,29 @@ function rotateWheel() {
 		stopRotateWheel();
 		return;
 	}
-	var spinAngle = spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
+	let spinAngle = spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
 	startAngle += (spinAngle * Math.PI / 180);
 	drawRouletteWheel();
 	spinTimeout = setTimeout('rotateWheel()', 20);
 }
 
 function expireTimeCountDown(minute) {
-	var countDownDate = new Date().getTime() + (1000 * 60 * 60 * minute);
+	let countDownDate = new Date().getTime() + (1000 * 60 * 60 * minute);
 
 	// Update the count down every 1 second
-	var x = setInterval(function () {
+	let x = setInterval(function () {
 
 		// Get today's date and time
-		var now = new Date().getTime();
+		let now = new Date().getTime();
 
 		// Find the distance between now and the count down date
-		var distance = countDownDate - now;
+		let distance = countDownDate - now;
 
 		// Time calculations for days, hours, minutes and seconds
-		var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-		var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+		let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 		expireTime = hours + ":" + expireTimezeroview(minutes) + ":" + expireTimezeroview(seconds);
 
 		// If the count down is over, write some text
@@ -613,10 +642,10 @@ function expireTimezeroview (time) {
 
 function stopRotateWheel() {
 	clearTimeout(spinTimeout);
-	var degrees = startAngle * 180 / Math.PI + 0;
-	var arcd = arc * 180 / Math.PI;
-	var index = Math.floor((360 - degrees % 360) / arcd);
-	var text = options[index];
+	let degrees = startAngle * 180 / Math.PI + 0;
+	let arcd = arc * 180 / Math.PI;
+	let index = Math.floor((360 - degrees % 360) / arcd);
+	let text = options[index];
 	couponText = text;
 
   followingAnimationStart();
@@ -654,8 +683,8 @@ function stopRotateWheel() {
 }
 
 function easeOut(t, b, c, d) {
-	var ts = (t /= d) * t;
-	var tc = ts * t;
+	let ts = (t /= d) * t;
+	let tc = ts * t;
 	return b + c * (tc + -3 * ts + 3 * t);
 }
 
@@ -667,26 +696,26 @@ setTimeout(function() {
 /* Flowers Falling Animation */
 
 //TweenLite.set("img",{xPercent:"-50%",yPercent:"-50%"})
-var fireworkSVGPathArray = ["<svg width='50' height='50' version='1.1' xmlns='http://www.w3.org/2000/svg'><style>.cls-confetti-theme-wave{fill:#ff5c6c;stroke:#ff5c6c;}</style><path d='M20,10 Q40,5 50,30 T90,30' class='cls-confetti-theme-wave' stroke-width='5'/></svg>",
+let fireworkSVGPathArray = ["<svg width='50' height='50' version='1.1' xmlns='http://www.w3.org/2000/svg'><style>.cls-confetti-theme-wave{fill:#ff5c6c;stroke:#ff5c6c;}</style><path d='M20,10 Q40,5 50,30 T90,30' class='cls-confetti-theme-wave' stroke-width='5'/></svg>",
 	"<svg width='50' height='50' version='1.1' xmlns='http://www.w3.org/2000/svg'><style>.cls-confetti-theme-polyline{fill:#ff7d00;stroke:#ff7d00;}</style><polyline points='60 10 65 20 70 15 75 30 80 25 85 90 90 35 5 50 110 45' stroke-width='10' class='cls-confetti-theme-polyline'/></svg>",
 	"<svg width='50' height='20' version='1.1' xmlns='http://www.w3.org/2000/svg'><style>.cls-confetti-theme-circle{fill:#ff5c6c;stroke:#ff5c6c;}</style><ellipse cx='33' cy='30' rx='10' ry='22' class='cls-confetti-theme-circle'/></svg>",
 	"<svg width='20' height='50' version='1.1' xmlns='http://www.w3.org/2000/svg'><style>.cls-confetti-theme-rectangle{fill:#29abe2;stroke:#29abe2;}</style><rect x='10' y='10' width='30' height='90' class='cls-confetti-theme-rectangle'/></svg>"
 ];
 
 function showRandomFireworkSVG() {
-	var random = Math.floor(Math.random() * (fireworkSVGPathArray.length));
+	let random = Math.floor(Math.random() * (fireworkSVGPathArray.length));
 	$(".dot").css("background", "url(data:image/svg+xml;base64," + fireworkSVGPathArray[random] + ")");
 	//$('.tada-game-state-text').html(fireworkSVGPathArray[random]);
 }
 function followingAnimationStart () {
-  var total = 80;
-  var warp = document.getElementById("tada-flower-falling"),
+  let total = 80;
+  let warp = document.getElementById("tada-flower-falling"),
   	w = window_width,
   	h = window_height;
   	for (i = 0; i < total; i++) {
-  		var Div = document.createElement('div');
-  		var random = Math.floor(Math.random() * (fireworkSVGPathArray.length));
-  		var svgImg = window.btoa(fireworkSVGPathArray[random]);
+  		let Div = document.createElement('div');
+  		let random = Math.floor(Math.random() * (fireworkSVGPathArray.length));
+  		let svgImg = window.btoa(fireworkSVGPathArray[random]);
   		Div.style.background = "url(data:image/svg+xml;base64," + svgImg + ")"; //'url(' + widget_url + fireworkSVGPathArray[random] + ')'; //("background", 'url('+ widget_url + fireworkSVGPathArray[random]+')');
   		//showRandomFireworkSVG();
   		TweenLite.set(Div, {
@@ -698,7 +727,7 @@ function followingAnimationStart () {
   			z: R(-200, 200)
   		});
   		warp.appendChild(Div);
-      var elm = Div;
+      let elm = Div;
       TweenLite.set("#tada-flower-falling", {
     		perspective: 600
     	})
@@ -757,16 +786,16 @@ function R(min, max) {
 }
 
 function showNotification() {
-	var x = document.getElementById("snackbar");
+	let x = document.getElementById("snackbar");
 	setTimeout(function () {
 		x.className = x.className.replace("show", "");
 	}, 3000);
 }
 
 /* retro button */
-var buttons = document.querySelectorAll('.btn');
+let buttons = document.querySelectorAll('.btn');
 
-for(var i = 0; i < buttons.length; i++) {
+for(let i = 0; i < buttons.length; i++) {
   // Click
   buttons[i].addEventListener('mousedown', function() {
     this.classList.add('btn-active');
@@ -781,10 +810,10 @@ for(var i = 0; i < buttons.length; i++) {
   });
 
   buttons[i].addEventListener("mousemove", function(e) {
-    var leftOffset = this.getBoundingClientRect().left;
-    var btnWidth = this.offsetWidth;
-    var myPosX = e.pageX;
-    var newClass = "";
+    let leftOffset = this.getBoundingClientRect().left;
+    let btnWidth = this.offsetWidth;
+    let myPosX = e.pageX;
+    let newClass = "";
     // if on left 1/3 width of btn
     if(myPosX < (leftOffset + .3 * btnWidth) ) {
       newClass = 'btn-left'
@@ -797,7 +826,7 @@ for(var i = 0; i < buttons.length; i++) {
       }
     }
     // remove prev class
-    var clearedClassList = this.className.replace(/btn-center|btn-right|btn-left/gi, "").trim();
+    let clearedClassList = this.className.replace(/btn-center|btn-right|btn-left/gi, "").trim();
     this.className = clearedClassList + " " + newClass;
   });
 }
@@ -834,7 +863,7 @@ $(".tada-game-modal-btn-close-fake").click(function() {
 });
 
 $("#tada_game_modal_btn_try").click(function() {
-  var email = $('#tada_game_modal_email').val();
+  let email = $('#tada_game_modal_email').val();
   if (!validateEmail(email)) {
     showNotification();
     $(this).removeClass('jello-horizontal');

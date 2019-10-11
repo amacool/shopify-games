@@ -430,7 +430,14 @@ function selectWidgetBySetting(widget) {
             <div class="tada-game-modal-top" style="background-color: ${theme_first_color}">
               <div class="tada-game-modal-left-blank"></div>
               <div class="tada-game-modal-right">
-                <h3 class="tada-game-modal-heading-1">Spin to win a BIG prize right now!  🎁</h3>
+                <div class="tada-game-modal-heading-mobile">
+                  <h3 class="tada-game-modal-heading-1">Spin to win a BIG prize right now!  🎁</h3>
+                  <button type="button" class="close tada-game-modal-btn-close-fake btn-close-mobile" aria-label="Close">
+                    <div class="tada-dialog-btn-close-inner">
+                      <span aria-hidden="true" style="color: ${theme_first_color}"> &times;</span>
+                    </div>
+                  </button>
+                </div>
                 <p class="tada-game-modal-heading-2">You have a chance to win a nice big fat discount.<br/>Are you feeling lucky? Give it a spin. If you win, you can claim your coupon for 15 mins only!</p>
                 <div class="tada-game-expire-in-wrapper" style="display: none">
                   <span>Expires in: </span>
