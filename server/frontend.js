@@ -242,8 +242,9 @@ function selectWidgetBySetting(widget) {
       window.theme_first_color = "${theme_first_color}";
       window.theme_second_color = "${theme_second_color}";
     </script>
-    <link rel="stylesheet" href="${widget_url}/tadaMain.css"/>
     <script src="${widget_url}/tadaMain.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" href="${widget_url}/tadaMain.css"/>
     <div id="tada_app_widget">
     <div class="tada-wheel-wrapper">
       <div id="spinny_box" class="tada_start_icon_div" data-toggle="modal" data-target="#tada_full_modal">
@@ -251,15 +252,108 @@ function selectWidgetBySetting(widget) {
           <a class='btn tada-btn'>
             <span class='btn-inner'>
               <span class='content-wrapper'>
-                <svg class='btn-content' id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31 30"><defs><style>.cls-1{fill:#ff5c6c;}.cls-2{fill:${game_theme_style===1 ? '#ff5c6c' : '#8e52ce'};}.cls-3{fill:${game_theme_style===1 ? '#ff5c6c' : '#8e52ce'};}.cls-4{fill:#fbb03b;}.cls-5{fill:${game_theme_style===1 ? '#e82d1a' : '#8e52ce'};}.cls-6{fill:#f4a63d;}.cls-7{fill:#e59739;}</style></defs><title>Game1 - spin</title>
-                  <path class="cls-1" d="M23.27,3.84c-0.86-1.62-1.9-2.43-3.08-2.43-1.35,0-2.76,1.11-4.18,3.29-0.18.28-.35,0.56-0.51,0.83C15.34,5.26,15.17,5,15,4.7c-1.42-2.19-2.83-3.29-4.18-3.29-1.18,0-2.21.82-3.08,2.43a2.5,2.5,0,0,0-.1,2.59C8.18,7.36,9.43,8,11.43,8.34a24.1,24.1,0,0,0,4,.32h0.14a24.1,24.1,0,0,0,4-.32c2-.36,3.25-1,3.8-1.91a2.51,2.51,0,0,0-.1-2.59h0Z"/>
-                  <path class="cls-2" fill=${game_theme_style===3 ? theme_colors[0].second : theme_colors[game_theme_style].second} d="M28.19,13.08A1.21,1.21,0,0,0,27,11.87H4a1.21,1.21,0,0,0-1.21,1.21V27.39A1.21,1.21,0,0,0,4,28.59H27a1.21,1.21,0,0,0,1.21-1.21V13.08h0Z"/>
-                  <path class="cls-3" fill=${game_theme_style===3 ? theme_colors[0].second : theme_colors[game_theme_style].second} d="M30,14.09a1.21,1.21,0,0,1-1.21,1.21H2.21A1.21,1.21,0,0,1,1,14.09v-6A1.21,1.21,0,0,1,2.21,6.84H28.79A1.21,1.21,0,0,1,30,8.05v6h0Z"/><polygon class="cls-4" points="12.48 6.84 18.52 6.84 18.52 15.3 12.48 15.3 12.48 6.84 12.48 6.84"/><polygon class="cls-5" points="2.81 16.5 28.19 18.8 28.19 15.34 2.81 15.34 2.81 16.5 2.81 16.5"/><polygon class="cls-6" points="12.48 15.3 18.52 15.3 18.52 28.59 12.48 28.59 12.48 15.3 12.48 15.3"/><polygon class="cls-7" points="12.48 17.38 18.52 17.93 18.52 15.34 12.48 15.34 12.48 17.38 12.48 17.38"/></svg>
+                <svg class='btn-content' id="Layer_1" data-name="Layer 1" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g filter="url(#filter0_i)">
+                    <path fill="${theme_second_color}" d="M33.6521 6.99273H31.0317C31.3773 6.44474 31.6054 5.82963 31.6704 5.17908C31.8782 3.10003 30.7852 1.23629 28.9244 0.410011C27.214 -0.349499 25.2919 -0.0390174 23.9078 1.21854L20.5989 4.22263C19.9544 3.51658 19.0281 3.07284 18 3.07284C16.97 3.07284 16.0422 3.51799 15.3976 4.22623L12.0845 1.21819C10.6982 -0.0393695 8.77681 -0.348653 7.06717 0.410434C5.20684 1.23679 4.11363 3.10115 4.32203 5.18014C4.38721 5.83019 4.61516 6.44503 4.96075 6.99273H2.3478C1.0511 6.99273 0 8.04575 0 9.34466V12.8726C0 13.522 0.525585 14.0486 1.17394 14.0486H34.8261C35.4743 14.0486 36 13.5221 36 12.8726V9.34466C35.9999 8.04575 34.9488 6.99273 33.6521 6.99273ZM14.4782 6.60076V6.99273H8.95569C7.49656 6.99273 6.34822 5.63008 6.71265 4.10825C6.87317 3.43805 7.35608 2.86674 7.98066 2.57753C8.83834 2.18042 9.78839 2.30791 10.5087 2.96106L14.4792 6.5661C14.479 6.57773 14.4782 6.58914 14.4782 6.60076ZM29.3409 4.86684C29.2535 6.08911 28.1513 6.99288 26.9281 6.99288H21.5217V6.6009C21.5217 6.58702 21.5209 6.57329 21.5207 6.55941C22.4202 5.74264 24.3714 3.97104 25.4297 3.01008C26.0311 2.46399 26.8727 2.20908 27.6506 2.44152C28.767 2.77511 29.4226 3.72613 29.3409 4.86684Z"/>
+                    <path fill="${theme_second_color}" d="M2.3479 16.4004V33.648C2.3479 34.947 3.399 35.9999 4.6957 35.9999H15.6522V16.4004H2.3479Z"/>
+                    <path fill="${theme_second_color}" d="M20.3479 16.4004V35.9999H31.3044C32.6011 35.9999 33.6522 34.947 33.6522 33.648V16.4004H20.3479Z"/>
+                  </g>
+                  <defs>
+                    <filter id="filter0_i" x="0" y="-8" width="36" height="43.9999" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                      <feOffset dy="-8"/>
+                      <feGaussianBlur stdDeviation="15"/>
+                      <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+                      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
+                      <feBlend mode="normal" in2="shape" result="effect1_innerShadow"/>
+                    </filter>
+                    <linearGradient id="paint0_linear" x1="1.09862e-06" y1="14.1371" x2="18.7135" y2="-12.2565" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#131313"/>
+                      <stop offset="1" stop-color="#232631"/>
+                    </linearGradient>
+                    <linearGradient id="paint1_linear" x1="2.3479" y1="36.1234" x2="20.4887" y2="29.3458" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#131313"/>
+                      <stop offset="1" stop-color="#232631"/>
+                    </linearGradient>
+                    <linearGradient id="paint2_linear" x1="20.3479" y1="36.1234" x2="38.4887" y2="29.3458" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#131313"/>
+                      <stop offset="1" stop-color="#232631"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
               </span>
             </span>
           </a>
         </div>
       </div>
+      
+      <!--reminder buttons-->
+      <div id="present_time_reminder_container">
+        <div class="present-time-reminder" id="present_time_reminder_1">
+          <svg width="41" height="30" viewBox="0 0 41 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g filter="url(#filter0_i)">
+              <path fill="${theme_second_color}" d="M40.252 3.11811V19.8898H14.2076C15.4234 19.349 16.2088 18.1458 16.2143 16.8152C16.2143 14.9524 14.6785 13.4369 12.791 13.4369C11.6955 13.4358 10.665 13.9562 10.0157 14.8383V0H37.1339C38.8549 0.00184547 40.2501 1.39702 40.252 3.11811ZM5.23893 18.8338C4.17889 18.6522 3.43885 17.6833 3.54294 16.6129C3.64665 15.5426 4.55942 14.7343 5.63423 14.7597C6.00812 14.7594 6.37537 14.8572 6.6998 15.0432C7.21801 15.3396 7.58231 15.846 7.69783 16.4317L8.27436 19.4029L5.23893 18.8338ZM10.1512 19.4033L10.7274 16.4321C10.9473 15.3861 11.9158 14.6708 12.9803 14.7689C14.0444 14.8668 14.8664 15.7467 14.8915 16.8152C14.8823 17.8103 14.1662 18.6581 13.1866 18.8338L10.1512 19.4033ZM3.11811 0H8.69291V15.2993C8.39395 14.7132 7.9311 14.226 7.36048 13.8979C6.83563 13.5956 6.24028 13.4369 5.6346 13.4369C3.74668 13.4369 2.21125 14.9524 2.21125 16.8152C2.21678 18.1454 3.00185 19.349 4.21764 19.8898H0V3.11811C0.00184547 1.39702 1.39702 0.00184547 3.11811 0ZM0 26.8819V21.2126H7.47416L4.63472 24.052C4.37635 24.3104 4.37635 24.729 4.63472 24.9873C4.89309 25.2457 5.31164 25.2457 5.57 24.9873L8.69291 21.8644V30H3.11811C1.39702 29.9982 0.00184547 28.603 0 26.8819ZM37.1339 30H10.0157V21.8644L14.2253 26.0739C14.4836 26.3323 14.9022 26.3323 15.1606 26.0739C15.4189 25.8156 15.4189 25.397 15.1606 25.1387L11.2345 21.2126H40.252V26.8819C40.2501 28.603 38.8549 29.9982 37.1339 30Z"/>
+            </g>
+            <defs>
+              <filter id="filter0_i" x="0" y="-8" width="40.252" height="38" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                <feOffset dy="-8"/>
+                <feGaussianBlur stdDeviation="15"/>
+                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
+                <feBlend mode="normal" in2="shape" result="effect1_innerShadow"/>
+              </filter>
+              <linearGradient id="paint0_linear" x1="1.22838e-06" y1="30.189" x2="40.4735" y2="0.300046" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#131313"/>
+                <stop offset="1" stop-color="#232631"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="tada-expire-time">00:13:45 left!</span>
+        </div>
+        <div class="present-time-reminder" id="present_time_reminder_2">
+          <svg width="41" height="30" viewBox="0 0 41 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g filter="url(#filter0_i)">
+              <path fill="${theme_first_color}" d="M40.252 3.11811V19.8898H14.2076C15.4234 19.349 16.2088 18.1458 16.2143 16.8152C16.2143 14.9524 14.6785 13.4369 12.791 13.4369C11.6955 13.4358 10.665 13.9562 10.0157 14.8383V0H37.1339C38.8549 0.00184547 40.2501 1.39702 40.252 3.11811ZM5.23893 18.8338C4.17889 18.6522 3.43885 17.6833 3.54294 16.6129C3.64665 15.5426 4.55942 14.7343 5.63423 14.7597C6.00812 14.7594 6.37537 14.8572 6.6998 15.0432C7.21801 15.3396 7.58231 15.846 7.69783 16.4317L8.27436 19.4029L5.23893 18.8338ZM10.1512 19.4033L10.7274 16.4321C10.9473 15.3861 11.9158 14.6708 12.9803 14.7689C14.0444 14.8668 14.8664 15.7467 14.8915 16.8152C14.8823 17.8103 14.1662 18.6581 13.1866 18.8338L10.1512 19.4033ZM3.11811 0H8.69291V15.2993C8.39395 14.7132 7.9311 14.226 7.36048 13.8979C6.83563 13.5956 6.24028 13.4369 5.6346 13.4369C3.74668 13.4369 2.21125 14.9524 2.21125 16.8152C2.21678 18.1454 3.00185 19.349 4.21764 19.8898H0V3.11811C0.00184547 1.39702 1.39702 0.00184547 3.11811 0ZM0 26.8819V21.2126H7.47416L4.63472 24.052C4.37635 24.3104 4.37635 24.729 4.63472 24.9873C4.89309 25.2457 5.31164 25.2457 5.57 24.9873L8.69291 21.8644V30H3.11811C1.39702 29.9982 0.00184547 28.603 0 26.8819ZM37.1339 30H10.0157V21.8644L14.2253 26.0739C14.4836 26.3323 14.9022 26.3323 15.1606 26.0739C15.4189 25.8156 15.4189 25.397 15.1606 25.1387L11.2345 21.2126H40.252V26.8819C40.2501 28.603 38.8549 29.9982 37.1339 30Z"/>
+            </g>
+            <defs>
+              <filter id="filter0_i" x="0" y="-8" width="40.252" height="38" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                <feOffset dy="-8"/>
+                <feGaussianBlur stdDeviation="15"/>
+                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
+                <feBlend mode="normal" in2="shape" result="effect1_innerShadow"/>
+              </filter>
+              <linearGradient id="paint0_linear" x1="1.22838e-06" y1="30.189" x2="40.4735" y2="0.300046" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#131313"/>
+                <stop offset="1" stop-color="#232631"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="tada-expire-time">00:13:45 left!</span>
+        </div>
+      </div>
+      
+      <!--RemainerBar -->
+      <div class="tada_remaind_bar" style="background-color: ${theme_colors[game_theme_style].first}">
+        <div class="d-flex tada_remaind_bar_children">
+          <span id="tada_notifi_cash_view"></span>&nbsp;
+          <span>ends so soon! </span>
+          <span id="tada_notifi_cash_remaind_time" class="tada-expire-time">15m : 20s</span>&nbsp;
+        </div>
+        <div class="tada-remained_notify_button_container">
+          <button id="tada_ramaind_view_coupon_button" style="background-color: ${game_theme_style==3 ? theme_colors[0].second: theme_colors[game_theme_style].second}"
+            data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
+        </div>
+      </div>
+      
       <div class="tada-open-game-modal" data-toggle="modal" data-target="#tada_game_modal_2"></div>
       
       <div class="tada-floating-dialog scale-in-center" style="background-color: ${game_theme_style==3 ? theme_colors[game_theme_style].first:'white'}">
@@ -283,25 +377,7 @@ function selectWidgetBySetting(widget) {
       
       <!--Flowers falling -->
       <div id="tada-flower-falling"></div>
-      <!--RemainerBar -->
-      <div class="tada_remaind_bar" style="background-color: ${theme_colors[game_theme_style].first}">
-        <div class="d-flex tada_remaind_bar_children">
-          <span>You've won</span>&nbsp;
-          <span id="tada_notifi_cash_view"></span>&nbsp;
-          <span>and is reserved for</span>&nbsp;
-          <span id="tada_notifi_cash_remaind_time" class="tada-expire-time">15m : 20s</span>&nbsp;
-        </div>
-        <div class="tada-remained_notify_button_container">
-          <button id="tada_ramaind_view_coupon_button" style="background-color: ${game_theme_style==3 ? theme_colors[0].second: theme_colors[game_theme_style].second}"
-            data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
-        </div>
-        <button id="tada_remained_notify_close" class="close">
-          <div class="tada-close-button-div">
-              <span aria-hidden="true">&times;</span>
-          </div>
-        </button>
-      </div>
-      
+            
       <!--Full screen popup modal-->
       <div class="modal fade tada-full-modal ${game_theme_style === 1 ? "tada-full-modal-theme-1" : "tada-full-modal-theme-2"}" id="tada_full_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered tada-full-modal-content" role="document" style="display: ${game_theme_style === 1 ? "flex" : "block"}; background-image: url(${widget_url}/full-modal/popup-back-${popup_back_img_type}.png)">
