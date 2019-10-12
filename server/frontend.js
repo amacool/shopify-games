@@ -379,7 +379,7 @@ function selectWidgetBySetting(widget) {
       <div id="tada-flower-falling"></div>
       
       <!--Invalid email warning-->
-      <div id="snackbar" style="background-color: ${$theme_first_color}">You have entered an invalid e-mail address. Please try again.</div>
+      <div id="snackbar" style="background-color: ${theme_first_color}">You have entered an invalid e-mail address. Please try again.</div>
 
       <!--Full screen popup modal-->
       <div class="modal fade tada-full-modal ${game_theme_style === 1 ? "tada-full-modal-theme-1" : "tada-full-modal-theme-2"}" id="tada_full_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
