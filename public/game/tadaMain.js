@@ -9,6 +9,7 @@ let game_done = false;
 let expireTime = '';
 let window_width = window.innerWidth;
 let window_height = window.innerHeight;
+let isMobile = window_width <= 600;
 let options = window.wheel_item.split(',');
 let wheelStopState = false;
 let randomTextNumber = 0;
@@ -401,6 +402,10 @@ function getRouletteColors(count) {
   }
 }
 
+function getRadian(degree) {
+	return degree / 180 * Math.PI;
+}
+
 function drawRouletteWheel() {
 	let canvas = document.getElementById("canvas");
 	if (canvas.getContext) {
@@ -450,46 +455,56 @@ function drawRouletteWheel() {
 }
 
 function drawRouletteMarker() {
-  let isMobile = window_width <= 600;
+  let degrees = startAngle * 180 / Math.PI + (isMobile ? 90 : 0);
+  let arcd = arc * 180 / Math.PI;
+  let offsetAngle = getRadian((parseInt(degrees + arcd / 2) % parseInt(arcd)) - (arcd / 2));
+  if (startAngle === 0) {
+  	offsetAngle = 0;
+	}
 
   // define start point : center of circle
-  let x1 = isMobile ? 250 : 430;
+  let x1 = isMobile ? 250 : 440;
   let y1 = isMobile ? 70 : 250;
 
   // marker on the right middle
-  let r1 = 25;
-  let a = Math.PI / 6;
-  let b = isMobile ? (-Math.PI / 4) : 0;
-  let c = Math.PI / 4 - a - b;
-  let d = Math.PI / 4 - a + b;
-  let w = r1 / Math.cos(a);
-  let r2 = w * Math.sin(a);
+	const markerTailWidth = Math.PI / 3;
+	const baseAngle = isMobile ? 3 / 2 * Math.PI : Math.PI;
+	let r2 = 15;
+  let a = markerTailWidth;
+  let b = offsetAngle;
+  let c = baseAngle + a - b;
+  let d = baseAngle - a + b;
+  let w = r2 / Math.sin(Math.PI / 2 - a);
 
-  let deltaX1 = w / Math.cos(b);
-  let deltaY1 = Math.sqrt(w * w - deltaX1 * deltaX1);
-  let x2 = x1 - deltaX1;
+  let deltaX1 = w * Math.cos(baseAngle + b);
+  let deltaY1 = w * Math.sin(baseAngle + b);
+  let x2 = x1 + deltaX1;
   let y2 = y1 - deltaY1;
 
   let deltaX2 = r2 * Math.cos(c);
   let deltaY2 = r2 * Math.sin(c);
-  let x3 = x1 - deltaX2;
-  let y3 = y1 + deltaY2;
+  let x3 = x1 + deltaX2;
+  let y3 = y1 - deltaY2;
 
   let deltaX3 = r2 * Math.cos(d);
   let deltaY3 = r2 * Math.sin(d);
-  let x4 = x1 - deltaX3;
+  let x4 = x1 + deltaX3;
   let y4 = y1 - deltaY3;
 
+  ctx1.clearRect(0, 0, 500, 500);
   ctx1.beginPath();
   ctx1.fillStyle = window.theme_first_color;
   ctx1.shadowOffsetX = 0;
   ctx1.shadowOffsetY = 0;
   ctx1.shadowBlur = 0;
-  ctx1.moveTo(x3, y3);
+  ctx1.moveTo(x1, y1);
+  ctx1.lineTo(x3, y3);
   ctx1.lineTo(x2, y2);
   ctx1.lineTo(x4, y4);
-  ctx1.moveTo(x3, y3);
+  ctx1.moveTo(x1, y1);
   ctx1.fill();
+  ctx1.beginPath();
+  ctx1.fillStyle = window.theme_first_color;
   ctx1.ellipse(x1, y1, r2, r2, 0, 0, 2 * Math.PI);
   ctx1.fill();
   ctx1.beginPath();
@@ -599,6 +614,7 @@ function rotateWheel() {
 	let spinAngle = spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
 	startAngle += (spinAngle * Math.PI / 180);
 	drawRouletteWheel();
+  drawRouletteMarker();
 	spinTimeout = setTimeout('rotateWheel()', 20);
 }
 
@@ -642,7 +658,7 @@ function expireTimezeroview (time) {
 
 function stopRotateWheel() {
 	clearTimeout(spinTimeout);
-	let degrees = startAngle * 180 / Math.PI + 0;
+  let degrees = startAngle * 180 / Math.PI + (isMobile ? 90 : 0);
 	let arcd = arc * 180 / Math.PI;
 	let index = Math.floor((360 - degrees % 360) / arcd);
 	let text = options[index];
