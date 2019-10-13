@@ -254,7 +254,7 @@ $('.tada-dialog-close-button').click(function () {
 $('#tada_game_btn_apply_discount').click(function () {
 	game_done = true;
 	// Remove the Open Dialog event
-	$('.tada_start_icon_div').attr('data-target', '');
+	$('.tada_start_icon_div').remove();
 
 	// Replace the Attention icon to floating icon
 	$('#tada_start_icon').fadeOut(400, function () {

@@ -1113,7 +1113,7 @@ button.tada-game-modal-btn {
   .tada-game-modal .tada-game-modal-right {
     width: 100%;
   }
-  .tada-game-modal .tada-game-modal-top {
+  #tada_game_modal_2 .tada-game-modal-content .tada-game-modal-top {
     border-radius: 25px 25px 0 0;
   }
   .tada-game-modal .tada-game-modal-top .tada-game-modal-heading-mobile {

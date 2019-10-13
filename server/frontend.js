@@ -355,26 +355,7 @@ function selectWidgetBySetting(widget) {
       
       <div class="tada-open-game-modal" data-toggle="modal" data-target="#tada_game_modal_2"></div>
       <div class="tada-open-full-modal" data-toggle="modal" data-target="#tada_full_modal"></div>
-      
-      <div class="tada-floating-dialog scale-in-center" style="background-color: ${game_theme_style==3 ? theme_colors[game_theme_style].first:'white'}">
-        <div class="d-flex">
-          <p style="color: black">You've won</p> &nbsp;
-          <p id="tada_floating-dialog_cashview" style="color: ${theme_first_color}"></p>
-        </div>
-        <div class="d-flex">
-          <p style="color: ${game_theme_style==3 ? 'white' : 'black'}">and is reserved for</p>&nbsp;
-          <p id='tada-floating-dialog-countdownTime' class="tada-floating-dialog-expire-time">15m : 20s</p>
-        </div>
-        <div class="tada-floating-dialog-button-div">
-          <button id="tada-floating-couponview-button" style="background-color: ${theme_second_color};
-          color: white;" data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
-        </div>
-      </div>
-      
-      <div class="tada_image_temp" style="background-image: ${game_theme_style == 2 ? 'url('+widget_url+'/success_mark_board.svg)' : 'url('+widget_url+'/success_mark_board2.svg)' }">
-        <img src="${widget_url}/floating-bar-icon.svg"/>
-      </div>
-      
+          
       <!--Flowers falling -->
       <div id="tada-flower-falling"></div>
       
