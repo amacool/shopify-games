@@ -505,12 +505,20 @@
 }
 .tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-policy label a {
   text-decoration: underline;
+  font-weight: 600;
 }
 .tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-submit button {
   color: white;
   border: none;
   font-family: Montserrat;
-  margin-bottom: 10px;
+  text-transform: uppercase;
+  transition: 0.4s all ease;
+  margin: 0 auto 10px;
+}
+.tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-submit button:hover {
+  transition: 0.4s all ease;
+  width: 90%;
+  filter: brightness(1.2);
 }
 .tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-submit p {
   display: block;
@@ -532,6 +540,8 @@ button#tada_game_btn_apply_discount {
   width: 79%;
   margin: 0 auto;
   font-family: Montserrat;
+  text-transform: uppercase;
+  z-index: 20;
 }
 button#tada_game_btn_apply_discount:hover {
   transition: 0.4s all ease;
@@ -571,6 +581,9 @@ button.tada-game-modal-btn-close-fake .tada-dialog-btn-close-inner span {
 }
 .tada-game-modal .tada-game-modal-right {
   width: 60%;
+}
+.tada-game-modal .tada-game-result-panel {
+  margin-top: 15px;
 }
 .tada-game-result-panel {
   zoom: 100%;
@@ -629,6 +642,19 @@ button.tada-game-modal-btn {
   border: none;
   margin-bottom: 12px;
   text-transform: uppercase;
+}
+#tada_game_modal_2 .tada-game-modal-content {
+  border-radius: 0 10px 10px 0;
+  background: transparent;
+}
+#tada_game_modal_2 .tada-game-modal-content .tada-game-modal-top {
+  border-radius: 0 9px 0 0;
+}
+#tada_game_modal_2 .tada-game-modal-content .tada-game-modal-bottom {
+  background-color: white;
+}
+#tada_game_modal_2 .tada-game-modal-content .tada-game-modal-footer {
+  border-radius: 0 0 9px 0;
 }
 
 /* counter */
@@ -936,7 +962,7 @@ button.tada-game-modal-btn {
     margin-left: -300px;
     color: white;
     background-color: #ff3547;
-    opacity: 0.8;
+    opacity: 1;
     text-align: center;
     padding: 16px;
     border-radius: 10px;
@@ -1088,23 +1114,25 @@ button.tada-game-modal-btn {
     width: 100%;
   }
   .tada-game-modal .tada-game-modal-top {
-    border-radius: 30px 30px 0 0;
+    border-radius: 25px 25px 0 0;
   }
   .tada-game-modal .tada-game-modal-top .tada-game-modal-heading-mobile {
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
   }
   .tada-game-modal .tada-game-modal-top h3 {
     font-size: 24px;
     line-height: 150%;
   }
   .tada-game-modal .tada-game-modal-container .tada-wheel-container {
-    margin: -15% auto 0;
+    margin: -15% auto -8%;
     width: 100%;
     position: relative;
+    display: flex;
   }
   .tada-game-modal .tada-game-modal-container .tada-wheel-container canvas {
-    width: 100%;
+    width: 115% !important;
   }
   .tada-full-modal .tada-full-modal-left {
     padding: 0 25px;
@@ -1167,7 +1195,7 @@ button.tada-game-modal-btn {
     min-width: 100%;
     color: white;
     background-color: #ff3547;
-    opacity: 0.8;
+    opacity: 1;
     text-align: center;
     padding: 16px;
     border-radius: 10px;
@@ -1318,6 +1346,9 @@ button.tada-game-modal-btn {
     margin-bottom: 0;
     height: 150px;
   }
+  #tada_game_modal_2 .tada-game-modal-container {
+    margin-bottom: -35%;
+  }
 }
 
 @media (max-width: 400px) {
@@ -1352,6 +1383,66 @@ button.tada-game-modal-btn {
   }
   .tada-game-result-svg-wrapper {
     margin-top: -17px;
+  }
+  #tada_game_modal_2 .tada-game-modal-container {
+    margin-bottom: -45%;
+  }
+  .tada-game-modal .tada-game-modal-top h3 {
+    margin: 0 0 5px;
+    font-size: 22px;
+  }
+  .tada-game-modal .tada-game-modal-top p {
+    margin-bottom: 5px;
+  }
+  .tada-game-modal .tada-game-modal-container .tada-wheel-container {
+    margin: -20% auto 0;
+    display: flex;
+  }
+  .tada-game-modal .tada-game-modal-container .tada-wheel-container canvas {
+    width: 110%;
+  }
+  .tada-game-modal .tada-game-result-panel {
+    height: 140px;
+  }
+  .tada-game-modal .tada-game-modal-bottom {
+    padding: 0 25px;
+  }
+  .tada-game-modal .tada-game-modal-bottom .tada-game-modal-form {
+    margin-bottom: 10px;
+  }
+  .tada-game-result-panel .tada-game-result-text {
+    font-size: 21px;
+  }
+  .tada-game-result-panel .tada-game-result-code {
+    font-size: 14px;
+  }
+  button.tada-game-modal-btn-close-fake .tada-dialog-btn-close-inner {
+    width: 25px;
+    height: 25px;
+  }
+  .tada-game-modal .tada-game-modal-top p {
+    font-size: 15px;
+  }
+  .tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-policy {
+    margin: 10px 0;
+  }
+  .tada-game-modal .tada-game-modal-content > div {
+    padding: 15px 24px
+  }
+}
+
+@media (max-width: 350px) {
+  .tada-game-modal .tada-game-modal-top h3 {
+    font-size: 20px;
+  }
+  .tada-game-modal .tada-game-modal-top p {
+    font-size: 14px;
+  }
+  .tada-game-result-panel .tada-game-result-text {
+    font-size: 20px;
+  }
+  .tada-game-modal .tada-game-modal-container .tada-wheel-container {
+    margin-bottom: -1%;
   }
 }
 

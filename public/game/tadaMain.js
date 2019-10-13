@@ -70,6 +70,7 @@ function displaySizeInit() {
 		$('#canvas').css({
 			'width': '100%'
 		});
+		$("#snackbar").css({ 'background-color': window.theme_second_color })
 		// $('.tada-wheel-container').css({
 		// 	'max-height': (window_width - 30) / 2
 		// });
@@ -170,47 +171,33 @@ $('#tada-floating-couponview-button').click(function () {
 			'display': 'none'
 		});
 	});
+  $("#present_time_reminder_1").trigger('click');
 });
 
 $('#tada_ramaind_view_coupon_button').click(function () {
 	// $(".tada_remaind_bar").fadeOut("slow", function () {
 	// 	$(this).css({ opacity: 1 });
 	// });
-  // if (!$("#tada_game_modal_2").hasClass('show')) {
-  //   $("#tada_game_modal_2").removeClass('fade-out5');
-  //   $("#tada_game_modal_2").addClass('fade-in5');
-  //   $(".tada-open-game-modal").trigger('click');
-  // }
-  if (!$("#tada_full_modal").hasClass('show')) {
-    $("#tada_full_modal").removeClass('fade-out5');
-    $("#tada_full_modal").addClass('fade-in5');
-    $(".tada-open-full-modal").trigger('click');
+  if (!$("#tada_game_modal_2").hasClass('show')) {
+    $("#tada_game_modal_2").removeClass('fade-out5');
+    $("#tada_game_modal_2").addClass('fade-in5');
+    $(".tada-open-game-modal").trigger('click');
   }
 });
 
 $("#present_time_reminder_1").click(function() {
-  // if (!$("#tada_game_modal_2").hasClass('show')) {
-  //   $("#tada_game_modal_2").removeClass('fade-out5');
-  //   $("#tada_game_modal_2").addClass('fade-in5');
-  //   $(".tada-open-game-modal").trigger('click');
-  // }
-  if (!$("#tada_full_modal").hasClass('show')) {
-    $("#tada_full_modal").removeClass('fade-out5');
-    $("#tada_full_modal").addClass('fade-in5');
-    $(".tada-open-full-modal").trigger('click');
+  if (!$("#tada_game_modal_2").hasClass('show')) {
+    $("#tada_game_modal_2").removeClass('fade-out5');
+    $("#tada_game_modal_2").addClass('fade-in5');
+    $(".tada-open-game-modal").trigger('click');
   }
 });
 
 $("#present_time_reminder_2").click(function() {
-  // if (!$("#tada_game_modal_2").hasClass('show')) {
-  //   $("#tada_game_modal_2").removeClass('fade-out5');
-  //   $("#tada_game_modal_2").addClass('fade-in5');
-  //   $(".tada-open-game-modal").trigger('click');
-  // }
-  if (!$("#tada_full_modal").hasClass('show')) {
-    $("#tada_full_modal").removeClass('fade-out5');
-    $("#tada_full_modal").addClass('fade-in5');
-    $(".tada-open-full-modal").trigger('click');
+  if (!$("#tada_game_modal_2").hasClass('show')) {
+    $("#tada_game_modal_2").removeClass('fade-out5');
+    $("#tada_game_modal_2").addClass('fade-in5');
+    $(".tada-open-game-modal").trigger('click');
   }
 });
 
@@ -237,8 +224,8 @@ $('.tada_start_icon_div').click(function () {
 	}
   $('#tada_full_modal').removeClass('fade-out5');
   $('#tada_game_modal_2').removeClass('fade-out5');
-  if(!$('.tada-full-modal').hasClass('fade-in5')) {
-    $('.tada-full-modal').addClass('fade-in5');
+  if (!$('.tada-game-modal').hasClass('fade-in5')) {
+    $('.tada-game-modal').addClass('fade-in5');
     showRandomEncouragementText('tada-game-state-second-text');
   	let fade_text = $('#tada-game-state-second-text');
   	fade_text.addClass('fadein-fadeout-animation5');
@@ -279,14 +266,23 @@ $('#tada_game_btn_apply_discount').click(function () {
 			display: "none"
 		});
 	});
+
 	$(".tada_remaind_bar").fadeIn(1000, function () {
 		$(this).css({
 			opacity: 1
 		});
 	});
+
 	$('#tada_notifi_cash_view').html(couponText);
 	// floating view couponText
 	$('#tada_floating-dialog_cashview').html(couponText);
+
+	// show reminder buttons
+  $("#present_time_reminder_container").fadeIn(1000, function () {
+    $(this).css({
+      opacity: 1
+    });
+  });
 
 	// remove apply button
 	$(this).remove();
@@ -434,6 +430,15 @@ function drawRouletteWheel() {
 		ctx.lineWidth = 0;
 		ctx.font = '13px Open Sans';
 
+    ctx.shadowBlur = 12;
+    ctx.shadowColor = "rgb(180,180,180)";
+    ctx.fillStyle = window.theme_second_color;
+    ctx.arc(250, 250, insideRadius + 10, 0, 2 * Math.PI, false);
+    ctx.fill();
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.shadowBlur = 0;
+
 		for (let i = 0; i < options.length; i++) {
 			let angle = startAngle + i * arc;
 			ctx.fillStyle = getColor(i, 3);
@@ -451,18 +456,7 @@ function drawRouletteWheel() {
 			ctx.restore();
 		}
 		ctx.beginPath();
-		ctx.shadowOffsetX = 0;
-		ctx.shadowOffsetY = 0;
-		ctx.shadowBlur = 0;
-		ctx.shadowColor = "rgb(220,220,220)";
-    ctx.lineWidth = 10;
-		ctx.arc(250, 250, insideRadius, 0, 2 * Math.PI, false);
-		ctx.stroke();
-		ctx.beginPath();
 		ctx.fillStyle = '#fff';
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 0;
-    ctx.shadowBlur = 0;
 		ctx.arc(250, 250, outsideRadius, 0, 2 * Math.PI, false);
 		ctx.fill();
     ctx.drawImage(logo_image, 250 - 30, 250 - 20, 60, 40);
@@ -578,9 +572,14 @@ function spin() {
  */
 function startCounterAnimation(count, callback) {
   let curNum = count;
+  $(".counter-wrapper").prepend("<div class='lines' style='font-size: 120px; position: absolute; left: 0;'>" + curNum + "</div>");
+  $(".counter-wrapper .lines").animate({
+    "fontSize": (120 - 40) + "px",
+    "left": (getNumberFromPixel($(".counter-wrapper .lines").css('left')) + 100) + "px"
+  }, 1000, "linear");
   let intervalId = setInterval(function() {
-    $(".counter-wrapper").prepend("<div class='lines' style='font-size: 120px; position: absolute; left: 0;'>" + curNum + "</div>");
     curNum --;
+    $(".counter-wrapper").prepend("<div class='lines' style='font-size: 120px; position: absolute; left: 0;'>" + curNum + "</div>");
     $(".counter-wrapper .lines").each(function(index) {
       if (index > 2) {
         $(this).remove();
@@ -658,6 +657,7 @@ function expireTimeCountDown(minute) {
 			expireTime = "EXPIRED";
 		}
 		$(".tada-expire-time").html(expireTime + ' left!');
+		$(".tada-floating-dialog-expire-time").html(expireTime);
     $("#present_time_reminder_1 span").html(expireTime + ' left!');
     $("#present_time_reminder_2 span").html(expireTime + ' left!');
     $(".tada-game-expire-in-wrapper span:last-child").html(expireTime);
@@ -683,7 +683,9 @@ function stopRotateWheel() {
   followingAnimationStart();
 
   $(".tada-game-modal-heading-1").text("Oh look at that! 🎉");
-  $(".tada-game-modal-heading-1").css("font-size", "36px");
+  if (!isMobile) {
+    $(".tada-game-modal-heading-1").css("font-size", "36px");
+  }
   $(".tada-game-modal-heading-2").text("You have a chance to win a nice big fat discount. Are you feeling lucky?");
   $(".tada-game-modal-heading-2").css("display", "block");
   $(".tada-game-expire-in-wrapper").css("display", "block");
@@ -691,15 +693,13 @@ function stopRotateWheel() {
 
   $('.tada-game-result-panel').css('display', 'flex');
   $('.tada-game-result-panel').addClass('fade-in5');
-  $('.tada-game-result-panel').animate({ zoom: '180%' }, 700).animate({ zoom: '100%' }, 100);
+  $(".tada-game-result-panel p").animate({ zoom: '180%' }, 700).animate({ zoom: '100%' }, 100);
 	$('.tada-game-result-text').html(text);
 	$('#tada_game_btn_apply_discount').css('display', 'block');
   $('#tada_game_btn_apply_discount').addClass('fade-in5');
 	$('#tada-flower-falling').css({
 		"display": "block"
 	});
-
-	$("#present_time_reminder_container").css('opacity', '1');
 
 	// hide the flower Falling
 	setTimeout(function () {
@@ -893,7 +893,6 @@ $(".tada_full_modal_btn_access").click(function() {
   }
 
   if (!validateEmail($("#tada_full_modal_email").val())) {
-  	console.log('ivalid email');
     showNotification();
     return;
   }
@@ -969,11 +968,15 @@ $("#tada_game_modal_btn_try").click(function() {
 
   // update game modal view
   $(".tada-game-modal-heading-1").text("Excited to see your discount? 🎁");
-  $(".tada-game-modal-heading-1").css("font-size", "36px");
+  if (!isMobile) {
+    $(".tada-game-modal-heading-1").css("font-size", "36px");
+  }
+
   $(".tada-game-modal-heading-2").css("display", "none");
   $('#tada_game_modal_email').css('display', 'none');
   $('.tada-game-modal .tada-game-modal-form-policy').css('display', 'none');
   $('.tada-game-modal-form-submit').css('display', 'none');
+  $(".tada-game-modal-footer-right > span").text("");
 
 	startCounterAnimation(5, spin);
 });

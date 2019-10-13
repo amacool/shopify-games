@@ -246,7 +246,7 @@ function selectWidgetBySetting(widget) {
     <link rel="stylesheet" href="${widget_url}/tadaMain.css"/>
     <div id="tada_app_widget">
     <div class="tada-wheel-wrapper">
-      <div id="spinny_box" class="tada_start_icon_div" data-toggle="modal" data-target="#tada_full_modal">
+      <div id="spinny_box" class="tada_start_icon_div" data-toggle="modal" data-target="#tada_game_modal_2">
         <div role='button' class='retro-btn'>
           <a class='btn tada-btn'>
             <span class='btn-inner'>
@@ -358,16 +358,16 @@ function selectWidgetBySetting(widget) {
       
       <div class="tada-floating-dialog scale-in-center" style="background-color: ${game_theme_style==3 ? theme_colors[game_theme_style].first:'white'}">
         <div class="d-flex">
-          <p style="color: ${game_theme_style==3 ? 'white' : 'black'}">You've won</p> &nbsp;
-          <p id="tada_floating-dialog_cashview" style="color: ${theme_colors[game_theme_style].first}"></p>
+          <p style="color: black">You've won</p> &nbsp;
+          <p id="tada_floating-dialog_cashview" style="color: ${theme_first_color}"></p>
         </div>
         <div class="d-flex">
           <p style="color: ${game_theme_style==3 ? 'white' : 'black'}">and is reserved for</p>&nbsp;
-          <p id='tada-floating-dialog-countdownTime' class="tada-expire-time">15m : 20s</p>
+          <p id='tada-floating-dialog-countdownTime' class="tada-floating-dialog-expire-time">15m : 20s</p>
         </div>
         <div class="tada-floating-dialog-button-div">
-          <button id="tada-floating-couponview-button" style="background-color: ${theme_colors[game_theme_style].second};
-          color : ${game_theme_style ==3 ? 'black' : 'white'}; " data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
+          <button id="tada-floating-couponview-button" style="background-color: ${theme_second_color};
+          color: white;" data-toggle="modal" data-target="#gamestartmodal">SEE MY COUPON</button>
         </div>
       </div>
       
@@ -505,7 +505,7 @@ function selectWidgetBySetting(widget) {
                     </div>
                   </button>
                 </div>
-                <p class="tada-game-modal-heading-2">You have a chance to win a nice big fat discount.<br/>Are you feeling lucky? Give it a spin. If you win, you can claim your coupon for 15 mins only!</p>
+                <p class="tada-game-modal-heading-2">You have a chance to win a nice big fat discount.<br class="tada-full-modal-title-br"/> Are you feeling lucky? Give it a spin. If you win, you can claim your coupon for 15 mins only!</p>
                 <div class="tada-game-expire-in-wrapper" style="display: none">
                   <span>Expires in: </span>
                   <span style="font-weight: 600; color: ${theme_second_color}">01:56:34</span>
@@ -538,7 +538,7 @@ function selectWidgetBySetting(widget) {
                 <div class="tada-game-modal-form-submit">
                   <button class="form-control tada-game-modal-btn" id="tada_game_modal_btn_try" style="background-color: ${theme_second_color}">try your luck</button>
                   <div class="tada-progress-bar" style="display: ${progress_bar ? 'block' : 'none'}">
-                    <div class="tada-progress-value" style="width:40%; background-color: ${game_theme_style==3 ? 'white' : theme_colors[game_theme_style].second};">
+                    <div class="tada-progress-value" style="width:40%; background-color: ${theme_first_color};">
                     </div>
                   </div>
                   <p class="tada-progress-bar-text" style="display: ${progress_bar ? 'block' : 'none'}"><span id="tada-progressbar-percent-number">70</span>% offers claimed. Hurry up!</p>
@@ -555,7 +555,7 @@ function selectWidgetBySetting(widget) {
             <div class="tada-game-modal-footer" style="background-color: ${theme_first_color}">
               <div class="tada-game-modal-left-blank"></div>
               <div class="tada-game-modal-right tada-game-modal-footer-right">
-                No, I don't feel lucky 
+                <span>No, I don't feel lucky</span> 
                 <button type="button" class="close tada-game-modal-btn-close-fake" aria-label="Close">
                   <div class="tada-dialog-btn-close-inner">
                     <span aria-hidden="true" style="color: ${theme_first_color}"> &times;</span>
