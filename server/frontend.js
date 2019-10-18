@@ -473,7 +473,7 @@ function selectWidgetBySetting(widget) {
               <div class="tada-game-modal-left-blank"></div>
               <div class="tada-game-modal-form tada-game-modal-right">
                 <div class='counter-wrapper'></div>
-                <input type="email" class="form-control" id="tada_game_modal_email" placeholder="Enter your email address" required>
+                <input type="email" class="form-control" id="tada_game_modal_email" style="border-color: ${theme_second_color}" placeholder="Enter your email address" required>
                 <div class="tada-custom-checkbox tada-game-modal-form-policy">
                   <div class="tada-custom-checkbox-overlay" style="border-color: ${theme_second_color}">
                     <svg fill="${theme_second_color}" version="1.1" class="tada-custom-checkbox-overlay-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -512,12 +512,14 @@ function selectWidgetBySetting(widget) {
             <div class="tada-game-modal-footer" style="background-color: ${theme_first_color}">
               <div class="tada-game-modal-left-blank"></div>
               <div class="tada-game-modal-right tada-game-modal-footer-right">
-                <span>No, I don't feel lucky</span> 
-                <button type="button" class="close tada-game-modal-btn-close-fake" aria-label="Close">
-                  <div class="tada-dialog-btn-close-inner">
-                    <span aria-hidden="true" style="color: ${theme_first_color}"> &times;</span>
-                  </div>
-                </button>
+                <div class="tada-game-modal-btn-close-container">
+                  <span>No, I don't feel lucky</span> 
+                  <button type="button" class="close tada-game-modal-btn-close-fake" aria-label="Close">
+                    <div class="tada-dialog-btn-close-inner">
+                      <span aria-hidden="true" style="color: ${theme_first_color}"> &times;</span>
+                    </div>
+                  </button>
+                </div>
                 <button class="tada-game-modal-btn-close" data-dismiss="modal" style="display: none;"></button>
               </div>
             </div>

@@ -159,7 +159,6 @@ $('#tada_game_email_input').focusin(function () {
 		'box-shadow': 'unset',
 		'border': '1px solid #ced4da'
 	});
-	$(this).removeClass('jello-horizontal');
 });
 
 $('#tada-floating-couponview-button').click(function () {
@@ -190,16 +189,29 @@ $("#present_time_reminder_1").click(function() {
   }
 });
 
+// update style on mouse hover
 $("#present_time_reminder_1").mouseover(function() {
   $(this).css({'background-color': 'white'});
   $("#present_time_reminder_1 svg g path").css({'fill': window.theme_second_color});
   $("#present_time_reminder_1 span").css({'color': window.theme_second_color});
 });
-
 $("#present_time_reminder_1").mouseout(function() {
   $(this).css({'background-color': window.theme_second_color});
   $("#present_time_reminder_1 svg g path").css({'fill': 'white'});
   $("#present_time_reminder_1 span").css({'color': 'white'});
+});
+
+$(".tada-game-modal-btn-close-fake").mouseover(function() {
+  $(".tada-dialog-btn-close-inner span").css('color', window.theme_second_color);
+});
+$(".tada-game-modal-btn-close-fake").mouseout(function() {
+  $(".tada-dialog-btn-close-inner span").css('color', window.theme_first_color);
+});
+
+$("#tada_game_modal_email").focus(function() {
+  $("#tada_game_modal_email").css('border-color', window.theme_first_color);
+}).focusout(function() {
+  $("#tada_game_modal_email").css('border-color', window.theme_second_color);
 });
 
 $('.tada_start_icon_div').click(function () {
@@ -245,11 +257,11 @@ $('.tada_start_icon_div').click(function () {
 });
 
 $('.tada-dialog-close-button').click(function () {
-	$("#tada-flower-falling").fadeOut("slow", function () {
-		$(this).css({
-			display: "none"
-		});
-	});
+	// $("#tada-flower-falling").fadeOut("slow", function () {
+	// 	$(this).css({
+	// 		display: "none"
+	// 	});
+	// });
 });
 
 $('#tada_game_btn_apply_discount').click(function () {
@@ -262,11 +274,11 @@ $('#tada_game_btn_apply_discount').click(function () {
     $("#tada_start_icon").attr('src', widget_url + '/floating-bar-icon.svg');
   }).fadeIn(400);
 
-	$("#tada-flower-falling").fadeOut("slow", function () {
-		$(this).css({
-			display: "none"
-		});
-	});
+	// $("#tada-flower-falling").fadeOut("slow", function () {
+	// 	$(this).css({
+	// 		display: "none"
+	// 	});
+	// });
 
 	$(".tada_remaind_bar").fadeIn(1000, function () {
 		$(this).css({
@@ -289,7 +301,7 @@ $('#tada_game_btn_apply_discount').click(function () {
 	$(this).remove();
 
 	// close game modal
-  $(".tada-game-modal-btn-close-fake").trigger('click');
+  $(".tada-game-modal-btn-close-container").trigger('click');
 });
 
 $('.tada-close-button-div').click(function () {
@@ -697,21 +709,17 @@ function stopRotateWheel() {
 	$('.tada-game-result-text').html(text);
 	$('#tada_game_btn_apply_discount').css('display', 'block');
   $('#tada_game_btn_apply_discount').addClass('fade-in5');
-	$('#tada-flower-falling').css({
-		"display": "block"
-	});
+	// $('#tada-flower-falling').css({
+	// 	"display": "block"
+	// });
 
 	// hide the flower Falling
-	setTimeout(function () {
-		$('#tada-flower-falling').fadeOut('slow');
-	}, 3500);
+	// setTimeout(function () {
+	// 	$('#tada-flower-falling').fadeOut('slow');
+	// }, 3500);
 
 	// expire time set
 	expireTimeCountDown(15);
-
-	// remove animation
-	// $('#canvas').removeClass('breathing-animation');
-	// $('#canvas1').removeClass('breathing-animation');
 }
 
 function easeOut(t, b, c, d) {
@@ -723,7 +731,6 @@ function easeOut(t, b, c, d) {
 setTimeout(function() {
   drawRouletteWheel();
 }, 2000);
-
 
 /* Flowers Falling Animation */
 
@@ -902,8 +909,7 @@ $(".tada_full_modal_btn_access").click(function() {
     $(".tada-full-modal-title h3").text("Oh look at that! 🎉");
     $("#tada_full_modal_email").css('display', 'none');
     $(".tada-game-modal-form-policy").css('display', 'none');
-    $(".tada-game-result-panel").css('display', 'flex');
-    $(".tada-game-result-panel").addClass('fade-in5');
+    $(".tada-game-result-panel").css('display', 'flex').addClass('fade-in5');
     $(".tada-game-result-panel p").animate({ zoom: '180%' }, 700).animate({ zoom: '100%' }, 100);
     $(".tada-game-expire-in-wrapper").css("display", "block");
 
@@ -915,13 +921,13 @@ $(".tada_full_modal_btn_access").click(function() {
     $('#tada_floating-dialog_cashview').html(couponText);
 
     // flower effect
-    followingAnimationStart();
-    $('#tada-flower-falling').css({
-      "display": "block"
-    });
-    setTimeout(function () {
-      $('#tada-flower-falling').fadeOut('slow');
-    }, 3500);
+    // followingAnimationStart();
+    // $('#tada-flower-falling').css({
+    //   "display": "block"
+    // });
+    // setTimeout(function () {
+    //   $('#tada-flower-falling').fadeOut('slow');
+    // }, 3500);
 
     // start coupon timer
     expireTimeCountDown(15);
@@ -939,7 +945,7 @@ $(".tada-full-modal-btn-no-thank-you").click(function() {
   }, 1000);
 });
 
-$(".tada-game-modal-btn-close-fake").click(function() {
+$(".tada-game-modal-btn-close-container").click(function() {
   $('#tada_game_modal_2').addClass('fade-out5');
   setTimeout(function() {
     $(".tada-game-modal-btn-close").trigger('click');
@@ -957,11 +963,10 @@ $("#tada_game_modal_btn_try").click(function() {
   let email = $('#tada_game_modal_email').val();
   if (!validateEmail(email)) {
     showNotification("You have entered an invalid e-mail address. Please try again.");
-    $(this).removeClass('jello-horizontal');
     $('#tada_game_modal_email').css({
       'box-shadow': `0 0 0 0.2rem ${window.theme_first_color}`,
       'border': `1px solid ${window.theme_first_color}`
-    }).addClass('jello-horizontal');
+    });
     return;
   }
 
