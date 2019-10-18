@@ -1343,6 +1343,12 @@ button.tada-game-modal-btn {
   #tada_game_modal_2 .tada-game-modal-container {
     margin-bottom: -35%;
   }
+  .tada-game-modal .tada-game-result-panel {
+    margin: 0;
+  }
+  button#tada_game_btn_apply_discount {
+    margin-top: -15px;
+  }
 }
 
 @media (max-width: 400px) {
@@ -1397,6 +1403,7 @@ button.tada-game-modal-btn {
   }
   .tada-game-modal .tada-game-result-panel {
     height: 140px;
+    margin: 0;
   }
   .tada-game-modal .tada-game-modal-bottom {
     padding: 0 25px;
@@ -1422,6 +1429,9 @@ button.tada-game-modal-btn {
   }
   .tada-game-modal .tada-game-modal-content > div {
     padding: 15px 24px
+  }
+  button#tada_game_btn_apply_discount {
+    margin-top: -5px;
   }
 }
 
