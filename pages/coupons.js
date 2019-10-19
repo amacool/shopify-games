@@ -202,7 +202,7 @@ class Coupons extends React.Component {
             return;
         }
 
-        fetch('https://dev-classywheel.trytada.com/updateCoupon', {
+        fetch(`${process.env.TUNNEL_URL}/updateCoupon`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'

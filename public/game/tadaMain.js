@@ -583,7 +583,7 @@ function spin() {
  * @param callback
  *  callback after timer finishes
  */
-function startCounterAnimation(count, callback) {
+function startCounterAnimation(count) {
   let curNum = count;
   $(".counter-wrapper").prepend("<div class='lines' style='font-size: 120px; position: absolute; left: 0;'>" + curNum + "</div>");
   $(".counter-wrapper .lines").animate({
@@ -605,7 +605,6 @@ function startCounterAnimation(count, callback) {
     });
     if (curNum < 0) {
       clearInterval(intervalId);
-      callback();
       $(".counter-wrapper").css("display", "none");
       return;
     }
@@ -988,7 +987,8 @@ $("#tada_game_modal_btn_try").click(function() {
   $(".tada-game-modal-footer-right > span").text("");
   $(".counter-wrapper").css('display', 'flex');
 
-	startCounterAnimation(5, spin);
+	startCounterAnimation(5);
+	spin();
 });
 
 /* custom checkbox */

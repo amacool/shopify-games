@@ -25,7 +25,7 @@ class Setting extends React.Component {
     };
 
   componentDidMount = () => {
-    fetch('https://dev-classywheel.trytada.com/getSetting', {
+    fetch(`${process.env.TUNNEL_URL}/getSetting`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'

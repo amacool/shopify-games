@@ -574,7 +574,7 @@ button.tada-game-modal-btn-close-fake .tada-dialog-btn-close-inner {
   justify-content: center;
 }
 button.tada-game-modal-btn-close-fake .tada-dialog-btn-close-inner span {
-  font-size: 25px;
+  font-size: 28px;
   transition: 0.4s all ease;
 }
 .tada-game-modal .tada-game-modal-left-blank {
@@ -1638,7 +1638,7 @@ and (orientation : landscape) {
   .tada-game-modal .tada-game-modal-right {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
   }
   .tada-game-modal .tada-game-modal-form-submit {
     width: 100%;
