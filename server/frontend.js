@@ -222,7 +222,7 @@ function selectWidgetBySetting(widget) {
   var game_theme_style = 1;
   var game_theme_color = 2;
   var wheel_run_time = 5;
-  var wheel_item = ["3% Discount", "40% Discount", "Not Luck Today", "10% Discount", "30% Discount", "FREE SHIPPING", "50% Discount", "3% Discount", "10% Discount", "20% Discount", "30% Discount"];
+  var wheel_item = ["3% DISCOUNT", "40% DISCOUNT", "Not Luck Today", "10% DISCOUNT", "30% DISCOUNT", "FREE SHIPPING", "50% DISCOUNT", "3% DISCOUNT", "10% DISCOUNT", "20% DISCOUNT", "30% DISCOUNT"];
   var progress_bar = true;
   var popup_back_img_type = 1;
   var theme_first_color = theme_colors[game_theme_color].first;
@@ -243,6 +243,7 @@ function selectWidgetBySetting(widget) {
     </script>
     <script src="${widget_url}/tadaMain.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" href="${widget_url}/tadaMain.css"/>
     <div id="tada_app_widget">
     <div class="tada-wheel-wrapper">
@@ -459,7 +460,9 @@ function selectWidgetBySetting(widget) {
                   <div class="tada-game-modal-btn-close-container btn-close-mobile">
                     <button type="button" class="close tada-game-modal-btn-close-fake" aria-label="Close">
                       <div class="tada-dialog-btn-close-inner">
-                        <span aria-hidden="true" style="color: ${theme_first_color}"> &times;</span>
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 0.921603L11.0769 0L5.99041 5.07839L0.923077 0.0191509L0 0.940754L5.06734 5.99999L0 11.0592L0.923077 11.9808L5.99041 6.9216L11.0769 12L12 11.0784L6.91349 5.99999L12 0.921603Z" fill="#D494A5"/>
+                        </svg>
                       </div>
                     </button>
                   </div>
@@ -496,9 +499,9 @@ function selectWidgetBySetting(widget) {
                 </div>
                 <div class="tada-game-modal-form-submit">
                   <button class="form-control tada-game-modal-btn" id="tada_game_modal_btn_try" style="background-color: ${theme_second_color}">try your luck</button>
-                  <div class="tada-progress-bar" style="display: ${progress_bar ? 'block' : 'none'}">
-                    <div class="tada-progress-value" style="width:40%; background-color: ${theme_first_color};">
-                    </div>
+                  
+                  <div class="custom-meter red tada-progress-bar">
+                    <span style="width: 50%; background-image: linear-gradient(${theme_first_color}, ${theme_second_color});"></span>
                   </div>
                   <p class="tada-progress-bar-text" style="display: ${progress_bar ? 'block' : 'none'}"><span id="tada-progressbar-percent-number">70</span>% offers claimed. Hurry up!</p>
                 </div>
@@ -518,7 +521,9 @@ function selectWidgetBySetting(widget) {
                   <span>No, I don't feel lucky</span> 
                   <button type="button" class="close tada-game-modal-btn-close-fake" aria-label="Close">
                     <div class="tada-dialog-btn-close-inner">
-                      <span aria-hidden="true" style="color: ${theme_first_color}"> &times;</span>
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 0.921603L11.0769 0L5.99041 5.07839L0.923077 0.0191509L0 0.940754L5.06734 5.99999L0 11.0592L0.923077 11.9808L5.99041 6.9216L11.0769 12L12 11.0784L6.91349 5.99999L12 0.921603Z" fill="#D494A5"/>
+                      </svg>
                     </div>
                   </button>
                 </div>

@@ -202,16 +202,16 @@ $("#present_time_reminder_1").mouseout(function() {
 });
 
 $(".tada-game-modal-btn-close-fake").mouseover(function() {
-  $(".tada-dialog-btn-close-inner span").css('color', window.theme_second_color);
+  $(".tada-dialog-btn-close-inner svg path").css('fill', window.theme_second_color);
 });
 $(".tada-game-modal-btn-close-fake").mouseout(function() {
-  $(".tada-dialog-btn-close-inner span").css('color', window.theme_first_color);
+  $(".tada-dialog-btn-close-inner svg path").css('fill', window.theme_first_color);
 });
 
 $("#tada_game_modal_email").focus(function() {
-  $("#tada_game_modal_email").css('border-color', window.theme_first_color);
+  $("#tada_game_modal_email").css({'border-color': window.theme_first_color, 'caret-color': window.theme_first_color});
 }).focusout(function() {
-  $("#tada_game_modal_email").css('border-color', window.theme_second_color);
+  $("#tada_game_modal_email").css({'border-color': window.theme_second_color, 'caret-color': window.theme_second_color});
 });
 
 $('.tada_start_icon_div').click(function () {
@@ -333,6 +333,18 @@ let animateButton = function (e) {
 	}, 1700);
 };
 
+
+$(function() {
+  $(".meter > span").each(function() {
+    $(this)
+      .data("origWidth", $(this).width())
+      .width(0)
+      .animate({
+        width: $(this).data("origWidth")
+      }, 1200);
+  });
+});
+
 $(window).resize(function () {
   displaySizeInit();
 });
@@ -443,8 +455,8 @@ function drawRouletteWheel() {
 		ctx.lineWidth = 0;
 		ctx.font = '13px Open Sans';
 
-    ctx.shadowBlur = 12;
-    ctx.shadowColor = "rgb(180,180,180)";
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = "rgb(50,50,50,0.3)";
     ctx.fillStyle = window.theme_second_color;
     ctx.arc(250, 250, insideRadius + 10, 0, 2 * Math.PI, false);
     ctx.fill();
@@ -587,6 +599,10 @@ function startCounterAnimation(count) {
   }, 1000, "linear");
   let intervalId = setInterval(function() {
     curNum --;
+    if (curNum < 0) {
+      clearInterval(intervalId);
+      return;
+    }
     $(".counter-wrapper").prepend("<div class='lines' style='font-size: 120px; position: absolute; left: 0;'>" + curNum + "</div>");
     $(".counter-wrapper .lines").each(function(index) {
       if (index > 2) {
@@ -598,9 +614,6 @@ function startCounterAnimation(count) {
         "left": (getNumberFromPixel($(this).css('left')) + 100) + "px"
       }, 1000, "linear");
     });
-    if (curNum < 0) {
-      clearInterval(intervalId);
-    }
   }, 1000);
 
   // blur effect
@@ -609,6 +622,7 @@ function startCounterAnimation(count) {
     blurCount --;
     if (blurCount < 0) {
       clearInterval(blurIntervalId);
+      return;
     }
     $(".counter-wrapper .lines").each(function(index) {
       $(this).css({
