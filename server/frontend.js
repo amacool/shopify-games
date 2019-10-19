@@ -456,11 +456,13 @@ function selectWidgetBySetting(widget) {
               <div class="tada-game-modal-right">
                 <div class="tada-game-modal-heading-mobile">
                   <h3 class="tada-game-modal-heading-1">Spin to win a BIG prize right now!  🎁</h3>
-                  <button type="button" class="close tada-game-modal-btn-close-fake btn-close-mobile" aria-label="Close">
-                    <div class="tada-dialog-btn-close-inner">
-                      <span aria-hidden="true" style="color: ${theme_first_color}"> &times;</span>
-                    </div>
-                  </button>
+                  <div class="tada-game-modal-btn-close-container btn-close-mobile">
+                    <button type="button" class="close tada-game-modal-btn-close-fake" aria-label="Close">
+                      <div class="tada-dialog-btn-close-inner">
+                        <span aria-hidden="true" style="color: ${theme_first_color}"> &times;</span>
+                      </div>
+                    </button>
+                  </div>
                 </div>
                 <p class="tada-game-modal-heading-2">You have a chance to win a nice big fat discount.<br class="tada-full-modal-title-br"/> Are you feeling lucky? Give it a spin. If you win, you can claim your coupon for 15 mins only!</p>
                 <div class="tada-game-expire-in-wrapper" style="display: none">
@@ -501,7 +503,7 @@ function selectWidgetBySetting(widget) {
                   <p class="tada-progress-bar-text" style="display: ${progress_bar ? 'block' : 'none'}"><span id="tada-progressbar-percent-number">70</span>% offers claimed. Hurry up!</p>
                 </div>
 
-                <div class="tada-game-result-panel" style="display: none; background-image: url(${widget_url}/game-modal/result-back.svg)">
+                <div class="tada-game-result-panel" style="display: none; background-image: url(${widget_url}/game-modal/result-back.png)">
                   <p class="tada-game-result-text" style="color: ${theme_second_color};">$10 Cash</p>
                   <p class="tada-game-result-code-label">Code:</p>
                   <p class="tada-game-result-code">EZG37YVZ5Q2P</p>

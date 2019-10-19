@@ -559,11 +559,6 @@ function spin() {
 			"display": "none"
 		});
 
-		$("#tada-game-count-number").fadeIn("slow", function () {
-			$(this).css({
-				"display": "block"
-			});
-		});
 		$('.tada-dialog-body').removeClass('fade-out');
 		$('.tada-dialog-body').addClass('fade-in');
 
@@ -573,7 +568,7 @@ function spin() {
 		$('#canvas').removeClass('breathing-animation');
 		$('#canvas1').removeClass('breathing-animation');
 		rotateWheel();
-	}, 500);
+	}, 100);
 }
 
 /**
@@ -605,8 +600,6 @@ function startCounterAnimation(count) {
     });
     if (curNum < 0) {
       clearInterval(intervalId);
-      $(".counter-wrapper").css("display", "none");
-      return;
     }
   }, 1000);
 
@@ -629,7 +622,7 @@ function startCounterAnimation(count) {
 function rotateWheel() {
 	spinTime += 20;
 	if (spinTime > (spinTimeTotal + 300)) {
-		$("#tada-game-count-number").fadeOut("slow");
+		$(".counter-wrapper").fadeOut("slow");
 	}
 	if (spinTime >= spinTimeTotal) {
     wheelStopState = true;
@@ -702,12 +695,13 @@ function stopRotateWheel() {
   $(".tada-game-expire-in-wrapper").css("display", "block");
   $(".tada-game-modal-top .tada-game-modal-right").addClass('fade-in5');
 
-  $('.tada-game-result-panel').css('display', 'flex');
-  $('.tada-game-result-panel').addClass('fade-in5');
-  $(".tada-game-result-panel p").animate({ zoom: '180%' }, 700).animate({ zoom: '100%' }, 100);
+  $(".counter-wrapper").css({'display': 'none'});
+  $(".tada-game-result-panel").css({'display': 'flex', 'background-size': '1%'}).addClass('fade-in5');
+  $(".tada-game-result-panel p").css({'zoom': '1%'});
+  $(".tada-game-result-panel").animate({ 'background-size': '100%' }, 200);
+  $(".tada-game-result-panel p").animate({ zoom: '100%' }, 700);
 	$('.tada-game-result-text').html(text);
-	$('#tada_game_btn_apply_discount').css('display', 'block');
-  $('#tada_game_btn_apply_discount').addClass('fade-in5');
+	$('#tada_game_btn_apply_discount').css('display', 'block').addClass('fade-in5');
 	// $('#tada-flower-falling').css({
 	// 	"display": "block"
 	// });
