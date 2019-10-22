@@ -14,10 +14,8 @@ let options = window.wheel_item.split(',');
 let wheelStopState = false;
 let randomTextNumber = 0;
 let rouletteColors = Array(3);
-let logo_image = document.getElementById("tada-game-logo");
 let spinAngleStart = 0;
 
-getRouletteColors(3);
 changeGameThemeStyle(game_theme_style);
 showRandomEncouragementText();
 displaySizeInit();
@@ -38,20 +36,6 @@ let observer = new MutationObserver(function(mutations) {
 let gameModal_view = document.getElementById('tada_game_modal_2');
 observer.observe(gameModal_view, { attributes : true, attributeFilter : ['style'] });
 
-let observer1 = new MutationObserver(function(mutations) {
-  mutations.forEach(function(mutationRecord) {
-    if ($('#tada_full_modal').css('display') == 'none') {
-      const targetElement = document.querySelector("#tada_full_modal");
-      bodyScrollLock.enableBodyScroll(targetElement);
-    } else {
-      const targetElement = document.querySelector("#tada_full_modal");
-      bodyScrollLock.disableBodyScroll(targetElement);
-    }
-  });
-});
-let gameModal_view1 = document.getElementById('tada_full_modal');
-observer1.observe(gameModal_view1, { attributes : true, attributeFilter : ['style'] });
-
 function displaySizeInit() {
   window_width = window.innerWidth;
 	window_height = window.innerHeight;
@@ -64,23 +48,11 @@ function displaySizeInit() {
   }
 
 	if (mobileMode) {
-		$('#canvas1').css({
-			'width': '100%'
-		});
-		$('#canvas').css({
-			'width': '100%'
-		});
 		$("#snackbar").css({ 'background-color': window.theme_second_color })
 		// $('.tada-wheel-container').css({
 		// 	'max-height': (window_width - 30) / 2
 		// });
 	} else if (landscapeMode) {
-    // $('#canvas1').css({
-		// 	'width': window_width/2
-		// });
-		// $('#canvas').css({
-		// 	'width': window_width/2
-		// });
 		// $('.tada-wheel-container').css({
 		// 	'max-height': window_width/4
 		// });
@@ -92,12 +64,6 @@ function displaySizeInit() {
     //   $('.tada-modal-custom').css({'margin-top': '50px'});
     // }
   } else {
-		$('#canvas1').css({
-			'width': 500
-		});
-		$('#canvas').css({
-			'width': 500
-		});
 		$('.tada-wheel-container').css({
 			'max-height': 250
 		});
@@ -393,7 +359,6 @@ let arc = (Math.PI / (options.length / 2));
 let spinTimeout = null;
 let spinTime = 0;
 let spinTimeTotal = 0;
-let ctx;
 
 function byte2Hex(n) {
 	let nybHexString = "0123456789ABCDEF";
@@ -415,172 +380,6 @@ function getNumberFromPixel(val) {
 function getNumberFromFilter(val) {
   if (val === 'none') return 0;
   return parseFloat(val.replace("blur(", "").replace("px)", ""));
-}
-
-function getRouletteColors(count) {
-  const r1 = parseInt(window.theme_first_color.substr(1, 2), 16);
-  const g1 = parseInt(window.theme_first_color.substr(3, 2), 16);
-  const b1 = parseInt(window.theme_first_color.substr(5, 2), 16);
-  const r2 = parseInt(window.theme_second_color.substr(1, 2), 16);
-  const g2 = parseInt(window.theme_second_color.substr(3, 2), 16);
-  const b2 = parseInt(window.theme_second_color.substr(5, 2), 16);
-  const delta1 = Math.abs(r1 - r2) / (count + 1);
-  const delta2 = Math.abs(g1 - g2) / (count + 1);
-  const delta3 = Math.abs(b1 - b2) / (count + 1);
-  const min_r = Math.min(r1, r2);
-  const min_g = Math.min(g1, g2);
-  const min_b = Math.min(b1, b2);
-  for (let i = 0; i < count; i++) {
-    const rr = parseInt((min_r + (i + 1) * delta1).toFixed(0)).toString(16);
-    const gg = parseInt((min_g + (i + 1) * delta2).toFixed(0)).toString(16);
-    const bb = parseInt((min_b + (i + 1) * delta3).toFixed(0)).toString(16);
-    rouletteColors[i] = `#${rr}${gg}${bb}`;
-  }
-}
-
-function getRadian(degree) {
-	return degree / 180 * Math.PI;
-}
-
-function drawRouletteWheel() {
-	let canvas = document.getElementById("canvas");
-	if (canvas.getContext) {
-		let outsideRadius = 70;
-		let textRadius = 125;
-		let insideRadius = 180;
-
-		ctx = canvas.getContext("2d");
-		ctx.clearRect(0, 0, 500, 500);
-		ctx.strokeStyle = window.theme_second_color;
-		ctx.lineWidth = 0;
-		ctx.font = '13px Open Sans';
-
-    ctx.shadowBlur = 15;
-    ctx.shadowColor = "rgb(50,50,50,0.3)";
-    ctx.fillStyle = window.theme_second_color;
-    ctx.arc(250, 250, insideRadius + 10, 0, 2 * Math.PI, false);
-    ctx.fill();
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 0;
-    ctx.shadowBlur = 0;
-
-		for (let i = 0; i < options.length; i++) {
-			let angle = startAngle + i * arc;
-			ctx.fillStyle = getColor(i, 3);
-			ctx.beginPath();
-			ctx.arc(250, 250, outsideRadius, angle, angle + arc, false);
-			ctx.arc(250, 250, insideRadius, angle + arc, angle, true);
-			ctx.fill();
-			ctx.save();
-			ctx.fillStyle = "#fff";
-			ctx.translate(250 + Math.cos(angle + arc / 2) * textRadius,
-				250 + Math.sin(angle + arc / 2) * textRadius);
-			ctx.rotate(80 + angle + arc / 2 + Math.PI / 2);
-			let text = options[i];
-			ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
-			ctx.restore();
-		}
-		ctx.beginPath();
-		ctx.fillStyle = '#fff';
-		ctx.arc(250, 250, outsideRadius, 0, 2 * Math.PI, false);
-		ctx.fill();
-    ctx.drawImage(logo_image, 250 - 30, 250 - 20, 60, 40);
-	}
-}
-
-function drawRouletteMarker() {
-  let degrees = startAngle * 180 / Math.PI + (isMobile ? 90 : 0);
-  let arcd = arc * 180 / Math.PI;
-  let offsetAngle = getRadian((parseInt(degrees + arcd / 2) % parseInt(arcd)) - (arcd / 2));
-  if (startAngle === 0) {
-  	offsetAngle = 0;
-	}
-
-  // define start point : center of circle
-  let x1 = isMobile ? 250 : 440;
-  let y1 = isMobile ? 70 : 250;
-
-  // marker on the right middle
-	const markerTailWidth = Math.PI / 3;
-	const baseAngle = isMobile ? 3 / 2 * Math.PI : Math.PI;
-	let r2 = 15;
-  let a = markerTailWidth;
-  let b = offsetAngle;
-  let c = baseAngle + a - b;
-  let d = baseAngle - a + b;
-  let w = r2 / Math.sin(Math.PI / 2 - a);
-
-  let deltaX1 = w * Math.cos(baseAngle + b);
-  let deltaY1 = w * Math.sin(baseAngle + b);
-  let x2 = x1 + deltaX1;
-  let y2 = y1 - deltaY1;
-
-  let deltaX2 = r2 * Math.cos(c);
-  let deltaY2 = r2 * Math.sin(c);
-  let x3 = x1 + deltaX2;
-  let y3 = y1 - deltaY2;
-
-  let deltaX3 = r2 * Math.cos(d);
-  let deltaY3 = r2 * Math.sin(d);
-  let x4 = x1 + deltaX3;
-  let y4 = y1 - deltaY3;
-
-  ctx1.clearRect(0, 0, 500, 500);
-  ctx1.beginPath();
-  ctx1.fillStyle = window.theme_first_color;
-  ctx1.shadowOffsetX = 0;
-  ctx1.shadowOffsetY = 0;
-  ctx1.shadowBlur = 0;
-  ctx1.moveTo(x1, y1);
-  ctx1.lineTo(x3, y3);
-  ctx1.lineTo(x2, y2);
-  ctx1.lineTo(x4, y4);
-  ctx1.moveTo(x1, y1);
-  ctx1.fill();
-  ctx1.beginPath();
-  ctx1.fillStyle = window.theme_first_color;
-  ctx1.ellipse(x1, y1, r2, r2, 0, 0, 2 * Math.PI);
-  ctx1.fill();
-  ctx1.beginPath();
-  ctx1.fillStyle = 'white';
-  ctx1.shadowOffsetX = 2;
-  ctx1.shadowOffsetY = 2;
-  ctx1.shadowBlur = 2;
-  ctx1.shadowColor = "#999";
-  ctx1.ellipse(x1, y1, r2 / 3, r2 / 3, 0, 0, 2 * Math.PI);
-  ctx1.fill();
-}
-
-// Idle Wheel animation Remove
-$('#canvas').addClass('breathing-animation');
-$('#canvas1').addClass('breathing-animation');
-
-let canvas1 = document.getElementById("canvas1");
-ctx1 = canvas1.getContext("2d");
-drawRouletteMarker();
-
-function spin() {
-	$('.tada-dialog-body').addClass('fade-out');
-	setTimeout(() => {
-
-		$('.tada-dialog-mail-container').css({
-			"display": "none"
-		});
-
-		$('.tada-game-state-text-div').css({
-			"display": "none"
-		});
-
-		$('.tada-dialog-body').removeClass('fade-out');
-		$('.tada-dialog-body').addClass('fade-in');
-
-		spinAngleStart = Math.random() * 10 + 20;
-		spinTime = 200;
-		spinTimeTotal = (wheel_run_time) * 1000;
-		$('#canvas').removeClass('breathing-animation');
-		$('#canvas1').removeClass('breathing-animation');
-		rotateWheel();
-	}, 100);
 }
 
 /**
@@ -734,10 +533,6 @@ function easeOut(t, b, c, d) {
 	let tc = ts * t;
 	return b + c * (tc + -3 * ts + 3 * t);
 }
-
-setTimeout(function() {
-  drawRouletteWheel();
-}, 2000);
 
 /* Flowers Falling Animation */
 
@@ -966,7 +761,7 @@ $(".tada-full-modal-btn-close-fake").click(function() {
   }, 1000);
 });
 
-$("#tada_game_modal_btn_try").click(function() {
+$(".gift-box").click(function() {
   let email = $('#tada_game_modal_email').val();
   if (!validateEmail(email)) {
     showNotification("You have entered an invalid e-mail address. Please try again.");
@@ -991,12 +786,18 @@ $("#tada_game_modal_btn_try").click(function() {
   $(".tada-game-modal-heading-2").css("display", "none");
   $('#tada_game_modal_email').css('display', 'none');
   $('.tada-game-modal .tada-game-modal-form-policy').css('display', 'none');
-  $('.tada-game-modal-form-submit').css('display', 'none');
+  $(".gift-text").css('display', 'none');
+  $(".tada-progress-bar").css('display', 'none');
+  $(".tada-progress-bar-text").css('display', 'none');
   $(".tada-game-modal-footer-right > span").text("");
   $(".counter-wrapper").css('display', 'flex');
 
+  const curGiftIndex = $(".gift-box").index($(this));
+  console.log(curGiftIndex);
+  $(this).siblings().remove();
+  $(this).animate({ marginLeft: Math.abs(2 - curGiftIndex) * 120 + 'px', width: '120px', height: '120px'}, 1000);
+
 	startCounterAnimation(5);
-	spin();
 });
 
 /* custom checkbox */
