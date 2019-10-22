@@ -464,7 +464,7 @@
 }
 .tada-game-modal .tada-game-modal-content > div {
   display: flex;
-  padding: 20px 50px;
+  padding: 25px 50px;
 }
 .tada-game-modal .tada-game-modal-top {
   color: white;
@@ -512,9 +512,9 @@
 .tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-submit .gift-box-container {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   padding: 0 5px;
-  height: 120px;
+  height: 100px;
   position: relative;
 }
 .tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-submit .gift-box-container .gift-box {
@@ -554,8 +554,8 @@ button#tada_game_btn_apply_discount {
   transition: 0.4s all ease;
   color: white;
   border: none;
-  width: 79%;
-  margin: 0 auto;
+  width: 63%;
+  margin: 0 auto 18px;
   font-family: Montserrat;
   text-transform: uppercase;
   z-index: 20;
@@ -622,6 +622,7 @@ button.tada-game-modal-btn-close-fake .tada-dialog-btn-close-inner svg path {
 }
 .tada-game-modal .tada-game-result-panel {
   margin-top: 15px;
+  width: 70%;
 }
 .tada-game-modal .tada-game-result-panel img {
   position: absolute;

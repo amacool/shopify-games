@@ -432,24 +432,6 @@ function startCounterAnimation(count) {
   }, 100);
 }
 
-function rotateWheel() {
-	spinTime += 20;
-	if (spinTime > (spinTimeTotal + 300)) {
-		$(".counter-wrapper").fadeOut("slow");
-	}
-	if (spinTime >= spinTimeTotal) {
-    wheelStopState = true;
-    displaySizeInit();
-		stopRotateWheel();
-		return;
-	}
-	let spinAngle = spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
-	startAngle += (spinAngle * Math.PI / 180);
-	drawRouletteWheel();
-  drawRouletteMarker();
-	spinTimeout = setTimeout('rotateWheel()', 20);
-}
-
 function expireTimeCountDown(minute) {
 	let countDownDate = new Date().getTime() + (1000 * 60 * 60 * minute);
 
@@ -489,11 +471,8 @@ function expireTimezeroview (time) {
   }
 }
 
-function stopRotateWheel() {
-	clearTimeout(spinTimeout);
-  let degrees = startAngle * 180 / Math.PI + (isMobile ? 90 : 0);
-	let arcd = arc * 180 / Math.PI;
-	let index = Math.floor((360 - degrees % 360) / arcd);
+function showGiftBoxResult() {
+	let index = parseInt(Math.random() * options.length) % options.length;
 	let text = options[index];
 	couponText = text;
 
@@ -508,6 +487,7 @@ function stopRotateWheel() {
   $(".tada-game-expire-in-wrapper").css("display", "block");
   $(".tada-game-modal-top .tada-game-modal-right").addClass('fade-in5');
 
+  $(".tada-game-modal-form-submit").remove();
   $(".counter-wrapper").css({'display': 'none'});
   $(".tada-game-result-panel").css({'display': 'flex', 'background-size': '1%'}).addClass('fade-in5');
   $(".tada-game-result-panel p").css({'zoom': '1%'});
@@ -515,14 +495,14 @@ function stopRotateWheel() {
   $(".tada-game-result-panel p").animate({ zoom: '100%' }, 700);
 	$('.tada-game-result-text').html(text);
 	$('#tada_game_btn_apply_discount').css('display', 'block').addClass('fade-in5');
-	// $('#tada-flower-falling').css({
-	// 	"display": "block"
-	// });
+	$('#tada-flower-falling').css({
+		"display": "block"
+	});
 
 	// hide the flower Falling
-	// setTimeout(function () {
-	// 	$('#tada-flower-falling').fadeOut('slow');
-	// }, 3500);
+	setTimeout(function () {
+		$('#tada-flower-falling').fadeOut('slow');
+	}, 3500);
 
 	// expire time set
 	expireTimeCountDown(15);
@@ -673,91 +653,10 @@ for(let i = 0; i < buttons.length; i++) {
   });
 }
 
-
-/* tada popup, game modal fade effects */
-$(".tada_full_modal_btn_access").click(function() {
-  if ($(this).hasClass("tada-full-modal-btn-apply")) {
-    game_done = true;
-    // Remove the Open Dialog event
-    $('.tada_start_icon_div').attr('data-target', '');
-    $(".tada_remaind_bar").fadeIn(1000, function () {
-      $(this).css({
-        opacity: 1
-      });
-    });
-    $("#present_time_reminder_container").fadeIn(1000, function () {
-      $(this).css({
-        opacity: 1
-      });
-    });
-
-    // change button text
-    $(".tada-full-modal-btn-no-thank-you").text('Close');
-
-    // remove apply button
-    $(this).remove();
-
-    // close full modal
-    $(".tada-full-modal-btn-close-fake").trigger('click');
-    return;
-  }
-
-  if (!validateEmail($("#tada_full_modal_email").val())) {
-    showNotification();
-    return;
-  }
-
-  if ($("#tada_full_modal_email").val() && $("#tada_full_modal_agree_policy").prop('checked')) {
-    $(".tada-full-modal-title h3").text("Oh look at that! 🎉");
-    $("#tada_full_modal_email").css('display', 'none');
-    $(".tada-game-modal-form-policy").css('display', 'none');
-    $(".tada-game-result-panel").css('display', 'flex').addClass('fade-in5');
-    $(".tada-game-result-panel p").animate({ zoom: '180%' }, 700).animate({ zoom: '100%' }, 100);
-    $(".tada-game-expire-in-wrapper").css("display", "block");
-
-    let index = parseInt(options.length * Math.random());
-    couponText = options[index];
-    $(".tada-game-result-text").html(couponText);
-    $('#tada_notifi_cash_view').html(couponText);
-    // floating view couponText
-    $('#tada_floating-dialog_cashview').html(couponText);
-
-    // flower effect
-    // followingAnimationStart();
-    // $('#tada-flower-falling').css({
-    //   "display": "block"
-    // });
-    // setTimeout(function () {
-    //   $('#tada-flower-falling').fadeOut('slow');
-    // }, 3500);
-
-    // start coupon timer
-    expireTimeCountDown(15);
-
-    $(this).html("apply my discount");
-    $(this).addClass("tada-full-modal-btn-apply");
-    $("#spinny_box").remove();
-  }
-});
-
-$(".tada-full-modal-btn-no-thank-you").click(function() {
-  $('#tada_full_modal').addClass('fade-out5');
-  setTimeout(function() {
-    $(".tada-full-modal-btn-close").trigger('click');
-  }, 1000);
-});
-
 $(".tada-game-modal-btn-close-container").click(function() {
   $('#tada_game_modal_2').addClass('fade-out5');
   setTimeout(function() {
     $(".tada-game-modal-btn-close").trigger('click');
-  }, 1000);
-});
-
-$(".tada-full-modal-btn-close-fake").click(function() {
-  $('#tada_full_modal').addClass('fade-out5');
-  setTimeout(function() {
-    $(".tada-full-modal-btn-close").trigger('click');
   }, 1000);
 });
 
@@ -793,11 +692,15 @@ $(".gift-box").click(function() {
   $(".counter-wrapper").css('display', 'flex');
 
   const curGiftIndex = $(".gift-box").index($(this));
-  console.log(curGiftIndex);
+  const prevPos = curGiftIndex * 120;
   $(this).siblings().remove();
-  $(this).animate({ marginLeft: Math.abs(2 - curGiftIndex) * 120 + 'px', width: '120px', height: '120px'}, 1000);
+  $(this).css({marginLeft: prevPos + 'px'});
+  $(this).animate({marginLeft: 2 * 120 - 10 + 'px', width: '100px', height: '100px'}, 1000);
+  $(".gift-box img").animate({width: '100px', height: '100px'}, 1000);
+  $(this).off('click');
 
 	startCounterAnimation(5);
+	setTimeout(showGiftBoxResult, 6000);
 });
 
 /* custom checkbox */
