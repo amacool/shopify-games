@@ -10,6 +10,7 @@ let expireTime = '';
 let window_width = window.innerWidth;
 let window_height = window.innerHeight;
 let isMobile = window_width <= 600;
+var isMobileLandscape = window_width <= 850 && window_width > window_height;
 let options = window.wheel_item.split(',');
 let wheelStopState = false;
 let randomTextNumber = 0;
@@ -20,6 +21,16 @@ changeGameThemeStyle(game_theme_style);
 showRandomEncouragementText();
 displaySizeInit();
 changeDialogPosition();
+
+if (isMobileLandscape) {
+  $counter = $(".tada-game-mobile-landscape .counter-wrapper");
+  $custom_pie = $(".tada-game-mobile-landscape .counter-wrapper .custom-pie");
+  $custom_pie_text = $(".tada-game-mobile-landscape .counter-wrapper .custom-pie-text span");
+} else {
+  $counter = $(".tada-game-modal-content .counter-wrapper");
+  $custom_pie = $(".tada-game-modal-content .counter-wrapper .custom-pie");
+  $custom_pie_text = $(".tada-game-modal-content .counter-wrapper .custom-pie-text span");
+}
 
 // Show the modal, Body scroll hidden
 let observer = new MutationObserver(function(mutations) {
@@ -482,7 +493,7 @@ function expireTimeCountDown(minute) {
 			clearInterval(x);
 			expireTime = "EXPIRED";
 		}
-		$(".tada-expire-time").html(expireTime + ' left!');
+    $(".tada-expire-time").html('<span class="time-ticker">' + expireTime + '</span>' + ' left!');
 		$(".tada-floating-dialog-expire-time").html(expireTime);
     $("#present_time_reminder_1 span").html(expireTime + ' left!');
     $(".tada-game-expire-in-wrapper span:last-child").html(expireTime);
@@ -718,11 +729,13 @@ $(".gift-box").click(function() {
   $(".counter-wrapper").css('display', 'flex');
 
   const curGiftIndex = $(".gift-box").index($(this));
-  const prevPos = curGiftIndex * 120;
+  const targetSize = isMobile ? 80 : 100;
+  const width = isMobile ? 67 : 120;
+  const prevPos = curGiftIndex * width;
   $(this).siblings().remove();
   $(this).css({marginLeft: prevPos + 'px'});
-  $(this).animate({marginLeft: 2 * 120 - 10 + 'px', width: '100px', height: '100px'}, 1000);
-  $(".gift-box img").animate({width: '100px', height: '100px'}, 1000);
+  $(this).animate({marginLeft: 2 * width - 10 + 'px', width: `${targetSize}px`, height: `${targetSize}px`}, 1000);
+  $(".gift-box img").animate({width: `${targetSize}px`, height: `${targetSize}px`}, 1000);
   $(this).off('click');
 
   startCircleCounter(5);
