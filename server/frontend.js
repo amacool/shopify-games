@@ -242,7 +242,7 @@ function selectWidgetBySetting(widget) {
     </script>
     <script src="${widget_url}/tadaMain.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
     <link rel="stylesheet" href="${widget_url}/tadaMain.css"/>
     <div id="tada_app_widget">
     <div class="tada-wheel-wrapper">
@@ -359,7 +359,7 @@ function selectWidgetBySetting(widget) {
                     </button>
                   </div>
                 </div>
-                <p class="tada-game-modal-heading-2">You have a chance to win a great discount. Are you feeling lucky? Pick one of the 5 gifts below and win a discount for this site 🎉.</p>
+                <p class="tada-game-modal-heading-2">You have a chance to win a great discount. Are you feeling lucky? Pick one of the 5 gifts below and win a discount for this site  <img src="${widget_url}/simple-svg/present-icon.svg">.</p>
                 <div class="tada-game-expire-in-wrapper" style="display: none">
                   <span>Expires in: </span>
                   <span style="font-weight: 600; color: ${theme_second_color}">01:56:34</span>

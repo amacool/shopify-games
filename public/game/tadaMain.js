@@ -478,7 +478,7 @@ function showGiftBoxResult() {
 
   followingAnimationStart();
 
-  $(".tada-game-modal-heading-1").text("Oh look at that! 🎉");
+  $(".tada-game-modal-heading-1").html(`Oh look at that! <img src='${widget_url}/simple-svg/ice-cream-icon.svg'>`);
   if (!isMobile) {
     $(".tada-game-modal-heading-1").css("font-size", "36px");
   }
