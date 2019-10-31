@@ -576,7 +576,7 @@ button#tada_game_btn_apply_discount:hover {
   color: #848484;
   font-size: 12px;
 }
-.tada-game-modal-btn-close-container > span:hover {
+.tada-game-modal-btn-close-container > span {
   text-decoration: underline;
 }
 button.tada-game-modal-btn-close-fake {
@@ -617,6 +617,9 @@ button.tada-game-modal-btn-close-fake .tada-dialog-btn-close-inner svg path {
 .tada-game-modal .tada-game-modal-right .tada-game-modal-heading-2 {
   width: 90%;
   margin: 0 auto;
+}
+.tada-game-modal .tada-game-modal-right .tada-game-modal-heading-2 img {
+  width: 25px;
 }
 .tada-game-modal .tada-game-result-panel {
   margin-top: 15px;
@@ -706,12 +709,12 @@ button.tada-game-modal-btn {
 .counter-wrapper {
   display: none;
   position: relative;
-  height: 130px;
+  height: 268px;
   align-items: center;
 }
 .counter-wrapper .lines {
   font-size: 120px;
-  line-height: 150px;
+  line-height: 268px;
   font-family: Montserrat;
   font-style: normal;
   font-weight: 200;
@@ -841,6 +844,38 @@ button.tada-game-modal-btn {
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   overflow: hidden;
+}
+
+/*custom pie*/
+.custom-pie-container {
+  width: 204px;
+  height: 204px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+.custom-pie {
+  width: 204px;
+  height: 204px;
+  display: block;
+  border-radius: 50%;
+  /*opacity: 0.8;*/
+  float: left;
+  position: absolute;
+}
+.custom-pie.ten {
+  background-image:
+    linear-gradient(-90deg, transparent 50%, white 50%),
+    linear-gradient(-90deg, white 50%, transparent 50%)
+}
+.custom-pie-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  z-index: 1;
+  font-size: 96px;
 }
 
 .animate > span:after {
@@ -1823,12 +1858,23 @@ and (orientation : landscape) {
   .tada-game-modal .tada-game-modal-form-submit {
     width: 100%;
   }
+  .tada-wheel-wrapper .modal-dialog {
+    top: 0;
+  }
   .tada-game-modal .counter-wrapper {
     display: none;
     width: 100%;
+    height: 160px;
   }
-  .tada-wheel-wrapper .modal-dialog {
-    top: 0;
+  .tada-game-modal .counter-wrapper .custom-pie {
+    width: 160px;
+    height: 160px;
+  }
+  .tada-game-modal .counter-wrapper .custom-pie-container {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+    background-size: contain;
   }
 }
 

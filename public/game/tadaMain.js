@@ -432,6 +432,32 @@ function startCounterAnimation(count) {
   }, 100);
 }
 
+function startCircleCounter(count) {
+  var timeSpacing = 10;
+  var curCount = 0;
+  var angle = -90;
+  var dAngle = 360/(1000/timeSpacing);
+  var interval = setInterval(function() {
+    curCount++;
+    angle += dAngle;
+    var curNumber = count - Math.floor(curCount/(1000/timeSpacing));
+
+    if ((angle + 90) % 360 > 180) {
+      $custom_pie.css({'backgroundImage': 'linear-gradient(-90deg, transparent 50%, transparent 50%),linear-gradient(' + angle + 'deg, white 50%, transparent 50%)'});
+      $custom_pie.css({'clip': 'rect(0, 102px, 204px, 0)'});
+    } else {
+      $custom_pie.css({'backgroundImage': 'linear-gradient(-90deg, transparent 50%, white 50%),linear-gradient(' + angle + 'deg, white 50%, transparent 50%)'});
+      $custom_pie.css({'clip': 'rect(0, 204px, 204px, 0)'});
+    }
+    $custom_pie_text.text(count - Math.floor(curCount/(1000/timeSpacing)));
+
+    if (curCount > (count + 1)*1000/timeSpacing || curNumber === 0) {
+      clearInterval(interval);
+    }
+  }, timeSpacing);
+}
+
+
 function expireTimeCountDown(minute) {
 	let countDownDate = new Date().getTime() + (1000 * 60 * 60 * minute);
 
@@ -677,9 +703,9 @@ $(".gift-box").click(function() {
   }
 
   // update game modal view
-  $(".tada-game-modal-heading-1").text("Excited to see your discount? 🎁");
+  $(".tada-game-modal-heading-1").html(`Excited to see your discount? <img src='${widget_url}/simple-svg/present-icon.svg'>`);
   if (!isMobile) {
-    $(".tada-game-modal-heading-1").css("font-size", "36px");
+    $(".tada-game-modal-heading-1").css("font-size", "28px");
   }
 
   $(".tada-game-modal-heading-2").css("display", "none");
@@ -699,7 +725,7 @@ $(".gift-box").click(function() {
   $(".gift-box img").animate({width: '100px', height: '100px'}, 1000);
   $(this).off('click');
 
-	startCounterAnimation(5);
+  startCircleCounter(5);
 	setTimeout(showGiftBoxResult, 6000);
 });
 

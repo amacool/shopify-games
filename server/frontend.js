@@ -369,7 +369,12 @@ function selectWidgetBySetting(widget) {
             <div class="tada-game-modal-bottom">
               <div class="tada-game-modal-form tada-game-modal-right">
                 <div class="tada-game-modal-form-top">
-                  <div class='counter-wrapper'></div>
+                  <div class='counter-wrapper'>
+                    <div class="custom-pie-container" style="background-image: url(${widget_url}/simple-svg/timer-back.png)">
+                      <div class="custom-pie ten"></div>
+                      <div class="custom-pie-text"><span>5</span></div>
+                    </div>
+                  </div>
                   <input type="email" class="form-control" id="tada_game_modal_email" style="border-color: ${theme_second_color}" placeholder="Enter your email address" required>
                   <div class="tada-custom-checkbox tada-game-modal-form-policy">
                     <div class="tada-custom-checkbox-overlay" style="border-color: ${theme_second_color}">
