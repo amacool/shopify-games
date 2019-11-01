@@ -369,12 +369,6 @@ function selectWidgetBySetting(widget) {
             <div class="tada-game-modal-bottom">
               <div class="tada-game-modal-form tada-game-modal-right">
                 <div class="tada-game-modal-form-top">
-                  <div class='counter-wrapper'>
-                    <div class="custom-pie-container" style="background-image: url(${widget_url}/simple-svg/timer-back.png)">
-                      <div class="custom-pie ten"></div>
-                      <div class="custom-pie-text"><span>5</span></div>
-                    </div>
-                  </div>
                   <input type="email" class="form-control tada-game-modal-email" id="tada_game_modal_email" style="border-color: ${theme_second_color}" placeholder="Enter your email address" required>
                   <div class="tada-custom-checkbox tada-game-modal-form-policy">
                     <div class="tada-custom-checkbox-overlay" style="border-color: ${theme_second_color}">
@@ -426,7 +420,7 @@ function selectWidgetBySetting(widget) {
                   <p class="tada-game-result-code-label">Code:</p>
                   <p class="tada-game-result-code">EZG37YVZ5Q2P</p>
                 </div>
-                <button class="form-control tada-game-modal-btn" id="tada_game_btn_apply_discount" style="background-color: ${theme_second_color}; display: none;">apply my discount</button>
+                <button class="form-control tada-game-modal-btn tada-btn-apply-discount" id="tada_game_btn_apply_discount" style="background-color: ${theme_second_color}; display: none;">apply my discount</button>
               </div>
             </div>
             <div class="tada-game-modal-footer">
@@ -477,15 +471,7 @@ function selectWidgetBySetting(widget) {
                           I agree to <a style="color: ${theme_second_color}; text-decoration: underline;">Terms</a> and I have read our <a style="color: ${theme_second_color}; text-decoration: underline;">Privacy policy</a>.
                         </label>
                       </div>
-                      
-                      <div class='counter-wrapper'>
-                        <div class="custom-pie-container" style="background-image: url(${widget_url}/simple-svg/timer-back.png)">
-                          <div class="custom-pie ten">
-                          </div>
-                          <div class="custom-pie-text"><span>5</span></div>
-                        </div>
-                      </div>
-                      
+
                       <div class="tada-game-result-panel" style="display: none; background-image: url(${widget_url}/game-modal/result-back.png)">
                         <p class="tada-game-result-text" style="color: ${theme_second_color};">$10 Cash</p>
                         <p class="tada-game-result-code-label">Code:</p>
@@ -520,9 +506,9 @@ function selectWidgetBySetting(widget) {
                       <div class="custom-meter red tada-progress-bar">
                         <span style="width: 50%; background-image: linear-gradient(${theme_first_color}, ${theme_second_color});"></span>
                       </div>
-                      <button class="form-control tada-game-modal-btn tada_game_btn_apply_discount" style="background-color: ${theme_second_color}; display: none;">apply my discount</button>
                     </div>
                     <p class="tada-progress-bar-text" style="display: ${progress_bar ? 'block' : 'none'}"><span id="tada-progressbar-percent-number">70</span>% offers claimed. Hurry up!</p>
+                    <button class="form-control tada-game-modal-btn tada-btn-apply-discount" style="background-color: ${theme_second_color}; display: none;">apply my discount</button>
                   </div>
                 </div>
               </div>

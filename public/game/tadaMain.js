@@ -235,7 +235,7 @@ $('.tada-dialog-close-button').click(function () {
 	// });
 });
 
-$('#tada_game_btn_apply_discount').click(function () {
+$('.tada-btn-apply-discount').click(function () {
 	game_done = true;
 	// Remove the Open Dialog event
 	$('.tada_start_icon_div').remove();
@@ -269,10 +269,16 @@ $('#tada_game_btn_apply_discount').click(function () {
   });
 
 	// remove apply button
-	$(this).remove();
+  $('.tada-btn-apply-discount').remove();
 
 	// close game modal
   $(".tada-game-modal-btn-close-container").trigger('click');
+
+  $(".landscape-small .tada-game-modal-btn-close-container span").css({
+		position: 'absolute',
+		left: '36%',
+		marginTop: '-20px'
+	});
 });
 
 $('.tada-close-button-div').click(function () {
@@ -518,7 +524,7 @@ function showGiftBoxResult() {
 
   $(".tada-game-modal-heading-1").html(`Oh look at that! <img src='${widget_url}/simple-svg/ice-cream-icon.svg'>`);
   if (!isMobile && !isMobileLandscape) {
-    $(".tada-game-modal-heading-1").css("font-size", "36px");
+    $("tada-game-modal-content .tada-game-modal-heading-1").css("font-size", "36px");
   } else if (isMobileLandscape) {
     $(".tada-game-modal-heading-1").css("font-size", "26px");
 	}
@@ -527,16 +533,16 @@ function showGiftBoxResult() {
   $(".tada-game-expire-in-wrapper").css("display", "block");
   $(".tada-game-modal-top .tada-game-modal-right").addClass('fade-in5');
 
-  if (!isMobileLandscape) {
-    $(".tada-game-modal-form-submit").remove();
-  }
+	$(".tada-game-modal-content .tada-game-modal-form-submit").css({ display: 'none' });
+	$(".landscape-small-bottom .tada-game-modal-form-submit").css({ justifyContent: 'flex-end', alignItems: 'flex-end' });
+  $(".gift-box-container").animate({ opacity: 0 }, 500).remove();
   $(".counter-wrapper").css({'display': 'none'});
   $(".tada-game-result-panel").css({'display': 'flex', 'background-size': '1%'}).addClass('fade-in5');
   $(".tada-game-result-panel p").css({'zoom': '1%'});
   $(".tada-game-result-panel").animate({ 'background-size': '100%' }, 200);
   $(".tada-game-result-panel p").animate({ zoom: '100%' }, 700);
 	$('.tada-game-result-text').html(text);
-	$('#tada_game_btn_apply_discount').css('display', 'block').addClass('fade-in5');
+	$('.tada-btn-apply-discount').css('display', 'block').addClass('fade-in5');
 	$('#tada-flower-falling').css({
 		"display": "block"
 	});
@@ -721,13 +727,10 @@ $(".gift-box").click(function() {
   }
 
   // update game modal view
-  $(".tada-game-modal-heading-1").html(`Excited to see your discount? <img src='${widget_url}/simple-svg/present-icon.svg'>`);
-  if (!isMobile && !isMobileLandscape) {
-    $(".tada-game-modal-heading-1").css("font-size", "28px");
-  } else if (isMobileLandscape) {
-    $(".tada-game-modal-heading-1").css("font-size", "25px");
-    $(".tada-game-modal-form-submit").css('justify-content', 'center');
-  }
+  $(".tada-game-modal-content .tada-game-modal-heading-1").html(`Excited to see your discount? <img src='${widget_url}/simple-svg/present-icon.svg'>`);
+	$(".tada-game-modal-content .tada-game-modal-heading-1").css("font-size", "28px");
+  $(".tada-game-mobile-landscape .tada-game-modal-heading-1").css("font-size", "25px");
+  $(".tada-game-mobile-landscape .tada-game-modal-form-submit").css('justify-content', 'center');
 
   $(".tada-game-modal-heading-2").css("display", "none");
   $(".tada-game-modal-email").css({'display': 'none'});
@@ -752,11 +755,23 @@ $(".gift-box").click(function() {
   const prevPos = curGiftIndex * width;
   $(this).siblings().remove();
   $(this).css({marginLeft: prevPos + 'px'});
-  $(this).animate({marginLeft: 2 * width - 10 + 'px', width: `${targetSize}px`, height: `${targetSize}px`}, 1000);
+  if (!isMobileLandscape && !isMobile) {
+    $(this).animate({ marginLeft: '42%', width: `${targetSize}px`, height: `${targetSize}px` }, 1000);
+  } else if (!isMobileLandscape && isMobile) {
+    $(this).animate({ marginLeft: '38%', width: `${targetSize}px`, height: `${targetSize}px` }, 1000);
+	} else {
+    $(this).animate({ marginLeft: -targetSize / 2 - 5 + 'px', width: `${targetSize}px`, height: `${targetSize}px` }, 1000);
+	}
+  $(".landscape-small-bottom .tada-game-result-panel").css({ marginLeft: '55%' });
   $(".gift-box img").animate({width: `${targetSize}px`, height: `${targetSize}px`}, 1000);
   $(this).off('click');
+  $giftBox = $(this);
+  setTimeout(function() {
+    $giftBox.find('img').addClass('heart-box');
+    $giftBox.addClass('vibrating-box');
+  }, 1000);
 
-  startCircleCounter(5);
+  // startCircleCounter(5);
 	setTimeout(showGiftBoxResult, 6000);
 });
 
