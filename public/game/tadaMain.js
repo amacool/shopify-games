@@ -442,23 +442,30 @@ function startCircleCounter(count) {
   var curCount = 0;
   var angle = -90;
   var dAngle = 360/(1000/timeSpacing);
+  var counterWidth = 204;
+  if (isMobileLandscape) {
+    counterWidth = 145;
+    if (window_width < 600) {
+      counterWidth = 130;
+		}
+	}
   var interval = setInterval(function() {
     curCount++;
     angle += dAngle;
     var curNumber = count - Math.floor(curCount/(1000/timeSpacing));
-
-    if ((angle + 90) % 360 > 180) {
-      $custom_pie.css({'backgroundImage': 'linear-gradient(-90deg, transparent 50%, transparent 50%),linear-gradient(' + angle + 'deg, white 50%, transparent 50%)'});
-      $custom_pie.css({'clip': 'rect(0, 102px, 204px, 0)'});
-    } else {
-      $custom_pie.css({'backgroundImage': 'linear-gradient(-90deg, transparent 50%, white 50%),linear-gradient(' + angle + 'deg, white 50%, transparent 50%)'});
-      $custom_pie.css({'clip': 'rect(0, 204px, 204px, 0)'});
-    }
-    $custom_pie_text.text(count - Math.floor(curCount/(1000/timeSpacing)));
-
     if (curCount > (count + 1)*1000/timeSpacing || curNumber === 0) {
       clearInterval(interval);
     }
+    if ((angle + 90) % 360 > 180) {
+      $custom_pie.css({'backgroundImage': 'linear-gradient(-90deg, transparent 50%, transparent 50%),linear-gradient(' + angle + 'deg, white 50%, transparent 50%)'});
+      $custom_pie.css({'clip': `rect(0, ${counterWidth/2}px, ${counterWidth}px, 0)`});
+    } else {
+      $custom_pie.css({'backgroundImage': 'linear-gradient(-90deg, transparent 50%, white 50%),linear-gradient(' + angle + 'deg, white 50%, transparent 50%)'});
+      $custom_pie.css({'clip': `rect(0, ${counterWidth}px, ${counterWidth}px, 0)`});
+    }
+    $custom_pie_text.text(count - Math.floor(curCount/(1000/timeSpacing)));
+
+
   }, timeSpacing);
 }
 
@@ -510,9 +517,11 @@ function showGiftBoxResult() {
   followingAnimationStart();
 
   $(".tada-game-modal-heading-1").html(`Oh look at that! <img src='${widget_url}/simple-svg/ice-cream-icon.svg'>`);
-  if (!isMobile) {
+  if (!isMobile && !isMobileLandscape) {
     $(".tada-game-modal-heading-1").css("font-size", "36px");
-  }
+  } else if (isMobileLandscape) {
+    $(".tada-game-modal-heading-1").css("font-size", "26px");
+	}
   $(".tada-game-modal-heading-2").text("You have a chance to win a nice big fat discount. Are you feeling lucky?");
   $(".tada-game-modal-heading-2").css("display", "block");
   $(".tada-game-expire-in-wrapper").css("display", "block");
@@ -713,22 +722,33 @@ $(".gift-box").click(function() {
 
   // update game modal view
   $(".tada-game-modal-heading-1").html(`Excited to see your discount? <img src='${widget_url}/simple-svg/present-icon.svg'>`);
-  if (!isMobile) {
+  if (!isMobile && !isMobileLandscape) {
     $(".tada-game-modal-heading-1").css("font-size", "28px");
+  } else if (isMobileLandscape) {
+    $(".tada-game-modal-heading-1").css("font-size", "25px");
+    $(".tada-game-modal-form-submit").css('justify-content', 'center');
   }
 
   $(".tada-game-modal-heading-2").css("display", "none");
-  $('#tada_game_modal_email').css('display', 'none');
-  $('.tada-game-modal .tada-game-modal-form-policy').css('display', 'none');
+  $(".tada-game-modal-email").css({'display': 'none'});
+  $(".tada-game-modal .tada-game-modal-form-policy").css('display', 'none');
   $(".gift-text").css('display', 'none');
   $(".tada-progress-bar").css('display', 'none');
   $(".tada-progress-bar-text").css('display', 'none');
   $(".tada-game-modal-footer-right > span").text("");
   $(".counter-wrapper").css('display', 'flex');
 
-  const curGiftIndex = $(".gift-box").index($(this));
-  const targetSize = isMobile || isMobileLandscape ? 80 : 100;
-  const width = isMobile || isMobileLandscape ? 67 : 120;
+  const curGiftIndex = isMobileLandscape ? $(".tada-game-mobile-landscape .gift-box").index($(this)) : $(".tada-game-modal-content .gift-box").index($(this));
+  let targetSize = isMobile || isMobileLandscape ? 80 : 100;
+  let width = isMobile || isMobileLandscape ? 67 : 120;
+
+  if (isMobileLandscape && window_width < 650) {
+    width = 50;
+  } else if (isMobileLandscape && window_width < 650) {
+  	width = 55;
+	} else if (isMobileLandscape && window_width < 750) {
+    width = 60;
+  }
   const prevPos = curGiftIndex * width;
   $(this).siblings().remove();
   $(this).css({marginLeft: prevPos + 'px'});

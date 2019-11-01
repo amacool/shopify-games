@@ -1917,6 +1917,7 @@ and (orientation : landscape) {
   }
   .tada-game-result-panel .tada-game-result-text {
     font-size: 20px;
+    margin-top: -10px;
   }
   .tada-game-result-panel .tada-game-result-code {
     font-size: 14px;
@@ -1958,15 +1959,15 @@ and (orientation : landscape) {
   .tada-game-modal .counter-wrapper {
     display: none;
     width: 100%;
-    height: 160px;
+    height: 145px;
   }
   .tada-game-modal .counter-wrapper .custom-pie {
-    width: 160px;
-    height: 160px;
+    width: 145px;
+    height: 145px;
   }
   .tada-game-modal .counter-wrapper .custom-pie-container {
-    width: 160px;
-    height: 160px;
+    width: 145px;
+    height: 145px;
     margin: 0 auto;
     background-size: contain;
   }
@@ -2049,6 +2050,10 @@ and (orientation : landscape) {
     font-size: 16px;
     line-height: 150%;
     color: white;
+  }
+  .landscape-small-top .tada-game-modal-heading-2 img {
+    width: 27px;
+    margin-left: 5px;
   }
 
   .landscape-small-bottom {
@@ -2135,7 +2140,8 @@ and (orientation : landscape) {
     text-decoration: underline;
   }
   .landscape-small-bottom .tada-game-result-panel {
-    width: 60%;
+    width: 90%;
+    margin-top: 10px;
   }
   .tada-game-modal .landscape-small-bottom button.tada_game_btn_apply_discount {
     font-family: Montserrat;
@@ -2187,15 +2193,17 @@ and (orientation : landscape){
     padding: 15px 20px 15px;
   }
   .landscape-small-bottom .tada-game-modal-form {
-    display: flex;
-    flex-direction: column;
+
   }
   .landscape-small-top .tada-game-modal-heading-1 {
     font-size: 24px;
     line-height: 125%;
   }
   .landscape-small-bottom .tada-game-result-panel {
-    width: 70%;
+    width: 100%;
+  }
+  .tada-game-result-panel .tada-game-result-text {
+    margin-top: -10px;
   }
   .tada-game-modal .landscape-small-bottom button.tada_game_btn_apply_discount {
     width: 64%;
@@ -2204,7 +2212,7 @@ and (orientation : landscape){
     flex-direction: row;
   }
   .landscape-small-top .tada-game-modal-heading-2 {
-    font-size: 15px;
+    font-size: 16px;
   }
 }
 
@@ -2250,7 +2258,7 @@ and (orientation : landscape){
     margin-bottom: 0;
   }
   .landscape-small-top .tada-game-modal-heading-2 {
-    font-size: 13px;
+    font-size: 16px;
   }
 }
 
@@ -2289,7 +2297,7 @@ and (orientation : landscape) {
     width: 20px;
   }
   .landscape-small-top .tada-game-modal-heading-2 {
-    font-size: 12px;
+    font-size: 14px;
   }
   .landscape-small > div {
     padding: 10px 15px 10px;
@@ -2298,6 +2306,18 @@ and (orientation : landscape) {
     width: 320px;
     height: 320px;
     margin: 0 0 0 -132px;
+  }
+  .tada-game-modal .counter-wrapper {
+    height: 130px;
+    margin-bottom: 10px;
+  }
+  .tada-game-modal .counter-wrapper .custom-pie {
+    width: 130px;
+    height: 130px;
+  }
+  .tada-game-modal .counter-wrapper .custom-pie-container {
+    width: 130px;
+    height: 130px;
   }
 }
 

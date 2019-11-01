@@ -447,10 +447,10 @@ function selectWidgetBySetting(widget) {
                 </div>
                 <div class="tada-game-modal-heading-container">
                   <div class="top-left">
-                    <h3 class="tada-game-modal-heading-1">Spin to win a BIG prize right now! <img src="${widget_url}/simple-svg/present-icon.svg"></h3>
+                    <h3 class="tada-game-modal-heading-1">Spin to win a BIG prize right now!</h3>
                   </div>
                   <div class="top-right">
-                    <p class="tada-game-modal-heading-2">You have a chance to win a nice big fat discount. Are you feeling lucky? Give it a spin. If you win, you can claim your coupon for 15 mins only!</p>
+                    <p class="tada-game-modal-heading-2">You have a chance to win a great discount. Are you feeling lucky? Pick one of the 5 gifts below and win a discount for this site. <img src="${widget_url}/simple-svg/ice-cream-icon.svg"></p>
                   </div>
                 </div>
               </div>
@@ -477,13 +477,7 @@ function selectWidgetBySetting(widget) {
                           I agree to <a style="color: ${theme_second_color}; text-decoration: underline;">Terms</a> and I have read our <a style="color: ${theme_second_color}; text-decoration: underline;">Privacy policy</a>.
                         </label>
                       </div>
-                    </div>
-                    <div class="tada-game-modal-btn-close-container">
-                      <span>No, I don't want a discount.</span>
-                    </div>
-                  </div>
-                  <div class="tada-game-modal-form-submit">
-                    <div>
+                      
                       <div class='counter-wrapper'>
                         <div class="custom-pie-container" style="background-image: url(${widget_url}/simple-svg/timer-back.png)">
                           <div class="custom-pie ten">
@@ -492,6 +486,18 @@ function selectWidgetBySetting(widget) {
                         </div>
                       </div>
                       
+                      <div class="tada-game-result-panel" style="display: none; background-image: url(${widget_url}/game-modal/result-back.png)">
+                        <p class="tada-game-result-text" style="color: ${theme_second_color};">$10 Cash</p>
+                        <p class="tada-game-result-code-label">Code:</p>
+                        <p class="tada-game-result-code">EZG37YVZ5Q2P</p>
+                      </div>
+                    </div>
+                    <div class="tada-game-modal-btn-close-container">
+                      <span>No, I don't want a discount.</span>
+                    </div>
+                  </div>
+                  <div class="tada-game-modal-form-submit">
+                    <div>
                       <p class="gift-text">Choose your gift:</p>
                       <div class="gift-box-container">
                         <div class="gift-box">
@@ -513,11 +519,6 @@ function selectWidgetBySetting(widget) {
                       
                       <div class="custom-meter red tada-progress-bar">
                         <span style="width: 50%; background-image: linear-gradient(${theme_first_color}, ${theme_second_color});"></span>
-                      </div>
-                      <div class="tada-game-result-panel" style="display: none; background-image: url(${widget_url}/game-modal/result-back.png)">
-                        <p class="tada-game-result-text" style="color: ${theme_second_color};">$10 Cash</p>
-                        <p class="tada-game-result-code-label">Code:</p>
-                        <p class="tada-game-result-code">EZG37YVZ5Q2P</p>
                       </div>
                       <button class="form-control tada-game-modal-btn tada_game_btn_apply_discount" style="background-color: ${theme_second_color}; display: none;">apply my discount</button>
                     </div>
