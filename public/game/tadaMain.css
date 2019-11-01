@@ -1377,6 +1377,9 @@ button.tada-game-modal-btn-close-fake .tada-dialog-btn-close-inner svg path {
     height: 100%;
     border-radius: 30px 30px 0 0;
     box-shadow: none;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*justify-content: space-between;*/
   }
   #tada_game_modal_2 .tada-game-modal-content .tada-game-modal-footer {
     padding: 0 20px 20px;
@@ -1389,7 +1392,7 @@ button.tada-game-modal-btn-close-fake .tada-dialog-btn-close-inner svg path {
   }
   #tada_game_modal_2 .tada-game-modal-content .tada-game-modal-top {
     border-radius: 25px 25px 0 0;
-    padding: 30px 24px 15px;
+    padding: 30px 24px 25px;
   }
   .tada-game-modal .tada-game-modal-top .tada-game-modal-heading-mobile {
     display: flex;
@@ -1398,7 +1401,7 @@ button.tada-game-modal-btn-close-fake .tada-dialog-btn-close-inner svg path {
     width: 100%;
   }
   .tada-game-modal .tada-game-modal-top h3 {
-    font-size: 24px;
+    font-size: 28px;
     line-height: 150%;
     margin: 0 auto 10px;
   }
@@ -1440,10 +1443,17 @@ button.tada-game-modal-btn-close-fake .tada-dialog-btn-close-inner svg path {
     display: none;
   }
   #tada_game_modal_2 .tada-game-modal-content .tada-game-modal-bottom {
-    padding: 20px;
+    padding: 35px 20px 0;
   }
   .tada-game-modal .tada-game-modal-bottom .tada-game-modal-right .tada-game-modal-form-top {
     width: 100%;
+    margin-bottom: 40px;
+  }
+  .tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-submit .tada-progress-bar {
+    margin-bottom: 25px;
+  }
+  .tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-submit .tada-progress-bar-text {
+
   }
   .tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-submit .gift-box-container {
     height: 55px;
@@ -1980,7 +1990,7 @@ and (orientation : landscape) {
     background: white;
     border-radius: 0 20px 20px 0;
     height: 96%;
-    width: 98%;
+    width: 95%;
     top: 2%;
     margin: 0;
   }
@@ -1995,7 +2005,7 @@ and (orientation : landscape) {
     padding: 15px 20px 20px;
   }
   .landscape-small-top {
-    height: 40%;
+    height: 42%;
     box-shadow: inset 0 -8px 30px rgba(0, 0, 0, 0.05);
     border-radius: 0 20px 0 0;
     display: block;
@@ -2010,7 +2020,7 @@ and (orientation : landscape) {
   }
   .landscape-small > .landscape-small-top .tada-game-modal-logo {
     width: 60px;
-    margin: 0 auto;
+    margin: 0 auto 10px;
   }
   .landscape-small > .landscape-small-top .tada-game-modal-logo img {
     width: 60px;
@@ -2052,16 +2062,33 @@ and (orientation : landscape) {
     text-align: center;
     display: flex;
     justify-content: space-between;
+
   }
   .landscape-small-bottom .tada-game-modal-form .email-checkbox-container {
-    display: block;
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
     width: 49%;
   }
+  .landscape-small-bottom .tada-game-modal-form .email-checkbox-container .tada-game-modal-form-policy {
+    margin-top: 20px;
+  }
+  .landscape-small-bottom .tada-game-modal-form .email-checkbox-container input {
+    text-align: left;
+  }
   .landscape-small-bottom .tada-game-modal-form-submit {
-    display: block;
     width: 49%;
     margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .landscape-small-bottom .tada-game-modal-form-submit .gift-text {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 130%;
+    color: #000000;
+    margin: 8px 0 25px;
   }
   .landscape-small-bottom .tada-game-modal-form-submit button {
     background-color: #f2bb8c;
@@ -2084,6 +2111,7 @@ and (orientation : landscape) {
   .landscape-small-bottom .tada-game-modal-form-submit .gift-box-container {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 18px;
   }
   .landscape-small-bottom .tada-progress-bar-text {
     font-family: Open Sans;
@@ -2091,6 +2119,7 @@ and (orientation : landscape) {
     line-height: 130%;
     color: #000000;
     font-weight: 600;
+    margin-bottom: 0;
   }
   .landscape-small-bottom .tada-game-modal-btn-close-container {
     display: block;

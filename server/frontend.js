@@ -375,7 +375,7 @@ function selectWidgetBySetting(widget) {
                       <div class="custom-pie-text"><span>5</span></div>
                     </div>
                   </div>
-                  <input type="email" class="form-control" id="tada_game_modal_email" style="border-color: ${theme_second_color}" placeholder="Enter your email address" required>
+                  <input type="email" class="form-control tada-game-modal-email" id="tada_game_modal_email" style="border-color: ${theme_second_color}" placeholder="Enter your email address" required>
                   <div class="tada-custom-checkbox tada-game-modal-form-policy">
                     <div class="tada-custom-checkbox-overlay" style="border-color: ${theme_second_color}">
                       <svg fill="${theme_second_color}" version="1.1" class="tada-custom-checkbox-overlay-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -457,68 +457,72 @@ function selectWidgetBySetting(widget) {
               <div class="landscape-small-bottom">
                 <div class="tada-game-modal-form">
                   <div class="email-checkbox-container">
-                    <input type="email" class="form-control tada-game-modal-email" id="tada_game_modal_email_landscape" style="border-color: ${theme_second_color}" placeholder="Enter your email address" required>
-                    <div class="tada-custom-checkbox tada-game-modal-form-policy">
-                      <div class="tada-custom-checkbox-overlay" style="border-color: ${theme_second_color}">
-                        <svg fill="${theme_second_color}" version="1.1" class="tada-custom-checkbox-overlay-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                           viewBox="0 0 512 512" style="enable-background:new 0 0 512 512; display: none;" xml:space="preserve">
-                          <g>
+                    <div>
+                      <input type="email" class="form-control tada-game-modal-email" id="tada_game_modal_email_landscape" style="border-color: ${theme_second_color}" placeholder="Enter your email address" required>
+                      <div class="tada-custom-checkbox tada-game-modal-form-policy">
+                        <div class="tada-custom-checkbox-overlay" style="border-color: ${theme_second_color}">
+                          <svg fill="${theme_second_color}" version="1.1" class="tada-custom-checkbox-overlay-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                             viewBox="0 0 512 512" style="enable-background:new 0 0 512 512; display: none;" xml:space="preserve">
                             <g>
-                              <path d="M504.502,75.496c-9.997-9.998-26.205-9.998-36.204,0L161.594,382.203L43.702,264.311c-9.997-9.998-26.205-9.997-36.204,0
-                                c-9.998,9.997-9.998,26.205,0,36.203l135.994,135.992c9.994,9.997,26.214,9.99,36.204,0L504.502,111.7
-                                C514.5,101.703,514.499,85.494,504.502,75.496z"/>
+                              <g>
+                                <path d="M504.502,75.496c-9.997-9.998-26.205-9.998-36.204,0L161.594,382.203L43.702,264.311c-9.997-9.998-26.205-9.997-36.204,0
+                                  c-9.998,9.997-9.998,26.205,0,36.203l135.994,135.992c9.994,9.997,26.214,9.99,36.204,0L504.502,111.7
+                                  C514.5,101.703,514.499,85.494,504.502,75.496z"/>
+                              </g>
                             </g>
-                          </g>
-                        </svg>
+                          </svg>
+                        </div>
+                        <input type="checkbox" class="custom-control-input" id="tada_game_modal_agree_policy_landscape" style="display: none">
+                        <label class="tada-custom-checkbox-label" for="tada_game_modal_agree_policy_landscape">
+                          I agree to <a style="color: ${theme_second_color}; text-decoration: underline;">Terms</a> and I have read our <a style="color: ${theme_second_color}; text-decoration: underline;">Privacy policy</a>.
+                        </label>
                       </div>
-                      <input type="checkbox" class="custom-control-input" id="tada_game_modal_agree_policy_landscape" style="display: none">
-                      <label class="tada-custom-checkbox-label" for="tada_game_modal_agree_policy_landscape">
-                        I agree to <a style="color: ${theme_second_color}; text-decoration: underline;">Terms</a> and I have read our <a style="color: ${theme_second_color}; text-decoration: underline;">Privacy policy</a>.
-                      </label>
                     </div>
                     <div class="tada-game-modal-btn-close-container">
-                      <span>No, I don't feel lucky</span>
+                      <span>No, I don't want a discount.</span>
                     </div>
                   </div>
                   <div class="tada-game-modal-form-submit">
-                    <div class='counter-wrapper'>
-                      <div class="custom-pie-container" style="background-image: url(${widget_url}/simple-svg/timer-back.png)">
-                        <div class="custom-pie ten">
+                    <div>
+                      <div class='counter-wrapper'>
+                        <div class="custom-pie-container" style="background-image: url(${widget_url}/simple-svg/timer-back.png)">
+                          <div class="custom-pie ten">
+                          </div>
+                          <div class="custom-pie-text"><span>5</span></div>
                         </div>
-                        <div class="custom-pie-text"><span>5</span></div>
                       </div>
-                    </div>
-                    
-                    <p class="gift-text">Choose your gift:</p>
-                    <div class="gift-box-container">
-                      <div class="gift-box">
-                        <img src="${widget_url}/gift-box/gift-box.png">
+                      
+                      <p class="gift-text">Choose your gift:</p>
+                      <div class="gift-box-container">
+                        <div class="gift-box">
+                          <img src="${widget_url}/gift-box/gift-box.png">
+                        </div>
+                        <div class="gift-box">
+                          <img src="${widget_url}/gift-box/gift-box.png">
+                        </div>
+                        <div class="gift-box">
+                          <img src="${widget_url}/gift-box/gift-box.png">
+                        </div>
+                        <div class="gift-box">
+                          <img src="${widget_url}/gift-box/gift-box.png">
+                        </div>
+                        <div class="gift-box">
+                          <img src="${widget_url}/gift-box/gift-box.png">
+                        </div>
                       </div>
-                      <div class="gift-box">
-                        <img src="${widget_url}/gift-box/gift-box.png">
+                      
+                      <div class="custom-meter red tada-progress-bar">
+                        <span style="width: 50%; background-image: linear-gradient(${theme_first_color}, ${theme_second_color});"></span>
                       </div>
-                      <div class="gift-box">
-                        <img src="${widget_url}/gift-box/gift-box.png">
+                      <div class="tada-game-result-panel" style="display: none; background-image: url(${widget_url}/game-modal/result-back.png)">
+                        <p class="tada-game-result-text" style="color: ${theme_second_color};">$10 Cash</p>
+                        <p class="tada-game-result-code-label">Code:</p>
+                        <p class="tada-game-result-code">EZG37YVZ5Q2P</p>
                       </div>
-                      <div class="gift-box">
-                        <img src="${widget_url}/gift-box/gift-box.png">
-                      </div>
-                      <div class="gift-box">
-                        <img src="${widget_url}/gift-box/gift-box.png">
-                      </div>
-                    </div>
-                    
-                    <div class="custom-meter red tada-progress-bar">
-                      <span style="width: 50%; background-image: linear-gradient(${theme_first_color}, ${theme_second_color});"></span>
+                      <button class="form-control tada-game-modal-btn tada_game_btn_apply_discount" style="background-color: ${theme_second_color}; display: none;">apply my discount</button>
                     </div>
                     <p class="tada-progress-bar-text" style="display: ${progress_bar ? 'block' : 'none'}"><span id="tada-progressbar-percent-number">70</span>% offers claimed. Hurry up!</p>
-                    <div class="tada-game-result-panel" style="display: none; background-image: url(${widget_url}/game-modal/result-back.png)">
-                      <p class="tada-game-result-text" style="color: ${theme_second_color};">$10 Cash</p>
-                      <p class="tada-game-result-code-label">Code:</p>
-                      <p class="tada-game-result-code">EZG37YVZ5Q2P</p>
-                    </div>
                   </div>
-                  <button class="form-control tada-game-modal-btn tada_game_btn_apply_discount" style="background-color: ${theme_second_color}; display: none;">apply my discount</button>
                 </div>
               </div>
             </div>

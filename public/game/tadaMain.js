@@ -59,11 +59,12 @@ function displaySizeInit() {
   }
 
 	if (mobileMode) {
-		$("#snackbar").css({ 'background-color': window.theme_second_color })
+		$("#snackbar").css({ 'background-color': window.theme_second_color });
 		// $('.tada-wheel-container').css({
 		// 	'max-height': (window_width - 30) / 2
 		// });
 	} else if (landscapeMode) {
+    $("#snackbar").css({ 'background-color': window.theme_second_color });
 		// $('.tada-wheel-container').css({
 		// 	'max-height': window_width/4
 		// });
@@ -131,13 +132,6 @@ function validateEmail(email) {
 }
 
 // event handlers
-$('#tada_game_email_input').focusin(function () {
-	$(this).css({
-		'box-shadow': 'unset',
-		'border': '1px solid #ced4da'
-	});
-});
-
 $('#tada-floating-couponview-button').click(function () {
 	$('.tada-floating-dialog').css({
 		"webkitAnimation": 'none'
@@ -185,10 +179,10 @@ $(".tada-game-modal-btn-close-fake").mouseout(function() {
   $(".tada-dialog-btn-close-inner svg path").css('fill', window.theme_first_color);
 });
 
-$("#tada_game_modal_email").focus(function() {
-  $("#tada_game_modal_email").css({'border-color': window.theme_first_color, 'caret-color': window.theme_first_color});
+$(".tada-game-modal-email").focus(function() {
+  $(".tada-game-modal-email").css({'border-color': window.theme_first_color, 'caret-color': window.theme_first_color});
 }).focusout(function() {
-  $("#tada_game_modal_email").css({'border-color': window.theme_second_color, 'caret-color': window.theme_second_color});
+  $(".tada-game-modal-email").css({'border-color': window.theme_second_color, 'caret-color': window.theme_second_color});
 });
 
 $('.tada_start_icon_div').click(function () {
@@ -524,7 +518,9 @@ function showGiftBoxResult() {
   $(".tada-game-expire-in-wrapper").css("display", "block");
   $(".tada-game-modal-top .tada-game-modal-right").addClass('fade-in5');
 
-  $(".tada-game-modal-form-submit").remove();
+  if (!isMobileLandscape) {
+    $(".tada-game-modal-form-submit").remove();
+  }
   $(".counter-wrapper").css({'display': 'none'});
   $(".tada-game-result-panel").css({'display': 'flex', 'background-size': '1%'}).addClass('fade-in5');
   $(".tada-game-result-panel p").css({'zoom': '1%'});
@@ -698,17 +694,19 @@ $(".tada-game-modal-btn-close-container").click(function() {
 });
 
 $(".gift-box").click(function() {
-  let email = $('#tada_game_modal_email').val();
+  $emailInput = isMobileLandscape ? $("#tada_game_modal_email_landscape") : $("#tada_game_modal_email");
+  $checkbox = isMobileLandscape ? $("#tada_game_modal_agree_policy_landscape") : $("#tada_game_modal_agree_policy");
+  let email = $emailInput.val();
   if (!validateEmail(email)) {
     showNotification("You have entered an invalid e-mail address. Please try again.");
-    $('#tada_game_modal_email').css({
+    $emailInput.css({
       'box-shadow': `0 0 0 0.2rem ${window.theme_first_color}`,
       'border': `1px solid ${window.theme_first_color}`
     });
     return;
   }
 
-  if (!$("#tada_game_modal_agree_policy").prop('checked')) {
+  if (!$checkbox.prop('checked')) {
     showNotification("Do you agree to Terms and have you read our Privacy policy?");
     return;
   }
@@ -729,8 +727,8 @@ $(".gift-box").click(function() {
   $(".counter-wrapper").css('display', 'flex');
 
   const curGiftIndex = $(".gift-box").index($(this));
-  const targetSize = isMobile ? 80 : 100;
-  const width = isMobile ? 67 : 120;
+  const targetSize = isMobile || isMobileLandscape ? 80 : 100;
+  const width = isMobile || isMobileLandscape ? 67 : 120;
   const prevPos = curGiftIndex * width;
   $(this).siblings().remove();
   $(this).css({marginLeft: prevPos + 'px'});
