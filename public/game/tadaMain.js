@@ -355,7 +355,6 @@ function changeGameStartIconPosition(position) {
 			break;
 		case 3:
 			$("#spinny_box").css({ 'left': 0 });
-			$("#present_time_reminder_container").css({ 'right': '-25px', 'top': '46.5%' });
 			$(".tada-floating-dialog").css({
 				'left': window_width / 2 - 140 + 'px',
 				'top': '120px'
@@ -502,7 +501,7 @@ function expireTimeCountDown(minute) {
 		}
     $(".tada-expire-time").html('<span class="time-ticker">' + expireTime + '</span>' + ' left!');
 		$(".tada-floating-dialog-expire-time").html(expireTime);
-    $("#present_time_reminder_1 span").html(expireTime + ' left!');
+    $("#present_time_reminder_1 span").html('<span class="time-ticker-floating">' + expireTime + '</span>' + ' left!');
     $(".tada-game-expire-in-wrapper span:last-child").html(expireTime);
 	}, 1000);
 }

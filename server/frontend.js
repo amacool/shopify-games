@@ -252,7 +252,7 @@ function selectWidgetBySetting(widget) {
             <span class='btn-inner'>
               <span class='content-wrapper'>
                 <svg class='btn-content' id="Layer_1" data-name="Layer 1" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g filter="url(#filter0_i)">
+                  <g>
                     <path fill="${theme_second_color}" d="M33.6521 6.99273H31.0317C31.3773 6.44474 31.6054 5.82963 31.6704 5.17908C31.8782 3.10003 30.7852 1.23629 28.9244 0.410011C27.214 -0.349499 25.2919 -0.0390174 23.9078 1.21854L20.5989 4.22263C19.9544 3.51658 19.0281 3.07284 18 3.07284C16.97 3.07284 16.0422 3.51799 15.3976 4.22623L12.0845 1.21819C10.6982 -0.0393695 8.77681 -0.348653 7.06717 0.410434C5.20684 1.23679 4.11363 3.10115 4.32203 5.18014C4.38721 5.83019 4.61516 6.44503 4.96075 6.99273H2.3478C1.0511 6.99273 0 8.04575 0 9.34466V12.8726C0 13.522 0.525585 14.0486 1.17394 14.0486H34.8261C35.4743 14.0486 36 13.5221 36 12.8726V9.34466C35.9999 8.04575 34.9488 6.99273 33.6521 6.99273ZM14.4782 6.60076V6.99273H8.95569C7.49656 6.99273 6.34822 5.63008 6.71265 4.10825C6.87317 3.43805 7.35608 2.86674 7.98066 2.57753C8.83834 2.18042 9.78839 2.30791 10.5087 2.96106L14.4792 6.5661C14.479 6.57773 14.4782 6.58914 14.4782 6.60076ZM29.3409 4.86684C29.2535 6.08911 28.1513 6.99288 26.9281 6.99288H21.5217V6.6009C21.5217 6.58702 21.5209 6.57329 21.5207 6.55941C22.4202 5.74264 24.3714 3.97104 25.4297 3.01008C26.0311 2.46399 26.8727 2.20908 27.6506 2.44152C28.767 2.77511 29.4226 3.72613 29.3409 4.86684Z"/>
                     <path fill="${theme_second_color}" d="M2.3479 16.4004V33.648C2.3479 34.947 3.399 35.9999 4.6957 35.9999H15.6522V16.4004H2.3479Z"/>
                     <path fill="${theme_second_color}" d="M20.3479 16.4004V35.9999H31.3044C32.6011 35.9999 33.6522 34.947 33.6522 33.648V16.4004H20.3479Z"/>
@@ -372,15 +372,9 @@ function selectWidgetBySetting(widget) {
                   <input type="email" class="form-control tada-game-modal-email" id="tada_game_modal_email" style="border-color: ${theme_second_color}" placeholder="Enter your email address" required>
                   <div class="tada-custom-checkbox tada-game-modal-form-policy">
                     <div class="tada-custom-checkbox-overlay" style="border-color: ${theme_second_color}">
-                      <svg fill="${theme_second_color}" version="1.1" class="tada-custom-checkbox-overlay-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                         viewBox="0 0 512 512" style="enable-background:new 0 0 512 512; display: none;" xml:space="preserve">
-                        <g>
-                          <g>
-                            <path d="M504.502,75.496c-9.997-9.998-26.205-9.998-36.204,0L161.594,382.203L43.702,264.311c-9.997-9.998-26.205-9.997-36.204,0
-                              c-9.998,9.997-9.998,26.205,0,36.203l135.994,135.992c9.994,9.997,26.214,9.99,36.204,0L504.502,111.7
-                              C514.5,101.703,514.499,85.494,504.502,75.496z"/>
-                          </g>
-                        </g>
+                      <svg width="10" height="8" class="tada-custom-checkbox-overlay-svg" style="display: none;" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="${theme_second_color}" fill-rule="evenodd" clip-rule="evenodd" d="M3.31476 7.8585L0.132954 4.4415C-0.044318 4.2535 -0.044318 3.9475 0.132954 3.7575L0.775678 3.0745C0.95295 2.8865 1.24113 2.8865 1.4184 3.0745L3.63657 5.4665L8.5811 0.1415C8.75837 -0.0465 9.04655 -0.0465 9.22382 0.1415L9.86655 0.8255C10.0438 1.0135 10.0438 1.3205 9.86655 1.5075L3.95748 7.8585C3.78021 8.0465 3.49203 8.0465 3.31476 7.8585Z"/>
+                        <path fill="black" fill-rule="evenodd" clip-rule="evenodd" d="M3.31476 7.8585L0.132954 4.4415C-0.044318 4.2535 -0.044318 3.9475 0.132954 3.7575L0.775678 3.0745C0.95295 2.8865 1.24113 2.8865 1.4184 3.0745L3.63657 5.4665L8.5811 0.1415C8.75837 -0.0465 9.04655 -0.0465 9.22382 0.1415L9.86655 0.8255C10.0438 1.0135 10.0438 1.3205 9.86655 1.5075L3.95748 7.8585C3.78021 8.0465 3.49203 8.0465 3.31476 7.8585Z" fill-opacity="0.1"/>
                       </svg>
                     </div>
                     <input type="checkbox" class="custom-control-input" id="tada_game_modal_agree_policy" style="display: none">
