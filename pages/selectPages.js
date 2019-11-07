@@ -27,7 +27,7 @@ export default class SelectPage extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`${process.env.TUNNEL_URL}/getPageSetting`, {
+        fetch(`${TUNNEL_URL}/getPageSetting`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -360,7 +360,7 @@ export default class SelectPage extends React.Component {
             homepage, products, pages, blogs, cart, search
         });
 
-        fetch(`${process.env.TUNNEL_URL}/savePageSetting`, {
+        fetch(`${TUNNEL_URL}/savePageSetting`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'

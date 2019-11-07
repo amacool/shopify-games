@@ -29,7 +29,7 @@ class Widget extends React.Component {
     };
 
     componentDidMount = () => {
-        fetch(`${process.env.TUNNEL_URL}/getSetting`, {
+        fetch(`${TUNNEL_URL}/getSetting`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'

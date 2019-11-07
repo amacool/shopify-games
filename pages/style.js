@@ -131,7 +131,7 @@ class Style extends React.Component {
               style: selected
           })
       }
-      fetch(`${process.env.TUNNEL_URL}/updateStyle`, {
+      fetch(`${TUNNEL_URL}/updateStyle`, {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'
@@ -153,7 +153,7 @@ class Style extends React.Component {
               selected: value,
               style: value
           });
-          fetch(`${process.env.TUNNEL_URL}/updateStyle`, {
+          fetch(`${TUNNEL_URL}/updateStyle`, {
               method: 'POST',
               headers: {
                   'Content-type': 'application/json'

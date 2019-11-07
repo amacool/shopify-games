@@ -98,7 +98,7 @@ class Create extends React.Component {
           });
           return;
       }
-      fetch(`${process.env.TUNNEL_URL}/createWidget`, {
+      fetch(`${TUNNEL_URL}/createWidget`, {
           method: 'POST',
           headers: {
               'Content-type': 'application/json'

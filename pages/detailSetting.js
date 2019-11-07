@@ -72,7 +72,7 @@ class DetailSetting extends React.Component {
   };
 
   componentDidMount = () => {
-    fetch(`${process.env.TUNNEL_URL}/getSetting`, {
+    fetch(`${TUNNEL_URL}/getSetting`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -382,7 +382,7 @@ class DetailSetting extends React.Component {
    updateSetting.frequency = frequency;
    updateSetting.exitIntent = exitIntent;
    updateSetting.exitIntentTime = exitIntentTime;
-   fetch(`${process.env.TUNNEL_URL}/saveSetting`, {
+   fetch(`${TUNNEL_URL}/saveSetting`, {
      method: 'POST',
      headers: {
        'Content-Type': 'application/json'
