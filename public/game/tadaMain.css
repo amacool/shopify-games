@@ -518,6 +518,10 @@
 .tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-policy label a {
   text-decoration: underline;
   font-weight: 600;
+  transition: 0.4s all ease;
+}
+.tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-policy label a:hover {
+  filter: brightness(0.9);
 }
 .tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-submit .gift-text {
   margin-bottom: 20px;
@@ -593,6 +597,10 @@
 }
 .tada-game-modal-btn-close-container > span {
   text-decoration: underline;
+  transition: 0.4s all ease;
+}
+.tada-game-modal-btn-close-container > span:hover {
+  filter: brightness(0.8);
 }
 button.tada-game-modal-btn-close-fake {
   opacity: 1 !important;
@@ -640,7 +648,6 @@ button.tada-game-modal-btn-close-fake .tada-dialog-btn-close-inner svg path {
   width: 25px;
 }
 .tada-game-modal .tada-game-result-panel {
-  margin-top: 15px;
   width: 70%;
 }
 .tada-game-modal .tada-game-result-panel img {
@@ -706,6 +713,10 @@ button.tada-game-modal-btn-close-fake .tada-dialog-btn-close-inner svg path {
   width: 63%;
   margin: 0 auto 12px;
 }
+.tada-game-modal button.tada-game-modal-btn:hover {
+  transition: 0.4s all ease;
+  filter: brightness(0.94);
+}
 #tada_game_modal_2 {
   opacity: 1;
   transform: none;
@@ -733,6 +744,7 @@ button.tada-game-modal-btn-close-fake .tada-dialog-btn-close-inner svg path {
 #tada_game_modal_2 .tada-game-modal-content .tada-game-modal-footer {
   border-radius: 0 0 9px 0;
   background-color: white;
+  padding: 25px 50px 40px;
 }
 .tada-game-mobile-landscape {
   display: none;
@@ -1508,7 +1520,7 @@ button.tada-game-modal-btn-close-fake .tada-dialog-btn-close-inner svg path {
   }
   .tada-game-modal .tada-game-modal-bottom .tada-game-modal-right .tada-game-modal-form-top {
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
   }
   .tada-game-modal .tada-game-modal-bottom .tada-game-modal-form-submit .tada-progress-bar {
     margin-bottom: 25px;

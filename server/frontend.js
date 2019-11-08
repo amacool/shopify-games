@@ -222,7 +222,18 @@ function selectWidgetBySetting(widget) {
   var game_theme_style = 1;
   var game_theme_color = 2;
   var wheel_run_time = 5;
-  var wheel_item = ["3% DISCOUNT", "40% DISCOUNT", "Not Luck Today", "10% DISCOUNT", "30% DISCOUNT", "FREE SHIPPING", "50% DISCOUNT", "3% DISCOUNT", "10% DISCOUNT", "20% DISCOUNT", "30% DISCOUNT"];
+  var wheel_items = [
+    { label: "Free Shipping", chance: 0.1},
+    { label: "40% Discount", chance: 0.05},
+    { label: "10% Discount", chance: 0.2},
+    { label: "3% Discount", chance: 0.2},
+    { label: "50% Discount", chance: 0.1},
+    { label: "35% Discount", chance: 0.1},
+    { label: "20% Discount", chance: 0.15},
+    { label: "30% Discount", chance: 0.1}
+  ];
+  var wheel_item = wheel_items.map(item => item.label);
+  var wheel_item_cap = wheel_item.map(item => item.toUpperCase());
   var progress_bar = true;
   var theme_first_color = theme_colors[game_theme_color].first;
   var theme_second_color = theme_colors[game_theme_color].second;
@@ -360,10 +371,6 @@ function selectWidgetBySetting(widget) {
                   <h3 class="tada-game-modal-heading-1">Pick a gift and win a discount for this store!</h3>
                 </div>
                 <p class="tada-game-modal-heading-2">You have a chance to win a great discount. Are you feeling lucky? Pick one of the 5 gifts below and win a discount for this site  <img src="${widget_url}/simple-svg/present-icon.svg">.</p>
-                <div class="tada-game-expire-in-wrapper" style="display: none">
-                  <span>Expires in: </span>
-                  <span style="font-weight: 600; color: ${theme_second_color}">01:56:34</span>
-                </div>
               </div>
             </div>
             <div class="tada-game-modal-bottom">
@@ -381,6 +388,10 @@ function selectWidgetBySetting(widget) {
                     <label class="tada-custom-checkbox-label" for="tada_game_modal_agree_policy">
                       I agree to <a style="color: ${theme_second_color}">Terms</a> and I have read our <a style="color: ${theme_second_color}">Privacy policy</a>.
                     </label>
+                  </div>
+                  <div class="tada-game-expire-in-wrapper" style="display: none">
+                    <span>Expires in: </span>
+                    <span style="font-weight: 600; color: ${theme_second_color}">01:56:34</span>
                   </div>
                 </div>
                 <div class="tada-game-modal-form-submit">
