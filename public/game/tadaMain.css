@@ -52,10 +52,24 @@
   cursor: pointer;
   width: 77%;
 }
+#present_time_reminder_container .tada-remaind-bar-close {
+  right: 0;
+  background-color: #846b8a;
+  top: -10px;
+  left: 62px;
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
 #present_time_reminder_container #present_time_reminder_1:hover {
   transition: 0.4s all ease;
   box-shadow: 10px 10px 19px 0 rgba(133, 131, 133, 1);
-  margin-right: 20px;
+  /*margin-right: 20px;*/
 }
 #present_time_reminder_container .present-time-reminder:first-child {
   margin-bottom: 20px;
@@ -1386,6 +1400,9 @@ button.tada-game-modal-btn-close-fake .tada-dialog-btn-close-inner svg path {
   #present_time_reminder_container .present-time-reminder span {
     font-size: 15px;
   }
+  #present_time_reminder_container .tada-remaind-bar-close {
+    left: 99px;
+  }
   #present_time_reminder_container .tada-expire-time {
     margin-left: 5px;
   }
@@ -1865,8 +1882,8 @@ and (max-device-width : 700px)
 and (orientation : portrait) {
   .tada_remaind_bar .tada-remaind-bar-close {
     background-color: #846b8a;
-    margin-top: 17px;
-    right: 10px;
+    margin-top: -29px;
+    right: 7px;
   }
 }
 
