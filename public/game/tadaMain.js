@@ -683,6 +683,15 @@ $(".tada-game-modal-btn-close-container").click(function() {
   }, 1000);
 });
 
+$(".tada-remaind-bar-close").click(function() {
+  $(".tada_remaind_bar").addClass('fade-out4');
+  $("#present_time_reminder_container").addClass('fade-out4');
+  setTimeout(function() {
+    $(".tada_remaind_bar").css({ display: 'none' });
+    $("#present_time_reminder_container").css({ display: 'none' });
+  }, 500);
+});
+
 $(".gift-box").click(function() {
   $emailInput = isMobileLandscape ? $("#tada_game_modal_email_landscape") : $("#tada_game_modal_email");
   $checkbox = isMobileLandscape ? $("#tada_game_modal_agree_policy_landscape") : $("#tada_game_modal_agree_policy");
