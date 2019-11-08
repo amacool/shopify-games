@@ -3543,6 +3543,7 @@ and (orientation : landscape) {
 .bubbly-button {
 	 display: inline-block;
 	 font-size: 1em;
+   box-shadow: none;
 	 -webkit-appearance: none;
 	 appearance: none;
 	 border-radius: 4px;
@@ -5132,6 +5133,12 @@ and (orientation : landscape) {
 .tada-wheel-wrapper .retro-btn {
   text-transform: uppercase;
   background: 0 0;
+  background: 0 0;box-shadow: none;
+}
+
+.tada-wheel-wrapper .retro-btn .btn {
+  border: none;
+  box-shadow: none;
 }
 
 .tada-wheel-wrapper .retro-btn.lg .btn {
@@ -5253,6 +5260,7 @@ and (orientation : landscape) {
   height: calc(100% - 4px);
   bottom: -1px;
   left: 1px;
+  box-shadow: none;
   position: absolute;
   border-radius: 3px;
   z-index: 1;
