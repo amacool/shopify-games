@@ -269,9 +269,20 @@ function animation_sinnyBox() {
 	}, 1500);
 }
 
-setTimeout(function() {
-  window.scrollTo(0, 1);
-}, 1000);
+$(window).on('resize', function () {
+  var bodyHeight = document.body.offsetHeight;
+  var windowHeight = window.innerHeight;
+  var isLandscape = Math.abs(window.orientation) === 90;
+  var showTooltip = (windowHeight < bodyHeight);
+  if(!isLandscape) return;
+
+});
+
+// if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) {
+// 	setTimeout(function() {
+// 		window.scrollTo(0, 100);
+// 	}, 10000);
+// }
 
 let animateButton = function (e) {
 	e.preventDefault();
