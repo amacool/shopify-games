@@ -242,6 +242,9 @@ function selectWidgetBySetting(widget) {
     var id = widget.id;
     html = `
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <script>
       window.global_widget_url = "${widget_url}";
       window.game_start_icon_position = "${game_start_icon_position}";
@@ -357,7 +360,7 @@ function selectWidgetBySetting(widget) {
       <div id="tada-flower-falling"></div>
       
       <!--Invalid email warning-->
-      <div id="snackbar" style="background-color: ${theme_first_color}">You have entered an invalid e-mail address. Please try again.</div>
+      <div id="snackbar" style="background-color: ${theme_second_color}">You have entered an invalid e-mail address. Please try again.</div>
       
       <!--Game Modal-->
       <div class="modal fade tada-game-modal" id="tada_game_modal_2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

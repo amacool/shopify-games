@@ -12,10 +12,7 @@ let window_height = window.innerHeight;
 let isMobile = window_width <= 600;
 var isMobileLandscape = window_width <= 850 && window_width > window_height;
 let options = window.wheel_item.split(',');
-let wheelStopState = false;
 let randomTextNumber = 0;
-let rouletteColors = Array(3);
-let spinAngleStart = 0;
 
 changeGameThemeStyle(game_theme_style);
 showRandomEncouragementText();
@@ -134,7 +131,7 @@ $('#tada-floating-couponview-button').click(function () {
 
 $('#tada_ramaind_view_coupon_button').click(function () {
   if (!$("#tada_game_modal_2").hasClass('show')) {
-    $("#tada_game_modal_2").removeClass('fade-out5');
+    $("#tada_game_modal_2").removeClass('fade-out4');
     $("#tada_game_modal_2").addClass('fade-in5');
     $(".tada-open-game-modal").trigger('click');
   }
@@ -142,7 +139,7 @@ $('#tada_ramaind_view_coupon_button').click(function () {
 
 $("#present_time_reminder_1").click(function() {
   if (!$("#tada_game_modal_2").hasClass('show')) {
-    $("#tada_game_modal_2").removeClass('fade-out5');
+    $("#tada_game_modal_2").removeClass('fade-out4');
     $("#tada_game_modal_2").addClass('fade-in5');
     $(".tada-open-game-modal").trigger('click');
   }
@@ -194,8 +191,8 @@ $('.tada_start_icon_div').click(function () {
 			});
 		}
 	}
-  $('#tada_full_modal').removeClass('fade-out5');
-  $('#tada_game_modal_2').removeClass('fade-out5');
+  $('#tada_full_modal').removeClass('fade-out4');
+  $('#tada_game_modal_2').removeClass('fade-out4');
   if (!$('.tada-game-modal').hasClass('fade-in5')) {
     $('.tada-game-modal').addClass('fade-in5');
   	let fade_text = $('#tada-game-state-second-text');
@@ -220,12 +217,6 @@ $('.tada-btn-apply-discount').click(function () {
 	$('#tada_start_icon').fadeOut(400, function () {
     $("#tada_start_icon").attr('src', widget_url + '/floating-bar-icon.svg');
   }).fadeIn(400);
-
-	// $("#tada-flower-falling").fadeOut("slow", function () {
-	// 	$(this).css({
-	// 		display: "none"
-	// 	});
-	// });
 
 	$(".tada_remaind_bar").fadeIn(1000, function () {
 		$(this).css({
@@ -277,6 +268,15 @@ function animation_sinnyBox() {
 		opacity: 1,
 	}, 1500);
 }
+
+$(window).resize(function () {
+  alert(window.innerHeight);
+});
+
+setTimeout(function() {
+  window.scrollTo(0, 1);
+}, 1000);
+
 let animateButton = function (e) {
 	e.preventDefault();
 	e.target.classList.remove('animate');
@@ -339,117 +339,10 @@ function changeGameStartIconPosition(position) {
 	}
 }
 
-// Wheel Animation
-let startAngle = 0;
-let arc = (Math.PI / (options.length / 2));
-let spinTimeout = null;
-let spinTime = 0;
-let spinTimeTotal = 0;
-
 function byte2Hex(n) {
 	let nybHexString = "0123456789ABCDEF";
 	return String(nybHexString.substr((n >> 4) & 0x0F, 1)) + nybHexString.substr(n & 0x0F, 1);
 }
-
-function RGB2Color(r, g, b) {
-	return '#' + byte2Hex(r) + byte2Hex(g) + byte2Hex(b);
-}
-
-function getColor(item, count) {
-	return rouletteColors[item % count];
-}
-
-function getNumberFromPixel(val) {
-  return parseInt(val.replace('px', ''));
-}
-
-function getNumberFromFilter(val) {
-  if (val === 'none') return 0;
-  return parseFloat(val.replace("blur(", "").replace("px)", ""));
-}
-
-/**
- * blur, motion anti-counter
- * @param count
- *  max count number
- * @param callback
- *  callback after timer finishes
- */
-function startCounterAnimation(count) {
-  let curNum = count;
-  $(".counter-wrapper").prepend("<div class='lines' style='font-size: 120px; position: absolute; left: 0;'>" + curNum + "</div>");
-  $(".counter-wrapper .lines").animate({
-    "fontSize": (120 - 40) + "px",
-    "left": (getNumberFromPixel($(".counter-wrapper .lines").css('left')) + 100) + "px"
-  }, 1000, "linear");
-  let intervalId = setInterval(function() {
-    curNum --;
-    if (curNum < 0) {
-      clearInterval(intervalId);
-      return;
-    }
-    $(".counter-wrapper").prepend("<div class='lines' style='font-size: 120px; position: absolute; left: 0;'>" + curNum + "</div>");
-    $(".counter-wrapper .lines").each(function(index) {
-      if (index > 2) {
-        $(this).remove();
-        return;
-      }
-      $(this).animate({
-        "fontSize": (120 - (index + 1)*40) + "px",
-        "left": (getNumberFromPixel($(this).css('left')) + 100) + "px"
-      }, 1000, "linear");
-    });
-  }, 1000);
-
-  // blur effect
-  let blurCount = (count + 1) * 10;
-  let blurIntervalId = setInterval(function() {
-    blurCount --;
-    if (blurCount < 0) {
-      clearInterval(blurIntervalId);
-      return;
-    }
-    $(".counter-wrapper .lines").each(function(index) {
-      $(this).css({
-        "-webkit-filter": "blur(" + (getNumberFromFilter($(this).css('filter')) + 0.5) + "px)",
-        "filter": "blur(" + (getNumberFromFilter($(this).css('filter')) + 0.5) + "px)"
-      });
-    });
-  }, 100);
-}
-
-function startCircleCounter(count) {
-  var timeSpacing = 10;
-  var curCount = 0;
-  var angle = -90;
-  var dAngle = 360/(1000/timeSpacing);
-  var counterWidth = 204;
-  if (isMobileLandscape) {
-    counterWidth = 145;
-    if (window_width < 600) {
-      counterWidth = 130;
-		}
-	}
-  var interval = setInterval(function() {
-    curCount++;
-    angle += dAngle;
-    var curNumber = count - Math.floor(curCount/(1000/timeSpacing));
-    if (curCount > (count + 1)*1000/timeSpacing || curNumber === 0) {
-      clearInterval(interval);
-    }
-    if ((angle + 90) % 360 > 180) {
-      $custom_pie.css({'backgroundImage': 'linear-gradient(-90deg, transparent 50%, transparent 50%),linear-gradient(' + angle + 'deg, white 50%, transparent 50%)'});
-      $custom_pie.css({'clip': `rect(0, ${counterWidth/2}px, ${counterWidth}px, 0)`});
-    } else {
-      $custom_pie.css({'backgroundImage': 'linear-gradient(-90deg, transparent 50%, white 50%),linear-gradient(' + angle + 'deg, white 50%, transparent 50%)'});
-      $custom_pie.css({'clip': `rect(0, ${counterWidth}px, ${counterWidth}px, 0)`});
-    }
-    $custom_pie_text.text(count - Math.floor(curCount/(1000/timeSpacing)));
-
-
-  }, timeSpacing);
-}
-
 
 function expireTimeCountDown(minute) {
 	let countDownDate = new Date().getTime() + (1000 * 60 * 60 * minute);
@@ -677,10 +570,10 @@ for(let i = 0; i < buttons.length; i++) {
 }
 
 $(".tada-game-modal-btn-close-container").click(function() {
-  $('#tada_game_modal_2').addClass('fade-out5');
+  $('#tada_game_modal_2').addClass('fade-out4');
   setTimeout(function() {
     $(".tada-game-modal-btn-close").trigger('click');
-  }, 1000);
+  }, 500);
 });
 
 $(".tada-remaind-bar-close").click(function() {
@@ -738,7 +631,7 @@ $(".gift-box").click(function() {
   }
   const prevPos = curGiftIndex * width;
   $(this).siblings().each(function() {
-    $(this).addClass('fade-out5');
+    $(this).addClass('fade-out4');
   });
   $giftBox = $(this);
   setTimeout(function() {
@@ -760,10 +653,9 @@ $(".gift-box").click(function() {
       $giftBox.addClass('vibrating-box');
     }, 1000);
 
-    // startCircleCounter(5);
     setTimeout(showGiftBoxResult, 3000);
 
-    displaySizeInit();
+    // displaySizeInit();
   }, 1000);
 });
 
