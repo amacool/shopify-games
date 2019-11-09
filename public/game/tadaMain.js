@@ -269,10 +269,6 @@ function animation_sinnyBox() {
 	}, 1500);
 }
 
-$(window).resize(function () {
-  alert(window.innerHeight);
-});
-
 setTimeout(function() {
   window.scrollTo(0, 1);
 }, 1000);
