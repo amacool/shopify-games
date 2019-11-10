@@ -734,7 +734,8 @@ button.tada-game-modal-btn-close-fake .tada-dialog-btn-close-inner svg path {
 #tada_game_modal_2 {
   opacity: 1;
   transform: none;
-  overflow: scroll;
+  overflow: hidden;
+  position: fixed;
   height: 100vh;
 }
 #tada_game_modal_2 .tada-game-modal-content {

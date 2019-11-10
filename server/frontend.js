@@ -251,10 +251,10 @@ function selectWidgetBySetting(widget) {
       window.theme_first_color = "${theme_first_color}";
       window.theme_second_color = "${theme_second_color}";
     </script>
-    <script src="${widget_url}/tadaMain.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
     <link rel="stylesheet" href="${widget_url}/tadaMain.css"/>
+    <script src="${widget_url}/tadaMain.js"></script>
     
     <div id="tada_app_widget">
       <div class="tada-wheel-wrapper">
