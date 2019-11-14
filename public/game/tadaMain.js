@@ -242,7 +242,6 @@ $('.tada-btn-apply-discount').click(function () {
   $(".tada-game-modal-btn-close-container").trigger('click');
 
   window_width > 800 && $(".landscape-small-bottom .tada-game-result-panel").css({marginTop: '10px'});
-  $(".landscape-small-bottom .tada-game-modal-btn-close-container").css({bottom: '8%'});
 });
 
 $('.tada-close-button-div').click(function () {
@@ -399,7 +398,7 @@ function showGiftBoxResult() {
     $("tada-game-modal-content .tada-game-modal-heading-1").css("font-size", "36px");
   } else if (isMobileLandscape) {
     $(".tada-game-modal-heading-1").css("font-size", "26px");
-    $(".tada-game-modal-btn-close-container").css({display: 'block'});
+    $(".tada-game-modal-btn-close-container").css({display: 'block', position: 'absolute'});
 	}
   $(".tada-game-modal-heading-2").text("You have a chance to win a nice big fat discount. Are you feeling lucky?");
   $(".tada-game-modal-heading-2").css("display", "block");
@@ -420,7 +419,7 @@ function showGiftBoxResult() {
 		"display": "block"
 	});
 
-	// hide the flower Falling
+  // hide the flower Falling
 	setTimeout(function () {
 		$('#tada-flower-falling').fadeOut('slow');
 	}, 3500);
