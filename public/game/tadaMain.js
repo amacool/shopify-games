@@ -265,19 +265,14 @@ function animation_sinnyBox() {
 	}, 1500);
 }
 
-$(window).on('resize', function () {
-  var bodyHeight = document.body.offsetHeight;
-  var windowHeight = window.innerHeight;
-  var isLandscape = Math.abs(window.orientation) === 90;
-  var showTooltip = (windowHeight < bodyHeight);
-  if(!isLandscape) return;
-
-});
-
 // if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) {
 // 	setTimeout(function() {
-// 		window.scrollTo(0, 100);
-// 	}, 10000);
+//     window.scrollTo({
+//       top: 400,
+//       behavior: 'smooth',
+//     });
+//     // document.querySelector('body').scrollTop = 100;
+//   }, 5000);
 // }
 
 let animateButton = function (e) {

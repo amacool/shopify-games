@@ -6,19 +6,22 @@
   src:url(https://fonts.gstatic.com/s/opensans/v13/DXI1ORHCpsQm3Vp6mXoaTRa1RVmPjeKy21_GQJaLlJI.woff) format('woff');
 }
 
-body {
-  height: 100%;
-  padding: 0;
-  overflow: auto;
-  margin: 0;
-  -webkit-overflow-scrolling: touch;
+#tada_game_modal_2 .tada-game-modal-container {
+  position: fixed !important;
+  bottom: 0 !important;
 }
 
-html {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
+/*.tada-wheel-wrapper .modal-content {*/
+  /*position: fixed;*/
+  /*bottom: 0;*/
+  /*z-index: 10;*/
+/*}*/
+
+/*html {*/
+  /*height: 100%;*/
+  /*width: 100%;*/
+  /*overflow: hidden;*/
+/*}*/
 
 #gamestartmodal {
   opacity: 1;
