@@ -360,6 +360,13 @@ function selectWidgetBySetting(widget) {
         <!--Invalid email warning-->
         <div id="snackbar" style="background-color: ${theme_second_color}">You have entered an invalid e-mail address. Please try again.</div>
         
+        <!--floating modal close button for landscape-->
+        <div id="btn-floating-close-modal">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 0.921603L11.0769 0L5.99041 5.07839L0.923077 0.0191509L0 0.940754L5.06734 5.99999L0 11.0592L0.923077 11.9808L5.99041 6.9216L11.0769 12L12 11.0784L6.91349 5.99999L12 0.921603Z" fill="#fff"/>
+          </svg>
+        </div>
+        
         <!--Game Modal-->
         <div class="modal fade tada-game-modal" id="tada_game_modal_2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered tada-game-modal-container" role="document">

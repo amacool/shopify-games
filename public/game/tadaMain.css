@@ -346,6 +346,21 @@
   font-family: "Open Sans";
 }
 
+#btn-floating-close-modal {
+  display: none;
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: black;
+  opacity: 0.3;
+  justify-content: center;
+  align-items: center;
+  top: 6%;
+  right: 7%;
+  z-index: 1200;
+}
+
 .tada-wheel-wrapper .tada-game-spin-title {
   text-align: center;
   font-size: 36px;
@@ -1914,6 +1929,9 @@ and (orientation : landscape) {
 @media only screen
 and (max-device-width : 850px)
 and (orientation : landscape) {
+  #tada_game_modal_2 .tada-game-modal-container {
+    position: relative !important;
+  }
   .tada-wheel-wrapper .tada-success-maker-left-text {
     font-size: 18px;
   }

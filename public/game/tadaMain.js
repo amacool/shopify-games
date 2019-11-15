@@ -13,6 +13,7 @@ let isMobile = window_width <= 600;
 var isMobileLandscape = window_width <= 850 && window_width > window_height;
 let options = window.wheel_item.split(',');
 let randomTextNumber = 0;
+let isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
 
 changeGameThemeStyle(game_theme_style);
 showRandomEncouragementText();
@@ -172,6 +173,12 @@ $(".tada-game-modal-email").focus(function() {
 
 $('.tada_start_icon_div').click(function () {
 	let floating_component = $('.tada-floating-dialog');
+  let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  if (scrollTop <= 80 && isMobileLandscape && isSafari) {
+    // at the top of the screen
+    // show close button for modal
+    $("#btn-floating-close-modal").css({ display: 'flex' });
+  }
 	if (game_done) {
 		if (floating_component.css('display') == 'flex') {
 			floating_component.css({
@@ -198,6 +205,11 @@ $('.tada_start_icon_div').click(function () {
   	let fade_text = $('#tada-game-state-second-text');
   	fade_text.addClass('fadein-fadeout-animation5');
   }
+});
+
+$("#btn-floating-close-modal").click(function() {
+  $(this).css({ display: 'none' });
+  $(".tada-game-modal-btn-close-fake").trigger('click');
 });
 
 $('.tada-dialog-close-button').click(function () {
@@ -265,15 +277,14 @@ function animation_sinnyBox() {
 	}, 1500);
 }
 
-// if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) {
-// 	setTimeout(function() {
-//     window.scrollTo({
-//       top: 400,
-//       behavior: 'smooth',
-//     });
-//     // document.querySelector('body').scrollTop = 100;
-//   }, 5000);
-// }
+if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) {
+	setTimeout(function() {
+    window.scrollTo({
+      top: 5,
+      behavior: 'smooth',
+    });
+  }, 5000);
+}
 
 let animateButton = function (e) {
 	e.preventDefault();
@@ -703,6 +714,11 @@ window.addEventListener('orientationchange', function(e) {
         $(".tada-game-mobile-landscape .tada-custom-checkbox-overlay").next().prop("checked", false);
         $(".tada-custom-checkbox-overlay-svg").css("display", "none");
       }
+		}
+		if (isMobileLandscape && isSafari) {
+			$("#btn-floating-close-modal").css({display: 'flex'});
+		} else {
+      $("#btn-floating-close-modal").css({display: 'none'});
 		}
   }, 100);
 });
