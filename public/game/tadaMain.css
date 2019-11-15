@@ -2262,7 +2262,7 @@ and (orientation : landscape) {
     font-size: 12px;
     position: absolute;
     bottom: 10%;
-    left: 29.3%;
+    left: 29.6%;
     width: 35%;
   }
   .landscape-small-bottom .tada-game-modal-form-submit .tada-progress-bar {
@@ -2285,7 +2285,7 @@ and (orientation : landscape) {
   }
   .landscape-small-bottom .tada-game-modal-btn-close-container {
     display: block;
-    left: 35%;
+    left: 34.2%;
     bottom: 3%;
   }
   .landscape-small-bottom .tada-game-modal-btn-close-container span {
@@ -2447,6 +2447,9 @@ and (orientation : landscape){
   .landscape-small-bottom .tada-game-result-panel {
     margin-top: 5px;
   }
+  .landscape-small-bottom .tada-game-modal-btn-close-container {
+    left: 32%;
+  }
 }
 
 @media only screen
@@ -2462,6 +2465,9 @@ and (orientation : landscape) {
   }
   .landscape-small-bottom .tada-game-modal-btn-close-container {
     left: 31%;
+  }
+  .landscape-small-bottom .tada-game-result-panel {
+    margin-top: 0;
   }
 }
 

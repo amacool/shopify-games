@@ -695,10 +695,10 @@ $(".tada-custom-checkbox-label").click(function() {
 
 function showCloseButton(show) {
   let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  if (isSafari && isMobileLandscape) {
+  if (isSafari) {
     // at the top of the screen
     // show close button for modal
-    show && scrollTop < 80 ? $("#btn-floating-close-modal").css({ display: 'flex' })
+    show && scrollTop < 80 && $("#tada_game_modal_2").css('display') === 'block' ? $("#btn-floating-close-modal").css({ display: 'flex' })
 		: $("#btn-floating-close-modal").css({ display: 'none' });
   }
 }
