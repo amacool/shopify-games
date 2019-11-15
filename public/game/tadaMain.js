@@ -698,12 +698,13 @@ function showCloseButton(show) {
   if (isSafari) {
     // at the top of the screen
     // show close button for modal
-    show && scrollTop < 80 && $("#tada_game_modal_2").css('display') === 'block' ? $("#btn-floating-close-modal").css({ display: 'flex' })
-		: $("#btn-floating-close-modal").css({ display: 'none' });
+    show && scrollTop < 80 && isMobileLandscape
+			? $("#btn-floating-close-modal").css({ display: 'flex' })
+			: $("#btn-floating-close-modal").css({ display: 'none' });
   }
 }
 
-window.addEventListener('orientationchange', function(e) {
+window.addEventListener('orientationchange', function() {
   setTimeout(function() {
     window_width = window.innerWidth;
     window_height = window.innerHeight;
@@ -728,7 +729,7 @@ window.addEventListener('orientationchange', function(e) {
         $(".tada-custom-checkbox-overlay-svg").css("display", "none");
       }
 		}
-		if (isMobileLandscape && isSafari) {
+		if (isMobileLandscape && isSafari && $("#tada_game_modal_2").css('display') === 'block') {
 			showCloseButton(true);
 		} else {
       showCloseButton(false);
